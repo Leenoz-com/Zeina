@@ -1,0 +1,156 @@
+<!-- INCLUDE ucp_header.html -->
+
+<h2>{L_TITLE}</h2>
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}">
+
+	<!-- IF ERROR_MESSAGE -->
+	<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 my-4" role="alert">
+		<p class="error">{ERROR_MESSAGE}</p>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF NOTIFICATION_MESSAGE -->
+	<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 my-4" role="alert">
+		<p class="error">{NOTIFICATION_MESSAGE}</p>
+	</div>
+	<!-- ENDIF -->
+
+	<div class="p-4 my-4 border rounded-xl">
+		<h3>{L_DEFINED_RULES}</h3>
+
+		<ol class="def-rules list-decimal ms-6">
+		<!-- BEGIN rule -->
+			<li class="w-full"><span class="flex items-center justify-between"><span><strong>{L_IF}</strong> {rule.CHECK} <em>{rule.RULE}</em> <!-- IF rule.STRING --><strong>{rule.STRING}</strong> | <!-- ENDIF -->{rule.ACTION}<!-- IF rule.FOLDER -->{L_COLON} {rule.FOLDER}<!-- ENDIF --></span><input type="submit" name="delete_rule[{rule.RULE_ID}]" value="{L_DELETE_RULE}" class="text-color font-medium text-sm hover:cursor-pointer"></span></li>
+		<!-- BEGINELSE -->
+			<li class="text-secondary">{L_NO_RULES_DEFINED}</li>
+		<!-- END rule -->
+		</ol>
+	</div>
+
+	<div class="p-4 mb-4 border rounded-xl">
+		<h3>{L_ADD_NEW_RULE}</h3>
+		<div class="mt-4 divide-y">
+			<!-- IF S_CHECK_DEFINED -->
+			<dl class="py-4 md:grid md:grid-cols-5 md:gap-5 items-center">
+				<dt class="text-sm font-medium leading-6"><label<!-- IF S_CHECK_SELECT --> for="check_option"<!-- ENDIF -->>{L_IF}{L_COLON}</label></dt>
+				<dd class="text-sm md:col-span-4 max-md:mt-2">
+					<div class="flex max-md:flex-col gap-2">
+						<!-- IF S_CHECK_SELECT --><select class="inputbox" name="check_option" id="check_option">{S_CHECK_OPTIONS}</select> <button type="submit" name="next" value="{L_NEXT_STEP}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center">{L_NEXT_STEP}</button><!-- ELSE -->{CHECK_CURRENT}<input type="hidden" name="check_option" value="{CHECK_OPTION}"><!-- ENDIF -->
+					</div>
+				</dd>
+			</dl>
+			<!-- ENDIF -->
+			<!-- IF S_RULE_DEFINED -->
+			<dl class="py-4 md:grid md:grid-cols-5 md:gap-5 items-center">
+				<dt class="text-sm font-medium leading-6"><!-- IF S_RULE_SELECT --><button type="submit" name="back[rule]" value="{L_PREVIOUS_STEP}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center">{L_PREVIOUS_STEP}</button><!-- ELSE --><label>&nbsp;</label><!-- ENDIF --></dt>
+				<dd class="text-sm md:col-span-4 max-md:mt-2">
+					<div class="flex max-md:flex-col gap-2">
+						<!-- IF S_RULE_SELECT --><select name="rule_option" id="rule_option">{S_RULE_OPTIONS}</select> <button type="submit" name="next" value="{L_NEXT_STEP}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center">{L_NEXT_STEP}</button><!-- ELSE --><em>{RULE_CURRENT}</em><input type="hidden" name="rule_option" value="{RULE_OPTION}"><!-- ENDIF -->
+					</div>
+				</dd>
+			</dl>
+			<!-- ENDIF -->
+			<!-- IF S_COND_DEFINED -->
+				<!-- IF S_COND_SELECT or COND_CURRENT -->
+				<dl class="py-4 md:grid md:grid-cols-5 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6"><!-- IF S_COND_SELECT --><button type="submit" name="back[cond]" value="{L_PREVIOUS_STEP}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center">{L_PREVIOUS_STEP}</button> <!-- ELSE --><label>&nbsp;</label><!-- ENDIF --></dt>
+					<dd class="text-sm md:col-span-4 max-md:mt-2">
+						<div class="flex max-md:flex-col gap-2">
+							<!-- IF S_COND_SELECT -->
+								<!-- IF S_TEXT_CONDITION -->
+									<input type="text" name="rule_string" value="{CURRENT_STRING}" class="inputbox" maxlength="250">
+								<!-- ELSEIF S_USER_CONDITION -->
+									<input type="text" name="rule_string" value="{CURRENT_STRING}" class="inputbox">&nbsp;<span>[ <a href="{U_FIND_USERNAME}" onclick="find_username(this.href); return false;">{L_FIND_USERNAME}</a> ]</span>
+								<!-- ELSEIF S_GROUP_CONDITION -->
+									<input type="hidden" name="rule_string" value="{CURRENT_STRING}"><!-- IF S_GROUP_OPTIONS --><select name="rule_group_id" class="inputbox">{S_GROUP_OPTIONS}</select><!-- ELSE -->{L_NO_GROUPS}<!-- ENDIF -->
+								<!-- ENDIF -->
+								<button type="submit" name="next" value="{L_NEXT_STEP}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center">{L_NEXT_STEP}</button>
+							<!-- ELSE -->
+								<span class="font-medium">{COND_CURRENT}</span><input type="hidden" name="rule_string" value="{CURRENT_STRING}"><input type="hidden" name="rule_user_id" value="{CURRENT_USER_ID}"><input type="hidden" name="rule_group_id" value="{CURRENT_GROUP_ID}">
+							<!-- ENDIF -->
+						</div>
+					</dd>
+				</dl>
+				<!-- ENDIF -->
+				<input type="hidden" name="cond_option" value="{COND_OPTION}">
+			<!-- ENDIF -->
+			<!-- IF NONE_CONDITION --><input type="hidden" name="cond_option" value="none"><!-- ENDIF -->
+			<!-- IF S_ACTION_DEFINED -->
+				<dl class="py-4 md:grid md:grid-cols-5 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6"><!-- IF S_ACTION_SELECT --><button type="submit" name="back[action]" value="{L_PREVIOUS_STEP}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center">{L_PREVIOUS_STEP}</button> <!-- ELSE --><label>&nbsp;</label><!-- ENDIF --></dt>
+					<dd class="text-sm md:col-span-4 max-md:mt-2">
+						<div class="flex max-md:flex-col gap-2">
+							<!-- IF S_ACTION_SELECT --> <select class="inputbox" name="action_option">{S_ACTION_OPTIONS}</select> <button type="submit" name="add_rule" value="{L_ADD_RULE}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center text-nowrap">{L_ADD_RULE}</button> <!-- ELSE -->{ACTION_CURRENT}<input type="hidden" name="action_option" value="{ACTION_OPTION}"><!-- ENDIF -->
+						</div>
+					</dd>
+				</dl>
+			<!-- ENDIF -->
+		</div>
+	</div>
+
+	<div class="p-4 mb-4 border rounded-xl">
+		<h3>{L_FOLDER_OPTIONS}</h3>
+		<div class="mt-4 divide-y">
+			<!-- IF not S_MAX_FOLDER_ZERO -->
+			<dl class="py-4 md:grid md:grid-cols-5 md:gap-5 items-center">
+				<dt class="text-sm font-medium leading-6"><label for="foldername">{L_ADD_FOLDER}{L_COLON}</label></dt>
+				<dd class="text-sm md:col-span-4 max-md:mt-2">
+					<div class="flex max-md:flex-col gap-2">
+						<!-- IF S_MAX_FOLDER_REACHED -->{L_MAX_FOLDER_REACHED}<!-- ELSE --><input type="text" class="inputbox" name="foldername" id="foldername" size="30" maxlength="30"> <button class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center" type="submit" name="addfolder" value="{L_ADD}">{L_ADD}</button><!-- ENDIF -->
+					</div>
+				</dd>
+			</dl>
+			<!-- ENDIF -->
+			<!-- IF S_FOLDER_OPTIONS -->
+			<div class="divide-y">
+				<dl class="py-4 md:grid md:grid-cols-5 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6"><label for="rename_folder_id">{L_RENAME_FOLDER}{L_COLON}</label></dt>
+					<dd class="text-sm md:col-span-4 max-md:mt-2">
+						<select class="inputbox" name="rename_folder_id" id="rename_folder_id">{S_FOLDER_OPTIONS}</select>
+					</dd>
+				</dl>
+				<dl class="py-4 md:grid md:grid-cols-5 md:gap-5">
+					<dt class="text-sm font-medium leading-6"><label for="new_folder_name">{L_NEW_FOLDER_NAME}{L_COLON}</label></dt>
+					<dd class="text-sm md:col-span-4 max-md:mt-2">
+						<div class="flex max-md:flex-col gap-2">
+							<input type="text" class="inputbox" name="new_folder_name" id="new_folder_name" maxlength="30"> <button class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center" type="submit" name="rename_folder" value="{L_RENAME}">{L_RENAME}</button>
+						</div>
+					</dd>
+				</dl>
+			</div>
+			<dl class="py-4 md:grid md:grid-cols-5 md:gap-5">
+				<dt class="text-sm font-medium leading-6"><label for="remove_folder_id">{L_REMOVE_FOLDER}{L_COLON}</label></dt>
+				<dd class="text-sm md:col-span-4 max-md:mt-2">
+					<select class="inputbox" name="remove_folder_id" id="remove_folder_id">{S_FOLDER_OPTIONS}</select>
+					<div class="flex flex-col max-md:w-full max-md:mt-2">
+						<div class="radio-label flex max-md:flex-col gap-4"><label class="flex items-center gap-2 text-nowrap" for="remove_action1"><input class="radio-primary" type="radio" name="remove_action" id="remove_action1" value="1" checked="checked"> {L_MOVE_DELETED_MESSAGES_TO}{L_COLON}</label> <select class="inputbox" name="move_to">{S_TO_FOLDER_OPTIONS}</select></div>
+						<label class="radio-label" for="remove_action2"><input class="radio-primary" type="radio" name="remove_action" id="remove_action2" value="2"> {L_DELETE_MESSAGES_IN_FOLDER}</label>
+					</div>
+					<button class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center mt-4 max-md:w-full" type="submit" name="remove_folder" value="{L_REMOVE}">{L_REMOVE}</button>
+				</dd>
+			</dl>
+			<!-- ENDIF -->
+			<dl class="py-4 md:grid md:grid-cols-5 md:gap-5">
+				<dt class="text-sm font-medium leading-6"><label for="full_action1">{L_IF_FOLDER_FULL}{L_COLON}</label></dt>
+				<dd class="text-sm md:col-span-4 max-md:mt-2">
+					<div class="flex flex-col max-md:w-full">
+						<label class="radio-label" for="full_action1"><input class="radio-primary" type="radio" name="full_action" id="full_action1" value="1"{S_DELETE_CHECKED}> {L_DELETE_OLDEST_MESSAGES}</label>
+						<div class="radio-label flex max-md:flex-col gap-4"><label class="flex items-center gap-2 text-nowrap" for="full_action2"><input class="radio-primary" type="radio" name="full_action" id="full_action2" value="2"{S_MOVE_CHECKED}> {L_MOVE_TO_FOLDER}{L_COLON}</label> <select class="inputbox" name="full_move_to">{S_FULL_FOLDER_OPTIONS}</select></div>
+						<label class="radio-label" for="full_action3"><input class="radio-primary" type="radio" name="full_action" id="full_action3" value="3"{S_HOLD_CHECKED}> {L_HOLD_NEW_MESSAGES}</label>
+					</div>
+				</dd>
+			</dl>
+		</div>
+		<dl class="py-4 md:grid md:grid-cols-5 md:gap-5">
+			<dt class="text-sm"><label class="font-medium leading-6">{L_DEFAULT_ACTION}{L_COLON}</label><br><span class="text-secondary">{L_DEFAULT_ACTION_EXPLAIN}</span></dt>
+			<dd class="text-sm md:col-span-4 max-md:mt-2">
+				{DEFAULT_ACTION}
+				<button class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center mt-4 max-md:w-full" type="submit" name="fullfolder" value="{L_CHANGE}">{L_CHANGE}</button>
+			</dd>
+		</dl>
+	</div>
+	{S_FORM_TOKEN}
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

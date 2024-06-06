@@ -1,0 +1,58 @@
+	<!-- IF not S_AVATARS_ENABLED -->
+	<p class="text-sm text-secondary">{L_AVATAR_FEATURES_DISABLED}</p>
+	<!-- ENDIF -->
+
+	<div class="flex flex-col gap-5 mt-4">
+
+		<!-- IF ERROR -->
+		<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
+			<div class="flex">
+				<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:x-circle" data-width="18" data-height="18" aria-hidden="true"></i></div>
+				<div class="ms-4 error">{ERROR}</div>
+			</div>
+		</div>
+		<!-- ENDIF -->
+
+		<div class="md:grid flex flex-col-reverse grid-cols-3 border p-4 rounded-xl">
+			<div class="avatar-details col-span-2 max-md:mt-4">
+				<div class="block text-sm font-medium">{L_CURRENT_IMAGE}{L_COLON}</div>
+				<div class="text-sm text-secondary">{L_AVATAR_EXPLAIN}</div>
+				<label class="mt-4 flex items-center gap-2 text-sm font-medium" for="avatar_delete"><input type="checkbox" name="avatar_delete" id="avatar_delete" class="checkbox-primary"> {L_DELETE_AVATAR}</label>
+			</div>
+			<div class="avatar text-center">
+				<span class="inline-block rounded-lg overflow-hidden"><!-- IF AVATAR -->{AVATAR}<!-- ELSE --><img src="{T_THEME_PATH}/images/no_avatar.gif" alt=""><!-- ENDIF --></span>
+			</div>
+		</div>
+		
+		<div class="border p-4 rounded-xl">
+			<h3 class="mb-0.5">{L_AVATAR_SELECT}</h3>
+
+			<div class="flex flex-col gap-4 mt-4">
+				<div class="border-b pb-4">
+					<label for="avatar_driver" class="block text-sm font-medium mb-2">{L_AVATAR_TYPE}{L_COLON}</label>
+					<select name="avatar_driver" id="avatar_driver" data-togglable-settings="true">
+						<!-- BEGIN avatar_drivers -->
+						<option value="{avatar_drivers.DRIVER}"<!-- IF avatar_drivers.SELECTED --> selected="selected"<!-- ENDIF --> data-toggle-setting="#avatar_option_{avatar_drivers.DRIVER}">{avatar_drivers.L_TITLE}</option>
+						<!-- END avatar_drivers -->
+					</select>
+				</div>
+
+				<div id="avatar_options">
+					<!-- BEGIN avatar_drivers -->
+						<div id="avatar_option_{avatar_drivers.DRIVER}">
+							<h3 class="avatar_section_header">{avatar_drivers.L_TITLE}</h3>
+							<p class="text-sm text-secondary">{avatar_drivers.L_EXPLAIN}</p>
+							<div class="flex flex-col gap-5 mt-4">{avatar_drivers.OUTPUT}</div>
+						</div>
+					<!-- END avatar_drivers -->
+				</div>
+
+				<!-- IF not S_GROUP_MANAGE -->
+				<div class="flex items-center md:justify-end">
+					<button type="submit" name="submit" value="{L_SUBMIT}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full">{L_SUBMIT}</button>
+				</div>
+				<!-- ENDIF -->
+			</div>
+		</div>
+
+	</div>

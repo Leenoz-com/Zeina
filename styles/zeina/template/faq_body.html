@@ -1,0 +1,38 @@
+{% embed "overall_header.html" %}
+	{% block header_content %}
+		<h1 class="text-slate-50 md:text-2xl text-xl">{L_FAQ_TITLE}</h1>
+	{% endblock %}
+{% endembed %}
+
+<!-- BEGIN faq_block -->
+<div class="card my-4">
+	<div class="flex items-center justify-between card-title">
+		<h2 class="faq-title">{faq_block.BLOCK_TITLE}</h2>
+		{% if zeina.collapse_panel %}
+		<div class="collapse-panel zn-collapse-toggle open leading-[0] py-0.5 px-1 hover:cursor-pointer" data-zn-collapse="#zn-faq-collapse-{{ loop.index }}">
+			<div class="zn-collapse-open:[transform:rotate(180deg)] transition-all duration-300"><i class="iconify" data-mode="style" data-icon="ri:arrow-down-s-line" data-width="18" data-height="18" aria-hidden="true"></i></div>
+		</div>
+		{% endif %}
+	</div>
+	<div id="zn-faq-collapse-{{ loop.index }}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-faq-collapse-{{ loop.index }}">
+		<div class="px-4 py-2 text-sm divide-y">
+			<!-- BEGIN faq_row -->
+			<div id="zn-unstyled-heading-{{ loop.parent.loop.index }}-{{ loop.index }}">
+				<div class="flex items-center justify-between py-3 hover:cursor-pointer zn-collapse-toggle" data-zn-collapse="#zn-qu-collapse-{{ loop.parent.loop.index }}-{{ loop.index }}">
+					<h3 class="font-medium">{faq_block.faq_row.FAQ_QUESTION}</h3>
+					<div class="zn-collapse-open:hidden block transition-all duration-300"><i class="iconify" data-mode="style" data-icon="tabler:plus" data-width="16" data-height="16" aria-hidden="true"></i></div>
+					<div class="zn-collapse-open:block hidden transition-all duration-300"><i class="iconify" data-mode="style" data-icon="tabler:minus" data-width="16" data-height="16" aria-hidden="true"></i></div>
+				</div>
+				<div id="zn-qu-collapse-{{ loop.parent.loop.index }}-{{ loop.index }}" class="zn-collapse hidden w-full overflow-hidden" aria-labelledby="zn-qu-collapse-{{ loop.parent.loop.index }}-{{ loop.index }}">
+					<p class="bg-slate-50 border border-gray-200 text-sm text-secondary rounded-lg p-4">{faq_block.faq_row.FAQ_ANSWER}</p>
+				</div>
+			</div>
+			<!-- END faq_row -->
+		</div>
+	</div>
+</div>
+<!-- END faq_block -->
+
+<!-- INCLUDE jumpbox.html -->
+
+<!-- INCLUDE overall_footer.html -->

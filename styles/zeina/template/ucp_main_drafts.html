@@ -1,0 +1,95 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="postform" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+
+	<h2 class="mb-0.5">{L_TITLE}</h2>
+	<p class="text-sm text-secondary mb-4">{L_DRAFTS_EXPLAIN}</p>
+
+<!-- IF S_EDIT_DRAFT -->
+
+		<!-- INCLUDE posting_editor.html -->
+
+			<div class="flex items-center md:justify-center mt-4">
+				{S_HIDDEN_FIELDS}
+				<button type="submit" name="submit" value="{L_SAVE}" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center">{L_SAVE}</button>
+				{S_FORM_TOKEN}
+			</div>
+		</div>
+	</div>
+
+<!-- ELSE -->
+
+	<!-- IF .draftrow -->
+	<div class="flex flex-col">
+		<div class="-m-1.5 overflow-auto">
+			<div class="p-1.5 min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden">
+					<table class="min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 w-16">
+									<div class="flex justify-center items-center">
+										<input id="table-checkbox-all" type="checkbox" onclick="marklist('postform', '', this.checked);" class="checkbox-primary">
+										<label for="table-checkbox-all" class="sr-only">{L_MARK_ALL}</label>
+									</div>
+								</th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_DRAFT_TITLE}</th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_SAVE_DATE}</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+						<!-- BEGIN draftrow -->
+							<tr class="row divide-y<!-- IF draftrow.S_ROW_COUNT is odd --> max-lg:bg-gray-50 bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+								<td class="p-3 max-lg:flex max-lg:items-center max-lg:gap-2">
+									<dfn class="mb-0">{L_MARK}{L_COLON}</dfn>
+									<div class="text-center leading-[0]">
+										<input id="d{draftrow.DRAFT_ID}" type="checkbox" name="d[{draftrow.DRAFT_ID}]" class="checkbox-primary">
+										<label for="d{draftrow.DRAFT_ID}" class="sr-only">{L_MARK}</label>
+									</div>
+								</td>
+								<td class="p-3">
+									<dfn>{L_DRAFT_TITLE}</dfn>
+									<div class="list-inner text-sm">
+										<a class="topictitle font-medium" href="{draftrow.U_VIEW_EDIT}">{draftrow.DRAFT_SUBJECT}</a><br>
+										<!-- IF draftrow.S_LINK_TOPIC -->{L_TOPIC}{L_COLON} <a href="{draftrow.U_VIEW}">{draftrow.TITLE}</a>
+										<!-- ELSEIF draftrow.S_LINK_FORUM -->{L_FORUM}{L_COLON} <a href="{draftrow.U_VIEW}">{draftrow.TITLE}</a>
+										<!-- ELSEIF S_PRIVMSGS -->
+										<!-- ELSE -->{L_NO_TOPIC_FORUM}<!-- ENDIF -->
+									</div>
+								</td>
+								<td class="p-3">
+									<dfn>{L_SAVE_DATE}</dfn>
+									<span class="text-sm">{draftrow.DATE}<br><!-- IF draftrow.U_INSERT --><a href="{draftrow.U_INSERT}">{L_LOAD_DRAFT}</a> &bull; <!-- ENDIF --><a href="{draftrow.U_VIEW_EDIT}">{L_VIEW_EDIT}</a></span>
+								</td>
+							</tr>
+						<!-- END draftrow -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="display-actions flex w-full items-center justify-end mt-3 gap-2">
+		<button class="btn-primary max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" type="submit" name="delete" value="{L_DELETE_MARKED}">{L_DELETE_MARKED}</button>
+		{S_FORM_TOKEN}
+	</div>
+	<div class="flex w-full items-center justify-end mt-3 gap-2 lg:hidden">
+		<a class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('postform', '', true); return false;">{L_MARK_ALL}</a>
+		<a class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('postform', '', false); return false;">{L_UNMARK_ALL}</a>
+	</div>
+
+	<!-- ELSE -->
+		<div class="bg-gray-50 border border-gray-200 text-sm text-secondary rounded-lg p-4" role="alert">
+			<div class="flex items-center gap-2">
+				<div class="leading-[0]"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="18" data-height="18" aria-hidden="true"></i></div>
+				<p>{L_NO_SAVED_DRAFTS}</p>
+			</div>
+		</div>
+	<!-- ENDIF -->
+
+<!-- ENDIF -->
+
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

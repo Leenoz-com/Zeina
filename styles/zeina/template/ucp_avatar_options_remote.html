@@ -1,0 +1,19 @@
+<div>
+	<div class="mb-2">
+		<label for="avatar_upload_file" class="block text-sm font-medium">{L_LINK_REMOTE_AVATAR}{L_COLON}</label>
+		<div class="text-sm text-secondary">{L_LINK_REMOTE_AVATAR_EXPLAIN}</div>
+	</div>
+	<input type="url" name="avatar_remote_url" id="avatar_remote_url" value="{AVATAR_REMOTE_URL}" class="inputbox" data-reset-on-edit="#avatar_remote_width, #avatar_remote_height">
+</div>
+<div>
+	<div class="mb-2">
+		<label for="avatar_remote_width" class="block text-sm font-medium">{L_LINK_REMOTE_SIZE}{L_COLON}</label>
+		<div class="text-sm text-secondary">{L_LINK_REMOTE_SIZE_EXPLAIN}</div>
+	</div>
+	<div class="max-md:mt-2">
+		<div class="flex max-md:flex-col md:items-center gap-5 gap-y-3">
+			<label class="flex items-center gap-2 text-sm font-medium" for="avatar_remote_width"><input type="number" name="avatar_remote_width" id="avatar_remote_width" min="{AVATAR_MIN_WIDTH}" max="{AVATAR_MAX_WIDTH}" value="{AVATAR_REMOTE_WIDTH}" class="inputbox"> {L_PIXEL}</label> <div class="text-center">&times;</div>
+			<label class="flex items-center gap-2 text-sm font-medium" for="avatar_remote_height"><input type="number" name="avatar_remote_height" id="avatar_remote_height" min="{AVATAR_MIN_HEIGHT}" max="{AVATAR_MAX_HEIGHT}" value="{AVATAR_REMOTE_HEIGHT}" class="inputbox"> {L_PIXEL}</label>
+		</div>
+	</div>
+</div>

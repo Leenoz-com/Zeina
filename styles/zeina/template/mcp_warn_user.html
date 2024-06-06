@@ -1,0 +1,47 @@
+<!-- INCLUDE mcp_header.html -->
+
+<h2 class="mb-2">{L_WARN_USER}</h2>
+
+<form method="post" id="mcp" action="{U_POST_ACTION}">
+
+	<div class="flex max-md:flex-col rounded-lg border border-dashed border-gray-200">
+		<!-- IF AVATAR_IMG -->
+		<div class="px-4 py-3 flex items-center justify-center">
+			<div class="rounded-lg overflow-hidden h-fit w-fit">{AVATAR_IMG}</div>
+		</div>
+		<!-- ENDIF -->
+		<div class="details text-sm px-4 py-3">
+			<h3 class="mb-2">{USERNAME_FULL}</h3>
+			<!-- IF RANK_TITLE --><div class="mb-0.5"><span class="font-medium">{L_RANK}{L_COLON}</span> <span class="text-secondary">{RANK_TITLE}</span></div><!-- ENDIF -->
+			<!-- IF RANK_IMG --><div class="mb-0.5" <!-- IF RANK_TITLE --> class="my-2"<!-- ENDIF -->><span><!-- IF not RANK_TITLE -->{L_RANK}{L_COLON}<!-- ENDIF --></span> <div class="flex h-9">{RANK_IMG}</div></div><!-- ENDIF -->
+			<div class="mb-0.5"><span class="font-medium">{L_JOINED}{L_COLON}</span> <span class="text-secondary">{JOINED}</span></div>
+			<div class="mb-0.5"><span class="font-medium">{L_TOTAL_POSTS}{L_COLON}</span> <span class="text-secondary">{POSTS}</span></div>
+			<div><span class="font-medium">{L_WARNINGS}{L_COLON} </span> <span class="text-secondary">{WARNINGS}</span></div>
+		</div>
+	</div>
+
+	<!-- EVENT mcp_warn_user_add_warning_field_before -->
+	<div class="mt-4">
+		<h3 class="mb-0.5">{L_ADD_WARNING}</h3>
+		<p class="text-sm text-secondary">{L_ADD_WARNING_EXPLAIN}</p>
+
+		<div class="my-3">
+			<textarea name="warning" id="warning" class="inputbox" cols="40" rows="3"></textarea>
+			<!-- IF S_CAN_NOTIFY -->
+			<div class="flex gap-2 items-center mt-4">
+				<input id="notify_user" type="checkbox" name="notify_user" class="checkbox-primary" checked="checked">
+				<label for="notify_user" class="font-medium">{L_NOTIFY_USER_WARN}</label>
+			</div>
+			<!-- ENDIF -->
+		</div>
+	</div>
+	<!-- EVENT mcp_warn_user_add_warning_field_after -->
+
+	<div class="flex items-center md:justify-end">
+		<button type="submit" name="action[add_warning]" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center" value="{L_SUBMIT}">{L_SUBMIT}</button>
+		{S_FORM_TOKEN}
+	</div>
+
+</form>
+
+<!-- INCLUDE mcp_footer.html -->

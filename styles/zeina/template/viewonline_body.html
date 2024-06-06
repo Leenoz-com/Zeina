@@ -1,0 +1,68 @@
+{% embed "overall_header.html" %}
+	{% block header_content %}
+		<h1 class="text-slate-50 md:text-2xl text-xl">{TOTAL_REGISTERED_USERS_ONLINE}</h1>
+		<p class="linkmcp text-slate-200 md:mt-1">
+			{TOTAL_GUEST_USERS_ONLINE}<!-- IF S_SWITCH_GUEST_DISPLAY --> &bull; <a href="{U_SWITCH_GUEST_DISPLAY}">{L_SWITCH_GUEST_DISPLAY}</a><!-- ENDIF -->
+		</p>
+	{% endblock %}
+{% endembed %}
+
+	<div class="action-bar bar-top my-3">
+		<div class="pagination flex flex-wrap justify-end">
+			<!-- IF .pagination -->
+				<!-- INCLUDE pagination.html -->
+			<!-- ELSE -->
+				<div class="card-sm">{PAGE_NUMBER}</div>
+			<!-- ENDIF -->
+		</div>
+	</div>
+
+	<div class="mt-3">
+		<div class="-m-1.5 overflow-auto">
+			<div class="p-1.5 min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
+					<table class="min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><a href="{U_SORT_USERNAME}">{L_USERNAME}</a></th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><a href="{U_SORT_LOCATION}">{L_FORUM_LOCATION}</a></th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><a href="{U_SORT_UPDATED}">{L_LAST_UPDATED}</a></th>
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+						<!-- BEGIN user_row -->
+							<tr class="divide-y <!-- IF user_row.S_ROW_COUNT is odd -->max-lg:bg-gray-50 bg1<!-- ELSE -->bg2<!-- ENDIF --> text-sm">
+								<td class="p-3"><!-- EVENT viewonline_body_username_prepend -->{user_row.USERNAME_FULL}<!-- EVENT viewonline_body_username_append --><!-- IF user_row.USER_IP --> <span style="float: {S_CONTENT_FLOW_END};">{L_IP}{L_COLON} <a href="{user_row.U_USER_IP}">{user_row.USER_IP}</a> &#187; <a href="{user_row.U_WHOIS}" onclick="popup(this.href, 750, 500); return false;">{L_WHOIS}</a></span><!-- ENDIF -->
+									<!-- IF user_row.USER_BROWSER --><div class="text-secondary">{user_row.USER_BROWSER}</div><!-- ENDIF -->
+								</td>
+								<td class="info p-3"><a href="{user_row.U_FORUM_LOCATION}">{user_row.FORUM_LOCATION}</a></td>
+								<td class="active p-3 text-secondary">{user_row.LASTUPDATE}</td>
+							</tr>
+						<!-- BEGINELSE -->
+							<tr class="bg1 text-sm">
+								<td class="p-3" colspan="3">{L_NO_ONLINE_USERS}<!-- IF S_SWITCH_GUEST_DISPLAY --> &bull; <a href="{U_SWITCH_GUEST_DISPLAY}">{L_SWITCH_GUEST_DISPLAY}</a><!-- ENDIF --></td>
+							</tr>
+						<!-- END user_row -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="action-bar bar-bottom mt-4 flex items-center <!-- IF LEGEND --> justify-between <!-- ELSE --> justify-end <!-- ENDIF -->">
+
+		<!-- IF LEGEND --><div class="card-sm text-sm"><em>{L_LEGEND}{L_COLON} {LEGEND}</em></div><!-- ENDIF -->
+
+		<div class="pagination flex justify-end gap-1">
+			<!-- IF .pagination -->
+				<!-- INCLUDE pagination.html -->
+			<!-- ELSE -->
+			<div class="card-sm">{PAGE_NUMBER}</div>
+			<!-- ENDIF -->
+		</div>
+
+	</div>
+
+<!-- INCLUDE jumpbox.html -->
+<!-- INCLUDE overall_footer.html -->

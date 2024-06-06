@@ -1,0 +1,159 @@
+<!-- IF .forumrow -->
+	<!-- BEGIN forumrow -->
+		<!-- IF forumrow.S_FIRST_ROW  -->
+			<ul class="categories mt-2 grid gap-4">
+		<!-- ENDIF -->
+
+		<!-- IF (forumrow.S_IS_CAT and not forumrow.S_FIRST_ROW) or forumrow.S_NO_CAT  -->
+				</ul>
+			</div>
+		</li>
+		<!-- ENDIF -->
+		
+		<!-- EVENT forumlist_body_category_header_before -->
+		<!-- IF forumrow.S_IS_CAT or forumrow.S_FIRST_ROW  or forumrow.S_NO_CAT  -->
+			<li class="card">
+				<div class="flex items-center justify-between card-title">
+					<div class="flex items-center gap-2">
+						<!-- EVENT forumlist_body_category_header_row_prepend -->
+						<h2><!-- IF forumrow.S_IS_CAT --><a href="{forumrow.U_VIEWFORUM}">{forumrow.FORUM_NAME}</a><!-- ELSE -->{L_FORUM}<!-- ENDIF --></h2>
+						<!-- EVENT forumlist_body_category_header_row_append -->
+					</div>
+					{% if zeina.collapse_panel %}
+					<div class="collapse-panel zn-collapse-toggle open leading-[0] py-0.5 px-1 hover:cursor-pointer" id="zn-collapse-button-{forumrow.FORUM_ID}" data-zn-collapse="#zn-category-collapse-{forumrow.FORUM_ID}">
+						<div class="zn-collapse-open:[transform:rotate(180deg)] transition-all duration-300"><i class="iconify" data-mode="style" data-icon="ri:arrow-down-s-line" data-width="18" data-height="18" aria-hidden="true"></i></div>
+					</div>
+					{% endif %}
+				</div>
+				<div id="zn-category-collapse-{forumrow.FORUM_ID}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-category-collapse-{forumrow.FORUM_ID}">
+					<ul class="topiclist forums divide-y p-4 mt-2">
+		<!-- ENDIF -->
+		<!-- EVENT forumlist_body_category_header_after -->
+
+		<!-- IF not forumrow.S_IS_CAT -->
+			<!-- EVENT forumlist_body_forum_row_before -->
+			<li class="pt-4 mt-4 first:pt-0 first:mt-0 forum row">
+				<!-- EVENT forumlist_body_forum_row_prepend -->
+				<div class="row-item md:grid md:grid-cols-9 gap-4 items-center">
+					<div class="flex w-full<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED --> justify-between<!-- ENDIF --> md:col-span-5 relative row-title {forumrow.FORUM_IMG_STYLE}" title="{% if forumrow.S_IS_LINK %}{{ lang('FORUM_LINK') }}{% else %}{{ forumrow.FORUM_FOLDER_IMG_ALT }}{% endif %}">
+						<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED -->
+						<div class="forum-row flex flex-row flex-grow">
+						<!-- ENDIF -->
+							<!-- IF forumrow.S_UNREAD_FORUM --><a href="{forumrow.U_VIEWFORUM}" class="row-item-link"></a><!-- ENDIF -->
+							{% include 'forumlist_icons.html' with {'IMG_STYLE': forumrow.FORUM_IMG_STYLE} %}
+							<!-- IF forumrow.FORUM_IMAGE -->
+								<!-- EVENT forumlist_body_forum_image_before -->
+								<span class="forum-image"><!-- EVENT forumlist_body_forum_image_prepend -->{forumrow.FORUM_IMAGE}<!-- EVENT forumlist_body_forum_image_append --></span>
+								<!-- EVENT forumlist_body_forum_image_after -->
+							<!-- ENDIF -->
+							{% set forum_details = forumrow.FORUM_DESC or (loops.forumrow.subforum and forumrow.S_LIST_SUBFORUMS) or forumrow.MODERATORS %}
+							<div class="forum-details ms-4<!-- IF not forum_details --> flex items-center<!-- ENDIF --> grow">
+								<h3 class="forum-title text-sm font-semibold block"><a href="{forumrow.U_VIEWFORUM}">{forumrow.FORUM_NAME}</a></h3>
+								<!-- IF forumrow.FORUM_DESC --><p class="forum-desc text-secondary text-sm mt-0.5">{forumrow.FORUM_DESC}</p><!-- ENDIF -->
+								
+								<!-- IF .forumrow.subforum and forumrow.S_LIST_SUBFORUMS -->
+									<!-- EVENT forumlist_body_subforums_before -->
+									<div class="subforums mt-2">
+										<div class="subforums-title text-sm font-medium mb-1">{forumrow.L_SUBFORUM_STR}{L_COLON}</div>
+										<ul class="flex max-md:flex-col gap-4 gap-y-2 text-sm md:list-[circle] list-inside">
+											<!-- BEGIN subforum -->
+												<li><!-- EVENT forumlist_body_subforum_link_prepend --><a href="{forumrow.subforum.U_SUBFORUM}" class="md:p-0 p-3 md:-ms-1.5 inline-block max-md:w-full md:border-0 border rounded-lg subforum<!-- IF forumrow.subforum.S_UNREAD --> text-color unread<!-- ELSE --> read<!-- ENDIF -->" title="{% if forumrow.subforum.IS_LINK %}{{ lang('FORUM_LINK') }}{% elseif forumrow.subforum.S_UNREAD %}{{ lang('UNREAD_POSTS') }}{% else %}{{ lang('NO_UNREAD_POSTS') }}{% endif %}">
+  											{forumrow.subforum.SUBFORUM_NAME}</a><!-- EVENT forumlist_body_subforum_link_append --></li>
+											<!-- END subforum -->
+										</ul>
+									</div>
+									<!-- EVENT forumlist_body_subforums_after -->
+								<!-- ENDIF -->
+
+								<!-- IF forumrow.MODERATORS -->
+								<div class="moderators mt-2">
+									<div class="moderators-title text-sm font-medium mb-1">{forumrow.L_MODERATOR_STR}{L_COLON}</div>
+									{% set moderators = forumrow.MODERATORS|split(',') %}
+									<ul class="flex max-md:flex-col flex-wrap md:items-center gap-1.5 text-sm">
+										{% for moderator in moderators %}
+											<li class="md:p-0 inline-block max-md:w-full md:border-0 border rounded-lg mod">{{ moderator }}{% if not loop.last %}<span class="max-md:hidden">{L_COMMA_SEPARATOR}</span>{% endif %}</li>
+										{% endfor %}
+									</ul>
+								</div>
+								<!-- ENDIF -->
+							</div>
+						<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED -->
+						</div>
+							<div class="md:flex items-center">
+								<a class="feed-icon-forum relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full text-secondary font-medium p-2" title="{L_FEED} - {forumrow.FORUM_NAME}" href="{U_FEED}?f={forumrow.FORUM_ID}" aria-label="{L_FEED} - {forumrow.FORUM_NAME}">
+									<i class="iconify" data-mode="style" data-icon="ph:rss-simple-bold" data-width="18" data-height="18" aria-hidden="true"></i>
+								</a>
+							</div>
+						<!-- ENDIF -->
+					</div>
+					<div class="md:col-span-4 flex flex-col gap-2 lg:grid lg:grid-cols-3 md:mt-0 mt-4 md:border-0 md:p-0 p-4 border rounded-lg">
+						
+						<!-- IF forumrow.CLICKS -->
+						<div class="redirect font-medium text-sm">
+							{forumrow.CLICKS} <div class="text-secondary md:text-xs mt-0.5">{L_REDIRECTS}</div>
+						</div>
+						<!-- ELSEIF not forumrow.S_IS_LINK -->
+						<div class="grid grid-cols-2">
+							<div class="topics font-medium text-sm">
+								{forumrow.TOPICS} <div class="text-secondary md:text-xs mt-0.5">{L_TOPICS}</div>
+							</div>
+							<div class="posts font-medium text-sm">
+								{forumrow.POSTS} <div class="text-secondary md:text-xs mt-0.5">{L_POSTS}</div>
+							</div>
+						</div>
+						<div class="lastpost text-sm col-span-2 max-lg:pt-2 max-lg:border-t<!-- IF not forumrow.LAST_POST_TIME_RFC3339 --> flex items-center <!-- ENDIF -->">
+							<!-- IF forumrow.U_UNAPPROVED_TOPICS -->
+								<a class="leading-[0] me-1" href="{forumrow.U_UNAPPROVED_TOPICS}" title="{L_TOPICS_UNAPPROVED}">
+									<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+									<span class="sr-only">{L_TOPICS_UNAPPROVED}</span>
+								</a>
+							<!-- ELSEIF forumrow.U_UNAPPROVED_POSTS -->
+								<a class="leading-[0] me-1" href="{forumrow.U_UNAPPROVED_POSTS}" title="{L_POSTS_UNAPPROVED_FORUM}">
+									<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+									<span class="sr-only">{L_POSTS_UNAPPROVED_FORUM}</span>
+								</a>
+							<!-- ENDIF -->
+
+							<!-- IF forumrow.LAST_POST_TIME_RFC3339 -->
+								<!-- IF forumrow.S_DISPLAY_SUBJECT -->
+									<!-- EVENT forumlist_body_last_post_title_prepend -->
+									<a href="{forumrow.U_LAST_POST}" title="{forumrow.LAST_POST_SUBJECT}" class="lastsubject max-md:py-1 font-medium">{forumrow.LAST_POST_SUBJECT_TRUNCATED}</a>
+								<!-- ENDIF -->
+							<!-- ELSE -->
+							{% if forumrow.U_UNAPPROVED_TOPICS %}
+								{{ lang('TOPIC_UNAPPROVED_FORUM', forumrow.TOPICS) }}
+							{% else %}
+								{{ lang('NO_POSTS') }}
+							{% endif %}
+							<!-- ENDIF -->
+							<!-- IF forumrow.LAST_POST_TIME_RFC3339 -->
+							<div class="flex flex-wrap max-md:flex-col-reverse md:items-center gap-1 md:text-xs text-sm font-medium text-secondary mt-0.5">
+								<span class="before:content-['\00BB'] before:me-1 before:md:hidden">{L_POST_BY_AUTHOR} <!-- EVENT forumlist_body_last_poster_username_prepend -->{forumrow.LAST_POSTER_FULL}<!-- EVENT forumlist_body_last_poster_username_append --></span>
+								<span>&raquo; <time datetime="{forumrow.LAST_POST_TIME_RFC3339}">{forumrow.LAST_POST_TIME}</time></span>
+							</div>
+							<!-- ENDIF -->
+						</div>
+						<!-- ENDIF -->
+
+					</div>
+				</div>
+				<!-- EVENT forumlist_body_forum_row_append -->
+			</li>
+			<!-- EVENT forumlist_body_forum_row_after -->
+		<!-- ENDIF -->
+
+		<!-- IF forumrow.S_LAST_ROW -->
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<!-- EVENT forumlist_body_last_row_after -->
+		<!-- ENDIF -->
+<!-- END forumrow -->
+
+
+<!-- ELSE -->
+<div class="card w-full p-4 text-sm">
+	{L_NO_FORUMS}
+</div>
+<!-- ENDIF -->

@@ -1,0 +1,170 @@
+<!doctype html>
+<html dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}" class="h-full">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- IF META -->{META}<!-- ENDIF -->
+    <title>{PAGE_TITLE}</title>
+		{$STYLESHEETS}
+		{% INCLUDECSS 'css/style.css' %}
+  </head>
+  <body class="text-slate-800 h-full overflow-hidden">
+    <div class="wrapper flex h-full">
+      <form class="control flex flex-col h-full w-[320px] overflow-auto border-e border-gray-200" id="leenoz_zeina_acp" name="leenoz_zeina_acp" method="post" action="{{ U_ACTION }}" enctype="multipart/form-data">
+        <div class="return p-4 pb-0 bg-white">
+          <div class="flex flex-wrap justify-between border-b pb-3">
+            <a href="{{ U_ADM_INDEX }}" id="return_acp" class="flex items-center gap-2 text-sm font-medium transition-all hover:text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M20.328 11v2H7.5l3.243 3.243l-1.415 1.414L3.672 12l5.656-5.657l1.415 1.414L7.5 11z"/></svg>
+              <span>{L_ADMIN_INDEX}</span>
+            </a>
+						<div class="flex items-center gap-2">
+							<button type="submit" id="submit-settings" name="submit" value="{L_SUBMIT}" class="py-2 px-3 transition-all inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-blue-600 bg-blue-500 text-white hover:bg-blue-600">
+								<div class="loading hidden animate-spin size-4 border-[2px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading">
+									<span class="sr-only">{L_ACP_LOADING}</span>
+								</div>
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M5 2v2.5A1.5 1.5 0 0 0 6.5 6h2A1.5 1.5 0 0 0 10 4.5V2h.379a2 2 0 0 1 1.414.586l1.621 1.621A2 2 0 0 1 14 5.621V12a2 2 0 0 1-2 2V9.5A1.5 1.5 0 0 0 10.5 8h-5C4.673 8 4 8.669 4 9.498V14a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1 0v2.5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5V2zM5 14h6V9.5a.5.5 0 0 0-.5-.5h-5c-.277 0-.5.223-.5.498z"/></svg>
+								<span>{L_ACP_SAVE}</span>
+							</button>
+		          {{ S_FORM_TOKEN }}
+						</div>
+					</div>
+        </div>
+        <div class="overflow-auto h-full p-4 pt-8">
+          <div class="logo"><svg class="mx-auto text-center" version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 128" height="24"><path class="fill-slate-800" d="m354.1 46c0 0 2.9-2.3 12.9-3h30c23.3 2.5 22 18 22 18v59h-27v-48c0.3-6.5-4-8-4-8h-33.8z"/><path class="fill-slate-800" d="m386 74v14h-6c0 0-2.9 0.7-3 3v7c0 0 0.8 2.5 3 3h6v16c-2 4-7 4-7 4h-16c0 0-12.1-2.7-14-18v-12c0 0 0.1-14.1 15-17z"/><path class="fill-slate-800" d="m318.9 44.9c14 1.4 17.1 15.1 17.1 15.1v60h-28v-46c0 0-3.2-13.7-16-3.7v-22.3c0 0 13-4.6 26.9-3.1z"/><path class="fill-slate-800" d="m219 43h29v77h-29z"/><path class="fill-slate-800" d="m219 8h29v23h-29z"/><path class="fill-slate-800" d="m264 43h29v77h-29z"/><path class="fill-slate-800" d="m167 42v20h7c4.2 1.2 4 5.6 4 5.6v6.4h-11v14h38v-23c0 0 0-19.8-22-23z"/><path class="fill-slate-800" d="m133.7 77.8c-0.3-28.8 8.6-30.7 23.3-35.8h5v52c1.7 6 4 5 4 5h36v19c0 0-2 2.6-10 3h-36c-24.5-6.3-22.1-23.8-22.3-43.2z"/><path class="fill-slate-800" d="m121 97v23h-52l17-23z"/><path class="fill-slate-800" d="m80 46h35l-54 74h-20v-22z"/><path class="fill-slate-800" d="m43 17h78v23h-78z"/></svg></div>
+
+          <div class="mt-6">
+            <div class="px-2 pb-4 flex flex-col gap-5">
+              <div class="logo-image">
+                <label class="block text-sm font-semibold mb-2">{L_ACP_LOGO_IMAGE}</label>
+                <label {% if not zeina.logo_image_location %} for="upload-logo"{% endif %} class="add-image{% if zeina.logo_image_location %} image-loaded{% endif %} flex justify-center w-full border-2 border-dashed border-gray-200 p-3 rounded-lg text-center transition-all text-gray-300 overflow-hidden cursor-pointer hover:border-blue-500 hover:text-blue-500">
+                  <svg class="add-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2"/></svg>
+									<svg class="remove-icon hidden absolute top-0 bottom-0 m-auto text-red-400 transition-all" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><g fill="currentColor" stroke-linejoin="round" stroke-width="4"><path fill="currentColor" stroke="currentColor" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path stroke="#fff" stroke-linecap="round" d="M29.657 18.343L18.343 29.657m0-11.314l11.314 11.314"/></g></svg>
+                  {% if zeina.logo_image_location %}
+                    <img src="{{ T_THEME_PATH ~ zeina.logo_image_location }}">
+                  {% endif %}
+                </label>
+                <input id="upload-logo" name="logo_image" type="file" class="upload-image absolute -z-10 invisible h-0 w-0" accept=".gif, .jpeg, .jpg, .png, .svg, .webp">
+                <input class="image-location" type="hidden" name="logo_image_location" value="{{ zeina.logo_image_location }}">
+                <input type="hidden" name="logo_svg" value="{{ zeina.logo_svg|e }}">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2">{L_ACP_LOGO_SIZE}</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <input type="number" min="0" name="logo_width" class="p-2 border-gray-200 w-auto rounded-lg text-sm" placeholder="{L_ACP_LOGO_SIZE_WIDTH}" value="{{ zeina.logo_width }}">
+                  <input type="number" min="0" name="logo_height" class="p-2 border-gray-200 w-auto rounded-lg text-sm" placeholder="{L_ACP_LOGO_SIZE_HEIGHT}" value="{{ zeina.logo_height }}">
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2">{L_ACP_FAVICON}</label>
+                <label {% if not zeina.favicon_location %} for="upload-favicon"{% endif %} class="add-image{% if zeina.favicon_location %} image-loaded{% endif %} flex justify-center w-full border-2 border-dashed border-gray-200 p-3 rounded-lg text-center transition-all text-gray-300 overflow-hidden cursor-pointer hover:border-blue-500 hover:text-blue-500">
+                  <svg class="add-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2"/></svg>
+									<svg class="remove-icon hidden absolute top-0 bottom-0 m-auto text-red-400 transition-all" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><g fill="currentColor" stroke-linejoin="round" stroke-width="4"><path fill="currentColor" stroke="currentColor" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path stroke="#fff" stroke-linecap="round" d="M29.657 18.343L18.343 29.657m0-11.314l11.314 11.314"/></g></svg>
+                  {% if zeina.favicon_location %}
+                    <img src="{{ T_THEME_PATH ~ zeina.favicon_location }}">
+                  {% endif %}
+                </label>
+                <input id="upload-favicon" name="favicon" type="file" class="upload-image absolute -z-10 invisible h-0 w-0" accept=".gif, .jpeg, .jpg, .png, .svg, .ico, .webp">
+                <input class="image-location" type="hidden" name="favicon_location" value="{{ zeina.favicon_location }}">
+              </div>
+
+              <!-- General Section -->
+              <div class="border-t border-dashed pt-5">
+                <h3 class="text-xs text-gray-500 tracking-wide">{L_ACP_GENERAL_SETTINGS}</h3>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2">{L_ACP_THEME_COLOR}</label>
+                <div class="flex items-center gap-1 justify-center color-switch">
+                  {% for name, color in colors_array %}
+                  <div class="flex relative items-center theme_color_radio">
+                    <input class="absolute -z-10 invisible h-0 w-0" type="radio" name="theme_color" id="{{ name }}" value="{{ name }}"{% if zeina.theme_color == name %} checked="checked"{% endif %}>
+                    <label class="zeina_theme_colors cursor-pointer inline-block" for="{{ name }}" data-color="{{ color[0] }}" style="background-color: rgb({{ color[0] }});" title="{{ name|split('_')[0]|capitalize }}"></label>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- Header Section -->
+              <div class="border-t border-dashed pt-5">
+                <h3 class="text-xs text-gray-500 tracking-wide">{L_ACP_HEADER_SETTINGS}</h3>
+              </div>
+              <div class="header-image">
+                <label class="block text-sm font-semibold mb-2">{L_ACP_HEADER_IMAGE}</label>
+                <label {% if not zeina.header_image_location %} for="upload-header"{% endif %} class="add-image{% if zeina.header_image_location %} image-loaded{% endif %} add-header-image flex justify-center w-full border-2 border-dashed border-gray-200 p-3 rounded-lg text-center transition-all text-gray-300 overflow-hidden cursor-pointer hover:border-blue-500 hover:text-blue-500">
+                  <svg class="add-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2"/></svg>
+									<svg class="remove-icon hidden absolute top-0 bottom-0 m-auto text-red-400 transition-all" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><g fill="currentColor" stroke-linejoin="round" stroke-width="4"><path fill="currentColor" stroke="currentColor" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path stroke="#fff" stroke-linecap="round" d="M29.657 18.343L18.343 29.657m0-11.314l11.314 11.314"/></g></svg>
+								  {% if zeina.header_image_location %}
+                    <img src="{{ T_THEME_PATH ~ zeina.header_image_location }}">
+                  {% endif %}
+                </label>
+                <input id="upload-header" name="header_image" type="file" class="upload-image absolute -z-10 invisible h-0 w-0" accept=".gif, .jpeg, .jpg, .png, .svg, .webp">
+                <input type="hidden" class="image-location" name="header_image_location" value="{{ zeina.header_image_location }}">
+              </div>
+
+              <!-- Panels Section -->
+              <div class="border-t border-dashed pt-5">
+                <h3 class="text-xs text-gray-500 tracking-wide">{L_ACP_PANELS_SETTINGS}</h3>
+              </div>
+              <div>
+                <label for="colorful_panel" class="block text-sm font-semibold mb-2">{L_ACP_COLORFUL_PANEL}</label>
+                <input type="checkbox" id="colorful_panel" name="colorful_panel" value="1" class="relative w-[35px] h-[21px] bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-blue-500 checked:bg-none checked:text-blue-500 checked:border-blue-500 focus:checked:border-blue-500 before:inline-block before:size-4 before:bg-white checked:before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"{% if zeina.colorful_panel %} checked="checked"{% endif %}>
+              </div>
+              <div>
+                <label for="collapse_panel" class="block text-sm font-semibold mb-2">{L_ACP_COLLAPSE_PANEL}</label>
+                <input type="checkbox" id="collapse_panel" name="collapse_panel" value="1" class="relative w-[35px] h-[21px] bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-blue-500 checked:bg-none checked:text-blue-500 checked:border-blue-500 focus:checked:border-blue-500 before:inline-block before:size-4 before:bg-white checked:before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"{% if zeina.collapse_panel %} checked="checked"{% endif %}>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="preview relative grow flex flex-col">
+        <div class="h-12 flex items-center justify-center bg-slate-800">
+          <span title="{L_ACP_PC}" class="device px-3 flex items-center h-full text-white leading-[0] hover:bg-gray-700 hover:cursor-pointer active">
+            <i class="iconify" data-mode="style" data-icon="material-symbols:screenshot-monitor-outline-rounded" data-width="24" data-height="24" aria-hidden="true" style="min-height:24px;min-width:24px;"></i>
+          </span>
+          <span data-size="820" title="{L_ACP_TABLET}" class="device px-3 flex items-center h-full text-white leading-[0] hover:bg-gray-700 hover:cursor-pointer">
+            <i class="iconify" data-mode="style" data-icon="material-symbols-light:tablet" data-width="24" data-height="24" aria-hidden="true" style="min-height:24px;min-width:24px;"></i>
+          </span>
+          <span data-size="430" title="{L_ACP_MOBILE}" class="device px-3 flex items-center h-full text-white leading-[0] hover:bg-gray-700 hover:cursor-pointer">
+            <i class="iconify" data-mode="style" data-icon="clarity:mobile-solid" data-width="24" data-height="24" aria-hidden="true" style="min-height:24px;min-width:24px;"></i>
+          </span>
+        </div>
+        <div class="screen-size mx-auto grow w-full">
+          <div class="loading-data absolute left-0 right-0 top-0 bottom-0">
+            <div class="flex flex-col items-center justify-center h-full">
+              <div class="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-gray-600 rounded-full" role="status" aria-label="{L_ACP_LOADING}"></div>
+                <p class="text-sm text-gray-500 mt-2">{L_ACP_LOADING}</p>
+            </div>
+          </div>
+          <iframe id="preview_area" width="100%" height="100%" src="../index.php?preview_mode=1"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="notification transition-all duration-500 fixed end-5 max-w-xs text-sm text-white rounded-xl shadow-lg" role="alert">
+      <div class="flex p-4">
+        <div class="flex-shrink-0">
+          <svg class="success-icon flex-shrink-0 size-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"></path>
+          </svg>
+          <svg class="error-icon flex-shrink-0 size-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"></path>
+          </svg>
+        </div>
+        <div class="ms-3">
+          <p class="text-sm message"></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="{T_JQUERY_LINK}"></script>
+    <!-- IF S_ALLOW_CDN --><script>window.jQuery || document.write('\x3Cscript src="{T_ASSETS_PATH}/javascript/jquery-3.6.0.min.js?assets_version={T_ASSETS_VERSION}">\x3C/script>');</script><!-- ENDIF -->
+		
+    {% INCLUDEJS 'js/iconify.min.js' %}
+		{% INCLUDEJS 'js/app.js' %}
+		{$SCRIPTS}
+  </body>
+</html>

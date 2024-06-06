@@ -1,0 +1,42 @@
+<!-- INCLUDE ucp_header.html -->
+
+<!-- IF S_DRAFT_LOADED -->
+<div class="bg-gray-50 border border-gray-200 text-sm rounded-lg p-4" role="alert">
+	<div class="flex gap-2">
+		<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="18" data-height="18" aria-hidden="true"></i></div>
+    <div>
+			<h5 class="message-title mb-1">{L_INFORMATION}</h5>
+			<p>{L_DRAFT_LOADED_PM}</p>
+		</div>
+	</div>
+</div>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_DRAFTS --><!-- INCLUDE drafts.html --><!-- ENDIF -->
+
+<!-- IF S_DISPLAY_PREVIEW --><!-- INCLUDE posting_preview.html --><!-- ENDIF -->
+
+<h2 class="posting-title my-4">{L_TITLE}</h2>
+
+<div id="pmheader-postingbox">
+	<div class="p-4 rounded-lg border">
+	<!-- EVENT posting_pm_layout_include_pm_header_before -->
+	<!-- INCLUDE posting_pm_header.html -->
+	<!-- EVENT posting_pm_layout_include_pm_header_after -->
+	</div>
+</div>
+
+<div class="mt-4" id="postingbox">
+	<div class="p-4 rounded-lg border">
+	<!-- DEFINE $EXTRA_POSTING_OPTIONS = 1 -->
+	<!-- INCLUDE posting_editor.html -->
+	</div>
+</div>
+
+<!-- IF S_SHOW_ATTACH_BOX and FILTERS --><!-- INCLUDE posting_attach_body.html --><!-- ENDIF -->
+
+<!-- IF S_DISPLAY_REVIEW --><!-- INCLUDE posting_topic_review.html --><!-- ENDIF -->
+
+<!-- IF S_DISPLAY_HISTORY --><!-- INCLUDE ucp_pm_history.html --><!-- ENDIF -->
+
+<!-- INCLUDE ucp_footer.html -->

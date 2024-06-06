@@ -1,0 +1,154 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+	
+	<h2 class="mb-0.5">{L_TITLE}</h2>
+	<p class="text-sm text-secondary">{L_BOOKMARKS_EXPLAIN}</p>
+
+	<!-- IF S_NO_DISPLAY_BOOKMARKS -->
+		<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 my-4" role="alert">
+			<p class="error">{L_BOOKMARKS_DISABLED}</p>
+		</div>
+	<!-- ELSE -->
+
+	<!-- IF .topicrow -->
+	<div class="mt-4">
+		<div class="overflow-auto">
+			<div class="min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden">
+					<table class="min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 w-16">
+									<div class="flex justify-center items-center">
+										<input id="table-checkbox-all" type="checkbox" onclick="marklist('ucp', '', this.checked);" class="checkbox-primary">
+										<label for="table-checkbox-all" class="sr-only">{L_MARK_ALL}</label>
+									</div>
+								</th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_BOOKMARKS}</th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_LAST_POST}</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+						<!-- BEGIN topicrow -->
+							<tr class="row divide-y<!-- IF topicrow.S_TOPIC_REPORTED --> reported<!-- ELSEIF topicrow.S_ROW_COUNT is odd --> max-lg:bg-gray-50 bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+
+							<!-- IF topicrow.S_DELETED_TOPIC -->
+								<td class="p-3" class="mark"><input class="checkbox-primary" type="checkbox" name="t[{topicrow.TOPIC_ID}]" id="t{topicrow.TOPIC_ID}"></td>
+								<td class="p-3"><div class="list-inner"><strong>{L_DELETED_TOPIC}</strong></div></td>
+								<td class="p-3" class="lastpost"><span>&nbsp;</span></td>
+							<!-- ELSE -->
+								<td class="p-3 max-lg:flex max-lg:items-center max-lg:gap-2">
+									<dfn class="mb-0">{L_MARK}{L_COLON}</dfn>
+									<div class="text-center leading-[0]">
+										<input id="t{topicrow.TOPIC_ID}" type="checkbox" name="t[{topicrow.TOPIC_ID}]" class="checkbox-primary">
+										<label for="t{topicrow.TOPIC_ID}" class="sr-only">{L_MARK}</label>
+									</div>
+								</td>
+								<td class="p-3">
+									<dfn>{L_BOOKMARKS}{L_COLON}</dfn>
+									<div class="flex max-md:flex-col w-full md:justify-between md:col-span-5 relative gap-y-3">
+										<div class="flex flex-row gap-4">
+											<!-- IF topicrow.S_UNREAD_TOPIC --><a href="{topicrow.U_NEWEST_POST}" class="row-item-link"></a><!-- ENDIF -->
+											<div class="topic-icon mt-0.5 leading-[0] {topicrow.TOPIC_IMG_STYLE}"<!-- IF topicrow.TOPIC_ICON_IMG --> style="background-image: url('{T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: bottom right;"<!-- ENDIF -->>
+												{% include 'forumlist_icons.html' with {'IMG_STYLE': topicrow.TOPIC_IMG_STYLE} %}
+											</div>
+											<div class="topic-details">
+												<div class="flex items-center gap-2 max-md:py-1">
+													<!-- IF topicrow.S_UNREAD_TOPIC -->
+													<a class="unread leading-[0]" href="{topicrow.U_NEWEST_POST}" title="{L_NEW_POST}">
+														<i class="iconify text-color" data-mode="style" data-icon="ph:file" data-height="14" data-width="14" aria-hidden="true"></i><span class="sr-only">{L_NEW_POST}</span>
+													</a>
+													<!-- ENDIF -->
+													<h3 class="text-sm font-semibold "><!-- IF topicrow.U_VIEW_TOPIC --><a href="{topicrow.U_VIEW_TOPIC}" class="topictitle max-md:py-1">{topicrow.TOPIC_TITLE}</a><!-- ELSE -->{topicrow.TOPIC_TITLE}<!-- ENDIF --></h3>
+													<!-- IF topicrow.S_TOPIC_UNAPPROVED or topicrow.S_POSTS_UNAPPROVED -->
+														<a class="leading-[0]" href="{topicrow.U_MCP_QUEUE}" title="{L_TOPIC_UNAPPROVED}">
+															<i class="iconify" data-mode="style" data-icon="ri:question-line" data-height="16" data-width="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i><span class="sr-only">{L_TOPIC_UNAPPROVED}</span>
+														</a>
+													<!-- ENDIF -->
+													<!-- IF topicrow.S_TOPIC_REPORTED -->
+														<a class="leading-[0]" href="{topicrow.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}">
+															<i class="iconify" data-mode="style" data-icon="lucide:circle-alert" data-height="16" data-width="16" aria-hidden="true"></i><span class="sr-only">{L_TOPIC_REPORTED}</span>
+														</a>
+													<!-- ENDIF -->
+													{% EVENT ucp_main_bookmarks_topic_title_after %}
+												</div>
+												<div class="topic-poster flex flex-wrap items-center gap-1 text-xs font-medium mt-1 text-secondary">
+													<!-- IF topicrow.ATTACH_ICON_IMG --><i class="iconify" data-mode="style" data-icon="ph:paperclip-bold" data-height="16" data-width="16" aria-hidden="true"></i><!-- ENDIF -->
+													{L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; <span class="text-secondary">{topicrow.FIRST_POST_TIME}</span>
+												</div>
+											</div>
+										</div>
+										<!-- IF .topicrow.pagination -->
+										<div class="pagination flex items-center gap-1 max-md:justify-center">
+											<i class="iconify text-secondary" data-mode="style" data-icon="ph:copy" data-height="16" data-width="16" aria-hidden="true"></i>
+											<ul class="flex items-center text-sm text-center justify-center gap-1">
+											<!-- BEGIN pagination -->
+												<!-- IF topicrow.pagination.S_IS_PREV -->
+												<!-- ELSEIF topicrow.pagination.S_IS_CURRENT --><li class="active py-0.5 px-1 rounded-md font-medium text-secondary hover:text-color bg-gray-100 border min-w-6 text-center"><span>{topicrow.pagination.PAGE_NUMBER}</span></li>
+												<!-- ELSEIF topicrow.pagination.S_IS_ELLIPSIS --><li class="ellipsis py-0.5 px-1 rounded-md text-secondary hover:text-color hover:bg-gray-100 border min-w-6 text-center"><span>{L_ELLIPSIS}</span></li>
+												<!-- ELSEIF topicrow.pagination.S_IS_NEXT -->
+												<!-- ELSE --><li><a class="relative flex overflow-hidden transition-all duration-300 py-0.5 px-1 rounded-md text-secondary hover:text-color hover:bg-gray-100 border min-w-6 justify-center" href="{topicrow.pagination.PAGE_URL}">{topicrow.pagination.PAGE_NUMBER}</a></li>
+												<!-- ENDIF -->
+											<!-- END pagination -->
+											</ul>
+										</div>
+										<!-- ENDIF -->
+									</div>
+								</td>
+								<td class="p-3">
+									<dfn>{L_LAST_POST}{L_COLON}</dfn>
+									<div class="lastpost text-sm col-span-2 font-medium">
+										<div class="flex items-center gap-1.5">
+											{L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL}
+											<a class="leading-[0]" href="{topicrow.U_LAST_POST}" title="{L_GOTO_LAST_POST}">
+												<i class="iconify" data-mode="style" data-icon="ph:arrow-square-out-bold" data-height="16" data-width="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i><span class="sr-only">{VIEW_LATEST_POST}</span>
+											</a>
+										</div>
+										<time class="text-xs block mt-1 text-secondary">{topicrow.LAST_POST_TIME}</time>
+									</div>
+								</td>
+								<!-- ENDIF -->
+							</tr>
+							<!-- END topicrow -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="action-bar bar-bottom my-3">
+		<div class="pagination flex flex-wrap items-center justify-end gap-1">
+			<!-- IF .pagination -->
+			{% include 'pagination.html' with {'TOTAL': TOTAL_TOPICS} %}
+			<!-- ELSE -->
+			<div class="card-sm">{TOTAL_TOPICS} &bull; {PAGE_NUMBER}</div>
+			<!-- ENDIF -->
+		</div>
+	</div>
+
+	<!-- ELSE -->
+		<div class="mt-4 bg-gray-50 border border-gray-200 text-sm text-secondary rounded-lg p-4" role="alert">
+			<div class="flex items-center gap-2">
+				<div class="leading-[0]"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="18" data-height="18" aria-hidden="true"></i></div>
+				<p>{L_NO_BOOKMARKS}</p>
+			</div>
+		</div>
+	<!-- ENDIF -->
+
+<!-- ENDIF -->
+
+<!-- IF .topicrow and not S_NO_DISPLAY_BOOKMARKS -->
+	<div class="display-actions flex w-full items-center justify-end mt-3 gap-2">
+		<button class="btn-primary max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" type="submit" name="unbookmark" value="{L_REMOVE_BOOKMARK_MARKED}">{L_REMOVE_BOOKMARK_MARKED}</button>
+		{S_FORM_TOKEN}
+	</div>
+	<div class="flex w-full items-center justify-end mt-3 gap-2 lg:hidden">
+		<a class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('ucp', '', true); return false;">{L_MARK_ALL}</a>
+		<a class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('ucp', '', false); return false;">{L_UNMARK_ALL}</a>
+	</div>
+<!-- ENDIF -->
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

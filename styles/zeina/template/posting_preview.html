@@ -1,0 +1,62 @@
+<!-- IF S_HAS_POLL_OPTIONS -->
+<div class="{% if not S_PRIVMSGS %} card p-6 {% else %} p-4 {% endif %} border rounded-xl p-3 w-full mb-4">
+	<h2 class="poll-title">{L_PREVIEW}{L_COLON} {POLL_QUESTION}</h2>
+	<p class="author text-sm text-secondary"><!-- IF L_POLL_LENGTH -->{L_POLL_LENGTH}<br><!-- ENDIF -->{L_MAX_VOTES}</p>
+	<div class="polls mt-4">
+		<!-- BEGIN poll_option -->
+		<div class="mb-4 <!-- IF poll_option.POLL_OPTION_VOTED -->voted<!-- ENDIF --><!-- IF poll_option.POLL_OPTION_MOST_VOTES --> most-votes<!-- ENDIF -->"<!-- IF poll_option.POLL_OPTION_VOTED --> title="{L_POLL_VOTED_OPTION}"<!-- ENDIF --> data-alt-text="{L_POLL_VOTED_OPTION}" data-poll-option-id="{poll_option.POLL_OPTION_ID}">
+			<div class="relative flex items-start w-full">
+				<div class="flex items-center h-5 poll_option_select">
+					<!-- IF S_IS_MULTI_CHOICE --><input type="checkbox" name="vote_id[]" id="vote_{poll_option.POLL_OPTION_ID}" class="checkbox-primary" value="{poll_option.POLL_OPTION_ID}"<!-- IF poll_option.POLL_OPTION_VOTED --> checked="checked"<!-- ENDIF -->><!-- ELSE --><input type="radio" name="vote_id[]" id="vote_{poll_option.POLL_OPTION_ID}" class="radio-primary" value="{poll_option.POLL_OPTION_ID}"<!-- IF poll_option.POLL_OPTION_VOTED --> checked="checked"<!-- ENDIF -->><!-- ENDIF -->
+				</div>
+				<label for="vote_{poll_option.POLL_OPTION_ID}" class="ms-3 w-full">
+					<div class="mb-2 flex justify-between items-center">
+						<span class="block text-sm font-semibold">{poll_option.POLL_OPTION_CAPTION}</span>
+						<span class="text-sm poll_option_percent block"><!-- IF poll_option.POLL_OPTION_RESULT == 0 -->{L_NO_VOTES}<!-- ELSE -->({poll_option.POLL_OPTION_RESULT}) {poll_option.POLL_OPTION_PERCENT}<!-- ENDIF --></span>
+					</div>
+					<div class="resultbar progressbar flex w-full h-2 bg-gray-100 rounded-full overflow-hidden" role="progressbar" aria-valuenow="{poll_option.POLL_OPTION_PERCENT_REL|number_format}" aria-valuemin="0" aria-valuemax="100" aria-label="{poll_option.POLL_OPTION_CAPTION}">
+						<div class="flex flex-col h-full justify-center rounded-full overflow-hidden bg-primary transition-all duration-300" style="width:{poll_option.POLL_OPTION_PERCENT_REL};"></div>
+					</div>
+				</label>
+			</div>
+		</div>
+		<!-- END poll_option -->
+	</div>
+</div>
+<!-- ENDIF -->
+<!-- EVENT posting_preview_poll_after -->
+
+<div class="{% if not S_PRIVMSGS %} card p-6 {% else %} p-4 {% endif %} w-full border rounded-xl mb-4">
+	<h2 class="preview-title">{L_PREVIEW}{L_COLON} {PREVIEW_SUBJECT}</h2>
+	<div class="mt-2.5 pt-2.5 border-t">
+		<div class="content">{PREVIEW_MESSAGE}</div>
+		{#-- Highlight codes --#}
+		{% if 'class="codebox"' in PREVIEW_MESSAGE %}
+			{% INCLUDECSS T_THEME_PATH ~ '/assets/css/highlight.min.css' %}
+			{% INCLUDEJS T_THEME_PATH ~ '/assets/js/highlight.min.js' %}
+			<script>
+				document.addEventListener('DOMContentLoaded', (event) => {
+					document.querySelectorAll('.codebox code').forEach((el) => {
+						hljs.highlightElement(el);
+					});
+				});
+			</script>
+		{% endif %}
+
+		<!-- EVENT posting_preview_content_after -->
+		<!-- IF .attachment -->
+		<div class="attachbox mt-5">
+			<div class="font-semibold text-sm">
+				{L_ATTACHMENTS}{L_COLON}
+			</div>
+			<div class="attachments inline-block text-sm">
+			<!-- BEGIN attachment -->
+				<div class="mt-2">{attachment.DISPLAY_ATTACHMENT}</div>
+			<!-- END attachment -->
+			</div>
+		</div>
+		<!-- ENDIF -->
+
+		<!-- IF PREVIEW_SIGNATURE --><div class="signature mt-3 pt-3 border-t border-dashed border-gray-200">{PREVIEW_SIGNATURE}</div><!-- ENDIF -->
+	</div>
+</div>

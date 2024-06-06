@@ -1,0 +1,133 @@
+<!-- INCLUDE mcp_header.html -->
+
+<form id="mcp" method="post" action="{S_MCP_ACTION}">
+
+	<div class="forum-selection flex max-md:flex-col md:items-center gap-2 lg:float-end max-lg:mb-4">
+		<label for="fo" class="text-sm">{L_FORUM}{L_COLON}</label>
+		<select name="f" id="fo" class="lg:w-auto">{S_FORUM_OPTIONS}</select>
+		<button type="submit" name="sort" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center" value="{L_GO}">{L_GO}</button>
+		{S_FORM_TOKEN}
+	</div>
+
+	<h2 class="mb-0.5">{L_TITLE}</h2>
+	<p class="text-sm text-secondary">{L_EXPLAIN}</p>
+
+	<!-- IF .postrow -->
+	<div class="action-bar bar-top my-3">
+		<div class="pagination flex flex-wrap justify-end gap-1">
+			<!-- IF .pagination -->
+			{% include 'pagination.html' with {'TOTAL': TOTAL} %}
+			<!-- ELSE -->
+			<div class="card-sm">{TOTAL} &bull; {PAGE_NUMBER}</div>
+			<!-- ENDIF -->
+		</div>
+	</div>
+
+	<div class="mt-3">
+		<div class="overflow-auto">
+			<div class="min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden">
+					<table class="min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 w-16">
+									<div class="flex justify-center items-center">
+										<input id="table-checkbox-all" type="checkbox" onclick="marklist('mcp', '<!-- IF S_TOPICS -->topic_id_list<!-- ELSE -->post_id_list<!-- ENDIF -->', this.checked);" class="checkbox-primary">
+										<label for="table-checkbox-all" class="sr-only">{L_MARK_ALL}</label>
+									</div>
+								</th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><!-- IF S_TOPICS -->{L_TOPIC}<!-- ELSE -->{L_POST}<!-- ENDIF --></th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><!-- IF not S_TOPICS -->{L_TOPIC} &amp; <!-- ENDIF -->{L_FORUM}</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+						<!-- BEGIN postrow -->
+
+						<!-- IF postrow.S_DELETED_TOPIC -->
+							<tr><td class="notopics col-span-3">{L_DELETED_TOPIC}</td></tr>
+						<!-- ELSE -->
+							<tr class="divide-y <!-- IF postrow.S_ROW_COUNT is odd -->max-lg:bg-gray-50 bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+								<td class="p-3 max-lg:flex max-lg:items-center max-lg:gap-2">
+									<dfn class="mb-0">{L_MARK}{L_COLON}</dfn>
+									<div class="text-center leading-[0]">
+										<!-- IF S_TOPICS -->
+											<input id="table-checkbox-{postrow.TOPIC_ID}" type="checkbox" name="topic_id_list[]" value="{postrow.TOPIC_ID}" class="checkbox-primary">
+											<label for="table-checkbox-{postrow.TOPIC_ID}" class="sr-only">{L_MARK}</label>
+										<!-- ELSE -->
+											<input id="table-checkbox-{postrow.POST_ID}" type="checkbox" name="post_id_list[]" value="{postrow.POST_ID}" class="checkbox-primary">
+											<label for="table-checkbox-{postrow.POST_ID}" class="sr-only">{L_MARK}</label>
+										<!-- ENDIF -->
+									</div>
+								</td>
+								<td class="p-3">
+									<dfn><!-- IF S_TOPICS -->{L_TOPIC}<!-- ELSE -->{L_POST}<!-- ENDIF -->{L_COLON}</dfn>
+									<div class="list-inner text-sm">
+										<a href="{postrow.U_VIEW_DETAILS}" class="topictitle font-medium">{postrow.POST_SUBJECT}</a><!-- IF postrow.S_HAS_ATTACHMENTS --> <i class="iconify" data-mode="style" data-icon="ph:paperclip-bold" data-width="18" data-height="18" aria-hidden="true"></i> <!-- ENDIF --><br>
+										<span class="text-secondary">{L_POSTED} {L_POST_BY_AUTHOR}</span> {postrow.POST_AUTHOR_FULL} <span class="text-secondary">&raquo; {postrow.POST_TIME}</span>
+									</div>
+								</td>
+								<td class="p-3">
+									<dfn><!-- IF not S_TOPICS -->{L_TOPIC} &amp; <!-- ENDIF -->{L_FORUM}{L_COLON}</dfn>
+									<span class="text-sm">
+										<!-- IF S_TOPICS --><br class="max-lg:hidden"><!-- ELSE --><span class="font-medium text-secondary">{L_TOPIC}{L_COLON}</span> <a href="{postrow.U_TOPIC}">{postrow.TOPIC_TITLE}</a> <br><!-- ENDIF -->
+										<span class="font-medium text-secondary">{L_FORUM}{L_COLON}</span> <a href="{postrow.U_VIEWFORUM}">{postrow.FORUM_NAME}</a>
+									</span>
+								</td>
+							</tr>
+						<!-- ENDIF -->
+
+						<!-- END postrow -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="action-bar bar-bottom my-3">
+		<div class="flex flex-wrap items-center justify-between gap-2">
+			<!-- INCLUDE display_options.html -->
+			<div class="pagination flex flex-wrap items-center justify-end gap-1">
+				<!-- IF .pagination -->
+				{% include 'pagination.html' with {'TOTAL': TOTAL} %}
+				<!-- ELSE -->
+				<div class="card-sm">{TOTAL} &bull; {PAGE_NUMBER}</div>
+				<!-- ENDIF -->
+			</div>
+		</div>
+		<!-- IF TOPIC_ID --><label class="font-medium mt-5 text-secondary text-sm flex items-center gap-2"><input type="checkbox" class="checkbox-primary" name="t" value="{TOPIC_ID}" checked="checked" onClick="document.getElementById('mcp').submit()"> {L_ONLY_TOPIC}</label><!-- ENDIF -->
+	</div>
+
+	<!-- ELSE -->
+	<div class="mt-4 bg-gray-50 border border-gray-200 text-sm text-secondary rounded-lg p-4" role="alert">
+		<div class="flex items-center gap-2">
+			<div class="leading-[0]"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="18" data-height="18" aria-hidden="true"></i></div>
+			<p>
+			<!-- IF S_RESTORE -->
+				<!-- IF S_TOPICS -->{L_NO_TOPICS_DELETED}<!-- ELSE -->{L_NO_POSTS_DELETED}<!-- ENDIF -->
+			<!-- ELSE -->
+				<!-- IF S_TOPICS -->{L_NO_TOPICS_QUEUE}<!-- ELSE -->{L_NO_POSTS_QUEUE}<!-- ENDIF -->
+			<!-- ENDIF -->
+			</p>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF .postrow -->
+	<div class="display-actions flex max-lg:flex-col-reverse w-full items-center justify-end mt-3 gap-2">
+		<!-- IF S_RESTORE -->
+		<button class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" type="submit" name="action[delete]" value="{L_DELETE}">{L_DELETE}</button>
+		<button class="btn-primary max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" type="submit" name="action[restore]" value="{L_RESTORE}">{L_RESTORE}</button>
+		<!-- ELSE -->
+		<button class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" type="submit" name="action[disapprove]" value="{L_DISAPPROVE}">{L_DISAPPROVE}</button>
+		<button class="btn-primary max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" type="submit" name="action[approve]" value="{L_APPROVE}">{L_APPROVE}</button>
+		<!-- ENDIF -->
+	</div>
+	<div class="flex w-full items-center justify-end mt-3 gap-2 lg:hidden">
+		<a class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('mcp', '<!-- IF S_TOPICS -->topic_id_list<!-- ELSE -->post_id_list<!-- ENDIF -->', true); return false;">{L_MARK_ALL}</a>
+		<a class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('mcp', '<!-- IF S_TOPICS -->topic_id_list<!-- ELSE -->post_id_list<!-- ENDIF -->', false); return false;">{L_UNMARK_ALL}</a>
+	</div>
+	<!-- ENDIF -->
+</form>
+
+<!-- INCLUDE mcp_footer.html -->

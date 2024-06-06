@@ -1,0 +1,62 @@
+<div class="md:flex items-center justify-between gap-2">
+	<div class="flex flex-wrap items-center justify-between gap-2">
+		<div id="social-items" class="flex flex-wrap items-center gap-2 social-links">
+			<div class="max-md:hidden">{L_FOLLOW_US}{L_COLON}</div>
+      <a href="#" class="p-1 link leading-[0] social-link" aria-label="Facebook" title="Facebook">
+        <i class="iconify" data-mode="style" data-icon="ph:facebook-logo" data-width="18" data-height="18" aria-hidden="true"></i>
+      </a>
+      <a href="#" class="p-1 link leading-[0] social-link" aria-label="Twitter" title="Twitter">
+        <i class="iconify" data-mode="style" data-icon="mynaui:brand-twitter" data-width="18" data-height="18" aria-hidden="true"></i>
+      </a>
+      <a href="#" class="p-1 link leading-[0] social-link" aria-label="Youtube" title="Youtube">
+        <i class="iconify" data-mode="style" data-icon="mynaui:brand-youtube" data-width="18" data-height="18" aria-hidden="true"></i>
+      </a>
+      <a href="#" class="p-1 link leading-[0] social-link" aria-label="Google" title="Google">
+        <i class="iconify" data-mode="style" data-icon="ri:google-line" data-width="18" data-height="18" aria-hidden="true"></i>
+      </a>
+		</div>
+		<div class="md:hidden">
+			<button type="button" class="zn-collapse-toggle dropdown-item rounded-full gap-2 w-full p-2 leading-[0]" data-zn-collapse="#navbar-footer" aria-controls="navbar-footer" aria-label="Toggle footer navigation">
+				<span class="zn-collapse-open:hidden block"><i class="iconify" data-mode="style" data-icon="ph:list-bold" data-width="24" data-height="24" aria-hidden="true"></i></span>
+				<span class="zn-collapse-open:block hidden"><i class="iconify" data-mode="style" data-icon="ph:x" data-width="24" data-height="24" aria-hidden="true"></i></span>
+			</button>
+		</div>
+	</div>
+	<div id="navbar-footer" class="zn-collapse hidden max-md:overflow-hidden md:flex justify-between">
+		<ul id="nav-footer" class="nav-footer flex max-md:flex-col md:mt-0 mt-4 md:items-center" role="menubar">
+			<!-- IF U_CONTACT_US -->
+      <li id="contact-item" role="presentation">
+        <a class="dropdown-item gap-2" href="{U_CONTACT_US}" role="menuitem">
+          <i class="iconify" data-mode="style" data-icon="ph:phone-call" data-width="18" data-height="18" aria-hidden="true"></i>
+          {L_CONTACT_US}
+        </a>
+      </li>
+		  <!-- ENDIF -->
+		  <!-- EVENT overall_footer_teamlink_before -->
+		  <!-- IF U_TEAM -->
+      <li id="team-item" role="presentation">
+        <a class="dropdown-item gap-2" href="{U_TEAM}" role="menuitem">
+          <i class="iconify" data-mode="style" data-icon="fluent:shield-16-regular" data-width="18" data-height="18" aria-hidden="true"></i>
+          {L_THE_TEAM}
+        </a>
+      </li>
+		  <!-- ENDIF -->
+      <!-- IF not S_IS_BOT -->
+        <!-- IF S_DISPLAY_MEMBERLIST -->
+        <li id="members-item" role="presentation">
+          <a class="dropdown-item gap-2" href="{U_MEMBERLIST}" role="menuitem">
+            <i class="iconify" data-mode="style" data-icon="fluent:people-team-16-regular" data-width="18" data-height="18" aria-hidden="true"></i>
+            {L_MEMBERLIST}
+          </a>
+        </li>
+		    <!-- ENDIF -->
+        <li id="cookies-item" role="presentation">
+          <a class="dropdown-item gap-2" href="{U_DELETE_COOKIES}" data-ajax="true" data-refresh="true" role="menuitem">
+            <i class="iconify" data-mode="style" data-icon="fluent:cookies-24-regular" data-width="18" data-height="18" aria-hidden="true"></i>
+            {L_DELETE_COOKIES}
+          </a>
+        </li>
+		  <!-- ENDIF -->
+		</ul>
+	</div>
+</div>

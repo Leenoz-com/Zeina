@@ -1,0 +1,67 @@
+<div class="card border rounded-xl p-3 w-full mt-4">	
+	<div class="card-title"><h3>{L_POST_REVIEW}</h3></div>
+	<div class="p-4">
+		<p>{L_POST_REVIEW_EXPLAIN}</p>
+		
+		{% set S_IS_CODEBOX = false %}
+		<!-- BEGIN post_review_row -->
+			<!-- IF post_review_row.S_IGNORE_POST -->
+			<div class="post bg3 post-ignore{% if not loop.last %} mb-5{% endif %} border p-4 rounded-lg">
+				<div class="bg-slate-50 border border-gray-200 rounded-lg p-3" role="alert">
+					<div class="flex gap-2 text-xs">
+						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="16" data-height="16" aria-hidden="true"></i></div>
+						<span class="text-secondary">{post_review_row.L_IGNORE_POST}</span>
+					</div>
+					<a class="display_post_review mt-2 block text-secondary" href="{{ post_review_row.U_MINI_POST }}">{{ lang('POST_DISPLAY') }}</a>
+				</div>
+			<!-- ELSE -->
+			<div class="post <!-- IF post_review_row.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF --> {% if not loop.last %} mb-5{% endif %} border p-4 rounded-lg">
+			<!-- ENDIF -->
+				<div class="postbody first:mt-0 mt-4" id="ppr{post_review_row.POST_ID}">
+					<h3><a class="text-sm" href="{post_review_row.U_MINI_POST}">{post_review_row.POST_SUBJECT}</a></h3>
+					<p class="author text-sm text-secondary border-b pb-2">
+						<!-- IF S_IS_BOT -->
+						<span><i class="iconify" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{post_review_row.MINI_POST}</span></span>
+						<!-- ELSE -->
+						<a href="{post_review_row.U_MINI_POST}" title="{post_review_row.MINI_POST}">
+							<i class="iconify" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{post_review_row.MINI_POST}</span>
+						</a>
+						{L_POST_BY_AUTHOR} <!-- EVENT posting_review_row_post_author_username_prepend --><span class="font-semibold">{post_review_row.POST_AUTHOR_FULL}</span><!-- EVENT posting_review_row_post_author_username_append --> &raquo; {post_review_row.POST_DATE}
+						<!-- ENDIF -->
+					</p>
+					
+					<div class="content mt-4">{post_review_row.MESSAGE}</div>
+					{#-- Highlight codes --#}
+					{% if 'class="codebox"' in post_review_row.MESSAGE and not S_IS_CODEBOX %}
+						{% set S_IS_CODEBOX = true %}
+					{% endif %}
+
+					<!-- IF post_review_row.S_HAS_ATTACHMENTS -->
+						<div class="attachbox mt-5">
+							<div class="font-semibold text-sm">
+								{L_ATTACHMENTS}{L_COLON}
+							</div>
+							<div class="attachments inline-block text-sm">
+							<!-- BEGIN attachment -->
+								<div class="mt-2">{post_review_row.attachment.DISPLAY_ATTACHMENT}</div>
+							<!-- END attachment -->
+							</div>
+						</div>
+					<!-- ENDIF -->
+				</div>
+			</div>
+		<!-- END post_review_row -->
+	</div>
+</div>
+
+{% if S_IS_CODEBOX %}
+	{% INCLUDECSS T_THEME_PATH ~ '/assets/css/highlight.min.css' %}
+	{% INCLUDEJS T_THEME_PATH ~ '/assets/js/highlight.min.js' %}
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('.codebox code').forEach((el) => {
+				hljs.highlightElement(el);
+			});
+		});
+	</script>
+{% endif %}

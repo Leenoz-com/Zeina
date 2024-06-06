@@ -1,0 +1,48 @@
+{% embed "overall_header.html" %}
+  {% block header_content %}
+    <h1 class="text-slate-50 md:text-2xl text-xl">{L_MCP}</h1>
+    <!-- IF U_MCP -->
+    <p class="linkmcp text-slate-200 md:mt-1">
+      <!-- IF U_ACP --><a href="{U_ACP}" title="{L_ACP}" data-responsive-text="{L_ACP_SHORT}">{L_ACP}</a><span class="mx-2 text-slate-200/50">|</span><!-- ENDIF --><a href="{U_MCP}" title="{L_MCP}" data-responsive-text="{L_MCP_SHORT}">{L_MCP}</a><!-- IF U_MCP_FORUM --><span class="mx-2 text-slate-200/50">|</span><a href="{U_MCP_FORUM}">{L_MODERATE_FORUM}</a><!-- ENDIF --><!-- IF U_MCP_TOPIC --><span class="mx-2 text-slate-200/50">|</span><a href="{U_MCP_TOPIC}">{L_MODERATE_TOPIC}</a><!-- ENDIF --><!-- IF U_MCP_POST --><span class="mx-2 text-slate-200/50">|</span><a href="{U_MCP_POST}">{L_MODERATE_POST}</a><!-- ENDIF -->
+    </p>
+  <!-- ENDIF -->
+  {% endblock %}
+{% endembed %}
+
+  <div class="card p-2 flex overflow-auto whitespace-nowrap mt-3">
+    <nav class="flex gap-1">
+      <!-- BEGIN l_block1 -->
+      <a href="{l_block1.U_TITLE}" class="relative flex overflow-hidden transition-all duration-300 items-center <!-- IF l_block1.S_SELECTED --> active btn-primary-outline <!-- ELSE --> dropdown-item gap-2<!-- ENDIF -->">
+        {l_block1.L_TITLE}
+      </a>
+      <!-- END l_block1 -->
+    </nav>
+  </div>
+
+  <div class="lg:grid grid-cols-10 gap-2 lg:mt-2 my-4">
+    <div class="col-span-2 card p-2 max-lg:mb-4">
+      <ul class="flex flex-col gap-y-1">
+      <!-- BEGIN l_block1 -->
+      <!-- IF l_block1.S_SELECTED -->
+        <!-- BEGIN l_block2 -->
+        <!-- IF l_block1.l_block2.S_SELECTED -->
+        <li id="active-subsection" class="active-subsection flex"><a href="{l_block1.l_block2.U_TITLE}" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 w-full"><span>{l_block1.l_block2.L_TITLE}<!-- IF l_block1.l_block2.ADD_ITEM --> ({l_block1.l_block2.ADD_ITEM})<!-- ENDIF --></span></a></li>
+        <!-- ELSE -->
+        <li class="flex"><a href="{l_block1.l_block2.U_TITLE}" class="dropdown-item gap-2 relative flex overflow-hidden transition-all duration-300 w-full"><span>{l_block1.l_block2.L_TITLE}<!-- IF l_block1.l_block2.ADD_ITEM --> ({l_block1.l_block2.ADD_ITEM})<!-- ENDIF --></span></a></li>
+        <!-- ENDIF -->
+        <!-- END l_block2 -->
+      <!-- ENDIF -->
+      <!-- END l_block1 -->
+      </ul>
+    </div>
+    <div class="col-span-8 card p-4">
+      <div id="cp-main" class="cp-main mcp-main panel-container">
+        <!-- IF MESSAGE -->
+        <div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 mb-4" role="alert">
+          <div class="text-sm">
+            <h5 class="message-title mb-1">{L_MESSAGE}</h5>
+            <p class="error<!-- IF .return_links --> mb-2 <!-- ENDIF -->">{MESSAGE}</p>
+            <!-- BEGIN return_links --><p>return to index</p><!-- END return_links -->
+          </div>
+				</div>
+        <!-- ENDIF -->

@@ -1,0 +1,23 @@
+<!-- INCLUDE mcp_header.html -->
+
+<form method="post" id="mcp" action="{U_POST_ACTION}">
+
+	<h2 class="leading-6">{L_TITLE}</h2>
+
+	<div class="mt-4 divide-y">
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
+			<dt class="text-sm font-medium leading-6"><label for="username">{L_SELECT_USER}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<input name="username" id="username" type="text" class="inputbox">
+				<a href="{U_FIND_USERNAME}" class="mt-3 block font-medium text-sm p-1" onclick="find_username(this.href); return false;">{L_FIND_USERNAME}</a>
+			</dd>
+		</dl>
+	</div>
+	<div class="flex items-center md:justify-end">
+		<button type="submit" name="submituser" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center" value="{L_SUBMIT}">{L_SUBMIT}</button>
+		{S_FORM_TOKEN}
+	</div>
+
+</form>
+
+<!-- INCLUDE mcp_footer.html -->

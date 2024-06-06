@@ -1,0 +1,14 @@
+<div class="block w-full rounded-lg border-0 px-3 py-2">
+
+<!-- IF S_RECAPTCHA_AVAILABLE -->
+	<noscript>
+		<div>{L_RECAPTCHA_NOSCRIPT}</div>
+	</noscript>
+	{% INCLUDEJS RECAPTCHA_SERVER ~ '.js?onload=phpbbRecaptchaOnLoad&hl=' ~ lang('RECAPTCHA_LANG') %}
+
+	{# The g-recaptcha class is used in JavaScript #}
+		<div class="g-recaptcha" data-sitekey="{RECAPTCHA_PUBKEY}" data-callback="phpbbRecaptchaOnSubmit" data-size="invisible"></div>
+<!-- ELSE -->
+<span class="text-red-700">{L_RECAPTCHA_NOT_AVAILABLE}</span>
+<!-- ENDIF -->
+</div>

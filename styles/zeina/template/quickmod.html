@@ -1,0 +1,14 @@
+<div id="quickmod" class="quickmod zn-dropdown relative">
+	<button type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 card-sm link"  title="{L_QUICK_MOD}">
+		<i class="iconify p-px" data-mode="style" data-icon="ph:gavel" data-width="18" data-height="18" aria-hidden="true"></i>
+		<span class="sr-only">{L_QUICK_MOD}</span>
+	</button>
+	<div class="zn-dropdown-menu dropdown dropdown-start dropdown-bottom md:w-56">
+		<ul class="dropdown-content text-sm">
+      <!-- BEGIN quickmod -->
+				<!-- DEFINE $QUICKMOD_AJAX = (quickmod.VALUE in ['lock', 'unlock', 'delete_topic', 'restore_topic', 'make_normal', 'make_sticky', 'make_announce', 'make_global']) -->
+				<li><a href="{quickmod.LINK}" class="watch-topic-link relative flex overflow-hidden transition-all duration-300 dropdown-item gap-2"<!-- IF $QUICKMOD_AJAX --> data-ajax="true" data-refresh="true"<!-- ENDIF -->>{quickmod.TITLE}</a></li>
+			<!-- END quickmod -->
+		</ul>
+	</div>
+</div>

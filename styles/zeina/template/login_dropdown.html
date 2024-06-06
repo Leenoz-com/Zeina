@@ -1,0 +1,46 @@
+<div id="quick-login" class="zn-dropdown-menu dropdown dropdown-end md:w-96 max-md:max-w-[85%]">
+	<form class="dropdown-contents" method="post" action="{S_LOGIN_ACTION}">
+		<a class="dropdown-header block text-base font-medium md:p-3 p-2" href="{U_LOGIN_LOGOUT}">{L_LOGIN_LOGOUT}</a>
+		<div class="dropdown-content space-y-4 md:p-3 p-2">
+			<div>
+				<label for="username" class="block text-sm font-medium">{L_USERNAME}{L_COLON}</label>
+				<input type="text" id="username" name="username" size="10" class="inputbox mt-2" autocomplete="username">
+			</div>
+			<div>
+				<div class="flex items-center justify-between">
+					<label for="password" class="block text-sm font-medium">{L_PASSWORD}{L_COLON}</label>
+					<!-- IF U_SEND_PASSWORD -->
+					<a href="{U_SEND_PASSWORD}" class="text-sm font-medium text-color">{L_FORGOT_PASS}</a>
+					<!-- ENDIF -->
+				</div>
+				<div class="mt-2 relative">
+					<input type="password" id="password" name="password" size="10" autocomplete="current-password" class="inputbox">
+					<button type="button" title="{L_SHOW_PASSWORD}" aria-label="{L_SHOW_PASSWORD}" data-zn-password="#password" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
+						<span class="zn-password-active:block hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye" data-height="14" data-width="14"></i></span>
+						<span class="zn-password-active:hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye-slash" data-height="14" data-width="14"></i></span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="dropdown-footer md:p-3 p-2">
+
+			<!-- IF S_AUTOLOGIN_ENABLED -->
+			<div class="flex mb-4">
+				<input id="autologin" name="autologin" type="checkbox" class="checkbox-primary">
+				<label for="autologin" class="text-sm text-secondary ms-3">{L_LOG_ME_IN}</label>
+			</div>
+			<!-- ENDIF -->
+			{S_LOGIN_REDIRECT}
+			{S_FORM_TOKEN_LOGIN}
+
+			<button type="submit" name="login" class="btn-primary relative flex overflow-hidden transition-all duration-300 flex w-full justify-center" value="{L_LOGIN}">{L_LOGIN}</button>
+			
+			<!-- IF S_REGISTER_ENABLED -->
+				<p class="mt-4 text-center text-sm text-secondary">
+					{L_NOT_MEMBER}
+					<a href="{U_REGISTER}" class="font-medium text-color">{L_REGISTER}</a>
+				</p>
+			<!-- ENDIF -->
+		</div>
+	</form>
+</div>

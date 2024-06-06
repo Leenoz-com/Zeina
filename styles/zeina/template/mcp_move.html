@@ -1,0 +1,88 @@
+<!-- IF S_AJAX_REQUEST -->
+
+	<h3 class="leading-6">{MESSAGE_TITLE}</h3>
+	<p class="text-sm mt-1">{MESSAGE_TEXT}</p>
+
+	<div class="mt-4">
+		<!-- IF ADDITIONAL_MSG --><p class="mb-3 font-medium text-sm text-red-700">{ADDITIONAL_MSG}</p><!-- ENDIF -->
+
+		<div>
+			<div class="mb-4">
+				<label for="to_forum_id" class="block text-sm font-medium mb-2">{L_SELECT_DESTINATION_FORUM}{L_COLON}</label>
+				<select id="to_forum_id" name="to_forum_id" class="inpotbox">{S_FORUM_SELECT}</select>
+			</div>
+
+			<!-- IF S_CAN_LEAVE_SHADOW -->
+			<div class="flex items-center gap-2">
+				<input id="move_leave_shadow" class="checkbox-primary" type="checkbox" name="move_leave_shadow">
+				<label for="move_leave_shadow">{L_LEAVE_SHADOW}</label>
+			</div>
+			<!-- ENDIF -->
+
+			<!-- IF S_CAN_LOCK_TOPIC -->
+			<div class="flex items-center gap-2 mt-2">
+				<input id="move_lock_topics" class="checkbox-primary" type="checkbox" name="move_lock_topics">
+				<label for="move_lock_topics">{L_LOCK_TOPIC}</label>
+			</div>
+			<!-- ENDIF -->
+		</div>
+	</div>
+
+	<div class="mt-4 flex max-md:flex-col items-center justify-center gap-2 leading-[0] md:me-10">
+		<input type="button" name="confirm" value="{YES_VALUE}" class="btn-primary transition-all duration-300 flex items-center justify-center max-md:w-full">
+		<input type="button" name="cancel" value="{L_NO}" class="btn-primary-outline transition-all duration-300 flex items-center justify-center max-md:w-full">
+	</div>
+
+<!-- ELSE -->
+
+<!-- INCLUDE overall_header.html -->
+<!-- EVENT mcp_move_before -->
+
+<form id="confirm" action="{S_CONFIRM_ACTION}" method="post">
+	<div class="card">
+		<h2 class="card-title message-title">{MESSAGE_TITLE}</h2>
+		<div class="p-4">
+			<!-- IF ADDITIONAL_MSG --><p class="mb-4 font-medium text-sm text-red-700">{ADDITIONAL_MSG}</p><!-- ENDIF -->
+
+			<div>
+				{% EVENT mcp_move_destination_forum_before %}
+
+				<div class="mb-4">
+					<label for="to_forum_id" class="block text-sm font-medium mb-2">{L_SELECT_DESTINATION_FORUM}{L_COLON}</label>
+					<select id="to_forum_id" name="to_forum_id" class="inpotbox">{S_FORUM_SELECT}</select>
+				</div>
+
+				<!-- IF S_CAN_LEAVE_SHADOW -->
+				<div class="flex items-center gap-2">
+					<input id="move_leave_shadow" class="checkbox-primary" type="checkbox" name="move_leave_shadow">
+					<label for="move_leave_shadow">{L_LEAVE_SHADOW}</label>
+				</div>
+				<!-- ENDIF -->
+
+				<!-- IF S_CAN_LOCK_TOPIC -->
+				<div class="flex items-center gap-2 mt-2">
+					<input id="move_lock_topics" class="checkbox-primary" type="checkbox" name="move_lock_topics">
+					<label for="move_lock_topics">{L_LOCK_TOPIC}</label>
+				</div>
+				<!-- ENDIF -->
+
+				{% EVENT mcp_move_destination_forum_after %}
+			</div>
+
+			<div class="text-center mt-5 py-3 border-t">
+				<p>{MESSAGE_TEXT}</p>
+
+				<div class="flex max-md:flex-col items-center justify-center gap-2 mt-4">
+					{S_HIDDEN_FIELDS}
+					<button type="submit" name="confirm" value="{YES_VALUE}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full">{YES_VALUE}</button>
+					<button type="submit" name="cancel" value="{L_NO}" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full">{L_NO}</button>
+					{S_FORM_TOKEN}
+				</div>
+			</div>
+				
+		</div>
+	</div>
+</form>
+
+<!-- INCLUDE overall_footer.html -->
+<!-- ENDIF -->

@@ -1,0 +1,39 @@
+/* PM style */
+:root {
+  --pm-message-reported-colour: #BC2A4D;
+  --pm-marked-colour: #FF6600;
+  --pm-replied-colour: #A9B8C2;
+  --pm-friend-colour: #5D8FBD;
+  --pm-foe-colour: #000000;
+}
+#viewfolder tr {
+  position: relative;
+}
+#viewfolder tr::before {
+  content: "";
+  width: 2px;
+  display: inline-block;
+  position: absolute;
+  height: 100%;
+}
+.pm-legend::before {
+  content: "";
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 50%;
+}
+.pm_message_reported_colour::before {
+	background-color: var(--pm-message-reported-colour);
+}
+.pm_marked_colour::before {
+	background-color: var(--pm-marked-colour);
+}
+.pm_replied_colour::before {
+	background-color: var(--pm-replied-colour);
+}
+.pm_friend_colour::before {
+	background-color: var(--pm-friend-colour);
+}
+.pm_foe_colour::before {
+	background-color: var(--pm-foe-colour);
+}

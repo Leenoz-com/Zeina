@@ -1,0 +1,175 @@
+{% embed "overall_header.html" %}
+	{#-- Auth page without the default header --#}
+	{% block header %}{% endblock %}
+{% endembed %}
+
+<script>
+	/**
+	* Change language
+	*/
+	function change_language(lang_iso)
+	{
+		document.cookie = '{COOKIE_NAME}_lang=' + lang_iso + '; path={COOKIE_PATH}';
+		document.forms['register'].change_lang.value = lang_iso;
+		document.forms['register'].submit.click();
+	}
+</script>
+
+{% set S_REGISTER_FORM = 1 %}
+
+<div class="min-h-full">
+	<div id="return_to_index" class="inline-block">
+		<a href="{{ U_INDEX }}" class="flex items-center gap-1.5 relative flex overflow-hidden transition-all duration-300 rounded-lg p-2 py-3 hover:text-color hover:bg-primary/[0.08] font-medium text-sm">
+			<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i>
+			<span>{{ L_INDEX }}</span>
+		</a>
+	</div>
+
+	<div class="flex flex-col justify-center md:mt-6 mt-2 mb-4">
+		<div class="max-w-sm mx-auto w-full mb-9 text-center">
+			{% if zeina.logo_image_location %}
+				<img class="mx-auto logo" style="{{ zeina.logo_width ? 'width:' ~ zeina.logo_width ~ 'px;' }}{{ zeina.logo_height ? 'height:' ~ zeina.logo_height ~ 'px;' }}" src="{{ T_THEME_PATH ~ '/' ~ zeina.logo_image_location }}" alt="{SITENAME}">
+			{% endif %}
+
+			<h1 class="mt-5 text-2xl">{L_REGISTRATION}</h1>
+		</div>
+
+		<!-- IF PROVIDER_TEMPLATE_FILE -->
+			<!-- INCLUDE {PROVIDER_TEMPLATE_FILE} -->
+		<!-- ENDIF -->
+
+		<div class="max-w-sm mx-auto w-full">
+			<form id="register" class="space-y-4" action="{S_UCP_ACTION}" method="post"{S_FORM_ENCTYPE}>
+								
+				<!-- IF ERROR -->
+				<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
+					<div class="flex">
+						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:x-circle" data-width="18" data-height="18" aria-hidden="true"></i></div>
+						<div class="ms-4">{ERROR}</div>
+					</div>
+				</div>
+				<!-- ENDIF -->
+
+				<!-- IF L_REG_COND -->
+				<div class="bg-white border border-gray-200 text-sm text-secondary rounded-lg p-4" role="alert">
+					<div class="flex gap-2">
+						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="18" data-height="18" aria-hidden="true"></i></div>
+						<p>{L_REG_COND}</p>
+					</div>
+				</div>
+				<!-- ENDIF -->
+				
+				<!-- EVENT ucp_register_credentials_before -->
+				<div>
+					<div class="mb-1 flex items-center justify-between gap-1">
+						<label for="username" class="block text-sm font-medium">{L_USERNAME}{L_COLON}</label>
+						<button type="button" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 rounded-full p-2 text-secondary hover:text-color hover:bg-primary/[0.08]" data-zn-collapse="#zn-username-collapse">
+							<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+						</button>
+					</div>
+					<div id="zn-username-collapse" class="zn-collapse hidden w-full overflow-hidden" aria-labelledby="zn-username-collapse">
+						<p class="text-sm text-secondary pb-2">{L_USERNAME_EXPLAIN}</p>
+					</div>
+					<input type="text" name="username" id="username" size="25" value="{USERNAME}" autocomplete="off" class="inputbox bg-white" title="{L_USERNAME}">
+				</div>
+				<div>
+					<div class="mb-1 flex items-center justify-between gap-1">
+						<label for="new_password" class="block text-sm font-medium">{L_PASSWORD}{L_COLON}</label>
+						<button type="button" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 rounded-full p-2 text-secondary hover:text-color hover:bg-primary/[0.08]" data-zn-collapse="#zn-password-collapse">
+							<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+						</button>
+					</div>
+					<div id="zn-password-collapse" class="zn-collapse hidden w-full overflow-hidden" aria-labelledby="zn-password-collapse">
+						<p class="text-sm text-secondary pb-2">{L_PASSWORD_EXPLAIN}</p>
+					</div>
+					<div class="relative">
+						<input type="password" name="new_password" id="new_password" size="25" value="{PASSWORD}" class="inputbox bg-white" title="{L_NEW_PASSWORD}" autocomplete="off">
+						<button type="button" title="{L_SHOW_PASSWORD}" data-zn-password="#new_password" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
+  						<span class="zn-password-active:block hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye" data-height="14" data-width="14"></i></span>
+  						<span class="zn-password-active:hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye-slash" data-height="14" data-width="14"></i></span>
+							<span class="sr-only">{L_SHOW_PASSWORD}</span>
+						</button>
+					</div>
+				</div>
+				<div>
+					<label for="password_confirm" class="block text-sm font-medium mb-2">{L_CONFIRM_PASSWORD}{L_COLON}</label>
+					<div class="relative">
+						<input type="password" name="password_confirm" id="password_confirm" size="25" value="{PASSWORD_CONFIRM}" class="inputbox bg-white" title="{L_CONFIRM_PASSWORD}" autocomplete="off">
+						<button type="button" title="{L_SHOW_PASSWORD}" data-zn-password="#password_confirm" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
+  						<span class="zn-password-active:block hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye" data-height="14" data-width="14"></i></span>
+  						<span class="zn-password-active:hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye-slash" data-height="14" data-width="14"></i></span>
+							<span class="sr-only">{L_SHOW_PASSWORD}</span>
+						</button>
+					</div>
+				</div>
+				<div>
+					<label for="email" class="block text-sm font-medium mb-2">{L_EMAIL_ADDRESS}{L_COLON}</label>
+					<input type="email" name="email" id="email" size="25" maxlength="100" value="{EMAIL}" class="inputbox bg-white" title="{L_EMAIL_ADDRESS}" autocomplete="off">
+				</div>
+
+				<!-- EVENT ucp_register_credentials_after -->
+				<hr class="mb-4 mt-5 pt-2 border-0 border-b border-gray-200">
+				<!-- EVENT ucp_register_options_before -->
+				
+				{% if S_LANG_OPTIONS %}
+				<div>
+					<label for="lang" class="block text-sm font-medium mb-2">{L_LANGUAGE}{L_COLON}</label>
+					<select name="lang" id="lang" class="bg-white" onchange="change_language(this.value); return false;" title="{{ lang('LANGUAGE') }}">{{ S_LANG_OPTIONS }}</select>
+				</div>
+				{% endif %}
+				
+				<!-- INCLUDE timezone_option.html -->
+
+				<!-- EVENT ucp_register_profile_fields_before -->
+				{% if PROFILE_FIELDS_REQUIRED %}
+					<div class="block text-sm font-medium">{L_ITEMS_REQUIRED}</div>
+				{% endif %}
+
+				<!-- BEGIN profile_fields -->
+					<div>
+						<div class="mb-2">
+							<label <!-- IF profile_fields.FIELD_ID --> for="{profile_fields.FIELD_ID}"<!-- ENDIF --> class="block text-sm font-medium">{profile_fields.LANG_NAME}{L_COLON}<!-- IF profile_fields.S_REQUIRED --> *<!-- ENDIF --></label>
+							<!-- IF profile_fields.LANG_EXPLAIN --><div class="text-sm text-secondary">{profile_fields.LANG_EXPLAIN}</div><!-- ENDIF -->
+						</div>
+						<div class="register-input">{profile_fields.FIELD}</div>
+						<!-- IF profile_fields.ERROR --><div class="error text-sm text-red-700">{profile_fields.ERROR}</div><!-- ENDIF -->
+					</div>
+				<!-- END profile_fields -->
+
+				<!-- EVENT ucp_register_profile_fields_after -->
+
+				<!-- IF CAPTCHA_TEMPLATE -->
+					<div><!-- INCLUDE {CAPTCHA_TEMPLATE} --></div>
+				<!-- ENDIF -->
+
+				<!-- IF S_COPPA -->
+				<div class="bg-white border border-gray-200 text-sm rounded-lg p-4" role="alert">
+					<div class="flex gap-2">
+						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="18" data-height="18" aria-hidden="true"></i></div>
+						<div class="ms-4">
+            	<h5 class="message-title mb-1 text-current">{L_COPPA_COMPLIANCE}</h5>
+							<p class="text-secondary">{L_COPPA_EXPLAIN}</p>
+						</div>
+					</div>
+				</div>
+				<!-- ENDIF -->
+
+				<!-- EVENT ucp_register_buttons_before -->
+				<div>
+					{S_HIDDEN_FIELDS}
+					<button type="submit" name="submit" id="submit" class="default-submit-action relative flex overflow-hidden transition-all duration-300 btn-primary flex w-full justify-center" value="{L_SUBMIT}">{L_SUBMIT}</button>
+					{S_FORM_TOKEN}
+				</div>
+			</form>
+			<p class="text-center text-sm text-secondary mt-8">
+				{L_IS_MEMBER}
+				<a href="{U_LOGIN_LOGOUT}" class="font-medium text-color">{L_LOGIN_LOGOUT}</a>
+			</p>
+		</div>
+	</div>
+</div>
+
+{% embed "overall_footer.html" %}
+	{#-- Auth page without the default footer --#}
+	{% block footer %}{% endblock %}
+{% endembed %}

@@ -1,0 +1,92 @@
+<div class="fields1 space-y-4 divide-y">
+	<!-- IF not S_SHOW_DRAFTS -->
+		<div class="grid md:grid-cols-2 gap-5">
+			<!-- IF S_ALLOW_MASS_PM -->
+			<div class="column1">
+				<!-- IF not S_EDIT_POST -->
+				<dl class="pmlist">
+					<dt><label for="username_list" class="text-sm font-medium leading-6">{L_TO_ADD_MASS}{L_COLON}</label></dt>
+					<dd class="mt-2">
+						<textarea id="username_list" name="username_list" class="inputbox w-full" cols="50" rows="2"></textarea>
+						<div class="recipients md:flex items-center justify-between gap-2 mt-2">
+							<div class="flex items-center gap-2">
+								<button type="submit" name="add_to" value="{L_ADD}" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center text-nowrap">{L_ADD}</button>
+								<button type="submit" name="add_bcc" value="{L_ADD_BCC}" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center text-nowrap">{L_ADD_BCC}</button>
+							</div>
+							<div>
+								<!-- EVENT posting_pm_header_find_username_before -->
+								<a class="block font-medium text-sm max-md:py-1 max-md:mt-2" href="{U_FIND_USERNAME}" onclick="find_username(this.href); return false;">{L_FIND_USERNAME}</a>
+								<!-- EVENT posting_pm_header_find_username_after -->
+							</div>
+						</div>
+					</dd>
+				</dl>
+				<!-- ENDIF -->
+			</div>
+			<!-- ELSE -->
+			<div class="column1">
+				<dl>
+					<dt><label for="username_list" class="text-sm font-medium leading-6">{L_TO_ADD}{L_COLON}</label></dt>
+					<dd class="mt-2">
+						<!-- IF not S_EDIT_POST -->
+							<input class="inputbox w-full" type="text" name="username_list" id="username_list" size="20" value="">
+							<div class="mt-2 flex items-center justify-between">
+								<button type="submit" name="add_to" value="{L_ADD}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center">{L_ADD}</button>
+								<a class="block font-medium text-sm" href="{U_FIND_USERNAME}" onclick="find_username(this.href); return false">{L_FIND_USERNAME}</a>
+							</div>
+						<!-- ENDIF -->
+					</dd>
+				</dl>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF S_GROUP_OPTIONS -->
+				<div class="column2">
+					<dl>
+						<dt><label for="group_list" class="text-sm font-medium leading-6">{L_TO_ADD_GROUPS}{L_COLON}</label></dt>
+						<dd class="mt-2">
+							<select name="group_list[]" id="group_list" multiple="multiple" size="3" class="inputbox">{S_GROUP_OPTIONS}</select>
+						</dd>
+					</dl>
+				</div>
+			<!-- ENDIF -->
+		</div>
+		
+		<!-- IF .to_recipient or .bcc_recipient --><div class="pt-2 flex max-md:flex-col gap-4 gap-y-2"><!-- ENDIF -->
+			<!-- IF .to_recipient -->
+			<div class="column1">
+				<dl>
+					<dt><label class="text-sm font-medium leading-6">{L_TO_MASS}{L_COLON}</label></dt>
+					<dd class="recipients mt-1">
+						<ul class="recipients grid gap-1">
+							<!-- BEGIN to_recipient -->
+							<li class="card-sm p-0 gap-0">
+								<!-- IF not S_EDIT_POST --><button type="submit" name="remove_{to_recipient.TYPE}[{to_recipient.UG_ID}]" value="x" class="relative flex overflow-hidden transition-all duration-300 rounded-full text-secondary font-medium p-2"><i class="iconify" data-mode="style" data-icon="mdi:close" data-height="16" data-width="16" aria-hidden="true"></i></button><!-- ENDIF -->
+								<span class="pe-2"><!-- IF to_recipient.IS_GROUP --><a class="font-semibold" href="{to_recipient.U_VIEW}" style="color: {{ to_recipient.COLOUR }}">{to_recipient.NAME}</a><!-- ELSE -->{to_recipient.NAME_FULL}<!-- ENDIF --></span>
+							</li>
+							<!-- END to_recipient -->
+						</ul>
+					</dd>
+				</dl>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF .bcc_recipient -->
+			<div class="column2">
+				<dl>
+					<dt><label class="text-sm font-medium leading-6">{L_BCC}{L_COLON}</label></dt>
+					<dd class="recipients mt-1">
+						<ul class="recipients grid gap-1">
+							<!-- BEGIN bcc_recipient -->
+							<li class="card-sm p-0 gap-0">
+								<!-- IF not S_EDIT_POST --><button type="submit" name="remove_{bcc_recipient.TYPE}[{bcc_recipient.UG_ID}]" value="x" class="relative flex overflow-hidden transition-all duration-300 rounded-full text-secondary font-medium p-2"><i class="iconify" data-mode="style" data-icon="mdi:close" data-height="16" data-width="16" aria-hidden="true"></i></button> <!-- ENDIF -->
+								<span class="pe-2"><!-- IF bcc_recipient.IS_GROUP --><a class="font-semibold" href="{bcc_recipient.U_VIEW}" style="color: {{ bcc_recipient.COLOUR }}">{bcc_recipient.NAME}</a><!-- ELSE -->{bcc_recipient.NAME_FULL}<!-- ENDIF --></span>
+							</li>
+							<!-- END bcc_recipient -->
+						</ul>
+					</dd>
+				</dl>
+			</div>
+			<!-- ENDIF -->
+		<!-- IF .to_recipient or .bcc_recipient --></div><!-- ENDIF -->
+
+	<!-- ENDIF -->
+	</div>

@@ -1,0 +1,223 @@
+<!-- IF S_IN_SEARCH_POPUP -->
+	<!-- INCLUDE simple_header.html -->
+	<!-- INCLUDE memberlist_search.html -->
+	<form method="post" id="results" action="{S_MODE_ACTION}" onsubmit="insert_marked_users('#results', this.user); return false;" data-form-name="{S_FORM_NAME}" data-field-name="{S_FIELD_NAME}">
+
+<!-- ELSE -->
+	{% embed "overall_header.html" %}
+		{% block header_content %}
+			<!-- IF S_SHOW_GROUP -->
+				{% EVENT memberlist_body_group_name_before %}
+				<h1 class="text-slate-50 md:text-2xl text-xl">{GROUP_NAME}</h1>
+				{% EVENT memberlist_body_group_name_after %}  
+				<div class="text-slate-200 md:mt-1 group-description">{GROUP_DESC} {GROUP_TYPE}</div>
+				{% EVENT memberlist_body_group_desc_after %}
+			<!-- ELSE -->
+				{% EVENT memberlist_body_page_title_before %}
+				<h1 class="text-slate-50 md:text-2xl text-xl">{PAGE_TITLE}<!-- IF SEARCH_WORDS -->{L_COLON} <a href="{U_SEARCH_WORDS}">{SEARCH_WORDS}</a><!-- ENDIF --></h1>
+			<!-- ENDIF -->
+		{% endblock %}
+	{% endembed %}
+
+	<div id="memberlist_search"<!-- IF not S_SEARCH_USER --> style="display: none;"<!-- ENDIF -->>
+	<!-- INCLUDE memberlist_search.html -->
+	</div>
+	<form method="post" action="{S_MODE_ACTION}">
+<!-- ENDIF -->
+
+{% EVENT memberlist_body_page_header_after %}
+
+	<!-- IF S_SHOW_GROUP -->
+		<div class="flex items-center justify-between">
+			<div class="flex items-center gap-4">
+				<div>
+					<h2 class="group-title text-gray-800/95 leading-relaxed text-lg"<!-- IF GROUP_COLOR --> style="color:#{GROUP_COLOR};"<!-- ENDIF -->>{GROUP_NAME}</h2>
+					<div class="text-sm text-secondary">{% if GROUP_RANK %}{{ lang('GROUP_RANK') ~ lang('COLON') }} {{ GROUP_RANK }}{% endif %}</div>
+				</div>
+				<p>
+					<!-- IF AVATAR_IMG -->{AVATAR_IMG}<!-- ENDIF -->
+					{% EVENT memberlist_body_group_rank_before %}
+					{% if RANK_IMG %}<div class="flex justify-center">{{ RANK_IMG }}</div>{% endif %}
+					{% EVENT memberlist_body_group_rank_after %}
+				</p>
+			</div>
+		<!-- IF U_MANAGE --><a class="text-sm text-secondary" href="{U_MANAGE}">{L_MANAGE_GROUP}</a><!-- ENDIF -->
+		</div>
+	<!-- ELSE -->
+
+		<div class="action-bar bar-top my-3">
+			<div class="member-search flex flex-wrap items-center gap-1">
+				<!-- IF U_FIND_MEMBER and not S_SEARCH_USER --><a href="{U_FIND_MEMBER}" class="card-sm relative flex overflow-hidden transition-all duration-300" id="member_search" data-alt-text="{L_HIDE_MEMBER_SEARCH}">{L_FIND_USERNAME}</a><!-- ELSEIF S_SEARCH_USER and U_HIDE_FIND_MEMBER and not S_IN_SEARCH_POPUP --><a href="{U_HIDE_FIND_MEMBER}" class="card-sm relative flex overflow-hidden transition-all duration-300" id="member_search" data-alt-text="{L_FIND_USERNAME}">{L_HIDE_MEMBER_SEARCH}</a><!-- ENDIF -->
+				<!-- BEGIN first_char -->
+					<a href="{first_char.U_SORT}" class="card-sm min-w-10 justify-center relative flex overflow-hidden transition-all duration-300">{first_char.DESC}</a>
+				<!-- END first_char -->
+			</div>
+		</div>
+	<!-- ENDIF -->
+
+	<!-- IF S_LEADERS_SET or not S_SHOW_GROUP or not .memberrow -->
+	<div class="mt-3">
+		<div class="overflow-auto">
+			<div class="min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
+					<table id="memberlist" class="memberlist min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase text-nowrap"><a href="{U_SORT_USERNAME}"><!-- IF S_SHOW_GROUP and .memberrow -->{L_GROUP_LEADER}<!-- ELSE -->{L_USERNAME}<!-- ENDIF --></a></th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase"><a href="{U_SORT_RANK}">{L_RANK}</a></th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase"><a href="{U_SORT_POSTS}#memberlist">{L_POSTS}</a></th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><!-- BEGIN custom_fields --><!-- IF not custom_fields.S_FIRST_ROW -->{L_COMMA_SEPARATOR} <!-- ENDIF -->{custom_fields.PROFILE_FIELD_NAME}<!-- END custom_fields --></th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><a href="{U_SORT_JOINED}#memberlist">{L_JOINED}</a></th>
+								<!-- IF U_SORT_ACTIVE --><th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><a href="{U_SORT_ACTIVE}#memberlist">{L_LAST_ACTIVE}</a></th><!-- ENDIF -->
+								{% EVENT memberlist_body_memberlist_after %}
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+	<!-- ENDIF -->
+		<!-- BEGIN memberrow -->
+			<!-- IF S_SHOW_GROUP -->
+				<!-- IF not memberrow.S_GROUP_LEADER and not $S_MEMBER_HEADER -->
+					<!-- IF S_LEADERS_SET and memberrow.S_FIRST_ROW -->
+							<tr class="bg1 text-sm">
+								<td class="p-3" colspan="<!-- IF U_SORT_ACTIVE -->6<!-- ELSE -->5<!-- ENDIF -->">&nbsp;</td>
+							</tr>
+					<!-- ENDIF -->
+	<!-- IF S_LEADERS_SET -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ENDIF -->
+	<div class="mt-3">
+		<div class="overflow-auto">
+			<div class="min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
+					<table id="memberlist" class="memberlist min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+							<!-- IF not S_LEADERS_SET -->
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase text-nowrap"><a href="{U_SORT_USERNAME}"><!-- IF S_SHOW_GROUP -->{L_GROUP_MEMBERS}<!-- ELSE -->{L_USERNAME}<!-- ENDIF --></a></th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase"><a href="{U_SORT_RANK}">{L_RANK}</a></th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase">{L_POSTS}</th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{% for field in custom_fields %}{% if not loop.first %}{L_COMMA_SEPARATOR} {% endif %}{{ field.PROFILE_FIELD_NAME }}{% endfor %}</th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><a href="{U_SORT_JOINED}#memberlist">{L_JOINED}</a></th>
+								<!-- IF U_SORT_ACTIVE --><th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><a href="{U_SORT_ACTIVE}#memberlist">{L_LAST_ACTIVE}</a></th><!-- ENDIF -->
+								{% EVENT memberlist_body_leaders_set_after %}
+							<!-- ELSEIF S_SHOW_GROUP -->
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase text-nowrap">{L_GROUP_MEMBERS}</th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase">{L_POSTS}</th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><!-- BEGIN custom_fields --><!-- IF not custom_fields.S_FIRST_ROW -->{L_COMMA_SEPARATOR} <!-- ENDIF -->{custom_fields.PROFILE_FIELD_NAME}<!-- END custom_fields --></th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_JOINED}</th>
+								<!-- IF U_SORT_ACTIVE --><th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_LAST_ACTIVE}</th><!-- ENDIF -->
+								{% EVENT memberlist_body_show_group_after %}
+							<!-- ENDIF -->
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+					<!-- DEFINE $S_MEMBER_HEADER = 1 -->
+				<!-- ENDIF -->
+			<!-- ENDIF -->
+
+							<tr class="text-sm divide-y <!-- IF memberrow.S_ROW_COUNT is odd -->max-lg:bg-gray-50 bg1<!-- ELSE -->bg2<!-- ENDIF --><!-- IF memberrow.S_INACTIVE --> inactive<!-- ENDIF -->">
+								<td class="p-3 text-nowrap">
+									<dfn>
+										<!-- IF S_LEADERS_SET or not S_SHOW_GROUP or not .memberrow --><!-- IF S_SHOW_GROUP and .memberrow -->{L_GROUP_LEADER}<!-- ELSE -->{L_USERNAME}<!-- ENDIF -->
+										<!-- ELSEIF not S_LEADERS_SET --><!-- IF S_SHOW_GROUP -->{L_GROUP_MEMBERS}<!-- ELSE -->{L_USERNAME}<!-- ENDIF -->
+										<!-- ELSEIF S_SHOW_GROUP -->{L_GROUP_MEMBERS}
+										<!-- ELSE -->{L_USERNAME}<!-- ENDIF -->{L_COLON}
+									</dfn>
+									<!-- IF S_IN_SEARCH_POPUP and not S_SELECT_SINGLE --><input class="checkbox-primary" type="checkbox" name="user" value="{memberrow.USERNAME}"> <!-- ENDIF --><!-- EVENT memberlist_body_username_prepend -->{memberrow.USERNAME_FULL}<!-- IF memberrow.S_INACTIVE --> ({L_INACTIVE})<!-- ENDIF --><!-- EVENT memberlist_body_username_append --><!-- IF S_IN_SEARCH_POPUP --><br>[&nbsp;<a href="#" onclick="insert_single_user('#results', '{memberrow.A_USERNAME}'); return false;">{L_SELECT}</a>&nbsp;]<!-- ENDIF -->
+								</td>
+								<!-- IF (S_LEADERS_SET or not S_SHOW_GROUP or not .memberrow) or (S_SHOW_GROUP and not memberrow.S_GROUP_LEADER and not $S_MEMBER_HEADER and not S_LEADERS_SET) -->
+								<td class="p-3"><dfn>{L_RANK}{L_COLON}</dfn> <span class="rank-img lg:flex lg:justify-center"><!-- EVENT memberlist_body_rank_prepend --><!-- IF memberrow.RANK_IMG -->{memberrow.RANK_IMG}<!-- ELSE -->{memberrow.RANK_TITLE}<!-- ENDIF --><!-- EVENT memberlist_body_rank_append --></span></td>
+								<!-- ENDIF -->
+								<td class="posts lg:text-center p-3 text-nowrap"><dfn>{L_POSTS}{L_COLON}</dfn> <!-- IF memberrow.POSTS and S_DISPLAY_SEARCH --><a href="{memberrow.U_SEARCH_USER}" title="{L_SEARCH_USER_POSTS}">{memberrow.POSTS}</a><!-- ELSE -->{memberrow.POSTS}<!-- ENDIF --></td>
+								<td class="info p-3">
+									<dfn>{% for field in custom_fields %}{% if not loop.first %}{L_COMMA_SEPARATOR} {% endif %}{{ field.PROFILE_FIELD_NAME }}{% endfor %}{L_COLON}</dfn>
+									{%- for field in memberrow.custom_fields -%}
+										<div>{% if field.S_PROFILE_CONTACT %}<a href="{{ field.PROFILE_FIELD_CONTACT }}">{% endif %}{{ field.PROFILE_FIELD_VALUE }}{% if field.S_PROFILE_CONTACT %}</a>{% endif %}</div>
+									{%- else -%}
+										&nbsp;
+									{%- endfor -%}
+								</td>
+								<td class="p-3 text-nowrap"><dfn>{L_JOINED}{L_COLON}</dfn>{memberrow.JOINED}</td>
+								<!-- IF S_VIEWONLINE --><td class="p-3 text-nowrap"><dfn>{L_LAST_ACTIVE}</dfn>{memberrow.LAST_ACTIVE}&nbsp;</td><!-- ENDIF -->
+								{% EVENT memberlist_body_memberrow_after %}
+							</tr>
+							<!-- BEGINELSE -->
+							<tr class="bg1 text-sm">
+								<td class="p-3" colspan="<!-- IF S_VIEWONLINE -->6<!-- ELSE -->5<!-- ENDIF -->">{L_NO_MEMBERS}</td>
+							</tr>
+							<!-- END memberrow -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- IF S_IN_SEARCH_POPUP and not S_SELECT_SINGLE -->
+	<div class="display-actions mt-3">
+		<div class="flex max-md:w-full justify-end"><button type="submit" name="submit" value="{L_SELECT_MARKED}" class="btn-primary max-md:w-full relative flex overflow-hidden transition-all duration-300 justify-center">{L_SELECT_MARKED}</button></div>
+		<div class="flex w-full items-center justify-end mt-3 gap-2">
+			<a class="btn-primary-outline max-md:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('results', 'user', true); return false;">{L_MARK_ALL}</a>
+			<a class="btn-primary-outline max-md:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('results', 'user', false); return false;">{L_UNMARK_ALL}</a>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF S_IN_SEARCH_POPUP -->
+</form>
+	<!-- IF not S_SEARCH_USER -->
+		<div class="flex max-md:flex-col md:items-center justify-between mt-3 gap-2">
+	<!-- ENDIF -->
+<form method="post" id="sort-results" action="{S_MODE_ACTION}">
+<!-- ENDIF -->
+	<!-- IF S_IN_SEARCH_POPUP and not S_SEARCH_USER -->
+	<div id="sort-tools" class="sort-tools zn-dropdown relative">
+		<button id="zn-dropdown-sort" type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 card-sm link"  title="{L_SORT_OPTIONS}">
+			<i class="iconify p-px" data-mode="style" data-icon="ph:sort-ascending-bold" data-width="18" data-height="18" aria-hidden="true"></i>
+			<span class="sr-only">{L_SORT_OPTIONS}</span>
+		</button>
+		<div class="zn-dropdown-menu dropdown dropdown-start dropdown-bottom md:w-56">
+			<div class="dropdown-content grid gap-2 p-2">
+				<div>
+					<label for="sk" class="block text-sm font-medium mb-2">{L_SELECT_SORT_METHOD}{L_COLON}</label>
+					<select name="sk" id="sk">{S_MODE_SELECT}</select>
+				</div>
+				<div>
+					<label for="sd" class="block text-sm font-medium mb-2">{L_ORDER}{L_COLON}</label>
+					<select name="sd" id="sd">{S_ORDER_SELECT}</select>
+				</div>
+			</div>
+			<div class="dropdown-footer p-2">
+				<button type="submit" class="btn-primary relative flex overflow-hidden transition-all duration-300 w-full justify-center" name="sort" value="{L_SUBMIT}">{L_SUBMIT}</button>
+			</div>
+		</div>
+	</div>
+	<!-- ENDIF -->
+</form>
+
+<div class="action-bar bar-bottom <!-- IF S_IN_SEARCH_POPUP and not S_SEARCH_USER --> mt-0 <!-- ELSE --> mt-3 <!-- ENDIF -->">
+	<div class="pagination flex justify-end gap-1">
+		<!-- IF .pagination -->
+		{% include 'pagination.html' with {'TOTAL': TOTAL_USERS} %}
+		<!-- ELSE -->
+		<div class="card-sm">{TOTAL_USERS} &bull; {PAGE_NUMBER}</div>
+		<!-- ENDIF -->
+	</div>
+</div>
+<!-- IF S_IN_SEARCH_POPUP and not S_SEARCH_USER -->
+	</div>
+<!-- ENDIF -->
+
+{% EVENT memberlist_body_page_footer_before %}
+
+<!-- IF S_IN_SEARCH_POPUP -->
+	<!-- INCLUDE simple_footer.html -->
+<!-- ELSE -->
+	<!-- INCLUDE jumpbox.html -->
+	<!-- INCLUDE overall_footer.html -->
+<!-- ENDIF -->

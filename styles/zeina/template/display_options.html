@@ -1,0 +1,40 @@
+<div id="sort-tools" class="sort-tools zn-dropdown relative">
+	<button id="zn-dropdown-sort" type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 card-sm link"  title="{L_SORT_OPTIONS}">
+		<i class="iconify p-px" data-mode="style" data-icon="ph:sort-ascending-bold" data-width="18" data-height="18" aria-hidden="true"></i>
+		<span class="sr-only">{L_SORT_OPTIONS}</span>
+	</button>
+	<div class="zn-dropdown-menu dropdown dropdown-start dropdown-bottom md:w-56">
+		<div class="dropdown-content grid gap-2 p-2">
+			<!-- IF S_SORT_OPTIONS -->
+			<div>
+				<label for="sk" class="block text-sm font-medium mb-2">{L_SORT_BY}{L_COLON}</label>
+				<select name="sk" id="sk">{S_SORT_OPTIONS}</select>
+			</div>
+			<div>
+				<label for="sd" class="block text-sm font-medium mb-2">{L_SORT_DIRECTION}{L_COLON}</label>
+				<select name="sd" id="sd">{S_ORDER_SELECT}</select>
+			</div>
+			<!-- ELSE -->
+			<div>
+				<label for="st" class="block text-sm font-medium mb-2">{L_DISPLAY}{L_COLON}</label>
+				{S_SELECT_SORT_DAYS}
+			</div>
+				<!-- IF S_SELECT_SORT_KEY -->
+				<div>
+					<label for="sk" class="block text-sm font-medium mb-2">{L_SORT_BY}{L_COLON}</label>
+					{S_SELECT_SORT_KEY}
+				</div>
+				<div>
+					<label for="sd" class="block text-sm font-medium mb-2">{L_SORT_DIRECTION}{L_COLON}</label>
+					{S_SELECT_SORT_DIR}
+				</div>
+				<!-- ENDIF -->
+			<!-- ENDIF -->
+		</div>
+		<div class="dropdown-footer p-2">
+			<button type="submit" class="btn-primary relative flex overflow-hidden transition-all duration-300 w-full justify-center" name="sort" value="<!-- IF S_SORT_OPTIONS -->{L_SORT}<!-- ELSE -->{L_GO}<!-- ENDIF -->">
+			<!-- IF S_SORT_OPTIONS -->{L_SORT}<!-- ELSE -->{L_GO}<!-- ENDIF -->
+			</button>
+		</div>
+	</div>
+</div>

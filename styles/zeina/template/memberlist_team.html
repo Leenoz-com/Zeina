@@ -1,0 +1,55 @@
+{% embed "overall_header.html" %}
+	{% block header_content %}
+		<h1 class="text-slate-50 md:text-2xl text-xl">{PAGE_TITLE}</h1>
+	{% endblock %}
+{% endembed %}
+
+<form method="post" action="{S_MODE_ACTION}">
+
+<!-- BEGIN group -->
+	<div class="my-4">
+		<h2 class="font-medium leading-6 mb-3 lg:hidden">{group.GROUP_NAME}</h2>
+		<div class="-m-1.5 overflow-auto">
+			<div class="p-1.5 min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
+					<table class="min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><!-- IF group.U_GROUP --><a href="{group.U_GROUP}">{group.GROUP_NAME}</a><!-- ELSE -->{group.GROUP_NAME}<!-- ENDIF --></th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase w-[25%]">{L_RANK}</th>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase w-[25%]">{L_PRIMARY_GROUP}</th>
+								<!-- IF S_DISPLAY_MODERATOR_FORUMS --><th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase w-[25%]">{L_MODERATOR}</th><!-- ENDIF -->
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+						<!-- BEGIN user -->
+							<tr class="text-sm divide-y <!-- IF group.user.S_ROW_COUNT is odd -->max-lg:bg-gray-50 bg1<!-- ELSE -->bg2<!-- ENDIF --><!-- IF group.user.S_INACTIVE --> inactive<!-- ENDIF -->">
+								<td class="p-3"><dfn>{L_USERNAME}{L_COLON}</dfn><!-- EVENT memberlist_team_username_prepend -->{group.user.USERNAME_FULL}<!-- IF group.user.S_INACTIVE --> ({L_INACTIVE})<!-- ENDIF --><!-- EVENT memberlist_team_username_append --></td>
+								<td class="p-3"><dfn>{L_RANK}{L_COLON}</dfn><!-- IF group.user.RANK_IMG --><span class="rank-img lg:flex lg:justify-center">{group.user.RANK_IMG}</span><!-- ELSE --><span class="rank-img lg:flex lg:justify-center text-secondary">{group.user.RANK_TITLE}</span><!-- ENDIF --></td>
+								<td class="p-3"><dfn>{L_PRIMARY_GROUP}{L_COLON}</dfn><!-- IF group.user.U_GROUP -->
+									<a<!-- IF group.user.GROUP_COLOR --> style="font-weight: bold; color: #{group.user.GROUP_COLOR}"<!-- ENDIF --> href="{group.user.U_GROUP}">{group.user.GROUP_NAME}</a>
+									<!-- ELSE -->
+										{group.user.GROUP_NAME}
+									<!-- ENDIF -->
+								</td>
+								<!-- IF S_DISPLAY_MODERATOR_FORUMS -->
+								<td class="p-3"><dfn>{L_MODERATOR}{L_COLON}</dfn><!-- IF group.user.FORUM_OPTIONS --><select style="width: 100%;">{group.user.FORUMS}</select><!-- ELSEIF group.user.FORUMS --><span class="text-secondary">{group.user.FORUMS}</span><!-- ELSE -->-<!-- ENDIF --></td>
+								<!-- ENDIF -->
+							</tr>
+						<!-- BEGINELSE -->
+							<tr class="bg1 text-sm">
+								<td class="p-3" colspan="<!-- IF S_DISPLAY_MODERATOR_FORUMS -->4<!-- ELSE -->3<!-- ENDIF -->">{L_NO_MEMBERS}</td>
+							</tr>
+						<!-- END user -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- END group -->
+
+</form>
+
+<!-- INCLUDE jumpbox.html -->
+<!-- INCLUDE overall_footer.html -->

@@ -1,0 +1,56 @@
+{% embed "overall_header.html" %}
+	{% block header_content %}
+		<h1 class="text-slate-50 md:text-2xl text-xl">{L_BUTTON_REPORT}</h1>
+	{% endblock %}
+{% endembed %}
+
+<form method="post" action="{S_REPORT_ACTION}" id="report">
+	<!-- IF ERROR -->
+	<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
+		<p class="error">{ERROR}</p>
+	</div>
+	<!-- ENDIF -->
+
+	<div class="card mt-4">
+		<div class="card-title"><h2><!-- IF S_REPORT_POST -->{L_REPORT_POST}<!-- ELSE -->{L_REPORT_MESSAGE}<!-- ENDIF --></h2></div>
+		<div class="p-4">
+			<p class="text-sm text-secondary my-4"><!-- IF S_REPORT_POST -->{L_REPORT_POST_EXPLAIN}<!-- ELSE -->{L_REPORT_MESSAGE_EXPLAIN}<!-- ENDIF --></p>
+			<div class="divide-y">
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6"><label for="reason_id">{L_REASON}{L_COLON}</label></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+						<select name="reason_id" id="reason_id"><!-- BEGIN reason --><option value="{reason.ID}"<!-- IF reason.S_SELECTED --> selected="selected"<!-- ENDIF -->>{reason.DESCRIPTION}</option><!-- END reason --></select>
+					</dd>
+				</dl>
+				<!-- IF S_CAN_NOTIFY -->
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm"><label for="notify1" class="font-medium leading-6">{L_REPORT_NOTIFY}{L_COLON}</label><br><span class="text-secondary">{L_REPORT_NOTIFY_EXPLAIN}</span></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+						<div class="flex max-md:flex-col max-md:w-full">
+							<label for="notify1" class="radio-label"><input class="radio-primary" type="radio" name="notify" id="notify1" value="1" <!-- IF not S_NOTIFY -->checked="checked"<!-- ENDIF -->> {L_YES}</label>
+							<label for="notify0" class="radio-label"><input class="radio-primary" type="radio" name="notify" id="notify0" value="0" <!-- IF S_NOTIFY -->checked="checked"<!-- ENDIF -->> {L_NO}</label>
+						</div>
+					</dd>
+				</dl>
+				<!-- ENDIF -->
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
+					<dt class="text-sm"><label for="report_text" class="font-medium leading-6">{L_MORE_INFO}{L_COLON}</label><br><span class="text-secondary">{L_CAN_LEAVE_BLANK}</span></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+						<textarea name="report_text" id="report_text" rows="10" cols="76" class="inputbox">{REPORT_TEXT}</textarea>
+					</dd>
+				</dl>
+				<!-- IF CAPTCHA_TEMPLATE -->
+					<dl class="py-4"><!-- INCLUDE {CAPTCHA_TEMPLATE} --></dl>
+				<!-- ENDIF -->
+			</div>
+			<div class="flex max-md:flex-col items-center justify-center gap-2 my-4">
+				<button type="submit" name="submit" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full" value="{L_SUBMIT}">{L_SUBMIT}</button>
+				<button type="submit" name="cancel" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full" value="{L_CANCEL}">{L_CANCEL}</button>
+				{S_FORM_TOKEN}
+			</div>
+		</div>
+	</div>
+
+</form>
+
+<!-- INCLUDE overall_footer.html -->

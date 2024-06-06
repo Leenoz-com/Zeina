@@ -1,0 +1,104 @@
+{% embed "overall_header.html" %}
+	{% block header_content %}
+		<h1 class="text-slate-50 md:text-2xl text-xl"><!-- IF S_CONTACT_ADMIN-->{L_CONTACT_ADMIN}<!-- ELSEIF S_SEND_USER -->{L_SEND_EMAIL_USER}<!-- ELSE -->{L_EMAIL_TOPIC}<!-- ENDIF --></h1>
+	{% endblock %}
+{% endembed %}
+
+<!-- EVENT memberlist_email_before -->
+<form method="post" action="{S_POST_ACTION}" id="post">
+
+	<!-- IF ERROR_MESSAGE -->
+	<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
+		<div class="flex">
+			<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:x-circle" data-width="18" data-height="18" aria-hidden="true"></i></div>
+			<div class="ms-4">{ERROR_MESSAGE}</div>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF CONTACT_INFO -->
+	<div class="card mt-4">
+		<div class="p-4 text-sm">{CONTACT_INFO}</div>
+	</div>
+	<!-- ENDIF -->
+
+	<div class="card mt-4">
+		<div class="card-title"><h2>{L_CONTACT}</h2></div>
+		<div class="px-4">
+			<div class="divide-y">
+				<!-- IF S_SEND_USER -->
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6">{L_RECIPIENT}{L_COLON}</dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2 font-semibold">{USERNAME_FULL}</dd>
+				</dl>
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6"><label for="subject">{L_SUBJECT}{L_COLON}</label></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+						<input class="inputbox" type="text" name="subject" id="subject" size="50" tabindex="1" value="{SUBJECT}">
+					</dd>
+				</dl>
+				<!-- ELSEIF S_CONTACT_ADMIN-->
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6">{L_RECIPIENT}{L_COLON}</dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2 font-semibold">{L_ADMINISTRATOR}</dd>
+				</dl>
+				<!-- IF not S_IS_REGISTERED -->
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6"><label for="email">{L_SENDER_EMAIL_ADDRESS}{L_COLON}</label></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+						<input class="inputbox" type="text" name="email" id="email" size="50" maxlength="100" tabindex="1" value="{EMAIL}">
+					</dd>
+				</dl>
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6"><label for="email">{L_SENDER_NAME}{L_COLON}</label></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+						<input class="inputbox" type="text" name="name" id="name" size="50" value="{NAME}">
+					</dd>
+				</dl>
+				<!-- ENDIF -->
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6"><label for="subject">{L_SUBJECT}{L_COLON}</label></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+						<input class="inputbox" type="text" name="subject" id="subject" size="50" tabindex="3" value="{SUBJECT}">
+					</dd>
+				</dl>
+				<!-- ELSE -->
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6"><label for="email">{L_EMAIL_ADDRESS}{L_COLON}</label></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+				 		<input class="inputbox autowidth" type="email" name="email" id="email" size="50" maxlength="100" value="{EMAIL}">
+					</dd>
+				</dl>
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm font-medium leading-6"><label for="name">{L_REAL_NAME}{L_COLON}</label></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+						<input class="inputbox autowidth" type="text" name="name" id="name" size="50" tabindex="3" value="{NAME}">
+					</dd>
+				</dl>
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+					<dt class="text-sm"><label for="lang" class="font-medium leading-6">{L_DEST_LANG}{L_COLON}</label><br><span class="text-secondary">{L_DEST_LANG_EXPLAIN}</span></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+						<select class="inputbox" name="lang" id="lang">{S_LANG_OPTIONS}</select>
+					</dd>
+				</dl>
+				<!-- ENDIF -->
+				<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
+					<dt class="text-sm"><label for="message" class="font-medium leading-6">{L_MESSAGE_BODY}{L_COLON}</label><br><span class="text-secondary">{L_EMAIL_BODY_EXPLAIN}</span></dt>
+					<dd class="text-sm md:col-span-2 max-md:mt-2">
+						<textarea class="inputbox" name="message" id="message" rows="15" cols="76">{MESSAGE}</textarea>
+						<!-- IF S_REGISTERED_USER -->
+							<label class="flex items-center gap-2 mt-4" for="cc_sender"><input class="checkbox-primary" type="checkbox" name="cc_sender" id="cc_sender" value="1" checked="checked"> {L_CC_SENDER}</label>
+						<!-- ENDIF -->
+					</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+
+	<div class="card my-4 text-center">
+		<button type="submit" name="submit" class="btn-primary relative flex overflow-hidden transition-all duration-300 mx-auto" value="{L_SEND_EMAIL}">{L_SEND_EMAIL}</button>
+		{S_FORM_TOKEN}
+	</div>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

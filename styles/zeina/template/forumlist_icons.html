@@ -1,0 +1,18 @@
+{% set forum_icon_color = 'unread' in IMG_STYLE ? 'text-color' : 'text-current' %}
+{% if 'locked' in IMG_STYLE %}
+	<i class="iconify {{ forum_icon_color }} mt-0.5" data-mode="style" data-icon="octicon:lock-24" data-width="32" data-height="32" aria-hidden="true"></i>
+{% elseif 'subforum' in IMG_STYLE %}
+	<i class="iconify {{ forum_icon_color }} mt-0.5" data-mode="style" data-icon="fluent:folder-32-regular" data-width="32" data-height="32" aria-hidden="true"></i>
+{% elseif 'sticky' in IMG_STYLE %}
+	<i class="iconify {{ forum_icon_color }} mt-0.5" data-mode="style" data-icon="ph:push-pin" data-width="32" data-height="32" aria-hidden="true"></i>
+{% elseif 'moved' in IMG_STYLE %}
+  <i class="iconify {{ forum_icon_color }} mt-0.5 size-8 [transform:rotate(45deg)]" data-mode="style" data-icon="fluent:arrow-step-out-16-regular" data-height="32" data-width="32" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'ltr' --> data-rotate="270deg"<!-- ENDIF -->></i>
+{% elseif 'hot' in IMG_STYLE %}
+	<i class="iconify {{ forum_icon_color }} mt-0.5" data-mode="style" data-icon="fluent:fire-24-regular" data-width="32" data-height="32" aria-hidden="true"></i>
+{% elseif 'announce' in IMG_STYLE or 'global' in IMG_STYLE %}
+	<i class="iconify {{ forum_icon_color }} mt-0.5" data-mode="style" data-icon="fluent:megaphone-loud-24-regular" data-width="32" data-height="32" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'ltr' --> data-flip="horizontal"<!-- ENDIF -->></i>
+{% elseif 'link' in IMG_STYLE %}
+	<i class="iconify {{ forum_icon_color }} mt-0.5" data-mode="style" data-icon="ph:link" data-width="32" data-height="32" aria-hidden="true"></i>
+{% else %}
+	<i class="iconify {{ forum_icon_color }} mt-0.5" data-mode="style" data-icon="fluent:chat-32-regular" data-width="32" data-height="32" aria-hidden="true"></i>
+{% endif %}

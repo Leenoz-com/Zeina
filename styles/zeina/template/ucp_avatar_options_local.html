@@ -1,0 +1,31 @@
+<!-- IF .avatar_local_cats -->
+<div>
+	<label for="category" class="block text-sm font-medium mb-2">{L_AVATAR_CATEGORY}{L_COLON}</label>
+	<div class="flex max-md:flex-col md:items-center gap-2">
+		<select name="avatar_local_cat" id="category" class="inputbox"><!-- BEGIN avatar_local_cats --><option value="{avatar_local_cats.NAME}"<!-- IF avatar_local_cats.SELECTED --> selected="selected"<!-- ENDIF -->>{avatar_local_cats.NAME}</option><!-- END avatar_local_cats --></select>
+		<button type="submit" name="avatar_local_go" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center" value="{L_GO}">{L_GO}</button>
+	</div>
+</div>
+
+<div id="gallery" class="gallery">
+	<div class="flex max-md:flex-col">
+<!-- BEGIN avatar_local_row -->
+<!-- BEGIN avatar_local_col -->
+	<label class="radio-label flex-col gap-2" for="av-{avatar_local_row.S_ROW_COUNT}-{avatar_local_row.avatar_local_col.S_ROW_COUNT}">
+		<img class="rounded-md" src="{avatar_local_row.avatar_local_col.AVATAR_IMAGE}" alt="">
+		<input type="radio" name="avatar_local_file" id="av-{avatar_local_row.S_ROW_COUNT}-{avatar_local_row.avatar_local_col.S_ROW_COUNT}" class="radio-primary"
+		   value="{avatar_local_row.avatar_local_col.AVATAR_FILE}"<!-- IF avatar_local_row.avatar_local_col.CHECKED --> checked="checked"<!-- ENDIF -->>
+	</label>
+<!-- END avatar_local_col -->
+<!-- END avatar_local_row -->
+	</div>
+</div>
+
+<!-- ELSE -->
+<div class="bg-gray-50 border border-gray-200 text-sm text-secondary rounded-lg p-4" role="alert">
+	<div class="flex items-center gap-2">
+		<div class="leading-[0]"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="18" data-height="18" aria-hidden="true"></i></div>
+		<p>{L_NO_AVATARS}</p>
+	</div>
+</div>
+<!-- ENDIF -->

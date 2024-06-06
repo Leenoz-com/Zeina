@@ -1,0 +1,210 @@
+<div class="text-sm py-4 bg-white">
+  <nav class="max-w-6xl layout-container mx-auto px-6 lg:px-8 md:flex md:items-center md:justify-between md:gap-5">
+    <div class="flex items-center {% if zeina.logo_image_location %}justify-between{% else %}md:hidden justify-end{% endif %}">
+			{% if zeina.logo_image_location %}
+			<a href="{% if U_SITE_HOME %}{{ U_SITE_HOME }}{% else %}{{ U_INDEX }}{% endif %}">
+				<img class="mx-auto logo" style="{{ zeina.logo_width ? 'width:' ~ zeina.logo_width ~ 'px;' }}{{ zeina.logo_height ? 'height:' ~ zeina.logo_height ~ 'px;' }}" src="{{ T_THEME_PATH ~ '/' ~ zeina.logo_image_location }}" alt="{SITENAME}">
+			</a>
+			{% endif %}
+      <div class="md:hidden">
+        <button type="button" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full gap-2 p-2" data-zn-collapse="#navbar-alignment" aria-controls="navbar-alignment" aria-label="Toggle navigation">					
+					<span class="zn-collapse-open:hidden block leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:list-bold" data-width="24" data-height="24" aria-hidden="true"></i></span>
+					<span class="zn-collapse-open:block hidden leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:x" data-width="24" data-height="24" aria-hidden="true"></i></span>
+        </button>
+      </div>
+    </div>
+    <div id="navbar-alignment" class="zn-collapse hidden max-md:overflow-hidden basis-full grow md:flex justify-between">
+      <ul id="nav-main" class="flex max-md:flex-col gap-1 md:mt-0 mt-4 md:items-center" role="menubar">
+				<!-- IF S_DISPLAY_QUICK_LINKS or S_DISPLAY_SEARCH -->
+				<li id="quick-links" class="zn-dropdown relative [--strategy:static] md:[--strategy:absolute] [--adaptive:none]" role="presentation">
+					<a href="#" class="zn-dropdown-toggle dropdown-item gap-2 font-medium" role="menuitem">
+            <i class="iconify" data-mode="style" data-icon="mdi:menu" data-width="18" data-height="18" aria-hidden="true"></i>
+            <span class="max-md:w-full">{L_QUICK_LINKS}</span>
+						<span class="md:hidden leading-[0]"><i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_END}-s-line" data-width="18" data-height="18" aria-hidden="true"></i></span>
+						<span class="max-md:hidden leading-[0]"><i class="iconify" data-mode="style" data-icon="ri:arrow-down-s-line" data-width="18" data-height="18" aria-hidden="true"></i></span>
+          </a>
+          <div class="zn-dropdown-menu dropdown dropdown-start md:w-48">
+						<ul class="dropdown-contents" role="menu">
+							<!-- EVENT navbar_header_quick_links_before -->
+							<!-- IF S_DISPLAY_SEARCH -->
+								<li class="first:hidden border-t pt-1 mt-1"></li>
+								<!-- IF S_REGISTERED_USER -->
+								<li>
+									<a class="dropdown-item" href="{U_SEARCH_SELF}" role="menuitem">{L_SEARCH_SELF}</a>
+								</li>
+								<!-- ENDIF -->
+								<!-- IF S_USER_LOGGED_IN -->
+								<li>
+									<a class="dropdown-item" href="{U_SEARCH_NEW}" role="menuitem">{L_SEARCH_NEW}</a>
+								</li>
+								<!-- ENDIF -->
+								<!-- IF S_LOAD_UNREADS -->
+								<li>
+									<a class="dropdown-item" href="{U_SEARCH_UNREAD}" role="menuitem">{L_SEARCH_UNREAD}</a>
+								</li>
+								<!-- ENDIF -->
+								<li>
+									<a class="dropdown-item" href="{U_SEARCH_UNANSWERED}" role="menuitem">{L_SEARCH_UNANSWERED}</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{U_SEARCH_ACTIVE_TOPICS}" role="menuitem">{L_SEARCH_ACTIVE_TOPICS}</a>
+								</li>
+								<li class="border-t pt-1 mt-1"></li>
+								<li>
+									<a class="dropdown-item" href="{U_SEARCH}" role="menuitem">{L_SEARCH}</a>
+								</li>
+							<!-- ENDIF -->
+							<!-- IF not S_IS_BOT and (S_DISPLAY_MEMBERLIST or U_TEAM) -->
+								<li class="first:hidden last:hidden border-t pt-1 mt-1"></li>
+								<!-- IF S_DISPLAY_MEMBERLIST -->
+								<li>
+									<a class="dropdown-item" href="{U_MEMBERLIST}" role="menuitem">{L_MEMBERLIST}</a>
+								</li>
+								<!-- ENDIF -->
+								<!-- IF U_TEAM -->
+								<li>
+									<a class="dropdown-item" href="{U_TEAM}" role="menuitem">{L_THE_TEAM}</a>
+								</li>
+								<!-- ENDIF -->
+							<!-- ENDIF -->
+							<li class="first:hidden last:hidden border-t pt-1 mt-1"></li>
+							<!-- EVENT navbar_header_quick_links_after -->
+						</ul>
+          </div>
+        </li>
+				<!-- ENDIF -->
+				<!-- EVENT overall_header_navigation_prepend -->
+				<li role="presentation">
+					<a class="dropdown-item font-medium gap-2" href="{U_FAQ}" rel="help" title="{L_FAQ_EXPLAIN}" role="menuitem">
+            <i class="iconify" data-mode="style" data-icon="fluent:chat-bubbles-question-32-regular" data-width="18" data-height="18" aria-hidden="true"></i>
+            {L_FAQ}
+          </a>
+				</li>
+				<!-- EVENT overall_header_navigation_append -->
+				<!-- IF U_ACP -->
+				<li role="presentation">
+					<a class="dropdown-item font-medium gap-2" href="{U_ACP}" title="{L_ACP}" role="menuitem">
+            <i class="iconify" data-mode="style" data-icon="lucide:settings" data-width="18" data-height="18" aria-hidden="true"></i>
+            {L_ACP_SHORT}
+          </a>
+				</li>
+				<!-- ENDIF -->
+				<!-- IF U_MCP -->
+				<li role="presentation">
+					<a class="dropdown-item font-medium gap-2" href="{U_MCP}" title="{L_MCP}" role="menuitem">
+            <i class="iconify" data-mode="style" data-icon="tabler:hammer" data-width="18" data-height="18" aria-hidden="true"></i>
+            {L_MCP_SHORT}
+          </a>
+				</li>
+				<!-- ENDIF -->
+      </ul>
+			<div class="navbar-menu-divider md:hidden border-t my-2"></div>
+      <ul id="user-menu" class="flex max-md:flex-col gap-1 md:items-center" role="menubar">
+				<!-- IF S_REGISTERED_USER -->
+				<!-- IF S_DISPLAY_PM -->
+				<li class="md:block relative flex items-center" role="presentation">
+					<a href="{U_PRIVATEMSGS}" class="relative flex overflow-hidden transition-all duration-300 dropdown-item md:rounded-full gap-2 w-full p-2 font-medium" title="{L_PRIVATE_MESSAGES}" role="menuitem">
+						<div class="md:p-0 p-1 leading-[0]">
+							<i class="iconify" data-mode="style" data-icon="fluent:mail-24-regular" data-height="24" data-width="24" aria-hidden="true"></i>
+						</div>
+						<span class="md:hidden">{L_PRIVATE_MESSAGES}</span>
+					</a>
+					<!-- IF PRIVATE_MESSAGE_COUNT -->
+					<span class="absolute md:top-0 md:end-0 md:-mt-1.5 md:-me-1.5 flex end-3">
+						<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-50"></span>
+						<span class="relative inline-flex justify-center items-center text-xs bg-red-500 text-white rounded-full py-0.5 px-1 h-full w-full min-h-5 min-w-5 font-medium">
+							{PRIVATE_MESSAGE_COUNT}
+						</span>
+					</span>
+					<!-- ENDIF -->
+				</li>
+				<!-- ENDIF -->
+
+				<!-- IF S_NOTIFICATIONS_DISPLAY -->
+				<li id="notification_dropdown" class="zn-dropdown relative" role="presentation">
+					<div class="md:block flex items-center relative">
+						<a href="{U_VIEW_ALL_NOTIFICATIONS}" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 dropdown-item md:rounded-full gap-2 w-full p-2 font-medium" title="{L_NOTIFICATIONS}" role="menuitem">
+							<div class="md:p-0 p-1 leading-[0]">
+								<i class="iconify" data-mode="style" data-icon="ph:bell" data-height="24" data-width="24" aria-hidden="true"></i>
+							</div>
+							<span class="md:hidden">{L_NOTIFICATIONS}</span>
+						</a>
+						<!-- IF NOTIFICATIONS_COUNT -->
+						<span id="notification_list_button" class="absolute md:top-0 md:end-0 md:-mt-1.5 md:-me-1.5 flex end-3">
+							<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-50"></span>
+							<strong class="relative inline-flex justify-center items-center text-xs bg-red-500 text-white rounded-full py-0.5 px-1 h-full w-full min-h-5 min-w-5 font-medium">
+								{NOTIFICATIONS_COUNT}
+							</strong>
+						</span>
+						<!-- ENDIF -->
+					</div>
+					<!-- INCLUDE notification_dropdown.html -->
+				</li>
+				<!-- ENDIF -->
+				<!-- EVENT navbar_header_user_profile_prepend -->
+				<li id="username_logged_in" class="zn-dropdown relative" role="presentation">
+					<!-- EVENT navbar_header_username_prepend -->
+					<a href="{U_PROFILE}" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 relative flex overflow-hidden transition-all duration-300-sm dropdown-item gap-2 md:hover:bg-transparent w-full p-2 font-medium" title="{{ CURRENT_USERNAME_SIMPLE|striptags|raw }}" role="menuitem">
+            <div class="h-8 w-8 rounded-full overflow-hidden">
+							<!-- IF CURRENT_USER_AVATAR -->{CURRENT_USER_AVATAR}<!-- ELSE --><img src="{{ T_THEME_PATH }}/images/no_avatar.gif" alt="{CURRENT_USERNAME_SIMPLE}"><!-- ENDIF -->
+						</div>
+						<div class="md:hidden flex items-center justify-between grow">
+							<span>{CURRENT_USERNAME_SIMPLE}</span>
+							<span class="md:hidden leading-[0]"><i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_END}-s-line" data-height="18" data-width="18" aria-hidden="true"></i></span>
+							<span class="max-md:hidden leading-[0]"><i class="iconify" data-mode="style" data-icon="ri:arrow-down-s-line" data-height="18" data-width="18" aria-hidden="true"></i></span>
+						</div>
+          </a>
+          <div class="zn-dropdown-menu dropdown dropdown-end md:w-48">
+						<ul class="dropdown-contents" role="menu">
+							<!-- IF U_RESTORE_PERMISSIONS -->
+							<li>
+								<a class="relative flex overflow-hidden transition-all duration-300 dropdown-item" href="{U_RESTORE_PERMISSIONS}" role="menuitem">
+									{L_RESTORE_PERMISSIONS}
+								</a>
+							</li>
+							<!-- ENDIF -->
+							<!-- EVENT navbar_header_profile_list_before -->
+							<li>
+								<a class="relative flex overflow-hidden transition-all duration-300 dropdown-item" href="{U_PROFILE}" role="menuitem">{L_PROFILE}</a>
+							</li>
+							<!-- IF U_USER_PROFILE -->
+							<li>
+								<a class="relative flex overflow-hidden transition-all duration-300 dropdown-item" href="{U_USER_PROFILE}" role="menuitem">{L_READ_PROFILE}</a>
+							</li>
+							<!-- ENDIF -->
+							<!-- EVENT navbar_header_profile_list_after -->
+							<li class="first:hidden last:hidden border-t pt-1 mt-1"></li>
+							<li>
+								<a class="relative flex overflow-hidden transition-all duration-300 dropdown-item" href="{U_LOGIN_LOGOUT}" accesskey="x" role="menuitem">{L_LOGIN_LOGOUT}</a>
+							</li>
+						</ul>
+					</div>
+					<!-- EVENT navbar_header_username_append -->
+				</li>
+				<!-- EVENT navbar_header_user_profile_append -->
+				
+				<!-- ELSE IF not S_IS_BOT -->
+
+					<!-- IF not S_USER_LOGGED_IN -->
+					<li id="login_dropdown" class="zn-dropdown relative" role="presentation">
+						<a class="zn-dropdown-toggle btn-primary-outline" href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x" role="menuitem">
+							{L_LOGIN_LOGOUT}
+						</a>
+						<!-- INCLUDE login_dropdown.html -->
+					</li>
+					<!-- ENDIF -->
+
+					<!-- IF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+					<li role="presentation">
+						<a class="btn-primary relative flex overflow-hidden transition-all duration-300" href="{U_REGISTER}" role="menuitem">
+							{L_REGISTER}
+						</a>
+					</li>
+					<!-- ENDIF -->
+
+					<!-- EVENT navbar_header_logged_out_content -->
+				<!-- ENDIF -->
+			</ul>
+    </div>
+  </nav>
+</div>

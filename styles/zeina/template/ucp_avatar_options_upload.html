@@ -1,0 +1,15 @@
+<div>
+	<label for="avatar_upload_file" class="block text-sm font-medium mb-2">{L_UPLOAD_AVATAR_FILE}{L_COLON}</label>
+	<input type="hidden" name="MAX_FILE_SIZE" value="{AVATAR_UPLOAD_SIZE}">
+	<input type="file" name="avatar_upload_file" id="avatar_upload_file" accept="{{ AVATAR_ALLOWED_EXTENSIONS }}" class="inputbox p-0 border border-gray-200 ring-0 text-sm text-secondary bg-white focus:outline-0 file:bg-gray-50 file:border-0 file:me-4 file:p-3 hover:cursor-pointer">
+</div>
+
+<!-- IF S_UPLOAD_AVATAR_URL -->
+	<div>
+		<div class="mb-2">
+			<label for="avatar_upload_file" class="block text-sm font-medium">{L_UPLOAD_AVATAR_URL}{L_COLON}</label>
+			<div class="text-sm text-secondary">{L_UPLOAD_AVATAR_URL_EXPLAIN}</div>
+		</div>
+		<input type="url" name="avatar_upload_url" id="avatar_upload_url" value="" class="inputbox">
+	</div>
+<!-- ENDIF -->

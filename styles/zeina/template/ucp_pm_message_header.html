@@ -1,0 +1,67 @@
+
+<form id="viewfolder" method="post" action="{S_PM_ACTION}">
+
+	<h2 class="mb-0.5">{L_TITLE}<!-- IF CUR_FOLDER_NAME -->{L_COLON} {CUR_FOLDER_NAME}<!-- ENDIF --></h2>
+	<!-- IF FOLDER_STATUS and FOLDER_MAX_MESSAGES neq 0 --><p class="text-sm text-secondary mb-3">{FOLDER_STATUS}</p><!-- ENDIF -->
+
+	<div class="action-bar bar-top flex max-md:flex-col md:items-center my-3 justify-between gap-y-2">
+		<div class="flex max-md:flex-col md:items-center gap-1">
+		<!-- IF U_POST_REPLY_PM or U_POST_NEW_TOPIC or U_FORWARD_PM -->
+			<!-- IF U_POST_REPLY_PM -->
+			<a href="{U_POST_REPLY_PM}" title="{L_POST_REPLY_PM}" class="card-sm relative flex overflow-hidden transition-all duration-300">
+				<i class="iconify" data-mode="style" data-icon="bi:reply" data-width="18" data-height="18" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i> <span>{L_BUTTON_PM_REPLY}</span>
+			</a>
+			<!-- ELSEIF U_POST_NEW_TOPIC -->
+			<a href="{U_POST_NEW_TOPIC}" accesskey="n" title="{L_UCP_PM_COMPOSE}" class="card-sm relative flex overflow-hidden transition-all duration-300">
+				<i class="iconify" data-mode="style" data-icon="mingcute:pencil-line" data-width="18" data-height="18" aria-hidden="true"></i> <span>{L_BUTTON_PM_NEW}</span>
+			</a>
+			<!-- ENDIF -->
+			<!-- IF U_FORWARD_PM -->
+			<a href="{L_POST_FORWARD_PM}" title="{U_FORWARD_PM}" class="card-sm relative flex overflow-hidden transition-all duration-300">
+				<i class="iconify" data-mode="style" data-icon="bi:reply" data-width="18" data-height="18" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'ltr' --> data-flip="horizontal"<!-- ENDIF -->></i> <span>{L_BUTTON_PM_FORWARD}</span>
+			</a>
+			<!-- ENDIF -->
+			<!-- IF U_POST_REPLY_PM and S_PM_RECIPIENTS gt 1 -->
+			<a href="{U_POST_REPLY_ALL}" title="{L_REPLY_TO_ALL}" class="card-sm relative flex overflow-hidden transition-all duration-300">
+				<i class="iconify" data-mode="style" data-icon="bi:reply-all" data-width="18" data-height="18" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i> <span>{L_BUTTON_PM_REPLY_ALL}</span>
+			</a>
+			<!-- ENDIF -->
+		<!-- ENDIF -->
+
+		<!-- IF not S_IS_BOT and U_PRINT_PM -->
+			<div id="topic-tools" class="topic-tools zn-dropdown relative">
+				<button id="zn-dropdown-topic-tools" type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 card-sm link max-md:w-full" title="{L_PM_TOOLS}">
+					<i class="iconify p-px" data-mode="style" data-icon="uil:wrench" data-width="18" data-height="18" aria-hidden="true"></i>
+					<span class="md:hidden">{L_PM_TOOLS}</span>
+				</button>
+				<div class="zn-dropdown-menu dropdown dropdown-start md:w-56">
+					<ul class="dropdown-content text-sm" role="menu">
+						<!-- IF U_PRINT_PM -->
+						<li>
+							<a href="{U_PRINT_PM}" title="{L_PRINT_PM}" accesskey="p" class="relative flex overflow-hidden transition-all duration-300 dropdown-item gap-2">
+								<i class="iconify" data-mode="style" data-icon="fluent:print-24-regular" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_PRINT_PM}</span>
+							</a>
+						</li>
+						<!-- ENDIF -->
+					</ul>
+				</div>
+			</div>
+		<!-- ENDIF -->
+		</div>
+
+	<!-- IF TOTAL_MESSAGES or S_VIEW_MESSAGE -->
+		<!-- IF S_VIEW_MESSAGE -->
+			<a href="{U_CURRENT_FOLDER}" class="card-sm relative flex overflow-hidden transition-all duration-300">
+				<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i>
+				<span>{L_RETURN_TO_FOLDER}</span>
+			</a>
+		<!-- ELSEIF FOLDER_CUR_MESSAGES neq 0 -->
+			<!-- IF U_MARK_ALL -->
+				<a href="{U_MARK_ALL}" class="mark card-sm !transition-[color] relative flex overflow-hidden transition-all duration-300">
+					<i class="iconify" data-mode="style" data-icon="ph:checks-bold" data-width="18" data-height="18" aria-hidden="true"></i>
+					<span>{L_PM_MARK_ALL_READ}</span>
+				</a>
+			<!-- ENDIF -->
+		<!-- ENDIF -->
+	<!-- ENDIF -->
+	</div>

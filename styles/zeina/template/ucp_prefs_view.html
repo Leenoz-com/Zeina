@@ -1,0 +1,113 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+
+	<h2 class="leading-6">{L_TITLE}</h2>
+
+	<!-- IF ERROR -->
+	<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 my-4" role="alert">
+		<p class="error">{ERROR}</p>
+	</div>
+	<!-- ENDIF -->
+
+	<div class="mt-4 divide-y">
+		<!-- EVENT ucp_prefs_view_radio_buttons_prepend -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="images1">{L_VIEW_IMAGES}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="images" id="images1" class="radio-primary" value="1"<!-- IF S_IMAGES --> checked="checked"<!-- ENDIF -->> {L_YES}</label>
+					<label class="radio-label"><input type="radio" name="images" id="images0" class="radio-primary" value="0"<!-- IF not S_IMAGES --> checked="checked"<!-- ENDIF -->> {L_NO}</label>
+				</div>
+			</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="flash0">{L_VIEW_FLASH}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="flash" id="flash1" class="radio-primary" value="1"<!-- IF S_FLASH --> checked="checked"<!-- ENDIF -->> {L_YES}</label>
+					<label class="radio-label"><input type="radio" name="flash" id="flash0" class="radio-primary" value="0"<!-- IF not S_FLASH --> checked="checked"<!-- ENDIF -->> {L_NO}</label>
+				</div>
+			</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="smilies1">{L_VIEW_SMILIES}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="smilies" id="smilies1" class="radio-primary" value="1"<!-- IF S_SMILIES --> checked="checked"<!-- ENDIF -->> {L_YES}</label>
+					<label class="radio-label"><input type="radio" name="smilies" id="smilies0" class="radio-primary" value="0"<!-- IF not S_SMILIES --> checked="checked"<!-- ENDIF -->> {L_NO}</label>
+				</div>
+			</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="sigs1">{L_VIEW_SIGS}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="sigs" id="sigs1" class="radio-primary" value="1"<!-- IF S_SIGS --> checked="checked"<!-- ENDIF -->> {L_YES}</label>
+					<label class="radio-label"><input type="radio" name="sigs" id="sigs0" class="radio-primary" value="0"<!-- IF not S_SIGS --> checked="checked"<!-- ENDIF -->> {L_NO}</label>
+				</div>
+			</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="avatars1">{L_VIEW_AVATARS}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="avatars" id="avatars1" class="radio-primary" value="1"<!-- IF S_AVATARS --> checked="checked"<!-- ENDIF -->> {L_YES}</label>
+					<label class="radio-label"><input type="radio" name="avatars" id="avatars0" class="radio-primary" value="0"<!-- IF not S_AVATARS --> checked="checked"<!-- ENDIF -->> {L_NO}</label>
+				</div>
+			</dd>
+		</dl>
+		<!-- IF S_CHANGE_CENSORS -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="wordcensor1">{L_DISABLE_CENSORS}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="wordcensor" id="wordcensor1" class="radio-primary" value="1"<!-- IF S_DISABLE_CENSORS --> checked="checked"<!-- ENDIF -->> {L_YES}</label>
+					<label class="radio-label"><input type="radio" name="wordcensor" id="wordcensor0" class="radio-primary" value="0"<!-- IF not S_DISABLE_CENSORS --> checked="checked"<!-- ENDIF -->> {L_NO}</label>
+				</div>
+			</dd>
+		</dl>
+		<!-- ENDIF -->
+		<!-- EVENT ucp_prefs_view_radio_buttons_append -->
+	</div>
+
+	<hr class="border-dashed">
+
+	<div class="divide-y">
+		<!-- EVENT ucp_prefs_view_select_menu_prepend -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6">{L_VIEW_TOPICS_DAYS}{L_COLON}</dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">{S_TOPIC_SORT_DAYS}</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6">{L_VIEW_TOPICS_KEY}{L_COLON}</dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">{S_TOPIC_SORT_KEY}</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6">{L_VIEW_TOPICS_DIR}{L_COLON}</dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">{S_TOPIC_SORT_DIR}</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6">{L_VIEW_POSTS_DAYS}{L_COLON}</dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">{S_POST_SORT_DAYS}</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6">{L_VIEW_POSTS_KEY}{L_COLON}</dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">{S_POST_SORT_KEY}</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6">{L_VIEW_POSTS_DIR}{L_COLON}</dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">{S_POST_SORT_DIR}</dd>
+		</dl>
+		<!-- EVENT ucp_prefs_view_select_menu_append -->
+	</div>
+
+	<div class="flex items-center md:justify-end">
+		{S_HIDDEN_FIELDS}
+		<button type="submit" name="submit" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center" value="{L_SUBMIT}">{L_SUBMIT}</button>
+		{S_FORM_TOKEN}
+	</div>
+
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

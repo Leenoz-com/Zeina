@@ -1,0 +1,46 @@
+{% set flex_justify = S_VIEWTOPIC or S_VIEWFORUM or SEARCH_TOPIC or S_SEARCH_ACTION ? 'justify-between' : 'justify-end' %}
+<div class="action-bar actions-jump flex flex-wrap gap-2 items-center my-4 {{ flex_justify }}">
+		<!-- IF S_VIEWTOPIC -->
+	<p class="jumpbox-return">
+		<a href="{U_VIEW_FORUM}" class="relative flex overflow-hidden transition-all duration-300 card-sm" accesskey="r">
+			<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_RETURN_TO_FORUM}</span>
+		</a>
+	</p>
+	<!-- ELSEIF S_VIEWFORUM -->
+	<p class="jumpbox-return">
+		<a href="{U_INDEX}" class="relative flex overflow-hidden transition-all duration-300 card-sm" accesskey="r">
+			<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_RETURN_TO_INDEX}</span>
+		</a>
+	</p>
+	<!-- ELSEIF SEARCH_TOPIC -->
+	<p class="jumpbox-return">
+		<a href="{U_SEARCH_TOPIC}" class="relative flex overflow-hidden transition-all duration-300 card-sm" accesskey="r">
+			<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_RETURN_TO_TOPIC}</span>
+		</a>
+	</p>
+	<!-- ELSEIF S_SEARCH_ACTION -->
+	<p class="jumpbox-return text-sm">
+		<a href="{U_SEARCH}" class="relative flex overflow-hidden transition-all duration-300 card-sm" title="{L_SEARCH_ADV}" accesskey="r">
+			<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_GO_TO_SEARCH_ADV}</span>
+		</a>
+	</p>
+	<!-- ENDIF -->
+
+	<!-- IF S_DISPLAY_JUMPBOX -->
+	<div id="jumpbox" class="jumpbox zn-dropdown relative">
+		<button id="zn-dropdown-jumpbox" type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 card-sm link">
+			<span class="text-sm"><!-- IF S_IN_MCP and S_MERGE_SELECT -->{L_SELECT_TOPICS_FROM}<!-- ELSEIF S_IN_MCP -->{L_MODERATE_FORUM}<!-- ELSE -->{L_JUMP_TO}<!-- ENDIF --></span>
+			<i class="iconify" data-mode="style" data-icon="ri:arrow-<!-- IF $top_jumpbox -->down<!-- ELSE -->up<!-- ENDIF -->-s-line" data-width="18" data-height="18" aria-hidden="true"></i>
+		</button>
+		<div class="zn-dropdown-menu dropdown dropdown-end md:min-w-64 <!-- IF not $top_jumpbox --> dropdown-bottom <!-- ENDIF -->">
+			<ul class="dropdown-content list-none text-sm">
+				<!-- BEGIN jumpbox_forums -->
+				<!-- IF jumpbox_forums.FORUM_ID neq -1 -->
+				<li><a href="{jumpbox_forums.LINK}" class="relative flex overflow-hidden transition-all duration-300 dropdown-item gap-2 <!-- IF jumpbox_forums.level -->jumpbox-sub-link<!-- ELSEIF jumpbox_forums.S_IS_CAT -->jumpbox-cat-link<!-- ELSE -->jumpbox-forum-link<!-- ENDIF -->"><!-- BEGIN level -->&nbsp; <!-- END level --> <span><!-- IF jumpbox_forums.level --><!-- IF S_CONTENT_DIRECTION eq 'rtl' -->&#8626;<!-- ELSE -->&#8627;<!-- ENDIF --> &nbsp;<!-- ENDIF --> {jumpbox_forums.FORUM_NAME}</span></a></li>
+				<!-- ENDIF -->
+				<!-- END jumpbox_forums -->
+			</ul>
+		</div>
+	</div>
+	<!-- ENDIF -->
+</div>

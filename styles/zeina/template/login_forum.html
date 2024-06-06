@@ -1,0 +1,73 @@
+{% embed "overall_header.html" %}
+	{#-- Auth page without the default header --#}
+	{% block header %}{% endblock %}
+{% endembed %}
+
+<div class="min-h-full">
+	<div id="return_to_index" class="inline-block">
+		<a href="{{ U_INDEX }}" class="flex items-center gap-1.5 relative flex overflow-hidden transition-all duration-300 rounded-lg p-2 py-3 hover:text-color hover:bg-primary/[0.08] font-medium text-sm">
+			<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i>
+			<span>{{ L_INDEX }}</span>
+		</a>
+	</div>
+
+	<div class="flex flex-col justify-center md:mt-6 mt-2 mb-4">
+		<div class="max-w-sm mx-auto w-full mb-9 text-center">
+			{% if zeina.logo_image_location %}
+				<img class="mx-auto logo" style="{{ zeina.logo_width ? 'width:' ~ zeina.logo_width ~ 'px;' }}{{ zeina.logo_height ? 'height:' ~ zeina.logo_height ~ 'px;' }}" src="{{ T_THEME_PATH ~ '/' ~ zeina.logo_image_location }}" alt="{SITENAME}">
+			{% endif %}
+
+			<h1 class="login-title mt-5 text-center text-2xl">
+				{L_LOGIN}<!-- IF FORUM_NAME --> - <a href="{U_VIEW_FORUM}">{FORUM_NAME}</a><!-- ENDIF -->
+			</h1>
+		</div>
+
+		<div class="max-w-sm mx-auto w-full">
+			<form class="space-y-4" action="{S_LOGIN_ACTION}" method="post" id="login_forum">
+				{S_FORM_TOKEN}
+								
+				<div class="bg-white border border-gray-200 text-sm text-secondary rounded-lg p-4" role="alert">
+					<div class="flex gap-2">
+						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="18" data-height="18" aria-hidden="true"></i></div>
+						<p>{L_LOGIN_FORUM}</p>
+					</div>
+				</div>
+
+				<!-- IF LOGIN_ERROR -->
+				<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
+					<div class="flex">
+						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:x-circle" data-width="18" data-height="18" aria-hidden="true"></i></div>
+						<div class="ms-4">{LOGIN_ERROR}</div>
+					</div>
+				</div>
+				<!-- ENDIF -->
+
+				<div>
+					<div class="flex items-center justify-between">
+						<label for="password" class="block text-sm font-medium">{L_PASSWORD}{L_COLON}</label>
+					</div>
+					<div class="mt-2 relative">
+						<input type="password" id="password" name="password" size="25" class="inputbox bg-white" autocomplete="off">
+						<button type="button" title="{L_SHOW_PASSWORD}" data-zn-password="#password" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
+							<span class="zn-password-active:block hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye" data-height="14" data-width="14"></i></span>
+							<span class="zn-password-active:hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye-slash" data-height="14" data-width="14"></i></span>
+							<span class="sr-only">{L_SHOW_PASSWORD}</span>
+						</button>
+					</div>
+				</div>
+
+				<div>
+					{S_LOGIN_REDIRECT}
+					{S_FORM_TOKEN_LOGIN}
+					{S_HIDDEN_FIELDS}
+					<button type="submit" name="login" id="login" value="{L_LOGIN}" class="relative flex overflow-hidden transition-all duration-300 btn-primary flex w-full justify-center">{L_LOGIN}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% embed "overall_footer.html" %}
+	{#-- Auth page without the default footer --#}
+	{% block footer %}{% endblock %}
+{% endembed %}

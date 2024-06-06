@@ -1,0 +1,15 @@
+<div class="mb-4 max-w-sm mx-auto w-full">
+	{% for oauth in oauth %}
+		<a href="{{ oauth.REDIRECT_URL }}" class="relative flex overflow-hidden transition-all duration-300{% if not loop.first %} mt-2{% endif %} w-full py-3 px-4 justify-center items-center gap-3 text-sm font-medium inputbox bg-white">
+			{% if oauth.SERVICE_NAME|lower == 'bitly' %}
+			<i class="iconify" data-mode="style" data-icon="cib:bitly" data-width="16" data-height="16" aria-hidden="true" style="color: #f75e15"></i>
+			{% else %}
+			<i class="iconify" data-mode="style" data-icon="logos:{{ oauth.SERVICE_NAME|lower == 'google' ? 'google-icon' : oauth.SERVICE_NAME|lower }}" data-width="16" data-height="16" aria-hidden="true"></i>
+			{% endif %}
+			{{ S_REGISTER_FORM ? lang('REGISTER_WITH') : lang('SIGN_WITH') }} {{ oauth.SERVICE_NAME }}
+		</a>
+	{% endfor %}
+	<div class="block mt-4">
+		<div class="py-3 flex items-center font-medium text-xs text-secondary uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6">{L_OR}</div>
+	</div>
+</div>

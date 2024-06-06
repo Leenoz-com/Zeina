@@ -1,0 +1,65 @@
+<div class="rounded-lg overflow-hidden divide-y mt-4 border border-gray-200">
+	<h3 id="review" class="review flex items-center justify-between text-sm font-medium bg-gray-50 p-4">
+		{L_MESSAGE_HISTORY}{L_COLON}
+		<a href="#review" onclick="viewableArea(getElementById('topicreview'), true); var rev_text = getElementById('review').getElementsByTagName('a').item(0).firstChild; if (rev_text.data == '{LA_EXPAND_VIEW}'){rev_text.data = '{LA_COLLAPSE_VIEW}'; } else if (rev_text.data == '{LA_COLLAPSE_VIEW}'){rev_text.data = '{LA_EXPAND_VIEW}'};">{L_EXPAND_VIEW}</a>
+	</h3>
+
+	<!-- EVENT ucp_pm_history_review_before -->
+	<div id="topicreview" class="topicreview relative overflow-auto h-80 p-4">
+		<script>
+			bbcodeEnabled = {S_BBCODE_ALLOWED};
+		</script>
+
+		{% set S_IS_CODEBOX = false %}
+		<!-- BEGIN history_row -->
+			<div class="post <!-- IF history_row.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF -->{% if not loop.last %} mb-5 {% endif %} border p-4 rounded-lg">
+				<div class="postbody first:mt-0 mt-4" id="pr{history_row.MSG_ID}">
+					<!-- DEFINE $SHOW_PM_HISTORY_POST_BUTTONS = (history_row.U_QUOTE or history_row.MESSAGE_AUTHOR_QUOTE) -->
+					<!-- EVENT ucp_pm_history_post_buttons_list_before -->
+					<!-- IF $SHOW_PM_HISTORY_POST_BUTTONS -->
+					<ul class="post-buttons flex items-center gap-3 justify-end">
+						<!-- EVENT ucp_pm_history_post_buttons_before -->
+						<li>
+							<a <!-- IF history_row.U_QUOTE -->href="{history_row.U_QUOTE}"<!-- ELSE -->href="#postingbox" onclick="addquote({history_row.MSG_ID}, '{history_row.MESSAGE_AUTHOR_QUOTE}', '{LA_WROTE}', {time:{history_row.MESSAGE_TIME},user_id:{history_row.USER_ID}});"<!-- ENDIF --> title="{L_QUOTE} {history_row.MESSAGE_AUTHOR}" class="button button-icon-only flex items-center">
+								<i class="iconify" data-mode="style" data-icon="mingcute:quote-right-line" data-width="18" data-height="18" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+								<span class="sr-only">{L_QUOTE} {history_row.MESSAGE_AUTHOR}</span>
+							</a>
+						</li>
+						<!-- EVENT ucp_pm_history_post_buttons_after -->
+					</ul>
+					<!-- ENDIF -->
+					<!-- EVENT ucp_pm_history_post_buttons_list_after -->
+
+					<h3><a href="{history_row.U_VIEW_MESSAGE}" class="text-sm">{history_row.SUBJECT}</a></h3>
+
+					<p class="author text-sm text-secondary border-b pb-2">
+						<span><i class="iconify" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{history_row.MINI_POST}</span></span> {L_SENT_AT}{L_COLON} <strong>{history_row.SENT_DATE}</strong>
+						{L_MESSAGE_BY_AUTHOR} <!-- EVENT ucp_pm_history_row_message_author_username_prepend --><span class="font-semibold">{history_row.MESSAGE_AUTHOR_FULL}</span><!-- EVENT ucp_pm_history_row_message_author_username_append -->
+					</p>
+
+					<div class="content mt-4"><!-- IF history_row.MESSAGE -->{history_row.MESSAGE}<!-- ELSE --><span class="error">{L_MESSAGE_REMOVED_FROM_OUTBOX}</span><!-- ENDIF --></div>
+
+					{#-- Highlight codes --#}
+					{% if 'class="codebox"' in history_row.MESSAGE and not S_IS_CODEBOX %}
+						{% set S_IS_CODEBOX = true %}
+					{% endif %}
+
+					<div id="message_{history_row.MSG_ID}" style="display: none;">{history_row.DECODED_MESSAGE}</div>
+				</div>
+
+			</div>
+		<!-- END history_row -->
+	</div>
+	<!-- EVENT ucp_pm_history_review_after -->
+
+{% if S_IS_CODEBOX %}
+	{% INCLUDECSS T_THEME_PATH ~ '/assets/css/highlight.min.css' %}
+	{% INCLUDEJS T_THEME_PATH ~ '/assets/js/highlight.min.js' %}
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('.codebox code').forEach((el) => {
+				hljs.highlightElement(el);
+			});
+		});
+	</script>
+{% endif %}

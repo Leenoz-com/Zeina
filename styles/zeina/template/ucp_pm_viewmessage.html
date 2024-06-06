@@ -1,0 +1,263 @@
+<!-- INCLUDE ucp_header.html -->
+
+<!-- INCLUDE ucp_pm_message_header.html -->
+
+<!-- IF S_DISPLAY_HISTORY and (U_VIEW_PREVIOUS_HISTORY or U_VIEW_NEXT_HISTORY) -->
+
+	<div class="display-options flex items-center<!-- IF U_VIEW_PREVIOUS_HISTORY and U_VIEW_NEXT_HISTORY --> justify-between<!-- ELSEIF U_VIEW_NEXT_HISTORY --> justify-end<!-- ENDIF --> my-3">
+		<!-- IF U_VIEW_PREVIOUS_HISTORY -->
+			<a href="{U_VIEW_PREVIOUS_HISTORY}" class="relative flex overflow-hidden transition-all duration-300 card-sm">
+				<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_VIEW_PREVIOUS_HISTORY}</span>
+			</a>
+		<!-- ENDIF -->
+		<!-- IF U_VIEW_NEXT_HISTORY -->
+			<a href="{U_VIEW_NEXT_HISTORY}" class="relative flex overflow-hidden transition-all duration-300 card-sm">
+				<span>{L_VIEW_NEXT_HISTORY}</span><i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_END}-s-line" data-width="18" data-height="18" aria-hidden="true"></i>
+			</a>
+		<!-- ENDIF -->
+	</div>
+<!-- ENDIF -->
+
+<div id="post-{MESSAGE_ID}" class="post pm has-profile card p-6<!-- IF S_POST_UNAPPROVED or S_POST_REPORTED --> border-red-300 reported<!-- ENDIF -->">
+	<div class="md:flex items-start block justify-between">
+		<div class="postprofile" id="profile{MESSAGE_ID}">
+			<div class="zn-dropdown relative">
+				<div class="zn-dropdown-toggle hover:cursor-pointer author <!-- IF S_ONLINE --> online<!-- ENDIF --> flex items-center min-w-0 gap-3">
+					<div class="avatar-container relative author-img-sm">
+						<!-- EVENT ucp_pm_viewmessage_avatar_before -->
+						<!-- IF AUTHOR_AVATAR -->
+							<div class="h-9 w-9 rounded-full overflow-hidden">
+								<a href="{U_MESSAGE_AUTHOR}" class="avatar">{AUTHOR_AVATAR}</a>
+							</div>
+						<!-- ENDIF -->
+						<!-- EVENT ucp_pm_viewmessage_avatar_after -->
+					</div>
+					<div class="flex gap-3 w-full">
+						<div class="min-w-0 flex-auto">
+							<!-- EVENT ucp_pm_viewmessage_author_full_before -->
+							<p class="text-sm"><strong>{MESSAGE_AUTHOR_FULL}</strong></p>
+							<!-- EVENT ucp_pm_viewmessage_author_full_after -->
+
+							<!-- EVENT ucp_pm_viewmessage_rank_before -->
+							<!-- IF RANK_TITLE --><p class="profile-rank text-xs font-medium text-secondary">{RANK_TITLE}</p><!-- ENDIF -->
+							<!-- EVENT ucp_pm_viewmessage_rank_after -->
+						</div>
+						<!-- IF RANK_IMG --><span class="rank-img-sm">{RANK_IMG}</span><!-- ENDIF -->
+					</div>
+				</div>
+				<div class="zn-dropdown-menu dropdown dropdown-start md:w-80">
+					<div class="dropdown-content">
+						<div class="py-3 px-4 border-b flex flex-wrap items-center gap-3">
+							<!-- IF AUTHOR_AVATAR -->
+								<a href="{U_MESSAGE_AUTHOR}" class="h-16 w-16 mx-auto rounded-full overflow-hidden avatar">{AUTHOR_AVATAR}</a>
+							<!-- ENDIF -->
+							<div class="grow flex flex-wrap items-center justify-between">
+								<div>
+									<h5 class="font-semibold">{MESSAGE_AUTHOR_FULL}</h5>
+									<!-- IF RANK_TITLE --><p class="profile-rank leading-6 text-sm font-medium">{RANK_TITLE}</p><!-- ENDIF -->
+								</div>
+								<!-- IF RANK_IMG -->
+								<span class="inline-flex items-center align-middle gap-2 rank-img">{RANK_IMG}</span>
+								<!-- ENDIF -->
+							</div>
+						</div>
+						<ul class="py-3 px-4 flex flex-col gap-2">
+							<li class="profile-posts flex flex-wrap gap-1 text-sm">
+								<span class="font-medium">{L_POSTS}{L_COLON}</span>
+								<!-- IF U_AUTHOR_POSTS != '' --><a href="{U_AUTHOR_POSTS}">{AUTHOR_POSTS}</a><!-- ELSE -->{AUTHOR_POSTS}<!-- ENDIF -->
+							</li>
+							<!-- IF AUTHOR_JOINED -->
+							<li class="profile-joined flex flex-wrap gap-1 text-sm">
+								<span class="font-medium">{L_JOINED}{L_COLON}</span> {AUTHOR_JOINED}
+							</li>
+							<!-- ENDIF -->
+
+							<!-- EVENT ucp_pm_viewmessage_custom_fields_before -->
+							<!-- BEGIN custom_fields -->
+							<!-- IF not custom_fields.S_PROFILE_CONTACT -->
+							<li class="profile-custom-field profile-{custom_fields.PROFILE_FIELD_IDENT} flex flex-wrap gap-1 text-sm">
+								<span class="font-medium">{custom_fields.PROFILE_FIELD_NAME}{L_COLON}</span> {custom_fields.PROFILE_FIELD_VALUE}
+							</li>
+								<!-- ENDIF -->
+							<!-- END custom_fields -->
+							<!-- EVENT ucp_pm_viewmessage_custom_fields_after -->
+
+							<!-- EVENT ucp_pm_viewmessage_contact_fields_before -->
+							<!-- IF .contact -->
+							<li class="mt-2 profile-contact text-sm flex flex-wrap items-center gap-1" {CONTACT_USER}>
+								<div class="md:hidden font-medium mb-1">{L_CONTACT}{L_COLON}</div>
+								{% set icons = {pm: 'ph:chat-circle-dots', email: 'fluent:mail-24-regular', phpbb_icq: 'fontisto:icq', phpbb_aol: 'simple-icons:aol', phpbb_website: 'ph:globe', phpbb_youtube: 'ri:youtube-fill', phpbb_facebook: 'ri:facebook-circle-fill', phpbb_skype: 'ri:skype-fill', phpbb_twitter: 'ri:twitter-fill', phpbb_yahoo: 'mdi:yahoo'} %}
+								<!-- BEGIN contact -->
+								<a href="<!-- IF contact.U_CONTACT -->{contact.U_CONTACT}<!-- ELSE -->{U_PROFILE_AUTHOR}<!-- ENDIF -->" class="relative flex overflow-hidden transition-all duration-300 dropdown-item md:rounded-full gap-2 max-md:w-full md:p-2 p-3 text-secondary border hover:border-primary/5" title="{contact.NAME}"<!-- IF contact.ID eq 'jabber' --> onclick="popup(this.href, 750, 320); return false;"<!-- ENDIF --> aria-label="{contact.NAME}">
+									{% if contact.ID in icons|keys %}<span class="leading-[0]"><i class="iconify" data-mode="style" data-icon="{{ icons[contact.ID] }}" data-width="18" data-height="18" aria-hidden="true"></i></span>{% else %}<i class="icon {contact.ID}-icon" aria-hidden="true"></i>{% endif %}
+									<span class="md:hidden">{contact.NAME}</span>
+								</a>
+								<!-- END contact -->
+							</li>
+							<!-- ENDIF -->
+							<!-- EVENT ucp_pm_viewmessage_contact_fields_after -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="flex items-center gap-1 justify-end">
+			<!-- DEFINE $SHOW_PM_POST_BUTTONS = (U_EDIT or U_DELETE or U_REPORT or U_QUOTE) -->
+			<!-- EVENT ucp_pm_viewmessage_post_buttons_list_before -->
+			<!-- IF $SHOW_PM_POST_BUTTONS or U_QUOTE -->
+				<div class="topic-tools flex items-center gap-1 p-0">
+					<!-- IF U_QUOTE -->
+					<a href="{U_QUOTE}" title="{L_POST_QUOTE_PM}" class="relative flex overflow-hidden transition-all duration-300 rounded-full text-secondary hover:text-color hover:bg-primary/[0.08] font-medium p-2 inline-flex gap-2">
+						<i class="iconify" data-mode="style" data-icon="mingcute:quote-right-line" data-width="18" data-height="18" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+						<span class="sr-only">{L_BUTTON_QUOTE}</span>
+					</a>
+					<!-- ENDIF -->
+					<!-- IF $SHOW_PM_POST_BUTTONS -->
+					<div id="post_buttons" class="zn-dropdown relative">
+						<button type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 rounded-full text-secondary hover:text-color hover:bg-primary/[0.08] font-medium p-2 inline-flex gap-2"  title="{L_SETTINGS}">
+							<i class="iconify" data-mode="style" data-icon="lucide:settings" data-width="18" data-height="18" aria-hidden="true"></i>
+							<span class="sr-only">{L_SETTINGS}</span>
+						</button>
+						<div class="zn-dropdown-menu dropdown dropdown-end md:w-48">
+							<ul class="dropdown-contents text-sm" role="menu">
+								<!-- EVENT ucp_pm_viewmessage_post_buttons_before -->
+								<!-- IF U_EDIT -->
+								<li>
+									<a href="{U_EDIT}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2">
+										<i class="iconify" data-mode="style" data-icon="lucide:edit" data-width="16" data-height="16" aria-hidden="true"></i>
+										{L_BUTTON_EDIT}
+									</a>
+								</li>
+								<!-- ENDIF -->
+								<!-- IF U_DELETE -->
+								<li>
+									<a href="{U_DELETE}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2">
+										<i class="iconify" data-mode="style" data-icon="lucide:trash-2" data-width="16" data-height="16" aria-hidden="true"></i>
+										{L_BUTTON_DELETE}
+									</a>
+								</li>
+								<!-- ENDIF -->
+								<!-- IF U_REPORT -->
+								<li>
+									<a href="{U_REPORT}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2">
+										<i class="iconify" data-mode="style" data-icon="lucide:circle-alert" data-width="16" data-height="16" aria-hidden="true"></i>
+										{L_BUTTON_REPORT}
+									</a>
+								</li>
+								<!-- ENDIF -->
+								<!-- EVENT ucp_pm_viewmessage_post_buttons_after -->
+							</ul>
+						</div>
+					</div>
+					<!-- ENDIF -->
+				</div>
+			<!-- ENDIF -->
+			<!-- EVENT ucp_pm_viewmessage_post_buttons_list_after -->
+		</div>
+	</div>
+
+	<h3 class="mt-3">{{ SUBJECT }}</h3>
+	<div class="text-sm rounded-lg border mt-2 p-3 bg-slate-50">
+		<strong>{L_SENT_AT}{L_COLON}</strong> {SENT_DATE}
+		<br><strong>{L_PM_FROM}{L_COLON}</strong> {MESSAGE_AUTHOR_FULL}
+		<!-- IF S_TO_RECIPIENT --><br><strong>{L_TO}{L_COLON}</strong> <!-- BEGIN to_recipient --><!-- IF to_recipient.NAME_FULL -->{to_recipient.NAME_FULL}<!-- ELSE --><a href="{to_recipient.U_VIEW}"<!-- IF to_recipient.COLOUR --> style="color:{to_recipient.COLOUR};"<!-- ENDIF -->><strong>{to_recipient.NAME}</strong></a><!-- ENDIF -->{% if not loop.last %}{L_COMMA_SEPARATOR}{% endif %}<!-- END to_recipient --><!-- ENDIF -->
+		<!-- IF S_BCC_RECIPIENT --><br><strong>{L_BCC}{L_COLON}</strong> <!-- BEGIN bcc_recipient --><!-- IF bcc_recipient.NAME_FULL -->{bcc_recipient.NAME_FULL}<!-- ELSE --><a href="{bcc_recipient.U_VIEW}"<!-- IF bcc_recipient.COLOUR --> style="color:{bcc_recipient.COLOUR};"<!-- ENDIF -->><strong>{bcc_recipient.NAME}</strong></a><!-- ENDIF -->{% if not loop.last %}{L_COMMA_SEPARATOR}{% endif %}<!-- END bcc_recipient --><!-- ENDIF -->
+	</div>
+
+	<div class="postbody mt-2.5 pt-2.5 border-t">
+		<div id="post_content{MESSAGE_ID}">
+			<div class="content">{MESSAGE}</div>
+			{#-- Highlight codes --#}
+			{% if 'class="codebox"' in MESSAGE and not S_IS_CODEBOX %}
+				{% set S_IS_CODEBOX = true %}
+			{% endif %}
+		</div>
+	</div>
+
+	<!-- IF S_HAS_ATTACHMENTS -->
+	<div class="attachbox mt-5">
+		<div class="font-semibold text-sm">
+			{L_ATTACHMENTS}{L_COLON}
+		</div>
+		<div class="attachments inline-block text-sm">
+		<!-- BEGIN attachment -->
+			<div class="mt-2">{attachment.DISPLAY_ATTACHMENT}</div>
+		<!-- END attachment -->
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF S_DISPLAY_NOTICE -->
+	<div class="rules my-3 bg-yellow-100/50 border border-yellow-800/10 text-xs text-yellow-800 rounded-lg p-4" role="alert">
+		<div class="flex gap-2">
+			<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:warning" data-width="16" data-height="16" aria-hidden="true"></i></div>
+			<p>{L_DOWNLOAD_NOTICE}</p>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF EDITED_MESSAGE or EDIT_REASON -->
+	<div class="notice mt-3 bg-slate-50 border border-gray-200 text-secondary rounded-lg p-3" role="alert">
+		<div class="flex gap-2 text-xs">
+			<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="16" data-height="16" aria-hidden="true"></i></div>
+			<p class="leading-relaxed">{EDITED_MESSAGE}<!-- IF EDIT_REASON --><br><strong>{L_REASON}{L_COLON}</strong> <em>{EDIT_REASON}</em><!-- ENDIF --></p>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF SIGNATURE --><div id="sig{{ MESSAGE_ID }}" class="signature mt-3 pt-3 border-t border-dashed border-gray-200">{{ SIGNATURE }}</div><!-- ENDIF -->
+</div>
+
+<!-- EVENT ucp_pm_viewmessage_options_before -->
+<!-- IF S_VIEW_MESSAGE -->
+<div class="display-options my-3 flex flex-wrap items-center justify-between">
+	<!-- IF U_PREVIOUS_PM -->
+		<a href="{U_PREVIOUS_PM}" class="relative flex overflow-hidden transition-all duration-300 card-sm"">
+			<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_VIEW_PREVIOUS_PM}</span>
+		</a>
+	<!-- ENDIF -->
+	<!-- IF U_NEXT_PM -->
+		<a href="{U_NEXT_PM}" class="relative flex overflow-hidden transition-all duration-300 card-sm"">
+			<span>{L_VIEW_NEXT_PM}</span><i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_END}-s-line" data-width="18" data-height="18" aria-hidden="true"></i>
+		</a>
+	<!-- ENDIF -->
+	<input type="hidden" name="marked_msg_id[]" value="{MSG_ID}">
+	<input type="hidden" name="cur_folder_id" value="{CUR_FOLDER_ID}">
+	<input type="hidden" name="p" value="{MSG_ID}">
+</div>
+
+<!-- IF not S_UNREAD and not S_SPECIAL_FOLDER -->
+	<div class="md:flex items-center justify-end mt-3">
+		<div class="flex max-md:flex-col md:items-center gap-2 max-md:mt-4">
+			<label for="dest_folder" class="text-sm text-nowrap"><!-- IF S_VIEW_MESSAGE -->{L_MOVE_TO_FOLDER}{L_COLON} <!-- ELSE -->{L_MOVE_MARKED_TO_FOLDER}<!-- ENDIF --></label>
+			<select name="dest_folder" id="dest_folder">{S_TO_FOLDER_OPTIONS}</select>
+			<button type="submit" name="move_pm" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center" value="{L_GO}">{L_GO}</button>
+		</div>
+	</div>
+<!-- ENDIF -->
+<!-- IF S_MARK_OPTIONS -->
+	<div class="flex max-lg:flex-col lg:items-center gap-2 max-lg:mb-4 max-lg:w-full">
+		<select name="mark_option" class="inputbox md:w-auto" id="mark_option">{S_MARK_OPTIONS}</select>
+		<button class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center" type="submit" name="submit_mark" value="{L_GO}">{L_GO}</button>
+	</div>
+<!-- ENDIF -->
+
+<!-- ENDIF -->
+
+<!-- INCLUDE ucp_pm_message_footer.html -->
+
+<!-- IF S_DISPLAY_HISTORY --><!-- INCLUDE ucp_pm_history.html --><!-- ENDIF -->
+
+{% if S_IS_CODEBOX %}
+	{% INCLUDECSS T_THEME_PATH ~ '/assets/css/highlight.min.css' %}
+	{% INCLUDEJS T_THEME_PATH ~ '/assets/js/highlight.min.js' %}
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('.codebox code').forEach((el) => {
+				hljs.highlightElement(el);
+			});
+		});
+	</script>
+{% endif %}
+
+<!-- INCLUDE ucp_footer.html -->

@@ -1,0 +1,365 @@
+{% embed "overall_header.html" %}
+	{% block header_content %}
+		<!-- EVENT viewforum_forum_title_before -->
+		<h1 class="text-slate-50 md:text-2xl text-xl"><!-- EVENT viewforum_forum_name_prepend --><a href="{U_VIEW_FORUM}">{FORUM_NAME}</a><!-- EVENT viewforum_forum_name_append --></h1>
+		<!-- EVENT viewforum_forum_title_after -->
+		<!-- NOTE: remove "hidden" class when you want to have the forum description on the forum body -->
+		<!-- IF FORUM_DESC --><p class="text-slate-200 md:mt-1 hidden">{FORUM_DESC}</p><!-- ENDIF -->
+	{% endblock %}
+{% endembed %}
+
+<!-- IF S_FORUM_RULES -->
+<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 my-4" role="alert">
+  <div class="flex">
+		<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="mdi:court-hammer" data-width="16" data-height="16" aria-hidden="true"></i></div>
+    <div class="ms-4">
+			<!-- IF U_FORUM_RULES -->
+			<div class="font-semibold"><a class="underline non-link" href="{U_FORUM_RULES}">{L_FORUM_RULES}</a></div>
+			<!-- ELSE -->
+			<div class="font-semibold">{L_FORUM_RULES}</div>
+      <div class="mt-1">{FORUM_RULES}</div>
+		<!-- ENDIF -->
+    </div>
+  </div>
+</div>
+<!-- ENDIF -->
+
+<!-- IF S_HAS_SUBFORUM -->
+	<!-- IF not S_IS_BOT and U_MARK_FORUMS -->
+		<div class="flex justify-end my-3">
+			<a href="{U_MARK_FORUMS}" class="mark-read card-sm !transition-[color] relative flex overflow-hidden transition-all duration-300" data-ajax="mark_forums_read">
+				<i class="iconify" data-mode="style" data-icon="ph:checks-bold" data-width="18" data-height="18" aria-hidden="true"></i>
+				<span>{L_MARK_SUBFORUMS_READ}</span>
+			</a>
+		</div>
+	<!-- ENDIF -->
+	<!-- INCLUDE forumlist_body.html -->
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_POST_INFO or .pagination or TOTAL_POSTS or TOTAL_TOPICS -->
+<div class="action-bar bar-top flex flex-wrap md:items-center my-3 justify-between gap-1 gap-y-2">
+	<div class="flex flex-wrap grow items-center gap-1">
+		<div class="flex flex-wrap items-center gap-1">
+			<!-- IF not S_IS_BOT and S_DISPLAY_POST_INFO -->
+				<!-- EVENT viewforum_buttons_top_before -->
+				<a href="{U_POST_NEW_TOPIC}" class="relative flex overflow-hidden transition-all duration-300 card-sm<!-- IF S_IS_LOCKED --> bg-red-50 border-red-300 text-red-700<!-- ENDIF -->" title="<!-- IF S_IS_LOCKED -->{L_FORUM_LOCKED}<!-- ELSE -->{L_POST_TOPIC}<!-- ENDIF -->">
+					<!-- IF S_IS_LOCKED -->
+						<i class="iconify" data-mode="style" data-icon="octicon:lock-24" data-width="18" data-height="18" aria-hidden="true"></i> <span class="max-md:hidden">{L_BUTTON_FORUM_LOCKED}</span>
+					<!-- ELSE -->
+						<i class="iconify" data-mode="style" data-icon="mingcute:pencil-line" data-width="18" data-height="18" aria-hidden="true"></i> <span class="max-md:hidden">{L_BUTTON_NEW_TOPIC}</span>
+					<!-- ENDIF -->
+				</a>
+				<!-- EVENT viewforum_buttons_top_after -->
+			<!-- ENDIF -->
+		</div>
+		<!-- IF S_DISPLAY_SEARCHBOX -->
+		<div id="search-forum" class="search-forum zn-dropdown relative">
+			<button id="zn-dropdown-search-forum" type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 card-sm link" title="{L_SEARCH_FORUM}">
+				<i class="iconify p-px" data-mode="style" data-icon="fluent:search-32-filled" data-width="18" data-height="18" aria-hidden="true"></i>
+				<span class="sr-only">{L_SEARCH}</span>
+			</button>
+			<div class="zn-dropdown-menu dropdown dropdown-start md:w-56">
+				<form method="get" id="forum-search" action="{S_SEARCHBOX_ACTION}" class="p-2">
+					<div class="dropdown-content search-box" role="search">
+						<div>
+							<label for="search_keywords" class="block text-sm font-medium mb-2">{L_SEARCH}{L_COLON}</label>
+							<input class="inputbox search" type="search" name="keywords" id="search_keywords" size="20" placeholder="{L_SEARCH_FORUM}">
+						</div>
+					</div>
+					<div class="dropdown-footer mt-2">
+						<button class="btn-primary button-search relative flex overflow-hidden transition-all duration-300 w-full justify-center" type="submit" value="{L_SEARCH}">{L_SEARCH}</button>
+						<a href="{{ U_SEARCH_FORUM }}" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 justify-center mt-1">{L_SEARCH_ADV}</a>
+						{S_SEARCH_LOCAL_HIDDEN_FIELDS}
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- ENDIF -->
+		<!-- IF not S_IS_BOT and U_MARK_TOPICS and .topicrow -->
+			<div class="flex justify-end grow">
+				<a href="{U_MARK_TOPICS}" class="relative flex overflow-hidden transition-all duration-300 card-sm !transition-[color]" accesskey="m" data-ajax="mark_topics_read" title="{L_MARK_TOPICS_READ}">
+					<i class="iconify" data-mode="style" data-icon="ph:checks-bold" data-width="18" data-height="18" aria-hidden="true"></i>
+					<span class="max-md:hidden">{L_MARK_TOPICS_READ}</span>
+				</a>
+			</div>
+		<!-- ENDIF -->
+	</div>
+	<div class="pagination flex flex-wrap items-center justify-end gap-1">
+		<!-- IF .pagination -->
+		{% include 'pagination.html' with {'TOTAL': TOTAL_TOPICS} %}
+		<!-- ELSE -->
+		<div class="card-sm">{TOTAL_TOPICS} &bull; {PAGE_NUMBER}</div>
+		<!-- ENDIF -->
+	</div>
+</div>
+<!-- ENDIF -->
+
+<!-- IF S_NO_READ_ACCESS -->
+	<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 my-4" role="alert">
+		<div class="flex">
+			<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:x-circle" data-width="18" data-height="18" aria-hidden="true"></i></div>
+			<div class="ms-4">
+				<div>{L_NO_READ_ACCESS}</div>
+				<!-- IF not S_USER_LOGGED_IN and not S_IS_BOT -->
+				<div class="flex items-center gap-2 mt-1">
+					<a href="{U_LOGIN_LOGOUT}" class="font-semibold non-link underline">{L_LOGIN_LOGOUT}</a>
+					<!-- IF S_REGISTER_ENABLED -->
+					<a href="{U_REGISTER}" class="font-semibold non-link underline">{L_REGISTER}</a>
+					<!-- ENDIF -->
+				</div>
+				<!-- ENDIF -->
+			</div>
+		</div>
+	</div>
+<!-- ENDIF -->
+
+<!-- EVENT viewforum_body_topic_row_before -->
+
+<!-- IF .topicrow -->
+	<ul class="topics mt-2 grid gap-y-4">
+	<!-- BEGIN topicrow -->
+		<!-- IF not topicrow.S_TOPIC_TYPE_SWITCH and not topicrow.S_FIRST_ROW  -->
+					</ul>
+				</div>
+			</li>
+		<!-- ENDIF -->
+
+		<!-- IF topicrow.S_FIRST_ROW or not topicrow.S_TOPIC_TYPE_SWITCH -->
+				<li class="card">
+					<div class="flex items-center justify-between card-title">
+						<h2 <!-- IF S_DISPLAY_ACTIVE --> id="active_topics"<!-- ENDIF -->><!-- IF S_DISPLAY_ACTIVE -->{L_ACTIVE_TOPICS}<!-- ELSEIF topicrow.S_TOPIC_TYPE_SWITCH and (topicrow.S_POST_ANNOUNCE or topicrow.S_POST_GLOBAL) -->{L_ANNOUNCEMENTS}<!-- ELSE -->{L_TOPICS}<!-- ENDIF --></h2>
+						{% if zeina.collapse_panel %}
+						<div class="collapse-panel zn-collapse-toggle open leading-[0] py-0.5 px-1 hover:cursor-pointer" id="zn-collapse-button-{topicrow.TOPIC_ID}" data-zn-collapse="#zn-topics-collapse-{topicrow.TOPIC_ID}">
+							<div class="zn-collapse-open:[transform:rotate(180deg)] transition-all duration-300"><i class="iconify" data-mode="style" data-icon="ri:arrow-down-s-line" data-width="18" data-height="18" aria-hidden="true"></i></div>
+						</div>
+						{% endif %}
+					</div>
+					<div id="zn-topics-collapse-{topicrow.TOPIC_ID}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-topics-collapse-{topicrow.TOPIC_ID}">
+						<ul class="topiclist forums divide-y p-4 mt-2">
+		<!-- ENDIF -->
+
+			<!-- EVENT viewforum_body_topicrow_row_before -->
+			<li class="pt-4 mt-4 first:pt-0 first:mt-0 topic row">
+				<!-- EVENT forumlist_body_forum_row_prepend -->
+				<div class="row-item md:grid md:grid-cols-9 gap-4 items-center">
+					<div class="flex max-md:flex-col w-full md:justify-between md:col-span-5 relative gap-y-3 row-title" title="{topicrow.TOPIC_FOLDER_IMG_ALT}">
+						<div class="flex flex-row gap-4">
+							<div class="topic-icon mt-0.5 leading-[0] {topicrow.TOPIC_IMG_STYLE}" <!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url('{T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: bottom right;"<!-- ENDIF -->>
+								{% include 'forumlist_icons.html' with {'IMG_STYLE': topicrow.TOPIC_IMG_STYLE} %}
+							</div>
+							<div class="topic-details">
+								<div class="flex items-center gap-2 max-md:py-1">
+									<!-- EVENT topiclist_row_prepend -->
+									<!-- IF topicrow.S_UNREAD_TOPIC and not S_IS_BOT -->
+									<a class="unread leading-[0]" href="{topicrow.U_NEWEST_POST}">
+										<i class="iconify" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{L_NEW_POST}</span>
+									</a>
+									<!-- ENDIF -->
+									
+									<h3 class="text-sm font-semibold"><!-- IF topicrow.U_VIEW_TOPIC --><a href="{topicrow.U_VIEW_TOPIC}" class="topictitle max-md:py-1">{topicrow.TOPIC_TITLE}</a><!-- ELSE -->{topicrow.TOPIC_TITLE}<!-- ENDIF --></h3>
+									
+									<!-- IF topicrow.S_TOPIC_UNAPPROVED or topicrow.S_POSTS_UNAPPROVED -->
+										<a class="leading-[0]" href="{topicrow.U_MCP_QUEUE}" title="<!-- IF topicrow.S_TOPIC_UNAPPROVED -->{L_TOPIC_UNAPPROVED}<!-- ELSE -->{L_POSTS_UNAPPROVED}<!-- ENDIF -->">
+											<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i><span class="sr-only"><!-- IF topicrow.S_TOPIC_UNAPPROVED -->{L_TOPIC_UNAPPROVED}<!-- ELSE -->{L_POSTS_UNAPPROVED}<!-- ENDIF --></span>
+										</a>
+									<!-- ENDIF -->
+									<!-- IF topicrow.S_TOPIC_DELETED -->
+										<a class="leading-[0]" href="{topicrow.U_MCP_QUEUE}" title="{L_TOPIC_DELETED}">
+											<i class="iconify" data-mode="style" data-icon="ph:recycle" data-width="16" data-height="16" aria-hidden="true"></i><span class="sr-only">{L_TOPIC_DELETED}</span>
+										</a>
+									<!-- ENDIF -->
+									<!-- IF topicrow.S_TOPIC_REPORTED -->
+										<a class="leading-[0]" href="{topicrow.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}">
+											<i class="iconify" data-mode="style" data-icon="lucide:circle-alert" data-width="16" data-height="16" aria-hidden="true"></i><span class="sr-only">{L_TOPIC_REPORTED}</span>
+										</a>
+									<!-- ENDIF -->
+									<!-- EVENT topiclist_row_topic_title_after -->
+								</div>
+
+								<div class="topic-poster flex flex-wrap items-center gap-1 text-xs font-medium mt-0.5 text-secondary">
+									<!-- IF topicrow.S_HAS_POLL --><i class="iconify" data-mode="style" data-icon="fluent:data-histogram-16-regular" data-height="16" data-width="16" aria-hidden="true"></i><!-- ENDIF -->
+									<!-- IF topicrow.ATTACH_ICON_IMG --><i class="iconify" data-mode="style" data-icon="ph:paperclip-bold" data-height="16" data-width="16" aria-hidden="true"></i><!-- ENDIF -->
+									{% EVENT topiclist_row_topic_by_author_before %}
+									{L_POST_BY_AUTHOR} <!-- EVENT viewforum_body_topic_author_username_prepend -->{topicrow.TOPIC_AUTHOR_FULL}<!-- EVENT viewforum_body_topic_author_username_append --> &raquo; <time class="text-secondary" datetime="{topicrow.FIRST_POST_TIME_RFC3339}">{topicrow.FIRST_POST_TIME}</time>
+									{% EVENT topiclist_row_topic_by_author_after %}
+									<!-- IF topicrow.S_POST_GLOBAL and FORUM_ID != topicrow.FORUM_ID --> &raquo; {L_IN} <a href="{topicrow.U_VIEW_FORUM}">{topicrow.FORUM_NAME}</a><!-- ENDIF -->
+								</div>
+							</div>
+						</div>
+
+						<!-- IF .topicrow.pagination -->
+						<div class="pagination flex items-center gap-1 max-md:justify-center">
+							<i class="iconify text-secondary" data-mode="style" data-icon="ph:copy" data-height="16" data-width="16" aria-hidden="true"></i>
+							<ul class="flex items-center text-sm text-center justify-center gap-1">
+							<!-- BEGIN pagination -->
+								<!-- IF topicrow.pagination.S_IS_PREV -->
+								<!-- ELSEIF topicrow.pagination.S_IS_CURRENT --><li class="active py-0.5 px-1 rounded-md font-medium text-secondary hover:text-color bg-gray-100 border min-w-6 text-center"><span>{topicrow.pagination.PAGE_NUMBER}</span></li>
+								<!-- ELSEIF topicrow.pagination.S_IS_ELLIPSIS --><li class="ellipsis py-0.5 px-1 rounded-md text-secondary hover:text-color hover:bg-gray-100 border min-w-6 text-center"><span>{L_ELLIPSIS}</span></li>
+								<!-- ELSEIF topicrow.pagination.S_IS_NEXT -->
+								<!-- ELSE --><li><a class="relative flex overflow-hidden transition-all duration-300 py-0.5 px-1 rounded-md text-secondary hover:text-color hover:bg-gray-100 border min-w-6 justify-center" href="{topicrow.pagination.PAGE_URL}">{topicrow.pagination.PAGE_NUMBER}</a></li>
+								<!-- ENDIF -->
+							<!-- END pagination -->
+							</ul>
+						</div>
+						<!-- ENDIF -->
+					</div>
+
+					<div class="md:col-span-4 flex flex-col gap-2 lg:grid lg:grid-cols-3 md:mt-0 mt-4 md:border-0 md:p-0 p-4 border rounded-lg">
+						<div class="grid grid-cols-2">
+							<div class="topics font-medium text-sm">
+								{topicrow.REPLIES}
+								<div class="text-secondary md:text-xs mt-0.5">{L_REPLIES}</div>
+							</div>
+							<div class="posts font-medium text-sm">
+								{topicrow.VIEWS}
+								<div class="text-secondary md:text-xs mt-0.5">{L_VIEWS}</div>
+							</div>
+						</div>
+
+						<div class="lastpost text-sm col-span-2 max-lg:pt-2 font-medium max-lg:border-t">
+							{L_POST_BY_AUTHOR} <!-- EVENT viewforum_body_last_post_author_username_prepend -->{topicrow.LAST_POST_AUTHOR_FULL}<!-- EVENT viewforum_body_last_post_author_username_append -->
+							<!-- IF not S_IS_BOT and topicrow.U_LAST_POST -->
+								<a class="align-middle" href="{topicrow.U_LAST_POST}" title="{L_GOTO_LAST_POST}" aria-label="{L_VIEW_LATEST_POST}">
+									<i class="iconify" data-mode="style" data-icon="ph:arrow-square-out-bold" data-height="16" data-width="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+								</a>
+							<!-- ENDIF -->
+							<time class="text-xs block mt-0.5 text-secondary" datetime="{topicrow.LAST_POST_TIME_RFC3339}">{topicrow.LAST_POST_TIME}</time>
+						</div>
+
+					</div>
+				</div>
+				<!-- EVENT viewforum_body_topic_row_append -->
+			</li>
+			<!-- EVENT viewforum_body_topic_row_after -->
+
+		<!-- IF topicrow.S_LAST_ROW -->
+						</ul>
+					</div>
+				</li>
+			</ul>
+		<!-- ENDIF -->
+	<!-- END topicrow -->
+
+<!-- ELSE -->
+	<!-- IF S_IS_POSTABLE or not S_HAS_SUBFORUM -->
+	<div class="card w-full p-4 text-sm">
+		<!-- IF S_IS_POSTABLE -->
+		{{ lang(S_SORT_DAYS ? 'NO_TOPICS_TIME_FRAME' : 'NO_TOPICS') }}
+		<!-- ELSE IF not S_HAS_SUBFORUM -->
+		{L_NO_FORUMS_IN_CATEGORY}
+		<!-- ENDIF -->
+	</div>
+	<!-- ENDIF -->
+<!-- ENDIF -->
+
+<!-- IF .topicrow and not S_DISPLAY_ACTIVE -->
+<div class="action-bar bar-bottom flex flex-wrap md:items-center justify-between gap-1 gap-y-2 my-3">
+	<div class="flex flex-wrap items-center gap-1 grow">
+		<div class="flex items-center gap-1">
+			<!-- IF not S_IS_BOT and S_DISPLAY_POST_INFO -->
+				<!-- EVENT viewforum_buttons_bottom_before -->
+				<a href="{U_POST_NEW_TOPIC}" class="relative flex overflow-hidden transition-all duration-300 card-sm<!-- IF S_IS_LOCKED --> bg-red-50 border-red-300 text-red-700<!-- ENDIF -->" title="<!-- IF S_IS_LOCKED -->{L_FORUM_LOCKED}<!-- ELSE -->{L_POST_TOPIC}<!-- ENDIF -->">
+					<!-- IF S_IS_LOCKED -->
+						<i class="iconify" data-mode="style" data-icon="octicon:lock-24" data-width="18" data-height="18" aria-hidden="true"></i> <span class="max-md:hidden">{L_BUTTON_FORUM_LOCKED}</span>
+					<!-- ELSE -->
+						<i class="iconify" data-mode="style" data-icon="mingcute:pencil-line" data-width="18" data-height="18" aria-hidden="true"></i> <span class="max-md:hidden">{L_BUTTON_NEW_TOPIC}</span>
+					<!-- ENDIF -->
+				</a>
+				<!-- EVENT viewforum_buttons_bottom_after -->
+			<!-- ENDIF -->
+		</div>
+		
+		<!-- IF S_SELECT_SORT_DAYS and not S_IS_BOT -->
+			<form method="post" action="{S_FORUM_ACTION}">
+			<!-- INCLUDE display_options.html -->
+			</form>
+		<!-- ENDIF -->
+
+		<!-- IF U_WATCH_FORUM_LINK and not S_IS_BOT -->
+			<a href="{U_WATCH_FORUM_LINK}" class="relative flex overflow-hidden transition-all duration-300 card-sm subscribe-forum" title="{S_WATCH_FORUM_TITLE}" data-ajax="toggle_link" data-toggle-class="icon <!-- IF S_WATCHING_FORUM -->icon-checked<!-- ELSE -->icon-unchecked<!-- ENDIF -->" data-toggle-text="{S_WATCH_FORUM_TOGGLE}" data-toggle-url="{U_WATCH_FORUM_TOGGLE}">
+				<i class="icon <!-- IF S_WATCHING_FORUM -->icon-unchecked<!-- ELSE -->icon-checked<!-- ENDIF -->" aria-hidden="true" style="display: none;"></i>
+				<i class="icon-unchecked<!-- IF not S_WATCHING_FORUM --> hidden<!-- ENDIF --> leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:bell-slash-bold" data-height="18" data-width="18" aria-hidden="true"></i></i>
+				<i class="icon-checked<!-- IF S_WATCHING_FORUM --> hidden<!-- ENDIF --> leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:bell-ringing-bold" data-height="18" data-width="18" aria-hidden="true"></i></i>
+				<span class="max-md:hidden">{S_WATCH_FORUM_TITLE}</span>
+			</a>
+		<!-- ENDIF -->
+
+		<!-- IF not S_IS_BOT and U_MARK_TOPICS and .topicrow -->
+			<div class="flex justify-end grow">
+				<a href="{U_MARK_TOPICS}" class="relative flex overflow-hidden transition-all duration-300 card-sm !transition-[color]" data-ajax="mark_topics_read" title="{L_MARK_TOPICS_READ}">
+					<i class="iconify" data-mode="style" data-icon="ph:checks-bold" data-width="18" data-height="18" aria-hidden="true"></i>
+					<span class="max-md:hidden">{L_MARK_TOPICS_READ}</span>
+				</a>
+			</div>
+		<!-- ENDIF -->
+	</div>
+	<div class="pagination flex flex-wrap items-center justify-end gap-1">
+		<!-- IF .pagination -->
+		{% include 'pagination.html' with {'TOTAL': TOTAL_TOPICS} %}
+		<!-- ELSE -->
+		<div class="card-sm">{TOTAL_TOPICS} &bull; {PAGE_NUMBER}</div>
+		<!-- ENDIF -->
+	</div>
+</div>
+<!-- ELSEIF U_WATCH_FORUM_LINK and not S_IS_BOT -->
+<div class="action-bar bar-bottom my-3">
+	<a href="{U_WATCH_FORUM_LINK}" class="relative flex overflow-hidden transition-all duration-300 card-sm" title="{S_WATCH_FORUM_TITLE}" data-ajax="toggle_link" data-toggle-class="icon <!-- IF S_WATCHING_FORUM -->icon-checked<!-- ELSE -->icon-unchecked<!-- ENDIF -->" data-toggle-text="{S_WATCH_FORUM_TOGGLE}" data-toggle-url="{U_WATCH_FORUM_TOGGLE}">
+		<i class="icon <!-- IF S_WATCHING_FORUM -->icon-unchecked<!-- ELSE -->icon-checked<!-- ENDIF -->" aria-hidden="true" style="display: none;"></i>
+		<i class="icon-unchecked<!-- IF not S_WATCHING_FORUM --> hidden<!-- ENDIF --> leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:bell-slash-bold" data-height="18" data-width="18" aria-hidden="true"></i></i>
+		<i class="icon-checked<!-- IF S_WATCHING_FORUM --> hidden<!-- ENDIF --> leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:bell-ringing-bold" data-height="18" data-width="18" aria-hidden="true"></i></i>
+		<span>{S_WATCH_FORUM_TITLE}</span>
+	</a>
+</div>
+<!-- ENDIF -->
+
+<!-- INCLUDE jumpbox.html -->
+
+{% EVENT viewforum_body_online_list_before %}
+
+<!-- IF (S_DISPLAY_ONLINE_LIST and U_VIEWONLINE) or (S_IS_POSTABLE and rules|length) or MODERATORS -->
+<div class="stat-block my-4 card">
+	<div class="flex items-center justify-between card-title">
+		<h2 class="stat-title">{L_INFO}</h2>
+		{% if zeina.collapse_panel %}
+		<div class="collapse-panel zn-collapse-toggle open leading-[0] py-0.5 px-1 hover:cursor-pointer" id="stat-collapse-btn" data-zn-collapse="#zn-stat-collapse">
+  		<div class="zn-collapse-open:[transform:rotate(180deg)] transition-all duration-300"><i class="iconify" data-mode="style" data-icon="ri:arrow-down-s-line" data-height="18" data-width="18" aria-hidden="true"></i></div>
+		</div>
+		{% endif %}
+	</div>
+	<div id="zn-stat-collapse" class="zn-collapse w-full overflow-hidden" aria-labelledby="stat-collapse-btn">
+		<div class="p-4 mt-2 divide-y space-y-4 stat-content">
+			<!-- IF S_DISPLAY_ONLINE_LIST and U_VIEWONLINE -->
+			<div class="online-list flex gap-4">
+				<div class="mt-0.5 size-8"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4"><path stroke-linecap="round" stroke-linejoin="round" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12s4.477 10 10 10"/><path stroke-linecap="round" stroke-linejoin="round" d="M13 2.05S16 6 16 12m-5 9.95S8 18 8 12c0-6 3-9.95 3-9.95M2.63 15.5H12m-9.37-7h18.74"/><path d="M21.879 17.917c.494.304.463 1.043-.045 1.101l-2.567.291l-1.151 2.312c-.228.459-.933.234-1.05-.334l-1.255-6.116c-.099-.48.333-.782.75-.525z" clip-rule="evenodd"/></g></svg></div>
+				<div class="online-details">
+					<h3 class="online-title text-sm font-semibold"><a href="{U_VIEWONLINE}">{L_WHO_IS_ONLINE}</a></h3>
+					<p class="online-content text-secondary text-sm mt-0.5">{LOGGED_IN_USER_LIST}</p>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF MODERATORS -->
+			<div class="moderators-list flex gap-4">
+				<div class="mt-0.5 size-8"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 26v16m0-9h7l4-6M7 20l26.474 17.649a1 1 0 0 0 1.069.025L44 32"/><path d="M7.078 12.719a1 1 0 0 1-.11-1.58l7.46-6.63a1 1 0 0 1 1.212-.09l27.065 17.732a1 1 0 0 1-.011 1.68l-9.144 5.82a1 1 0 0 1-1.092-.012z"/></g></svg></div>
+				<div class="moderators-details">
+					<h3 class="moderators-title text-sm font-semibold">{L_MODERATORS}</h3>
+					<p class="moderators-content text-secondary text-sm mt-0.5">{MODERATORS}</p>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF S_IS_POSTABLE and rules|length -->
+			<div class="permissions-list flex gap-4">
+  			<div class="mt-0.5 size-8"><i class="iconify" data-mode="style" data-icon="fluent:shield-task-24-regular" data-height="32" data-width="32" aria-hidden="true"></i></div>
+				<div class="permissions-details">
+					<h3 class="permissions-title text-sm font-semibold">{L_FORUM_PERMISSIONS}</h3>
+					<div class="permissions-content mt-0.5">
+						<ul><!-- BEGIN rules --><li class="text-sm text-secondary">{rules.RULE}</li><!-- END rules --></ul>
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+		</div>
+	</div>
+</div>
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

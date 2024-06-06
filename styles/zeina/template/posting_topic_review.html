@@ -1,0 +1,113 @@
+<div class="card border rounded-xl p-3 w-full mt-4">	
+	<div class="card-title">
+		<h3 id="review" class="review flex items-center justify-between text-sm font-medium">
+			{L_TOPIC_REVIEW}{L_COLON} {TOPIC_TITLE}
+			<a href="#review" onclick="viewableArea(getElementById('topicreview'), true); var rev_text = getElementById('review').getElementsByTagName('a').item(0).firstChild; if (rev_text.data == '{LA_EXPAND_VIEW}'){rev_text.data = '{LA_COLLAPSE_VIEW}'; } else if (rev_text.data == '{LA_COLLAPSE_VIEW}'){rev_text.data = '{LA_EXPAND_VIEW}'};">{L_EXPAND_VIEW}</a>
+		</h3>
+	</div>
+	<div id="topicreview" class="topicreview relative overflow-auto h-80 p-4">
+		<script>
+			bbcodeEnabled = {S_BBCODE_ALLOWED};
+		</script>
+
+		{% set S_IS_CODEBOX = false %}
+		<!-- BEGIN topic_review_row -->
+			<!-- IF topic_review_row.S_IGNORE_POST -->
+			<div class="post bg3 post-ignore{% if not loop.last %} mb-5{% endif %} border p-4 rounded-lg">
+				<div class="bg-slate-50 text-secondary border border-gray-200 text-sm rounded-lg p-3" role="alert">
+					<div class="flex gap-2 text-xs">
+						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="16" data-height="16" aria-hidden="true"></i></div>
+						<span>{topic_review_row.L_IGNORE_POST}</span>
+					</div>
+					<a class="display_post_review mt-1.5 block text-secondary" href="{{ topic_review_row.U_MINI_POST }}">{{ lang('POST_DISPLAY') }}</a>
+				</div>
+			<!-- ELSE IF topic_review_row.S_POST_DELETED -->
+			<div class="post bg3 post-ignore{% if not loop.last %} mb-5{% endif %} border p-4 rounded-lg">
+				<div class="bg-slate-50 text-secondary border border-gray-200 text-sm rounded-lg p-3" role="alert">
+					<div class="flex gap-2 text-xs">
+						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="16" data-height="16" aria-hidden="true"></i></div>
+						<span>{topic_review_row.L_DELETE_POST}</span>
+					</div>
+					<a class="display_post_review mt-1.5 block text-secondary" href="{{ topic_review_row.U_MINI_POST_VIEW }}">{{ lang('POST_DISPLAY') }}</a>
+				</div>
+			<!-- ELSE -->
+			<div class="post <!-- IF topic_review_row.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF --><!-- IF topic_review_row.POST_ID == REPORTED_POST_ID --> border-red-300 reported<!-- ENDIF --> {% if not loop.last %} mb-5 {% endif %} border p-4 rounded-lg">
+			<!-- ENDIF -->
+				<div class="postbody first:mt-0 mt-4" id="pr{topic_review_row.POST_ID}">
+				
+					<!-- IF (topic_review_row.POSTER_QUOTE and topic_review_row.DECODED_MESSAGE) or topic_review_row.U_MCP_DETAILS -->
+					<ul class="flex items-center gap-3 justify-end">
+						<!-- IF topic_review_row.U_MCP_DETAILS -->
+						<li>
+							<a href="{topic_review_row.U_MCP_DETAILS}" title="{L_POST_DETAILS}" class="button button-icon-only flex items-center">
+								<i class="iconify" data-mode="style" data-icon="mdi:information-slab-circle-outline" data-width="18" data-height="18" aria-hidden="true"></i>
+								<span class="sr-only">{L_POST_DETAILS}</span>
+							</a>
+						</li>
+						<!-- ENDIF -->
+						<!-- IF topic_review_row.POSTER_QUOTE and topic_review_row.DECODED_MESSAGE -->
+						<li>
+							<a href="#postingbox" onclick="addquote({topic_review_row.POST_ID}, '{topic_review_row.POSTER_QUOTE}', '{LA_WROTE}', {post_id:{topic_review_row.POST_ID},time:{topic_review_row.POST_TIME},user_id:{topic_review_row.USER_ID}});" title="{L_QUOTE} {topic_review_row.POST_AUTHOR}" class="button button-icon-only flex items-center">
+								<i class="iconify" data-mode="style" data-icon="mingcute:quote-right-line" data-width="18" data-height="18" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+								<span class="sr-only">{L_QUOTE} {topic_review_row.POST_AUTHOR}</span>
+							</a>
+						</li>
+						<!-- ENDIF -->
+					</ul>
+					<!-- ENDIF -->
+
+					<h3><a class="text-sm" href="{topic_review_row.U_MINI_POST}">{topic_review_row.POST_SUBJECT}</a></h3>
+
+					<!-- EVENT posting_topic_review_row_post_details_before -->
+					<p class="author text-sm text-secondary border-b pb-2">
+						<a href="{topic_review_row.U_MINI_POST}" title="{topic_review_row.MINI_POST}">
+							<i class="iconify" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{topic_review_row.MINI_POST}</span>
+						</a>
+						{L_POST_BY_AUTHOR} <!-- EVENT posting_topic_review_row_post_author_username_prepend --><span class="font-semibold">{topic_review_row.POST_AUTHOR_FULL}</span><!-- EVENT posting_topic_review_row_post_author_username_append --> &raquo; {topic_review_row.POST_DATE}
+					</p>
+					<!-- EVENT posting_topic_review_row_post_details_after -->
+
+					<div class="content mt-4">{topic_review_row.MESSAGE}</div>
+					<!-- EVENT posting_topic_review_row_content_after -->
+
+					{#-- Highlight codes --#}
+					{% if 'class="codebox"' in topic_review_row.MESSAGE and not S_IS_CODEBOX %}
+						{% set S_IS_CODEBOX = true %}
+					{% endif %}
+
+					<!-- EVENT mcp_topic_postrow_attachments_before -->
+
+					<!-- IF topic_review_row.S_HAS_ATTACHMENTS -->
+						<div class="attachbox mt-5">
+							<div class="font-semibold text-sm">
+								{L_ATTACHMENTS}{L_COLON}
+							</div>
+							<div class="attachments inline-block text-sm">
+							<!-- BEGIN attachment -->
+								<div class="mt-2">{topic_review_row.attachment.DISPLAY_ATTACHMENT}</div>
+							<!-- END attachment -->
+							</div>
+						</div>
+					<!-- ENDIF -->
+
+					<!-- IF topic_review_row.POSTER_QUOTE and topic_review_row.DECODED_MESSAGE -->
+						<div id="message_{topic_review_row.POST_ID}" style="display: none;">{topic_review_row.DECODED_MESSAGE}</div>
+					<!-- ENDIF -->
+				</div>
+			</div>
+		<!-- END topic_review_row -->
+	</div>
+</div>
+
+{% if S_IS_CODEBOX %}
+	{% INCLUDECSS T_THEME_PATH ~ '/assets/css/highlight.min.css' %}
+	{% INCLUDEJS T_THEME_PATH ~ '/assets/js/highlight.min.js' %}
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('.codebox code').forEach((el) => {
+				hljs.highlightElement(el);
+			});
+		});
+	</script>
+{% endif %}
+

@@ -1,0 +1,87 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+	<h2 class="mb-0.5">{L_TITLE}</h2>
+	<p class="text-sm text-secondary">{L_PROFILE_AUTOLOGIN_KEYS}</p>
+
+	<!-- IF ERROR -->
+	<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 my-4" role="alert">
+		<p class="error">{ERROR}</p>
+	</div>
+	<!-- ENDIF -->
+
+<!-- IF .sessions -->
+	<div class="mt-4">
+		<div class="overflow-auto">
+			<div class="min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden">
+					<table class="min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								{% EVENT ucp_profile_autologin_keys_thead_mark_before %}
+								<th scope="col" class="p-3 w-16">
+									<div class="flex justify-center items-center">
+										<input id="table-checkbox-all" type="checkbox" onclick="marklist('ucp', 'keys', this.checked);" class="checkbox-primary">
+										<label for="table-checkbox-all" class="sr-only">{L_MARK_ALL}</label>
+									</div>
+								</th>
+								{% EVENT ucp_profile_autologin_keys_thead_mark_after %}
+								{% EVENT ucp_profile_autologin_keys_thead_key_before %}
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase"><a href="{U_SORT_FILENAME}">{L_LOGIN_KEY}</a></th>
+								{% EVENT ucp_profile_autologin_keys_thead_key_after %}
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase"><a href="{U_SORT_DOWNLOADS}">{L_IP}</a></th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase"><a href="{U_SORT_POST_TIME}">{L_LOGIN_TIME}</a></th>
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+						<!-- BEGIN sessions -->
+							<tr class="divide-y <!-- IF sessions.S_ROW_COUNT is odd --> max-lg:bg-gray-50 bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+								{% EVENT ucp_profile_autologin_keys_tbody_mark_before %}
+								<td class="p-3 max-lg:flex max-lg:items-center max-lg:gap-2">
+									<dfn class="mb-0">{L_MARK}{L_COLON}</dfn>
+									<div class="text-center leading-[0]">
+										<input id="{sessions.KEY}" type="checkbox" name="keys[]" class="checkbox-primary" value="{sessions.KEY}">
+										<label for="{sessions.KEY}" class="sr-only">{L_MARK}</label>
+									</div>
+								</td>
+								{% EVENT ucp_profile_autologin_keys_tbody_mark_after %}
+
+								{% EVENT ucp_profile_autologin_keys_tbody_key_before %}
+								<td class="p-3"><dfn>{L_LOGIN_KEY}{L_COLON}</dfn><label for="{sessions.KEY}" class="text-sm">{sessions.KEY}</label></td>
+								{% EVENT ucp_profile_autologin_keys_tbody_key_after %}
+
+								<td class="lg:text-center p-3 text-sm"><dfn>{L_IP}{L_COLON}</dfn>{sessions.IP}</td>
+								<td class="lg:text-center p-3 text-sm"><dfn>{L_LOGIN_TIME}{L_COLON}</dfn>{sessions.LOGIN_TIME}</td>
+							</tr>
+						<!-- END sessions -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		{S_HIDDEN_FIELDS}
+		<div class="display-actions flex w-full items-center justify-end mt-3 gap-2">
+			<button class="btn-primary max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" type="submit" name="submit" value="{L_DELETE_MARKED}">{L_DELETE_MARKED}</button>
+		</div>
+		<div class="flex w-full items-center justify-end mt-3 gap-2 lg:hidden">
+			<a class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('ucp', 'keys', true); return false;">{L_MARK_ALL}</a>
+			<a class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('ucp', 'keys', false); return false;">{L_UNMARK_ALL}</a>
+		</div>
+		{S_FORM_TOKEN}
+	</div>
+
+<!-- ELSE -->
+	<div class="mt-4 bg-gray-50 border border-gray-200 text-sm text-secondary rounded-lg p-4" role="alert">
+		<div class="flex items-center gap-2">
+			<div class="leading-[0]"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="18" data-height="18" aria-hidden="true"></i></div>
+			<p>{L_PROFILE_NO_AUTOLOGIN_KEYS}</p>
+		</div>
+	</div>
+<!-- ENDIF -->
+
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

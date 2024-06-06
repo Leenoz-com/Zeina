@@ -1,0 +1,80 @@
+<!-- IF S_AJAX_REQUEST -->
+<form action="{S_CONFIRM_ACTION}" method="post">
+	<h3 class="leading-6">{MESSAGE_TITLE}</h3>
+	<p class="text-sm mt-1">{MESSAGE_TEXT}</p>
+
+	<div class="mt-4 pt-4 border-t">
+		<!-- IF not S_SHADOW_TOPICS -->
+		<!-- IF not S_SOFTDELETED and S_ALLOWED_DELETE and S_ALLOWED_SOFTDELETE -->
+			<div class="md:flex gap-2 mb-4">
+				<input id="delete_permanent" class="checkbox-primary mt-1.5" type="checkbox" name="delete_permanent" value="1" {S_CHECKED_PERMANENT}>
+				<div>
+					<label for="delete_permanent">{L_DELETE_PERMANENTLY}{L_COLON}</label>
+					<div class="text-sm text-secondary"><!-- IF S_TOPIC_MODE -->{DELETE_TOPIC_PERMANENTLY_EXPLAIN}<!-- ELSE -->{DELETE_POST_PERMANENTLY_EXPLAIN}<!-- ENDIF --></div>
+				</div>
+			</div>
+		<!-- ENDIF -->
+
+		<div>
+			<div class="mb-2">
+				<label for="delete_reason">{L_DELETE_REASON}{L_COLON}</label>
+				<div class="text-sm text-secondary">{L_DELETE_REASON_EXPLAIN}</div>
+			</div>
+			<input type="text" id="delete_reason" name="delete_reason" value="" class="inputbox" maxlength="120" size="45">
+		</div>
+		<!-- ENDIF -->
+	</div>
+
+	<div class="mt-4 flex max-md:flex-col items-center justify-center gap-2 leading-[0] md:me-10">
+		<input type="button" name="confirm" value="{L_YES}" class="btn-primary transition-all duration-300 flex items-center justify-center max-md:w-full">
+		<input type="button" name="cancel" value="{L_NO}" class="btn-primary-outline transition-all duration-300 flex items-center justify-center max-md:w-full">
+	</div>
+</form>
+
+<!-- ELSE -->
+
+<!-- INCLUDE overall_header.html -->
+<form id="confirm" action="{S_CONFIRM_ACTION}" method="post">
+	<div class="card">
+		<h2 class="card-title message-title">{MESSAGE_TITLE}</h2>
+		<div class="p-4">
+			<!-- IF not S_SHADOW_TOPICS -->
+			<div>
+				<!-- IF not S_SOFTDELETED and S_ALLOWED_DELETE and S_ALLOWED_SOFTDELETE -->
+					<div class="flex gap-2 mb-4">
+						<input id="delete_permanent" class="checkbox-primary mt-1.5" type="checkbox" name="delete_permanent" value="1" {S_CHECKED_PERMANENT}>
+						<div>
+							<label for="delete_permanent">{L_DELETE_PERMANENTLY}{L_COLON}</label>
+							<div class="text-sm text-secondary"><!-- IF S_TOPIC_MODE -->{DELETE_TOPIC_PERMANENTLY_EXPLAIN}<!-- ELSE -->{DELETE_POST_PERMANENTLY_EXPLAIN}<!-- ENDIF --></div>
+						</div>
+					</div>
+				<!-- ENDIF -->
+				
+				{% EVENT confirm_delete_body_delete_reason_before %}
+
+				<div>
+					<div class="mb-2">
+						<label for="delete_reason">{L_DELETE_REASON}{L_COLON}</label>
+						<div class="text-sm text-secondary">{L_DELETE_REASON_EXPLAIN}</div>
+					</div>
+					<input type="text" id="delete_reason" name="delete_reason" value="" class="inputbox" maxlength="120" size="45">
+				</div>
+			</div>
+			<!-- ENDIF -->
+
+			<div class="text-center mt-5 py-3 border-t">
+				<p>{MESSAGE_TEXT}</p>
+
+				<div class="flex max-md:flex-col items-center justify-center gap-2 mt-4">
+					{S_HIDDEN_FIELDS}
+					<button type="submit" name="confirm" value="{L_YES}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full">{L_YES}</button>
+					<button type="submit" name="cancel" value="{L_NO}" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full">{L_NO}</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</form>
+<!-- INCLUDE overall_footer.html -->
+
+<!-- ENDIF -->

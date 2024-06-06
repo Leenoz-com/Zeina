@@ -1,0 +1,222 @@
+<!-- INCLUDE mcp_header.html -->
+
+<h2 class="max-lg:mb-4"><a href="{U_VIEW_TOPIC}">{L_TOPIC}{L_COLON} {TOPIC_TITLE}</a></h2>
+
+<div class="md:mx-2 max-md:mb-1">
+	<nav class="flex justify-end max-md:flex-col md:gap-2 md:pe-2 max-md:bg-gray-50 max-md:rounded-lg max-md:border max-md:border-gray-200 max-md:overflow-hidden max-md:divide-y" aria-label="Tabs" role="tablist">
+		<button type="button" class="md:-mb-px py-2 px-3 inline-flex items-center gap-2 md:bg-gray-50 text-sm font-medium text-center md:border md:border-gray-200 text-secondary md:rounded-t-lg<!-- IF S_MERGE_VIEW --> active<!-- ENDIF -->" id="merge-panel-tab" data-zn-tab="#merge-panel" aria-controls="merge-panel" role="tab">
+			{L_MERGE_POSTS}
+		</button>
+		<button type="button" class="md:-mb-px py-2 px-3 inline-flex items-center gap-2 md:bg-gray-50 text-sm font-medium text-center md:border md:border-gray-200 text-secondary md:rounded-t-lg<!-- IF S_SPLIT_VIEW --> active<!-- ENDIF -->" id="split-panel-tab" data-zn-tab="#split-panel" aria-controls="split-panel" role="tab">
+			{L_SPLIT_TOPIC}
+		</button>
+		<button type="button" class="md:-mb-px py-2 px-3 inline-flex items-center gap-2 md:bg-gray-50 text-sm font-medium text-center md:border md:border-gray-200 text-secondary md:rounded-t-lg<!-- IF not S_MERGE_VIEW and not S_SPLIT_VIEW --> active<!-- ENDIF -->" id="display-panel-tab" data-zn-tab="#display-panel" aria-controls="display-panel" role="tab">
+			{L_DISPLAY_OPTIONS}
+		</button>
+	</nav>
+</div>
+
+<form id="mcp" method="post" action="{S_MCP_ACTION}">
+	<div class="p-4 border border-gray-200 rounded-lg">
+		<div id="display-panel" class="<!-- IF S_MERGE_VIEW or S_SPLIT_VIEW -->hidden<!-- ENDIF -->" role="tabpanel" aria-labelledby="display-panel">
+			<div>
+				<label for="posts_per_page" class="font-medium text-sm">{L_POSTS_PER_PAGE}{L_COLON}</label><br><span class="text-secondary text-sm">{L_POSTS_PER_PAGE_EXPLAIN}</span>
+				<input class="inputbox mt-2" type="number" min="0" max="999999" name="posts_per_page" id="posts_per_page" value="{POSTS_PER_PAGE}">
+			</div>
+			<div class="mt-3">
+				<label class="mb-2 block font-medium text-sm">{L_DISPLAY_POSTS}{L_COLON}</label>
+				<div class="md:grid grid-cols-3 gap-4">
+					<div>{S_SELECT_SORT_DAYS}</div>
+					<div class="flex max-md:flex-col md:items-center gap-2 w-full col-span-2 max-md:mt-2">
+						<label class="text-nowrap font-medium text-sm">{L_SORT_BY}</label>
+						<span class="flex w-full">{S_SELECT_SORT_KEY}</span>
+						<span class="flex w-full">{S_SELECT_SORT_DIR}</span>
+						<button type="submit" name="sort" class="btn-primary relative flex overflow-hidden transition-all duration-300 min-w-12 justify-center" value="{L_GO}">{L_GO}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- IF S_CAN_SPLIT -->
+		<div id="split-panel" class="<!-- IF not S_SPLIT_VIEW -->hidden<!-- ENDIF -->" role="tabpanel" aria-labelledby="split-panel">
+			<p class="text-secondary text-sm mb-4">{L_SPLIT_TOPIC_EXPLAIN}</p>
+
+			<!-- IF S_SHOW_TOPIC_ICONS -->
+			<div class="mb-3">
+				<label for="icon" class="block text-sm font-medium mb-2">{L_TOPIC_ICON}{L_COLON}</label>
+				<div class="flex flex-wrap items-center gap-4 text-sm"><label for="icon" class="flex items-center gap-2"><input type="radio" class="radio-primary" name="icon" id="icon" value="0" checked="checked"> {L_NO_TOPIC_ICON}</label>
+				<!-- BEGIN topic_icon --><label for="icon-{topic_icon.ICON_ID}" class="flex items-center gap-2"><input class="radio-primary" type="radio" name="icon" id="icon-{topic_icon.ICON_ID}" value="{topic_icon.ICON_ID}" {topic_icon.S_ICON_CHECKED}><img src="{topic_icon.ICON_IMG}" width="{topic_icon.ICON_WIDTH}" height="{topic_icon.ICON_HEIGHT}" alt="" title=""></label> <!-- END topic_icon --></div>
+			</div>
+			<!-- ENDIF -->
+
+			<!-- EVENT mcp_topic_options_before -->
+			<div class="mb-3">
+				<label for="subject" class="block text-sm font-medium mb-2">{L_SPLIT_SUBJECT}{L_COLON}</label>
+				<input type="text" name="subject" id="subject" size="45" maxlength="124" tabindex="2" value="{SPLIT_SUBJECT}" title="{L_SPLIT_SUBJECT}" class="inputbox">
+			</div>
+			<!-- EVENT mcp_topic_options_after -->
+			<div>
+				<label for="to_forum_id" class="block text-sm font-medium mb-2">{L_SPLIT_FORUM}{L_COLON}</label>
+				<select id="to_forum_id" name="to_forum_id" class="inputbox">{S_FORUM_SELECT}</select>
+			</div>
+		</div>
+		<!-- ENDIF -->
+
+		<!-- IF S_CAN_MERGE -->
+		<div id="merge-panel" class="<!-- IF not S_MERGE_VIEW -->hidden<!-- ENDIF -->" role="tabpanel" aria-labelledby="merge-panel">
+			<p class="text-secondary text-sm mb-4">{L_MERGE_TOPIC_EXPLAIN}</p>
+			<div>
+				<label for="to_topic_id" class="block text-sm font-medium mb-2">{L_MERGE_TOPIC_ID}{L_COLON}</label>
+				<input class="inputbox" type="number" min="0" max="9999999999" name="to_topic_id" id="to_topic_id" value="{TO_TOPIC_ID}">
+				<a href="{U_SELECT_TOPIC}" class="mt-3 block font-medium text-end text-sm p-1">{L_SELECT_TOPIC}</a>
+			</div>
+			<!-- IF TO_TOPIC_INFO --><div>{TO_TOPIC_INFO}</div><!-- ENDIF -->
+		</div>
+		<!-- ENDIF -->
+	</div>
+
+	<div class="rounded-lg overflow-hidden border border-gray-200 divide-y mt-4">
+		<h3 id="review" class="review flex items-center justify-between text-sm font-medium bg-gray-50 p-4">
+			{L_TOPIC_REVIEW}{L_COLON} <!-- EVENT mcp_topic_topic_title_before -->{TOPIC_TITLE}<!-- EVENT mcp_topic_topic_title_after -->
+			<a href="#review" onclick="viewableArea(getElementById('topicreview'), true); var rev_text = getElementById('review').getElementsByTagName('a').item(0).firstChild; if (rev_text.data == '{LA_EXPAND_VIEW}'){rev_text.data = '{LA_COLLAPSE_VIEW}'; } else if (rev_text.data == '{LA_COLLAPSE_VIEW}'){rev_text.data = '{LA_EXPAND_VIEW}'};">{L_EXPAND_VIEW}</a>
+		</h3>
+
+		<div id="topicreview" class="topicreview relative overflow-auto h-80 p-4">
+			{% set S_IS_CODEBOX = false %}
+			<!-- BEGIN postrow -->
+			<!-- EVENT mcp_topic_postrow_post_before -->
+      <!-- IF postrow.S_FIRST_UNREAD -->
+  			<a id="unread" class="anchor"<!-- IF S_UNREAD_VIEW --> data-url="{postrow.U_MINI_POST}"<!-- ENDIF -->></a>
+  		<!-- ENDIF -->
+			<div class="post <!-- IF postrow.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF --> mb-5 border p-4 rounded-lg">
+				<div class="postbody" id="pr{postrow.POST_ID}">
+					<ul class="flex items-center gap-3 justify-end">
+						<li>
+							<a href="{postrow.U_POST_DETAILS}" title="{L_POST_DETAILS}" class="button button-icon-only flex items-center">
+								<i class="iconify" data-mode="style" data-icon="mdi:information-slab-circle-outline" data-height="18" data-width="18" aria-hidden="true"></i>
+								<span class="sr-only">{L_POST_DETAILS}</span>
+							</a>
+						</li>
+						<li>
+							<label for="post_id_list_select_{postrow.POST_ID}" class="text-sm flex items-center gap-2">{L_SELECT}{L_COLON}
+								<input class="checkbox-primary mt-0" type="checkbox" id="post_id_list_select_{postrow.POST_ID}" name="post_id_list[]" value="{postrow.POST_ID}"<!-- IF postrow.S_CHECKED --> checked="checked"<!-- ENDIF -->>
+							</label>
+						</li>
+					</ul>
+
+					<!-- EVENT mcp_topic_postrow_post_subject_before -->
+					<h3><a class="text-sm" href="{postrow.U_POST_DETAILS}">{postrow.POST_SUBJECT}</a></h3>
+					<!-- EVENT mcp_topic_postrow_post_subject_after -->
+
+					<!-- EVENT mcp_topic_postrow_post_details_before -->
+					<p class="author text-sm text-secondary">
+						<a href="{postrow.U_MINI_POST}" title="{postrow.MINI_POST}">
+							<i class="iconify" data-mode="style" data-icon="ph:file" data-height="14" data-width="14" aria-hidden="true"></i><span class="sr-only">{postrow.MINI_POST}</span>
+						</a> {L_POSTED} {postrow.POST_DATE} {L_POST_BY_AUTHOR} {% EVENT mcp_topic_post_author_full_prepend %}<span class="font-semibold">{postrow.POST_AUTHOR_FULL}</span>{% EVENT mcp_topic_post_author_full_append %}<!-- IF postrow.U_MCP_DETAILS --> [ <a href="{postrow.U_MCP_DETAILS}">{L_POST_DETAILS}</a> ]<!-- ENDIF -->
+					</p>
+					<!-- EVENT mcp_topic_postrow_post_details_after -->
+
+					<!-- IF postrow.S_POST_UNAPPROVED -->
+					<div class="post-notice unapproved my-4 text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
+						<div class="flex gap-2">
+							<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:x-circle" data-height="18" data-width="18" aria-hidden="true"></i></div>
+							<a href="{postrow.U_MCP_APPROVE}" class="font-medium">{L_POST_UNAPPROVED}</a>
+						</div>
+					</div>
+					<!-- ENDIF -->
+
+					<!-- IF postrow.S_POST_DELETED -->
+					<div class="post-notice deleted my-4 text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
+						<div class="flex gap-2">
+							<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:trash-2" data-height="18" data-width="18" aria-hidden="true"></i></div>
+							<a href="{postrow.U_MCP_APPROVE}" class="font-medium">{L_POST_DELETED}</a>
+						</div>
+					</div>
+					<!-- ENDIF -->
+
+					<!-- IF postrow.S_POST_REPORTED -->
+					<div class="post-notice reported my-4 text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
+						<div class="flex gap-2">
+							<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:circle-alert" data-height="18" data-width="18" aria-hidden="true"></i></div>
+							<a href="{postrow.U_MCP_REPORT}" class="font-medium">{L_POST_REPORTED}</a>
+						</div>
+					</div>
+					<!-- ENDIF -->
+
+					<div class="content mt-4" id="message_{postrow.POST_ID}">{postrow.MESSAGE}</div>
+
+					{#-- Highlight codes --#}
+					{% if 'class="codebox"' in postrow.MESSAGE and not S_IS_CODEBOX %}
+						{% set S_IS_CODEBOX = true %}
+					{% endif %}
+
+					<!-- EVENT mcp_topic_postrow_attachments_before -->
+
+					<!-- IF postrow.S_HAS_ATTACHMENTS -->
+					<div class="attachbox mt-5">
+						<div class="font-semibold text-sm">
+							{L_ATTACHMENTS}{L_COLON}
+						</div>
+						<div class="attachments inline-block text-sm">
+						<!-- BEGIN attachment -->
+							<div class="mt-2">{postrow.attachment.DISPLAY_ATTACHMENT}</div>
+						<!-- END attachment -->
+						</div>
+					</div>
+					<!-- ENDIF -->
+
+					<!-- EVENT mcp_topic_postrow_attachments_after -->
+
+				</div>
+			</div>
+			<!-- BEGINELSE -->
+				<p><strong>{{ lang('NO_POSTS_TIME_FRAME') }}</strong></p>
+			<!-- END postrow -->
+		</div>
+	</div>
+
+	<!-- IF .postrow -->
+	<div class="action-bar bottom my-3">
+		<div class="pagination flex flex-wrap items-center justify-end gap-1">
+			<!-- IF .pagination -->
+			{% include 'pagination.html' with {'TOTAL': TOTAL_POSTS} %}
+			<!-- ELSE -->
+			<div class="card-sm">{TOTAL_POSTS} &bull; {PAGE_NUMBER}</div>
+			<!-- ENDIF -->
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<div class="display-actions flex max-md:flex-col md:items-center mt-3 gap-2 justify-end">
+		<select name="action" class="lg:w-auto">
+			<option value="" selected="selected">{L_SELECT_ACTION}</option>
+			<!-- IF S_CAN_APPROVE --><option value="approve">{L_APPROVE_POSTS}</option><!-- ENDIF -->
+			<!-- IF S_CAN_LOCK --><option value="lock_post">{L_LOCK_POST_POSTS} [ {L_LOCK_POST_EXPLAIN} ]</option><option value="unlock_post">{L_UNLOCK_POST_POSTS}</option><!-- ENDIF -->
+			<!-- IF S_CAN_DELETE --><option value="delete_post">{L_DELETE_POSTS}</option><!-- ENDIF -->
+			<!-- IF S_CAN_RESTORE --><option value="restore">{L_RESTORE_POSTS}</option><!-- ENDIF -->
+			<!-- IF S_CAN_MERGE --><option value="merge_posts"<!-- IF S_MERGE_VIEW --> selected="selected"<!-- ENDIF -->>{L_MERGE_POSTS}</option><!-- ENDIF -->
+			<!-- IF S_CAN_SPLIT --><option value="split_all"<!-- IF S_SPLIT_VIEW --> selected="selected"<!-- ENDIF -->>{L_SPLIT_POSTS}</option><option value="split_beyond">{L_SPLIT_AFTER}</option><!-- ENDIF -->
+			<!-- IF S_CAN_SYNC --><option value="resync">{L_RESYNC}</option><!-- ENDIF -->
+		</select>
+		<button type="submit" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center" name="mcp_topic_submit" value="{L_SUBMIT}">{L_SUBMIT}</button>
+		{S_HIDDEN_FIELDS}
+		{S_FORM_TOKEN}
+	</div>	
+	<div class="flex w-full items-center justify-end mt-3 gap-2">
+		<a class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('mcp', 'post', true); return false;">{L_MARK_ALL}</a>
+		<a class="btn-primary-outline max-lg:w-full relative flex overflow-hidden transition-all duration-300 justify-center" href="#" onclick="marklist('mcp', 'post', false); return false;">{L_UNMARK_ALL}</a>
+	</div>
+</form>
+
+{% if S_IS_CODEBOX %}
+	{% INCLUDECSS T_THEME_PATH ~ '/assets/css/highlight.min.css' %}
+	{% INCLUDEJS T_THEME_PATH ~ '/assets/js/highlight.min.js' %}
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('.codebox code').forEach((el) => {
+				hljs.highlightElement(el);
+			});
+		});
+	</script>
+{% endif %}
+
+<!-- INCLUDE mcp_footer.html -->

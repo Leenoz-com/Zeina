@@ -1,0 +1,58 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+
+	<h2 class="leading-6">{L_TITLE} [ <a href="{U_USER_PROFILE}" title="{L_VIEW_PROFILE}">{L_VIEW_PROFILE}</a> ]</h2>
+	<p class="mt-1 text-sm text-secondary">{L_PROFILE_INFO_NOTICE}</p>
+
+	<!-- IF ERROR -->
+	<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 my-4" role="alert">
+		<p class="error">{ERROR}</p>
+	</div>
+	<!-- ENDIF -->
+
+	<div class="mt-4 divide-y">
+		<!-- EVENT ucp_profile_profile_info_before -->
+
+		<!-- IF S_BIRTHDAYS_ENABLED -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
+			<dt class="text-sm"><span class="font-medium leading-6">{L_BIRTHDAY}{L_COLON} {% EVENT ucp_profile_profile_info_birthday_label_append %}</span><br><span class="text-secondary">{L_BIRTHDAY_EXPLAIN}</span></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col w-full gap-5 gap-y-3">
+					<label class="flex max-md:flex-col md:items-center w-full gap-2 text-sm font-medium" for="bday_day">{L_DAY}{L_COLON} <select name="bday_day" id="bday_day" class="inputbox w-full">{S_BIRTHDAY_DAY_OPTIONS}</select></label>
+					<label class="flex max-md:flex-col md:items-center w-full gap-2 text-sm font-medium" for="bday_month">{L_MONTH}{L_COLON} <select name="bday_month" id="bday_month" class="inputbox w-full">{S_BIRTHDAY_MONTH_OPTIONS}</select></label>
+					<label class="flex max-md:flex-col md:items-center w-full gap-2 text-sm font-medium" for="bday_year">{L_YEAR}{L_COLON} <select name="bday_year" id="bday_year" class="inputbox w-full">{S_BIRTHDAY_YEAR_OPTIONS}</select></label>
+				</div>
+			</dd>
+		</dl>
+		<!-- ENDIF -->
+
+		<!-- IF S_JABBER_ENABLED -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
+			<dt class="text-sm font-medium leading-6"><label for="jabber">{L_UCP_JABBER}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<input type="email" name="jabber" id="jabber" maxlength="255" value="{JABBER}" class="inputbox">
+			</dd>
+		</dl>
+		<!-- ENDIF -->
+	
+		<!-- BEGIN profile_fields -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
+			<dt class="text-sm"><label class="font-medium leading-6"<!-- IF profile_fields.FIELD_ID --> for="{profile_fields.FIELD_ID}"<!-- ENDIF -->>{profile_fields.LANG_NAME}{L_COLON}<!-- IF profile_fields.S_REQUIRED --> *<!-- ENDIF --></label>
+				<!-- IF profile_fields.LANG_EXPLAIN --><br><span class="text-secondary">{L_BIRTHDAY_EXPLAIN}</span><!-- ENDIF -->
+				<!-- IF profile_fields.ERROR --><br><div class="text-red-700">{profile_fields.ERROR}</div><!-- ENDIF -->
+			</dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">{profile_fields.FIELD}</dd>
+		</dl>
+		<!-- END profile_fields -->
+	</div>
+	<!-- EVENT ucp_profile_profile_info_after -->
+
+	<div class="flex items-center md:justify-end">
+		{S_HIDDEN_FIELDS}
+		<button type="submit" name="submit" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center" value="{L_SUBMIT}">{L_SUBMIT}</button>
+		{S_FORM_TOKEN}
+	</div>
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

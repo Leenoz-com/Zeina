@@ -1,0 +1,163 @@
+{% embed "overall_header.html" %}
+	{% block header_content %}
+		<h1 class="text-slate-50 md:text-2xl text-xl memberlist-title">{PAGE_TITLE}</h1>
+	{% endblock %}
+{% endembed %}
+
+<!-- EVENT memberlist_view_content_prepend -->
+
+<form method="post" action="{S_PROFILE_ACTION}" id="viewprofile">
+
+	<div class="card bg1 mt-4<!-- IF S_ONLINE --> online<!-- ENDIF -->">
+		<div class="card-title">{PAGE_TITLE}</div>
+		<div class="p-4">
+			<div class="md:grid md:grid-cols-4 md:gap-4">
+				<div class="left-box text-center">
+					<div class="px-4 py-3 flex items-center justify-center mb-2">
+						<div class="rounded-lg overflow-hidden h-fit w-fit profile-avatar"><!-- IF AVATAR_IMG -->{AVATAR_IMG}<!-- ELSE --><img class="border" src="{T_THEME_PATH}/images/no_avatar.gif" alt="User avatar"><!-- ENDIF --></div>
+					</div>
+					<!-- IF S_ONLINE -->
+						<span class="py-1 px-3 inline-flex items-center gap-1 text-xs font-medium bg-green-100 text-green-800 rounded-full mb-2">
+							<i class="iconify" data-mode="style" data-icon="mdi:account-online-outline" data-width="18" data-height="18" aria-hidden="true"></i>
+							<span>{L_ONLINE}</span>
+						</span>
+					<!-- ENDIF -->
+					<!-- IF AVATAR_IMG --><!-- EVENT memberlist_view_rank_avatar_before --><!-- ELSE --><!-- EVENT memberlist_view_rank_no_avatar_before --><!-- ENDIF -->
+					<!-- IF RANK_TITLE --><div class="text-center font-medium text-sm mb-2">{RANK_TITLE}</div><!-- ENDIF -->
+					<!-- IF RANK_IMG --><div class="flex items-center justify-center mb-2">{RANK_IMG}</div><!-- ENDIF -->
+					<!-- IF AVATAR_IMG --><!-- EVENT memberlist_view_rank_avatar_after --><!-- ELSE --><!-- EVENT memberlist_view_rank_no_avatar_after --><!-- ENDIF -->
+				</div>
+				<div class="col-span-3">
+					<div class="details profile-details text-sm flex flex-col gap-3 divide-y">
+						<!-- EVENT ucp_main_front_user_activity_prepend -->
+						<div class="grid md:grid-cols-5 gap-3 pt-3">
+							<span class="md:text-end font-medium">{L_USERNAME}{L_COLON}</span>
+							<span class="md:col-span-4">
+								<!-- EVENT memberlist_view_username_prepend --><!-- IF USER_COLOR --><span style="color: {USER_COLOR}; font-weight: bold;"><!-- ELSE --><span><!-- ENDIF -->{USERNAME}</span><!-- EVENT memberlist_view_username_append -->
+								<!-- IF U_EDIT_SELF --> [ <a href="{U_EDIT_SELF}">{L_EDIT_PROFILE}</a> ]<!-- ENDIF -->
+								<!-- IF U_USER_ADMIN --> [ <a href="{U_USER_ADMIN}">{L_USER_ADMIN}</a> ]<!-- ENDIF -->
+								<!-- IF U_USER_BAN --> [ <a href="{U_USER_BAN}">{L_USER_BAN}</a> ]<!-- ENDIF -->
+								<!-- IF U_SWITCH_PERMISSIONS --> [ <a href="{U_SWITCH_PERMISSIONS}">{L_USE_PERMISSIONS}</a> ]<!-- ENDIF -->
+							</span>
+						</div>
+						<!-- IF S_USER_INACTIVE --><div class="grid md:grid-cols-5 gap-3 pt-3"><span class="md:text-end font-medium">{L_USER_IS_INACTIVE}{L_COLON}</span> <span class="md:col-span-4">{USER_INACTIVE_REASON}</span></div><!-- ENDIF -->
+						<!-- IF AGE !== '' --><div class="grid md:grid-cols-5 gap-3 pt-3"><span class="md:text-end font-medium">{L_AGE}{L_COLON}</span> <span class="md:col-span-4">{AGE}</span></div><!-- ENDIF -->
+						<!-- IF S_GROUP_OPTIONS -->
+							<div class="grid md:grid-cols-5 gap-3 pt-3 items-center">
+								<label class="md:text-end font-medium" for="g_select">{L_USERGROUPS}{L_COLON}</label>
+								<span class="md:col-span-4">
+									<div class="flex max-md:flex-col md:items-center gap-2">
+										<select name="g" id="g_select">{S_GROUP_OPTIONS}</select>
+										<button type="submit" name="submit" value="{L_GO}" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center">{L_GO}</button>
+									</div>
+								</span>
+							</div>
+						<!-- ENDIF -->
+						<!-- EVENT memberlist_view_non_contact_custom_fields_before -->
+						<!-- BEGIN custom_fields -->
+							<!-- IF not custom_fields.S_PROFILE_CONTACT --><div class="grid md:grid-cols-5 gap-3 pt-3"><span class="md:text-end font-medium">{custom_fields.PROFILE_FIELD_NAME}{L_COLON}</span> <span class="md:col-span-4">{custom_fields.PROFILE_FIELD_VALUE}</span></div><!-- ENDIF -->
+						<!-- END custom_fields -->
+						<!-- EVENT memberlist_view_non_contact_custom_fields_after -->
+						<!-- EVENT memberlist_view_zebra_before -->
+						<!-- IF S_USER_LOGGED_IN and S_ZEBRA -->
+							<!-- IF U_REMOVE_FRIEND -->
+								<div class="grid md:grid-cols-5 gap-3 pt-3"><span class="md:text-end font-medium max-md:hidden">&nbsp;</span> <span class="zebra md:col-span-4"><a href="{U_REMOVE_FRIEND}" class="font-semibold" data-ajax="zebra">{L_REMOVE_FRIEND}</a></span></div>
+							<!-- ELSEIF U_REMOVE_FOE -->
+								<div class="grid md:grid-cols-5 gap-3 pt-3"><span class="md:text-end font-medium max-md:hidden">&nbsp;</span> <span class="zebra md:col-span-4"><a href="{U_REMOVE_FOE}" class="font-semibold" data-ajax="zebra">{L_REMOVE_FOE}</a></span></div>
+							<!-- ELSE -->
+								<!-- IF U_ADD_FRIEND -->
+									<div class="grid md:grid-cols-5 gap-3 pt-3"><span class="md:text-end font-medium max-md:hidden">&nbsp;</span> <span class="zebra md:col-span-4"><a href="{U_ADD_FRIEND}" class="font-semibold" data-ajax="zebra">{L_ADD_FRIEND}</a></span></div>
+								<!-- ENDIF -->
+								<!-- IF U_ADD_FOE -->
+									<div class="grid md:grid-cols-5 gap-3 pt-3"><span class="md:text-end font-medium max-md:hidden">&nbsp;</span> <span class="zebra md:col-span-4"><a href="{U_ADD_FOE}" class="font-semibold" data-ajax="zebra">{L_ADD_FOE}</a></div>
+								<!-- ENDIF -->
+							<!-- ENDIF -->
+						<!-- ENDIF -->
+						<!-- EVENT memberlist_view_zebra_after -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- EVENT memberlist_view_contact_before -->
+	{% set S_EPMJ = (U_EMAIL or U_PM or (U_JABBER and S_JABBER_ENABLED) or USER_JABBER or loops.custom_fields) %}
+	<div class="md:grid{% if S_EPMJ %} grid-cols-2{% endif %} flex max-md:flex-col mt-4 gap-4">
+		{% if S_EPMJ %}
+		<div class="card bg1">
+			<div class="card-title">{L_CONTACT_USER}</div>
+			<div class="p-4">
+				<div class="details text-sm flex flex-col gap-3 divide-y">
+					<!-- IF U_EMAIL --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_EMAIL_ADDRESS}{L_COLON}</span> <span class="md:col-span-2"><a href="{U_EMAIL}">{L_SEND_EMAIL_USER}</a></div><!-- ENDIF -->
+					<!-- IF U_PM --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_PM}{L_COLON}</span> <span class="md:col-span-2"><a href="{U_PM}">{L_SEND_PRIVATE_MESSAGE}</a></div><!-- ENDIF -->
+					<!-- IF U_JABBER and S_JABBER_ENABLED --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_JABBER}{L_COLON}</span> <span class="md:col-span-2"><a href="{U_JABBER}" onclick="popup(this.href, 750, 320); return false;">{L_SEND_JABBER_MESSAGE}</a></div>
+					<!-- ELSEIF USER_JABBER --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_JABBER}{L_COLON}</span> <span class="md:col-span-2">{USER_JABBER}</div><!-- ENDIF -->
+					<!-- EVENT memberlist_view_contact_custom_fields_before -->
+					<!-- BEGIN custom_fields -->
+						<!-- IF custom_fields.S_PROFILE_CONTACT -->
+							<div class="grid md:grid-cols-3 gap-3 pt-3">
+								<span class="md:text-end font-medium">{custom_fields.PROFILE_FIELD_NAME}{L_COLON}</span>
+								<span class="md:col-span-2">
+									<!-- IF custom_fields.PROFILE_FIELD_CONTACT -->
+										<a href="{custom_fields.PROFILE_FIELD_CONTACT}">{custom_fields.PROFILE_FIELD_DESC}</a>
+									<!-- ELSE -->
+										{custom_fields.PROFILE_FIELD_VALUE}
+									<!-- ENDIF -->
+								</span>
+							</div>
+						<!-- ENDIF -->
+					<!-- END custom_fields -->
+					<!-- EVENT memberlist_view_contact_custom_fields_after -->
+					<!-- IF S_PROFILE_FIELD1 -->
+						<!-- NOTE: Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
+						<div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{PROFILE_FIELD1_NAME}{L_COLON}</span> <span class="md:col-span-2">{PROFILE_FIELD1_VALUE}</span></div>
+					<!-- ENDIF -->
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		<div class="card bg2">
+			<div class="card-title">{L_USER_FORUM}</div>
+			<div class="p-4">
+				<div class="details text-sm flex flex-col gap-3 divide-y">
+					<!-- EVENT memberlist_view_user_statistics_before -->
+					<div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_JOINED}{L_COLON}</span> <span class="md:col-span-2">{JOINED}</span></div>
+					<div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_LAST_ACTIVE}{L_COLON}</span> <span class="md:col-span-2">{LAST_ACTIVE}</span></div>
+					<!-- IF S_WARNINGS -->
+					<div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_WARNINGS}{L_COLON}</span> <span class="md:col-span-2"><span class="font-semibold">{WARNINGS}</span><!-- IF U_NOTES or U_WARN --> [ <!-- IF U_NOTES --><a href="{U_NOTES}">{L_VIEW_NOTES}</a><!-- ENDIF --> <!-- IF U_WARN --><!-- IF U_NOTES --> | <!-- ENDIF --><a href="{U_WARN}">{L_WARN_USER}</a><!-- ENDIF --> ]<!-- ENDIF --></span></div>
+					<!-- ENDIF -->
+					<div class="grid md:grid-cols-3 gap-3 pt-3">
+						<span class="md:text-end font-medium">{L_TOTAL_POSTS}{L_COLON}</span>
+						<span class="md:col-span-2">
+							{POSTS} <!-- IF S_DISPLAY_SEARCH -->| <a class="font-semibold" href="{U_SEARCH_USER}">{L_SEARCH_USER_POSTS}</a><!-- ENDIF -->
+							<!-- IF POSTS_PCT --><br>({POSTS_PCT} / {POSTS_DAY})<!-- ENDIF -->
+							<!-- IF POSTS_IN_QUEUE and U_MCP_QUEUE --><br>(<a href="{U_MCP_QUEUE}">{L_POSTS_IN_QUEUE}</a>)<!-- ELSEIF POSTS_IN_QUEUE --><br>({L_POSTS_IN_QUEUE})<!-- ENDIF -->
+						</span>
+					</div>
+					<!-- IF S_SHOW_ACTIVITY and POSTS -->
+						<div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-semibold">{L_ACTIVE_IN_FORUM}{L_COLON}</span> <span class="md:col-span-2"><!-- IF ACTIVE_FORUM != '' --><a class="font-medium" href="{U_ACTIVE_FORUM}">{ACTIVE_FORUM}</a><br>({ACTIVE_FORUM_POSTS} / {ACTIVE_FORUM_PCT})<!-- ELSE --> - <!-- ENDIF --></span></div>
+						<div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-semibold">{L_ACTIVE_IN_TOPIC}{L_COLON}</span> <span class="md:col-span-2"><!-- IF ACTIVE_TOPIC != '' --><a class="font-medium" href="{U_ACTIVE_TOPIC}">{ACTIVE_TOPIC}</a><br>({ACTIVE_TOPIC_POSTS} / {ACTIVE_TOPIC_PCT})<!-- ELSE --> - <!-- ENDIF --></span></div>
+					<!-- ENDIF -->
+					<!-- EVENT memberlist_view_user_statistics_after -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- EVENT memberlist_view_contact_after -->
+
+	<!-- IF SIGNATURE -->
+		<div class="card bg1 mt-4">
+			<div class="card-title">{L_SIGNATURE}</div>
+			<div class="p-4">
+				<div class="postbody"><div class="signature standalone">{SIGNATURE}</div></div>
+			</div>
+		</div>
+	<!-- ENDIF -->
+
+</form>
+
+<!-- EVENT memberlist_view_content_append -->
+
+<!-- INCLUDE jumpbox.html -->
+
+<!-- INCLUDE overall_footer.html -->

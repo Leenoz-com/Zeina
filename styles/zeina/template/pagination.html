@@ -1,0 +1,41 @@
+<nav class="flex flex-wrap items-center -space-x-px">
+	<!-- IF TOTAL -->
+	<span class="card-sm justify-center rounded-t-none rounded-b-none first:rounded-s-lg last:rounded-e-lg">{{ TOTAL }}</span>
+	<!-- ENDIF -->
+
+	<!-- IF BASE_URL and TOTAL_PAGES > 6 -->
+	<div class="dropdown-page-jump page-jump zn-dropdown relative">
+		<button class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 card-sm rounded-t-none rounded-b-none<!-- IF not TOTAL --> first:rounded-s-lg last:rounded-e-lg<!-- ENDIF --> min-w-9" title="{L_JUMP_TO_PAGE_CLICK}">
+			<span class="leading-[0]"><i class="iconify" data-mode="style" data-icon="ion:arrow-<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->undo<!-- ELSE -->redo<!-- ENDIF -->-outline" data-width="18" data-height="20" aria-hidden="true"></i></span>
+			<span class="sr-only">{PAGE_NUMBER}</span>
+		</button>
+		<div class="zn-dropdown-menu page-jump-form dropdown dropdown-bottom dropdown-start md:w-56">
+			<div class="dropdown-content p-2">
+				<label class="block text-sm leading-6">{L_JUMP_TO_PAGE}{L_COLON}</label>
+				<input type="number" name="page-number" min="1" max="999999" title="{L_JUMP_PAGE}" class="page-jump-input mt-2 inputbox" data-per-page="{PER_PAGE}" data-base-url="{BASE_URL|e('html_attr')}" data-start-name="{START_NAME}">
+			</div>
+			<div class="dropdown-footer p-2 pt-1">
+				<button class="page-jump-go relative flex overflow-hidden transition-all duration-300 justify-center btn-primary w-full" type="button">{L_GO}</button>
+			</div>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- BEGIN pagination -->
+		<!-- IF pagination.S_IS_PREV -->
+		<a href="{pagination.PAGE_URL}" rel="prev" role="button" class="relative flex overflow-hidden transition-all duration-300 card-sm w-[38px] justify-center rounded-t-none rounded-b-none first:rounded-s-lg last:rounded-e-lg hover:text-color hover:bg-primary/[0.08]">
+			<span class="leading-[0]"><i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="20"></i><span class="sr-only">{L_PREVIOUS}</span></span>
+		</a>
+		<!-- ELSEIF pagination.S_IS_CURRENT -->
+		<span class="active font-medium card-sm min-w-9 justify-center rounded-t-none rounded-b-none first:rounded-s-lg last:rounded-e-lg text-white bg-primary/95" aria-current="page">{pagination.PAGE_NUMBER}</span>
+		<!-- ELSEIF pagination.S_IS_ELLIPSIS -->
+		<span class="pointer-events-none card-sm min-w-9 justify-center rounded-t-none rounded-b-none first:rounded-s-lg last:rounded-e-lg">{L_ELLIPSIS}</span>
+		<!-- ELSEIF pagination.S_IS_NEXT -->
+		<a href="{pagination.PAGE_URL}" rel="next" role="button" class="relative flex overflow-hidden transition-all duration-300 card-sm w-[38px] justify-center rounded-t-none rounded-b-none first:rounded-s-lg last:rounded-e-lg hover:text-color hover:bg-primary/[0.08]">		
+			<span class="leading-[0]"><i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_END}-s-line" data-width="18" data-height="20"></i><span class="sr-only">{L_NEXT}</span></span>
+		</a>
+		<!-- ELSE -->
+		<a href="{pagination.PAGE_URL}" role="button" class="relative flex overflow-hidden transition-all duration-300 card-sm min-w-9 justify-center rounded-t-none rounded-b-none first:rounded-s-lg last:rounded-e-lg hover:text-color hover:bg-primary/[0.08]">{pagination.PAGE_NUMBER}</a>
+		<!-- ENDIF -->
+	<!-- END pagination -->
+</nav>

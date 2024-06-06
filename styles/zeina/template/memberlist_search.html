@@ -1,0 +1,111 @@
+<form method="post" action="{S_MODE_ACTION}" id="search_memberlist">
+	
+	<div class="card mb-4">
+		<div class="card-title"><h2>{L_FIND_USERNAME}</h2></div>
+		<div class="p-4">
+			<p class="text-sm text-secondary mb-4">{L_FIND_USERNAME_EXPLAIN}</p>
+			<!-- EVENT memberlist_search_fields_before -->
+			<div class="grid md:grid-cols-2 gap-6">
+				<div class="divide-y">
+					<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="username-search">{L_USERNAME}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-2 max-md:mt-2">
+							<!-- IF U_LIVE_SEARCH --><div class="dropdown-{S_CONTENT_FLOW_END}"><!-- ENDIF -->
+							<input type="text" name="username" id="username-search" value="{USERNAME}" class="inputbox"<!-- IF U_LIVE_SEARCH --> autocomplete="off" data-filter="phpbb.search.filter" data-ajax="member_search" data-min-length="3" data-url="{U_LIVE_SEARCH}" data-results="#user-search"<!-- ENDIF -->>
+							<!-- IF U_LIVE_SEARCH -->
+								<div class="dropdown live-search hidden" id="user-search">
+									<div class="pointer"><div class="pointer-inner"></div></div>
+									<ul class="dropdown-contents search-results">
+										<li class="search-result-tpl"><span class="search-result"></span></li>
+									</ul>
+								</div>
+							</div>
+							<!-- ENDIF -->
+						</dd>
+					</dl>
+					<!-- IF S_EMAIL_SEARCH_ALLOWED -->
+					<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="email">{L_EMAIL}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-2 max-md:mt-2">
+							<div class="flex max-md:flex-col max-md:w-full">
+								<input type="text" name="email" id="email" value="{EMAIL}" class="inputbox">
+							</div>
+						</dd>
+					</dl>
+					<!-- ENDIF -->
+					<!-- IF S_JABBER_ENABLED -->
+					<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="jabber">{L_JABBER}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-2 max-md:mt-2">
+							<div class="flex max-md:flex-col max-md:w-full">
+								<input type="text" name="jabber" id="jabber" value="{JABBER}" class="inputbox">
+							</div>
+						</dd>
+					</dl>
+					<!-- ENDIF -->
+					<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="search_group_id">{L_GROUP}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-2 max-md:mt-2">
+							<div class="flex max-md:flex-col max-md:w-full">
+								<select name="search_group_id" id="search_group_id" class="inputbox">{S_GROUP_SELECT}</select>
+							</div>
+						</dd>
+					</dl>
+					<!-- EVENT memberlist_search_sorting_options_before -->
+					<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="sk">{L_SORT_BY}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-2 max-md:mt-2">
+							<div class="flex max-md:flex-col max-md:w-full gap-2">
+								<select name="sk" id="sk">{S_SORT_OPTIONS}</select> <select name="sd">{S_ORDER_SELECT}</select>
+							</div>
+						</dd>
+					</dl>
+				</div>
+				<div class="divide-y">
+					<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="joined">{L_JOINED}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-2 max-md:mt-2">
+							<div class="flex max-md:flex-col max-md:w-full gap-2">
+								<select class="inputbox" name="joined_select">{S_JOINED_TIME_OPTIONS}</select> <input class="inputbox medium" type="text" name="joined" id="joined" value="{JOINED}">
+							</div>
+						</dd>
+					</dl>
+					<!-- IF S_VIEWONLINE -->
+					<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="active">{L_LAST_ACTIVE}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-2 max-md:mt-2">
+							<div class="flex max-md:flex-col max-md:w-full gap-2">
+								<select name="active_select" class="inputbox">{S_ACTIVE_TIME_OPTIONS}</select> <input class="inputbox medium" type="text" name="active" id="active" value="{ACTIVE}">
+							</div>
+						</dd>
+					</dl>
+					<!-- ENDIF -->
+					<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="count">{L_POSTS}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-2 max-md:mt-2">
+							<div class="flex max-md:flex-col max-md:w-full gap-2">
+								<select name="count_select" class="inputbox">{S_COUNT_OPTIONS}</select> <input class="inputbox medium" type="number" min="0" name="count" id="count" value="{COUNT}">
+							</div>
+						</dd>
+					</dl>
+					<!-- IF S_IP_SEARCH_ALLOWED -->
+					<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="ip">{L_POST_IP}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-2 max-md:mt-2">
+							<div class="flex max-md:flex-col max-md:w-full">
+								<input class="inputbox medium" type="text" name="ip" id="ip" value="{IP}">
+							</div>
+						</dd>
+					</dl>
+					<!-- ENDIF -->
+				</div>
+			</div>
+			<!-- EVENT memberlist_search_fields_after -->
+			<div class="flex items-center md:justify-end my-3">
+				<button type="submit" name="submit" value="{L_SEARCH}" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center">{L_SEARCH}</button>
+				{S_FORM_TOKEN}
+			</div>
+		</div>
+	</div>
+
+</form>

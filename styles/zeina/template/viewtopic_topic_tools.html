@@ -1,0 +1,52 @@
+<!-- IF not S_IS_BOT and (U_WATCH_TOPIC or U_BOOKMARK_TOPIC or U_BUMP_TOPIC or U_EMAIL_TOPIC or U_PRINT_TOPIC or S_DISPLAY_TOPIC_TOOLS) -->
+<div class="topic-tools zn-dropdown relative">
+	<button type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 card-sm link" title="{L_TOPIC_TOOLS}">
+		<i class="iconify p-px" data-mode="style" data-icon="uil:wrench" data-width="18" data-height="18" aria-hidden="true"></i>
+		<span class="sr-only">{L_TOPIC_TOOLS}</span>
+	</button>
+	<div class="zn-dropdown-menu dropdown dropdown-start{% if S_DOWN_TOPIC_TOOLS %} dropdown-bottom{% endif %} md:w-56">
+		<ul class="dropdown-content text-sm" role="menu">
+			<!-- EVENT viewtopic_topic_tools_before -->
+				<!-- IF U_WATCH_TOPIC -->
+					<li>
+						<a href="{U_WATCH_TOPIC}" class="watch-topic-link relative flex overflow-hidden transition-all duration-300 dropdown-item gap-2 subscribe-forum" title="{S_WATCH_TOPIC_TITLE}" data-ajax="toggle_link" data-toggle-class="icon <!-- IF S_WATCHING_TOPIC -->icon-checked<!-- ELSE -->icon-unchecked<!-- ENDIF -->" data-toggle-text="{S_WATCH_TOPIC_TOGGLE}" data-toggle-url="{U_WATCH_TOPIC_TOGGLE}" data-update-all=".watch-topic-link">
+							<i class="icon <!-- IF S_WATCHING_TOPIC -->icon-unchecked<!-- ELSE -->icon-checked<!-- ENDIF -->" aria-hidden="true" style="display: none;"></i>
+							<i class="icon-unchecked<!-- IF not S_WATCHING_TOPIC --> hidden<!-- ENDIF --> leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:bell-slash" data-height="18" data-width="18" aria-hidden="true"></i></i>
+							<i class="icon-checked<!-- IF S_WATCHING_TOPIC --> hidden<!-- ENDIF --> leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:bell-ringing" data-height="18" data-width="18" aria-hidden="true"></i></i>
+							<span>{S_WATCH_TOPIC_TITLE}</span>
+						</a>
+					</li>
+				<!-- ENDIF -->
+				<!-- IF U_BOOKMARK_TOPIC -->
+					<li>
+						<a href="{U_BOOKMARK_TOPIC}" class="bookmark-link relative flex overflow-hidden transition-all duration-300 dropdown-item gap-2" title="{L_BOOKMARK_TOPIC}" data-ajax="alt_text" data-alt-text="{S_BOOKMARK_TOGGLE}" data-update-all=".bookmark-link">
+							<i class="iconify" data-mode="style" data-icon="ph:bookmark" data-width="18" data-height="18" aria-hidden="true"></i><span>{S_BOOKMARK_TOPIC}</span>
+						</a>
+					</li>
+				<!-- ENDIF -->
+				<!-- IF U_BUMP_TOPIC -->
+				<li>
+					<a href="{U_BUMP_TOPIC}" title="{L_BUMP_TOPIC}" data-ajax="true" class="relative flex overflow-hidden transition-all duration-300 dropdown-item gap-2">
+						<i class="iconify" data-mode="style" data-icon="ph:arrow-bend-left-up" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_BUMP_TOPIC}</span>
+					</a>
+				</li>
+				<!-- ENDIF -->
+				<!-- IF U_EMAIL_TOPIC -->
+				<li>
+					<a href="{U_EMAIL_TOPIC}" title="{L_EMAIL_TOPIC}" class="relative flex overflow-hidden transition-all duration-300 dropdown-item gap-2">
+						<i class="iconify" data-mode="style" data-icon="fluent:mail-24-regular" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_EMAIL_TOPIC}</span>
+					</a>
+				</li>
+				<!-- ENDIF -->
+				<!-- IF U_PRINT_TOPIC -->
+				<li>
+					<a href="{U_PRINT_TOPIC}" title="{L_PRINT_TOPIC}" accesskey="p" class="relative flex overflow-hidden transition-all duration-300 dropdown-item gap-2">
+						<i class="iconify" data-mode="style" data-icon="fluent:print-24-regular" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_PRINT_TOPIC}</span>
+					</a>
+				</li>
+				<!-- ENDIF -->
+				<!-- EVENT viewtopic_topic_tools_after -->
+		</ul>
+	</div>
+</div>
+<!-- ENDIF -->

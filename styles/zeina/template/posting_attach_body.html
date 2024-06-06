@@ -1,0 +1,127 @@
+<div id="attach-panel" role="tabpanel" aria-labelledby="attach-panel" class="hidden">
+	<div class="card p-4">
+
+	<p>{L_ADD_ATTACHMENT_EXPLAIN} <span class="hidden" id="drag-n-drop-message">{L_PLUPLOAD_DRAG_TEXTAREA}</span></p>
+	{% if MAX_ATTACHMENT_FILESIZE is not empty %}<p>{{ MAX_ATTACHMENT_FILESIZE }}</p>{% endif %}
+
+	<div class="fields2 mt-4" id="attach-panel-basic">
+		<dl class="py-4 md:grid md:grid-cols-5 md:gap-5">
+			<dt class="text-sm font-medium leading-6"><label for="fileupload">{L_FILENAME}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-4 max-md:mt-2">
+				<input type="file" name="fileupload" id="fileupload" accept="{{ ALLOWED_ATTACHMENTS }}" class="inputbox p-0 border border-gray-200 ring-0 text-sm text-secondary bg-white focus:outline-0 file:bg-gray-50 file:border-0 file:me-4 file:p-3 hover:cursor-pointer">
+				<div class="flex items-center gap-2 mt-2">
+					<button type="submit" name="add_file" value="{L_ADD_FILE}" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center" onclick="upload = true;">{L_ADD_FILE}</button>
+				</div>
+			</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-5 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="filecomment">{L_FILE_COMMENT}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-4 max-md:mt-2">
+				<textarea name="filecomment" id="filecomment" rows="1" cols="40" class="inputbox w-auto">{FILE_COMMENT}</textarea>
+			</dd>
+		</dl>
+	</div>
+
+	<div id="attach-panel-multi" class="attach-panel-multi flex items-center gap-2 mt-4">
+		<button type="button" id="add_files" value="{L_PLUPLOAD_ADD_FILES}" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center">{L_PLUPLOAD_ADD_FILES}</button>
+	</div>
+
+	{% EVENT posting_attach_body_file_list_before %}
+	<div class="mt-4<!-- IF not .attach_row --> hidden<!-- ENDIF --> file-list-container" id="file-list-container">
+		<div class="-m-1.5 overflow-auto">
+			<div class="p-1.5 min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
+					<table class="zebra-list min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 text-xs font-medium text-secondary uppercase attach-name">{L_PLUPLOAD_FILENAME}</th>
+								<th scope="col" class="p-3 text-xs font-medium text-secondary uppercase attach-comment">{L_FILE_COMMENT}</th>
+								<th scope="col" class="p-3 text-xs font-medium text-secondary uppercase attach-filesize">{L_PLUPLOAD_SIZE}</th>
+								<th scope="col" class="p-3 text-xs font-medium text-secondary uppercase attach-status">{L_PLUPLOAD_STATUS}</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y file-list" id="file-list">
+							<tr class="divide-y attach-row attach-row-tpl" id="attach-row-tpl">
+								<td class="attach-name p-3 text-sm">
+									<dfn>{L_PLUPLOAD_FILENAME}{L_COLON}</dfn>
+									<div class="flex max-lg:flex-col lg:items-center justify-between gap-2">
+										<span class="file-name ellipsis-text"></span>
+										<span class="attach-controls flex items-center gap-2">
+											{% if S_BBCODE_ALLOWED %}<button type="button" value="{{ lang('PLACE_INLINE') }}" class="btn-primary-outline hidden file-inline-bbcode">{{ lang('PLACE_INLINE') }}</button>{% endif %}
+											<button type="button" value="{L_DELETE_FILE}" class="btn-primary-outline file-delete">{L_DELETE_FILE}</button>
+										</span>
+									</div>
+								</td>
+								<td class="attach-comment p-3 text-sm lg:text-center">
+									<dfn>{L_FILE_COMMENT}{L_COLON}</dfn>
+									<textarea rows="1" cols="30" class="inputbox"></textarea>
+								</td>
+								<td class="attach-filesize p-3 text-sm lg:text-center">
+									<dfn>{L_PLUPLOAD_SIZE}{L_COLON}</dfn>
+									<span class="file-size"></span>
+								</td>
+								<td class="attach-status p-3 max-lg:flex max-lg:items-center max-lg:gap-2">
+									<dfn>{L_PLUPLOAD_STATUS}{L_COLON}</dfn>
+									<div class="text-center leading-[0] w-full">
+										<span class="file-progress">
+											<div class="flex w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+												<div class="file-progress-bar rounded-full bg-primary transition-all duration-500" style="width: 0"></div>
+											</div>
+										</span>
+										<div class="relative flex items-center lg:justify-center">
+											<span class="file-status">
+												<span class="hidden file-uploaded text-green-700"><i class="iconify" data-mode="style" data-icon="mdi:success-circle" data-width="18" data-height="18" aria-hidden="true"></i></span>
+												<span class="hidden file-error text-red-700"><i class="iconify" data-mode="style" data-icon="mdi:close-circle" data-width="18" data-height="18" aria-hidden="true"></i></span>
+											</span>
+											<span class="file-status-animate animate-ping size-5 absolute rounded-full bg-red-500 opacity-50 hidden"></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							{% EVENT posting_attach_body_attach_row_before %}
+							<!-- BEGIN attach_row -->
+								{% EVENT posting_attach_body_attach_row_prepend %}
+								<tr class="divide-y attach-row" data-attach-id="{attach_row.ATTACH_ID}">
+									<td class="attach-name p-3 text-sm">
+										<dfn>{L_PLUPLOAD_FILENAME}{L_COLON}</dfn>
+										<div class="flex max-lg:flex-col lg:items-center justify-between gap-2">
+											<span class="file-name ellipsis-text"><a href="{attach_row.U_VIEW_ATTACHMENT}">{attach_row.FILENAME}</a></span>
+											{% EVENT posting_attach_body_attach_row_controls_prepend %}
+											<span class="attach-controls flex items-center gap-2">
+												{% if S_BBCODE_ALLOWED and S_INLINE_ATTACHMENT_OPTIONS %}<button type="button" value="{{ lang('PLACE_INLINE') }}" class="btn-primary-outline file-inline-bbcode">{{ lang('PLACE_INLINE') }}</button>{% endif %}
+												<button type="submit" name="delete_file[{attach_row.ASSOC_INDEX}]" value="{L_DELETE_FILE}" class="btn-primary-outline file-delete">{L_DELETE_FILE}</button>
+											</span>
+											{% EVENT posting_attach_body_attach_row_controls_append %}
+										</div>
+									</td>
+									<td class="attach-comment p-3 text-sm lg:text-center">
+										<dfn>{L_FILE_COMMENT}{L_COLON}</dfn>
+										<textarea name="comment_list[{attach_row.ASSOC_INDEX}]" rows="1" cols="30" class="inputbox">{attach_row.FILE_COMMENT}</textarea>
+										{attach_row.S_HIDDEN}
+									</td>
+									<td class="attach-filesize p-3 text-sm lg:text-center">
+										<dfn>{L_PLUPLOAD_SIZE}{L_COLON}</dfn>
+										<span class="file-size">{attach_row.FILESIZE}</span>
+									</td>
+									<td class="attach-status p-3 max-lg:flex max-lg:items-center max-lg:gap-2">
+										<dfn>{L_PLUPLOAD_STATUS}{L_COLON}</dfn>
+										<div class="text-center leading-[0]">
+											<span class="file-status file-uploaded">
+												<i class="iconify text-green-700" data-mode="style" data-icon="mdi:success-circle" data-width="18" data-height="18" aria-hidden="true"></i>
+											</span>
+										</div>
+									</td>
+								</tr>
+								{% EVENT posting_attach_body_attach_row_append %}
+							<!-- END attach_row -->
+						{% EVENT posting_attach_body_attach_row_after %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% EVENT posting_attach_body_file_list_after %}
+
+	</div>
+</div>

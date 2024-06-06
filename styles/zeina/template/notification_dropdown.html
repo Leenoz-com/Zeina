@@ -1,0 +1,69 @@
+<div class="zn-dropdown-menu dropdown dropdown-end md:w-96 max-md:max-w-[85%] p-0">
+	<div class="dropdown-contents">
+		<div class="dropdown-header flex items-center justify-between p-3 py-2 md:py-1.5 border-b">
+			<div class="text-base font-semibold p-2">{L_NOTIFICATIONS}</div>
+			<div class="flex items-center gap-1">
+				<!-- IF NOTIFICATIONS_COUNT -->
+				<span id="mark_all_notifications">
+					<a href="{U_MARK_ALL_NOTIFICATIONS}" data-ajax="notification.mark_all_read" class="relative flex overflow-hidden transition-all duration-300 dropdown-item gap-2 rounded-full text-secondary font-medium p-2" title="{L_MARK_ALL_READ}">
+						<i class="iconify" data-mode="style" data-icon="ph:checks-bold" data-height="18" data-width="18"></i>
+						<span class="sr-only">{L_MARK_ALL_READ}</span>
+					</a>
+				</span>
+				<!-- ENDIF -->
+				<a href="{U_NOTIFICATION_SETTINGS}" class="relative flex overflow-hidden transition-all duration-300 dropdown-item gap-2 rounded-full text-secondary font-medium p-2" title="{L_SETTINGS}">
+					<i class="iconify" data-mode="style" data-icon="lucide:settings" data-height="18" data-width="18"></i>
+					<span class="sr-only">{L_SETTINGS}</span>
+				</a>
+			</div>
+		</div>
+		<ul id="notification_list" class="grid gap-2 max-h-96 overflow-auto p-3">
+			<!-- BEGIN notifications -->
+				<li class="<!-- IF notifications.UNREAD --> bg2<!-- ENDIF --><!-- IF notifications.STYLING --> {notifications.STYLING}<!-- ENDIF --><!-- IF not notifications.URL --> no-url<!-- ENDIF --> md:pt-2 first:pt-0 border-t first:border-0">
+					<div class="block md:p-2 p-3 rounded-lg transition-all duration-300 hover:bg-primary/[0.08]">
+						<div class="flex justify-between w-full">
+							<!-- IF notifications.URL -->
+							<a class="notification-block grow non-link" href="<!-- IF notifications.UNREAD -->{notifications.U_MARK_READ}" data-real-url="{notifications.URL}<!-- ELSE -->{notifications.URL}<!-- ENDIF -->">
+							<!-- ENDIF -->
+								<div class="flex max-md:flex-col gap-3 w-full">
+									<div class="md:max-h-12 md:max-w-12 max-h-16 max-w-16 w-full rounded-full overflow-hidden md:m-0 m-auto">
+										<!-- IF notifications.AVATAR -->{notifications.AVATAR}<!-- ELSE --><img src="{T_THEME_PATH}/images/no_avatar.gif" alt=""><!-- ENDIF -->
+									</div>
+									<div class="notification_text">
+										<p class="notification-title">{notifications.FORMATTED_TITLE}</p>
+										<!-- IF notifications.REFERENCE --><p class="notification-reference">{notifications.REFERENCE}</p><!-- ENDIF -->
+										<!-- IF notifications.REASON --><p class="notification-reason">{notifications.REASON}</p><!-- ENDIF -->
+										<!-- IF notifications.FORUM -->
+										<div class="notification-forum text-xs mt-1">{notifications.FORUM}</div>
+										<!-- ENDIF -->
+										<div class="notification-time text-xs mt-1">{notifications.TIME}</div>
+									</div>
+								</div>
+							<!-- IF notifications.URL -->
+							</a>
+							<!-- ENDIF -->
+							<!-- IF notifications.UNREAD -->
+							<a href="{notifications.U_MARK_READ}" class="mark_read icon-mark relative px-4 md:block hidden" data-ajax="notification.mark_read" title="{L_MARK_READ}">
+								<span class="flex absolute top-1 end-1 h-3 w-3"><span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span></span>
+								<span class="sr-only">{L_MARK_READ}</span>
+							</a>
+							<!-- ENDIF -->
+						</div>
+					</div>
+				</li>
+			<!-- BEGINELSE -->
+				<li class="no_notifications font-medium p-2">
+					{L_NO_NOTIFICATIONS}
+				</li>
+			<!-- END notifications -->
+		</ul>
+
+    {% EVENT notification_dropdown_footer_before %}
+		<div class="dropdown-footer px-3 py-2 border-t">
+			<a class="relative flex overflow-hidden transition-all duration-300 dropdown-item font-medium justify-center" href="{U_VIEW_ALL_NOTIFICATIONS}">
+				{L_SEE_ALL}
+			</a>
+		</div>
+		{% EVENT notification_dropdown_footer_after %}
+	</div>
+</div>

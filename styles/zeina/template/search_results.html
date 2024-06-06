@@ -1,0 +1,269 @@
+{% embed "overall_header.html" %}
+	{% block header_content %}
+		<h1 class="text-slate-50 md:text-2xl text-xl"><!-- IF SEARCH_TITLE -->{SEARCH_TITLE}<!-- ELSE -->{SEARCH_MATCHES}<!-- ENDIF --><!-- IF SEARCH_WORDS -->{L_COLON} <a href="{U_SEARCH_WORDS}">{SEARCH_WORDS}</a><!-- ENDIF --></h1>
+		<!-- IF SEARCHED_QUERY --> <p class="text-slate-200 md:mt-1">{L_SEARCHED_QUERY}{L_COLON} <span class="font-semibold">{SEARCHED_QUERY}</span></p><!-- ENDIF -->
+		<!-- IF IGNORED_WORDS --> <p class="text-slate-200 md:mt-1">{L_IGNORED_TERMS}{L_COLON} <span class="font-semibold">{IGNORED_WORDS}</span></p><!-- ENDIF -->
+		<!-- IF PHRASE_SEARCH_DISABLED --><p class="text-slate-200 md:mt-1"><span class="font-semibold">{L_PHRASE_SEARCH_DISABLED}</span></p><!-- ENDIF -->
+	{% endblock %}
+{% endembed %}
+
+<!-- EVENT search_results_header_before -->
+
+<div class="flex max-md:flex-col gap-2 md:items-center my-3 <!-- IF .pagination or SEARCH_MATCHES or TOTAL_MATCHES or PAGE_NUMBER or (.searchresults and (S_SELECT_SORT_DAYS or S_SELECT_SORT_KEY)) --> md:justify-between <!-- ELSE --> md:justify-end <!-- ENDIF -->">
+<!-- IF SEARCH_TOPIC -->
+	<div class="return-link inline-block card-sm">
+		<a href="{U_SEARCH_TOPIC}" class="flex items-center gap-2">
+			<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i>
+			<span>{L_RETURN_TO_TOPIC}</span>
+		</a>
+	</div>
+<!-- ELSE -->
+	<div class="advanced-search-link inline-block card-sm">
+		<a href="{U_SEARCH}" class="flex items-center gap-2">
+			<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i>
+			<span>{L_GO_TO_SEARCH_ADV}</span>
+		</a>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF .pagination or SEARCH_MATCHES or TOTAL_MATCHES or PAGE_NUMBER or (.searchresults and (S_SELECT_SORT_DAYS or S_SELECT_SORT_KEY)) -->
+	<div class="action-bar bar-top flex flex-wrap items-center justify-end gap-1">
+
+	<!-- IF TOTAL_MATCHES > 0 -->
+		<div id="search-forum" class="search-forum zn-dropdown relative">
+			<button id="zn-dropdown-search-forum" type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 card-sm link" title="{L_SEARCH_IN_RESULTS}">
+				<i class="iconify p-px" data-mode="style" data-icon="fluent:search-32-filled" data-width="18" data-height="18" aria-hidden="true"></i>
+				<span class="sr-only">{L_SEARCH}</span>
+			</button>
+			<div class="zn-dropdown-menu dropdown dropdown-end md:w-56">
+				<form method="post" id="forum-search" action="{S_SEARCH_ACTION}" class="p-2">
+					<div class="dropdown-content search-box" role="search">
+						<div>
+							<label for="add_keywords" class="block text-sm font-medium mb-2">{L_SEARCH}{L_COLON}</label>
+							<input class="inputbox search" type="search" name="add_keywords" id="add_keywords" value="" placeholder="{L_SEARCH_IN_RESULTS}">
+						</div>
+					</div>
+					<div class="dropdown-footer mt-2">
+						<button class="btn-primary button-search relative flex overflow-hidden transition-all duration-300 w-full justify-center" type="submit" value="{L_SEARCH}">{L_SEARCH}</button>
+						<a href="{U_SEARCH}" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 justify-center mt-1">{L_SEARCH_ADV}</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	<!-- ENDIF -->
+	<!-- EVENT search_results_searchbox_after -->
+	
+		<div class="flex flex-wrap items-center gap-1">
+			<!-- IF U_MARK_ALL_READ -->
+				<a href="{U_MARK_ALL_READ}" class="relative flex overflow-hidden transition-all duration-300 card-sm !transition-[color] mark-read" accesskey="m">
+					<i class="iconify" data-mode="style" data-icon="ph:checks-bold" data-width="18" data-height="18" aria-hidden="true"></i>
+					<span>{L_MARK_ALL_READ}</span>
+				</a>
+			<!-- ENDIF -->
+			<div class="pagination flex flex-wrap justify-end gap-1">
+				<!-- IF .pagination -->
+					{% include 'pagination.html' with {'TOTAL': SEARCH_MATCHES} %}
+				<!-- ELSE -->
+				<div class="card-sm">{SEARCH_MATCHES} &bull; {PAGE_NUMBER}</div>
+				<!-- ENDIF -->
+			</div>
+		</div>
+	</div>
+<!-- ENDIF -->
+</div>
+<!-- EVENT search_results_header_after -->
+
+
+<!-- IF S_SHOW_TOPICS -->
+
+	<!-- IF .searchresults -->
+		<ul class="topics mt-2 grid gap-y-4">
+			<li class="card">
+				<div class="flex items-center justify-between card-title">
+					<h2>{L_TOPICS}</h2>
+					{% if zeina.collapse_panel %}
+					<div class="collapse-panel zn-collapse-toggle open leading-[0] py-0.5 px-1 hover:cursor-pointer" id="zn-collapse-button-{loop.index}" data-zn-collapse="#zn-topics-collapse-{loop.index}">
+						<div class="zn-collapse-open:[transform:rotate(180deg)] transition-all duration-300"><i class="iconify" data-mode="style" data-icon="ri:arrow-down-s-line" data-width="18" data-height="18" aria-hidden="true"></i></div>
+					</div>
+					{% endif %}
+				</div>
+				<div id="zn-topics-collapse-{loop.index}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-topics-collapse-{loop.index}">
+					<div class="p-4 mt-2">
+						<ul class="topiclist forums divide-y">
+							<!-- BEGIN searchresults -->
+								<!-- EVENT search_results_topic_before -->
+								<li class="pt-4 mt-4 first:pt-0 first:mt-0 topic row">
+									<div class="row-item md:grid md:grid-cols-9 gap-4 items-center">
+										<div class="flex max-md:flex-col w-full md:justify-between md:col-span-5 relative gap-y-3 row-title" title="{searchresults.TOPIC_FOLDER_IMG_ALT}">
+											<div class="flex flex-row gap-4">
+												<div class="topic-icon mt-0.5 leading-[0] {searchresults.TOPIC_IMG_STYLE}"<!-- IF searchresults.TOPIC_ICON_IMG --> style="background-image: url('{T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: bottom right;"<!-- ENDIF -->>
+													{% include 'forumlist_icons.html' with {'IMG_STYLE': searchresults.TOPIC_IMG_STYLE} %}
+												</div>
+												<div class="topic-details">
+													<div class="flex items-center gap-2 max-md:py-1">
+														<!-- EVENT topiclist_row_prepend -->
+														<!-- IF searchresults.S_UNREAD_TOPIC and not S_IS_BOT -->
+														<a class="unread leading-[0]" href="{searchresults.U_NEWEST_POST}" title="{L_NEW_POST}">
+															<i class="iconify text-color" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{L_NEW_POST}</span>
+														</a>
+														<!-- ENDIF -->
+														
+														<h3 class="text-sm font-semibold "><!-- IF searchresults.U_VIEW_TOPIC --><a href="{searchresults.U_VIEW_TOPIC}" class="topictitle max-md:py-1">{searchresults.TOPIC_TITLE}</a><!-- ELSE -->{searchresults.TOPIC_TITLE}<!-- ENDIF --></h3>
+														
+														<!-- IF searchresults.S_TOPIC_UNAPPROVED or searchresults.S_POSTS_UNAPPROVED -->
+															<a class="leading-[0]" href="{searchresults.U_MCP_QUEUE}" title="{L_TOPIC_UNAPPROVED}">
+																<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i><span class="sr-only">{L_TOPIC_UNAPPROVED}</span>
+															</a>
+														<!-- ENDIF -->
+														<!-- IF searchresults.S_TOPIC_DELETED -->
+															<a class="leading-[0]" href="{searchresults.U_MCP_QUEUE}" title="{L_TOPIC_DELETED}">
+																<i class="iconify" data-mode="style" data-icon="ph:recycle" data-width="16" data-height="16" aria-hidden="true"></i><span class="sr-only">{L_TOPIC_DELETED}</span>
+															</a>
+														<!-- ENDIF -->
+														<!-- IF searchresults.S_TOPIC_REPORTED -->
+															<a class="leading-[0]" href="{searchresults.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}">
+																<i class="iconify" data-mode="style" data-icon="lucide:circle-alert" data-width="16" data-height="16" aria-hidden="true"></i><span class="sr-only">{L_TOPIC_REPORTED}</span>
+															</a>
+														<!-- ENDIF -->
+														<!-- EVENT topiclist_row_topic_title_after -->
+													</div>
+													
+													<div class="topic-poster flex flex-wrap items-center gap-1 text-xs font-medium mt-0.5 text-secondary">
+														<!-- IF searchresults.S_HAS_POLL --><i class="iconify" data-mode="style" data-icon="fluent:data-histogram-16-regular" data-width="16" data-height="16" aria-hidden="true"></i><!-- ENDIF -->
+														<!-- IF searchresults.ATTACH_ICON_IMG --><i class="iconify" data-mode="style" data-icon="ph:paperclip-bold" data-width="16" data-height="16" aria-hidden="true"></i><!-- ENDIF -->
+														{% EVENT topiclist_row_topic_by_author_before %}
+														{L_POST_BY_AUTHOR} <!-- EVENT search_results_topic_author_username_prepend -->{searchresults.TOPIC_AUTHOR_FULL}<!-- EVENT search_results_topic_author_username_append --> &raquo; <time class="text-secondary" datetime="{searchresults.FIRST_POST_TIME_RFC3339}">{searchresults.FIRST_POST_TIME}</time> &raquo; {L_IN} <a href="{searchresults.U_VIEW_FORUM}">{searchresults.FORUM_TITLE}</a>
+														{% EVENT topiclist_row_topic_by_author_after %}
+													</div>
+												</div>
+											</div>
+											
+											<!-- IF .searchresults.pagination -->
+											<div class="pagination flex items-center gap-1 max-md:justify-center">
+												<i class="iconify text-secondary" data-mode="style" data-icon="ph:copy" data-width="16" data-height="16" aria-hidden="true"></i>
+												<ul class="flex items-center text-sm text-center justify-center gap-1">
+												<!-- BEGIN pagination -->
+													<!-- IF searchresults.pagination.S_IS_PREV -->
+													<!-- ELSEIF searchresults.pagination.S_IS_CURRENT --><li class="active py-0.5 px-1 rounded-md font-medium text-secondary hover:text-color bg-gray-100 border min-w-6 text-center"><span>{searchresults.pagination.PAGE_NUMBER}</span></li>
+													<!-- ELSEIF searchresults.pagination.S_IS_ELLIPSIS --><li class="ellipsis py-0.5 px-1 rounded-md text-secondary hover:text-color hover:bg-gray-100 border min-w-6 text-center"><span>{L_ELLIPSIS}</span></li>
+													<!-- ELSEIF searchresults.pagination.S_IS_NEXT -->
+													<!-- ELSE --><li><a class="relative flex overflow-hidden transition-all duration-300 py-0.5 px-1 rounded-md text-secondary hover:text-color hover:bg-gray-100 border min-w-6 justify-center" href="{searchresults.pagination.PAGE_URL}">{searchresults.pagination.PAGE_NUMBER}</a></li>
+													<!-- ENDIF -->
+												<!-- END pagination -->
+												</ul>
+											</div>
+											<!-- ENDIF -->
+											<!-- EVENT topiclist_row_append -->
+										</div>
+
+										<div class="md:col-span-4 flex flex-col gap-2 lg:grid lg:grid-cols-3 md:mt-0 mt-4 md:border-0 md:p-0 p-4 border rounded-lg">
+											<div class="grid grid-cols-2">
+												<div class="topics font-medium text-sm">
+													{searchresults.TOPIC_REPLIES}
+													<div class="text-secondary md:text-xs mt-0.5">{L_REPLIES}</div>
+												</div>
+												<div class="posts font-medium text-sm">
+													{searchresults.TOPIC_VIEWS}
+													<div class="text-secondary md:text-xs mt-0.5">{L_VIEWS}</div>
+												</div>
+											</div>
+
+											<div class="lastpost text-sm col-span-2 max-lg:pt-2 font-medium max-lg:border-t">
+												{L_POST_BY_AUTHOR} <!-- EVENT search_results_last_post_author_username_prepend -->{searchresults.LAST_POST_AUTHOR_FULL}<!-- EVENT search_results_last_post_author_username_append -->
+												<!-- IF not S_IS_BOT -->
+													<a class="align-middle" href="{searchresults.U_LAST_POST}" title="{L_GOTO_LAST_POST}" aria-label="{L_VIEW_LATEST_POST}">
+														<i class="iconify" data-mode="style" data-icon="ph:arrow-square-out-bold" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+													</a>
+												<!-- ENDIF -->
+												<time class="text-xs block mt-0.5 text-secondary" datetime="{searchresults.LAST_POST_TIME_RFC3339}">{searchresults.LAST_POST_TIME}</time>
+											</div>
+											{% EVENT search_results_topic_row_lastpost_after %}
+										</div>
+									</div>
+								</li>
+								<!-- EVENT search_results_topic_after -->
+							<!-- END searchresults -->
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	<!-- ELSE -->
+		<div class="card w-full p-4 text-sm">
+			{L_NO_SEARCH_RESULTS}
+		</div>
+	<!-- ENDIF -->
+
+<!-- ELSE -->
+
+<div class="posts my-3 grid gap-y-3">
+	<!-- BEGIN searchresults -->
+		<!-- EVENT search_results_post_before -->
+		<div class="search post card p-6 <!-- IF searchresults.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF --><!-- IF searchresults.S_POST_REPORTED --> reported<!-- ENDIF -->">
+			<div class="postprofile">
+			<!-- IF searchresults.S_IGNORE_POST -->
+				<div class="postbody">
+					{searchresults.L_IGNORE_POST}
+				</div>
+			<!-- ELSE -->
+				<div class="md:grid md:grid-cols-4 flex flex-col-reverse gap-4">
+					<div class="text-sm md:col-span-3">
+						<!-- EVENT search_results_post_subject_before -->
+						<h3><a href="{searchresults.U_VIEW_POST}">{searchresults.POST_SUBJECT}</a></h3>
+						<div class="content mt-3">{searchresults.MESSAGE}</div>
+						<!-- EVENT search_results_content_after -->
+					</div>
+					<div class="text-sm postprofile rounded-lg p-4 border bg-gray-50">
+						<!-- EVENT search_results_postprofile_before -->
+						<div class="author">{L_POST_BY_AUTHOR} <!-- EVENT search_results_post_author_username_prepend --><span class="font-semibold">{searchresults.POST_AUTHOR_FULL}</span><!-- EVENT search_results_post_author_username_append --></div>
+						<div class="search-result-date text-secondary">{searchresults.POST_DATE}</div>
+						<div class="mt-2">
+							<div><span class="text-secondary">{L_FORUM}{L_COLON}</span> <a href="{searchresults.U_VIEW_FORUM}">{searchresults.FORUM_TITLE}</a></div>
+							<div><span class="text-secondary">{L_TOPIC}{L_COLON}</span> <a href="{searchresults.U_VIEW_TOPIC}">{searchresults.TOPIC_TITLE}</a></div>
+							<!-- EVENT search_results_topic_title_after -->
+							<div><span class="text-secondary">{L_REPLIES}{L_COLON}</span> <strong>{searchresults.TOPIC_REPLIES}</strong></div>
+							<div><span class="text-secondary">{L_VIEWS}{L_COLON}</span> <strong>{searchresults.TOPIC_VIEWS}</strong></div>
+						</div>
+						<!-- EVENT search_results_postprofile_after -->
+					</div>
+				</div>
+				<!-- IF not searchresults.S_IGNORE_POST -->
+					<a href="{searchresults.U_VIEW_POST}" class="flex items-center gap-2 text-xs justify-end mt-4 font-medium">
+						<span>{L_JUMP_TO_POST}</span>
+						<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_END}-s-line" data-width="14" data-height="14" aria-hidden="true"></i>
+					</a>
+				<!-- ENDIF -->
+				
+			<!-- ENDIF -->
+			</div>
+		</div>
+		<!-- EVENT search_results_post_after -->
+	<!-- BEGINELSE -->
+		<div class="card w-full p-4 text-sm">
+			{L_NO_SEARCH_RESULTS}
+		</div>
+	<!-- END searchresults -->
+</div>
+<!-- ENDIF -->
+
+<div class="action-bar bar-bottom my-3">
+	<div class="flex flex-wrap items-center justify-between gap-2">
+		<!-- IF .searchresults and (S_SELECT_SORT_DAYS or S_SELECT_SORT_KEY) -->
+		<form method="post" action="{S_SEARCH_ACTION}">
+			<!-- INCLUDE display_options.html -->
+		</form>
+		<!-- ENDIF -->
+		<div class="pagination flex flex-wrap items-center justify-end gap-1">
+			<!-- IF .pagination -->
+				{% include 'pagination.html' with {'TOTAL': SEARCH_MATCHES} %}
+			<!-- ELSE -->
+			<div class="card-sm">{SEARCH_MATCHES} &bull; {PAGE_NUMBER}</div>
+			<!-- ENDIF -->
+		</div>
+	</div>
+</div>
+
+{% EVENT search_results_jumpbox_before %}
+
+<!-- INCLUDE jumpbox.html -->
+<!-- INCLUDE overall_footer.html -->

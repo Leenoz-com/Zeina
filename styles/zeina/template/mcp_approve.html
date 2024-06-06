@@ -1,0 +1,84 @@
+<!-- IF S_AJAX_REQUEST -->
+
+	<h3 class="leading-6">{MESSAGE_TITLE}</h3>
+	<p class="text-sm mt-1">{MESSAGE_TEXT}</p>
+
+	<div class="mt-4">
+	<!-- IF S_NOTIFY_POSTER -->
+		<div class="flex items-center gap-2">
+			<input id="notify_poster" class="checkbox-primary" type="checkbox" name="notify_poster" checked="checked">
+			<label for="notify_poster"><!-- IF S_APPROVE -->{L_NOTIFY_POSTER_APPROVAL}<!-- ELSE -->{L_NOTIFY_POSTER_DISAPPROVAL}<!-- ENDIF --></label>
+		</div>
+	<!-- ENDIF -->
+
+	<!-- IF not S_APPROVE and not S_RESTORE and .reason -->
+		<div class="mt-4">
+			<label for="reason_id" class="block text-sm font-medium mb-2">{L_DISAPPROVE_REASON}{L_COLON}</label>
+			<select class="inpotbox" id="reason_id" name="reason_id">
+				<!-- BEGIN reason --><option value="{reason.ID}"<!-- IF reason.S_SELECTED --> selected="selected"<!-- ENDIF -->>{reason.DESCRIPTION}</option><!-- END reason -->
+			</select>
+		</div>
+
+		<div class="mt-4">
+			<label for="reason" class="block text-sm font-medium">{L_MORE_INFO}{L_COLON}</label>
+			<div class="text-secondary text-sm mb-2">{L_CAN_LEAVE_BLANK}</div>
+			<textarea class="inputbox" name="reason" id="reason" rows="4" cols="40">{REASON}</textarea>
+		</div>
+	<!-- ENDIF -->
+	</div>
+
+	<div class="mt-4 flex max-md:flex-col items-center justify-center gap-2 leading-[0] md:me-10">
+		<input type="button" name="confirm" value="{YES_VALUE}" class="btn-primary transition-all duration-300 flex items-center justify-center max-md:w-full">
+		<input type="button" name="cancel" value="{L_NO}" class="btn-primary-outline transition-all duration-300 flex items-center justify-center max-md:w-full">
+	</div>
+
+<!-- ELSE -->
+<!-- INCLUDE overall_header.html -->
+
+<form id="confirm" action="{S_CONFIRM_ACTION}" method="post">
+	<div class="card">
+		{S_FORM_TOKEN}
+		<h2 class="card-title message-title">{MESSAGE_TITLE}</h2>
+		<div class="p-4">
+			<!-- IF ADDITIONAL_MSG --><p class="text-sm mb-4 font-medium text-red-700">{ADDITIONAL_MSG}</p><!-- ENDIF -->
+
+			<div>
+			<!-- IF S_NOTIFY_POSTER -->
+				<div class="flex items-center gap-2">
+					<input id="notify_poster" class="checkbox-primary" type="checkbox" name="notify_poster" checked="checked">
+					<label for="notify_poster"><!-- IF S_APPROVE -->{L_NOTIFY_POSTER_APPROVAL}<!-- ELSE -->{L_NOTIFY_POSTER_DISAPPROVAL}<!-- ENDIF --></label>
+				</div>
+			<!-- ENDIF -->
+
+			<!-- IF not S_APPROVE and not S_RESTORE and .reason -->
+				<div class="mt-4">
+					<label for="reason_id" class="block text-sm font-medium mb-2">{L_DISAPPROVE_REASON}{L_COLON}</label>
+					<select class="inpotbox" id="reason_id" name="reason_id">
+						<!-- BEGIN reason --><option value="{reason.ID}"<!-- IF reason.S_SELECTED --> selected="selected"<!-- ENDIF -->>{reason.DESCRIPTION}</option><!-- END reason -->
+					</select>
+				</div>
+
+				<div class="mt-4">
+					<label for="reason" class="block text-sm font-medium">{L_MORE_INFO}{L_COLON}</label>
+					<div class="text-secondary text-sm mb-2">{L_CAN_LEAVE_BLANK}</div>
+					<textarea class="inputbox" name="reason" id="reason" rows="4" cols="40">{REASON}</textarea>
+				</div>
+			<!-- ENDIF -->
+			</div>
+
+			<div class="text-center mt-5 py-3 border-t">
+				<p>{MESSAGE_TEXT}</p>
+
+				<div class="flex max-md:flex-col items-center justify-center gap-2 mt-4">
+					{S_HIDDEN_FIELDS}
+					<button type="submit" name="confirm" value="{YES_VALUE}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full">{YES_VALUE}</button>
+					<button type="submit" name="cancel" value="{L_NO}" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full">{L_NO}</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</form>
+<!-- INCLUDE overall_footer.html -->
+<!-- ENDIF -->

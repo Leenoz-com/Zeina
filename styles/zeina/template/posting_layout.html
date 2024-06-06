@@ -1,0 +1,69 @@
+{% embed "overall_header.html" %}
+	{% block header_content %}
+		<!-- IF TOPIC_TITLE -->
+		<h1 class="text-slate-50 md:text-2xl text-xl"><!-- EVENT posting_topic_title_before --><a href="{U_VIEW_TOPIC}">{TOPIC_TITLE}</a><!-- EVENT posting_topic_title_after --></h1>
+		<!-- ELSE -->
+		<h1 class="text-slate-50 md:text-2xl text-xl"><a href="{U_VIEW_FORUM}">{FORUM_NAME}</a></h1>
+		<!-- ENDIF -->
+	{% endblock %}
+{% endembed %}
+
+<!-- IF S_FORUM_RULES -->
+<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 my-4" role="alert">
+  <div class="flex">
+    <div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="mdi:court-hammer" data-width="16" data-height="16" aria-hidden="true"></i></div>
+    <div class="ms-4">
+			<!-- IF U_FORUM_RULES -->
+			<div class="font-semibold"><a class="underline non-link" href="{U_FORUM_RULES}">{L_FORUM_RULES}</a></div>
+			<!-- ELSE -->
+			<div class="font-semibold">{L_FORUM_RULES}</div>
+      <div class="mt-1">{FORUM_RULES}</div>
+		<!-- ENDIF -->
+    </div>
+  </div>
+</div>
+<!-- ENDIF -->
+
+<form id="postform" class="mb-4" method="post" action="{S_POST_ACTION}"{S_FORM_ENCTYPE}>
+
+<!-- IF S_DRAFT_LOADED -->
+<div class="card text-sm rounded-lg p-4" role="alert">
+	<div class="flex gap-2">
+		<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="18" data-height="18" aria-hidden="true"></i></div>
+    <div>
+			<h5 class="message-title mb-1">{L_INFORMATION}</h5>
+			<p>{L_DRAFT_LOADED}</p>
+		</div>
+	</div>
+</div>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_DRAFTS --><!-- INCLUDE drafts.html --><!-- ENDIF -->
+
+<!-- IF S_POST_REVIEW --><!-- INCLUDE posting_review.html --><!-- ENDIF -->
+
+<!-- IF S_DISPLAY_PREVIEW --><!-- INCLUDE posting_preview.html --><!-- ENDIF -->
+
+
+<div class="card mt-4" id="postingbox">
+	<div class="card-title"><h2>{L_POST_A}</h2></div>
+	<div class="p-4">
+		<!-- DEFINE $EXTRA_POSTING_OPTIONS = 1 -->
+		<!-- INCLUDE posting_editor.html -->
+		<input type="hidden" name="show_panel" value="options-panel">
+		{S_FORM_TOKEN}
+	</div>
+</div>
+
+<!-- IF S_SHOW_ATTACH_BOX and FILTERS --><!-- INCLUDE posting_attach_body.html --><!-- ENDIF -->
+
+<!-- IF S_SHOW_POLL_BOX or S_POLL_DELETE --><!-- INCLUDE posting_poll_body.html --><!-- ENDIF -->
+
+<!-- EVENT posting_layout_include_panel_body -->
+
+{% set posting_layout = 1 %}
+<!-- IF S_DISPLAY_REVIEW --><!-- INCLUDE posting_topic_review.html --><!-- ENDIF -->
+
+</form>
+
+<!-- INCLUDE overall_footer.html -->

@@ -1,0 +1,15 @@
+<!-- INCLUDE overall_header.html -->
+
+<div id="message" class="bg-white border border-gray-200 text-sm text-current rounded-xl shadow-sm p-6" role="alert">
+	<h5 class="message-title mb-2 text-lg">{MESSAGE_TITLE}</h5>
+	<p>{MESSAGE_TEXT}</p>
+	<!-- IF SCRIPT_NAME == "search" and not S_BOARD_DISABLED and not S_NO_SEARCH and L_RETURN_TO_SEARCH_ADV -->
+		<p>
+			<a href="{U_SEARCH}" class="flex items-center gap-2" accesskey="r">
+				<i class="iconify" data-mode="style" data-icon="ri:arrow-{S_CONTENT_FLOW_BEGIN}-s-line" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_GO_TO_SEARCH_ADV}</span>
+			</a>
+		</p>
+	<!-- ENDIF -->
+</div>
+
+<!-- INCLUDE overall_footer.html -->

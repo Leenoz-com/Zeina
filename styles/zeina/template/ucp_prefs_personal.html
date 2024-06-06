@@ -1,0 +1,142 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+
+	<h2 class="leading-6">{L_TITLE}</h2>
+
+	<!-- IF ERROR -->
+	<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 my-4" role="alert">
+		<p class="error">{ERROR}</p>
+	</div>
+	<!-- ENDIF -->
+
+	<div class="mt-4 divide-y">
+		<!-- EVENT ucp_prefs_personal_prepend -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="viewemail0">{L_SHOW_EMAIL}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="viewemail" id="viewemail1" class="radio-primary" value="1"<!-- IF S_VIEW_EMAIL --> checked="checked"<!-- ENDIF -->> {L_YES}</label>
+					<label class="radio-label"><input type="radio" name="viewemail" id="viewemail0" class="radio-primary" value="0"<!-- IF not S_VIEW_EMAIL --> checked="checked"<!-- ENDIF -->> {L_NO}</label>
+				</div>
+			</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="massemail1">{L_ADMIN_EMAIL}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="massemail" id="massemail1" class="radio-primary" value="1"<!-- IF S_MASS_EMAIL --> checked="checked"<!-- ENDIF -->> {L_YES}</label>
+					<label class="radio-label"><input type="radio" name="massemail" id="massemail0" class="radio-primary" value="0"<!-- IF not S_MASS_EMAIL --> checked="checked"<!-- ENDIF -->> {L_NO}</label>
+				</div>
+			</dd>
+		</dl>
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
+			<dt class="text-sm"><label for="allowpm1" class="font-medium leading-6">{L_ALLOW_PM}{L_COLON}</label><br><span class="text-secondary">{L_ALLOW_PM_EXPLAIN}</span></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="allowpm" id="allowpm1" class="radio-primary" value="1"<!-- IF S_ALLOW_PM --> checked="checked"<!-- ENDIF -->> {L_YES}</label>
+					<label class="radio-label"><input type="radio" name="allowpm" id="allowpm0" class="radio-primary" value="0"<!-- IF not S_ALLOW_PM --> checked="checked"<!-- ENDIF -->> {L_NO}</label>
+				</div>
+			</dd>
+		</dl>
+
+		<!-- IF S_CAN_HIDE_ONLINE -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
+			<dt class="text-sm"><label for="hideonline0" class="font-medium leading-6">{L_HIDE_ONLINE}{L_COLON}</label><br><span class="text-secondary">{L_HIDE_ONLINE_EXPLAIN}</span></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="hideonline" id="hideonline1" class="radio-primary" value="1"<!-- IF S_HIDE_ONLINE --> checked="checked"<!-- ENDIF -->> {L_YES}</label>
+					<label class="radio-label"><input type="radio" name="hideonline" id="hideonline0" class="radio-primary" value="0"<!-- IF not S_HIDE_ONLINE --> checked="checked"<!-- ENDIF -->> {L_NO}</label>
+				</div>
+			</dd>
+		</dl>
+		<!-- ENDIF -->
+
+		<!-- IF S_SELECT_NOTIFY -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="notifymethod0">{L_SHOW_EMAIL}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<div class="flex max-md:flex-col">
+					<label class="radio-label"><input type="radio" name="notifymethod" id="notifymethod0" class="radio-primary" value="0"<!-- IF S_NOTIFY_EMAIL --> checked="checked"<!-- ENDIF -->> {L_NOTIFY_METHOD_EMAIL}</label>
+					<label class="radio-label"><input type="radio" name="notifymethod" id="notifymethod1" class="radio-primary" value="1"<!-- IF S_NOTIFY_IM --> checked="checked"<!-- ENDIF -->> {L_NOTIFY_METHOD_IM}</label>
+					<label class="radio-label"><input type="radio" name="notifymethod" id="notifymethod2" class="radio-primary" value="2"<!-- IF S_NOTIFY_BOTH --> checked="checked"<!-- ENDIF -->> {L_NOTIFY_METHOD_BOTH}</label>
+				</div>
+			</dd>
+		</dl>
+		<!-- ENDIF -->
+
+		<!-- IF S_MORE_LANGUAGES -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="lang">{L_BOARD_LANGUAGE}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<select name="lang" id="lang" class="inputbox">{S_LANG_OPTIONS}</select>
+			</dd>
+		</dl>
+		<!-- ENDIF -->
+
+		<!-- IF S_STYLE_OPTIONS and S_MORE_STYLES -->
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5 items-center">
+			<dt class="text-sm font-medium leading-6"><label for="user_style">{L_BOARD_STYLE}{L_COLON}</label></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<select name="user_style" id="user_style" class="inputbox">{S_STYLE_OPTIONS}</select>
+			</dd>
+		</dl>
+		<!-- ENDIF -->
+
+		<!-- INCLUDE timezone_option.html -->
+
+		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
+			<dt class="text-sm"><label for="dateformat" class="font-medium leading-6">{L_BOARD_DATE_FORMAT}{L_COLON}</label><br><span class="text-secondary">{L_BOARD_DATE_FORMAT_EXPLAIN}</span></dt>
+			<dd class="text-sm md:col-span-2 max-md:mt-2">
+				<select class="inputbox" name="dateoptions" id="dateoptions" onchange="if(this.value=='custom'){phpbb.toggleDisplay('custom_date',1);}else{phpbb.toggleDisplay('custom_date',-1);} if (this.value == 'custom') { document.getElementById('dateformat').value = default_dateformat; } else { document.getElementById('dateformat').value = this.value; }">
+					{S_DATEFORMAT_OPTIONS}
+				</select>
+				<div id="custom_date" style="display:none;"><input type="text" name="dateformat" id="dateformat" value="{DATE_FORMAT}" maxlength="64" class="inputbox mt-2"></div>
+			</dd>
+		</dl>
+		<!-- EVENT ucp_prefs_personal_append -->
+	</div>
+
+	<div class="flex items-center md:justify-end">
+		{S_HIDDEN_FIELDS}
+		<button type="submit" name="submit" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center" value="{L_SUBMIT}">{L_SUBMIT}</button>
+		{S_FORM_TOKEN}
+	</div>
+
+</form>
+
+<script>
+	var date_format = '{A_DATE_FORMAT}';
+	var default_dateformat = '{A_DEFAULT_DATEFORMAT}';
+
+	function customDates()
+	{
+		var e = document.getElementById('dateoptions');
+
+		e.selectedIndex = e.length - 1;
+
+		// Loop and match date_format in menu
+		for (var i = 0; i < e.length; i++)
+		{
+			if (e.options[i].value == date_format)
+			{
+				e.selectedIndex = i;
+				break;
+			}
+		}
+
+		// Show/hide custom field
+		if (e.selectedIndex == e.length - 1)
+		{
+			phpbb.toggleDisplay('custom_date',1);
+		}
+		else
+		{
+			phpbb.toggleDisplay('custom_date',-1);
+		}
+	}
+
+	window.onload = customDates;
+</script>
+
+<!-- INCLUDE ucp_footer.html -->

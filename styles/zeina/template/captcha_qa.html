@@ -1,0 +1,30 @@
+<!-- IF S_TYPE == 1 -->
+<div class="captcha-panel">
+	<div class="inner">
+
+	<h3 class="captcha-title">{L_CONFIRMATION}</h3>
+	<fieldset class="fields2">
+<!-- ENDIF -->
+
+	<div class="flex items-center justify-between">
+		<label for="confirm_code" class="block text-sm font-medium mb-2">{QA_CONFIRM_QUESTION}{L_COLON}</label>
+		<div class="text-sm">
+			<button type="button" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 rounded-full p-2 text-secondary hover:text-color hover:bg-primary/[0.08]" data-zn-collapse="#zn-captcha-collapse">
+				<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+			</button>
+		</div>
+	</div>
+	<div id="zn-captcha-collapse" class="zn-collapse hidden  w-full overflow-hidden" aria-labelledby="zn-captcha-collapse">
+		<p class="text-sm text-secondary pb-2">{L_CONFIRM_QUESTION_EXPLAIN}</p>
+	</div>
+
+	<div class="captcha mt-1">
+		<input type="text" name="qa_answer" id="answer" size="45" class="inputbox" placeholder="{L_ANSWER}">
+		<input type="hidden" name="qa_confirm_id" id="qa_confirm_id" value="{QA_CONFIRM_ID}">
+	</div>
+
+<!-- IF S_TYPE == 1 -->
+	</fieldset>
+	</div>
+</div>
+<!-- ENDIF -->

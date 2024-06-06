@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {META}
+		<title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
+
+    <link href="{T_THEME_PATH}/assets/css/stylesheet.css" rel="stylesheet" media="screen">
+
+    <!-- IF zeina.favicon_location -->
+			<link rel="icon" href="{{ T_THEME_PATH ~ '/' ~ zeina.favicon_location }}" type="image/x-icon">
+    <!-- ENDIF -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+		<!-- EVENT simple_header_head_append -->
+		{$STYLESHEETS}
+		<!-- EVENT simple_header_stylesheets_after -->
+
+    <style>
+      html {
+        --color-primary: {{ zeina.primary_color }};
+        --color-text: var(--color-primary);
+        --panel-bg: {% if zeina.colorful_panel %}{{ zeina.panel_head_color }}{% else %}#f9fafb{% endif %};
+        --color-secondary: 107, 114, 128;
+      }
+    </style>
+	</head>
+
+  <body class="bg-gray-100 text-gray-800 leading-relaxed relative{{ zeina.colorful_panel ? ' card-primary' }}">
+    <div class="wrapper">
+			<a id="top" class="top-anchor" accesskey="t"></a>
+			
+      <main id="page-body" class="page-body h-full max-w-6xl layout-container mx-auto px-6 py-4 lg:px-8">
+        <!-- EVENT simple_header_body_before -->

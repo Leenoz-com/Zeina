@@ -1,0 +1,44 @@
+<!-- IF .draftrow -->
+<div class="card mt-4" id="postingbox">
+	<div class="card-title"><h2 class="draft-title">{L_LOAD_DRAFT}</h2></div>
+	<div class="p-4">
+		<p class="mb-2 text-sm text-secondary">{L_LOAD_DRAFT_EXPLAIN}</p>
+		
+		<div class="mt-4">
+			<div class="overflow-auto">
+				<div class="min-w-full inline-block align-middle">
+					<div class="border border-gray-200 rounded-lg overflow-hidden">
+						<table class="min-w-full">
+							<thead class="bg-slate-50 border-b">
+								<tr>
+									<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_LOAD_DRAFT}</th>
+									<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_SAVE_DATE}</th>
+								</tr>
+							</thead>
+							<tbody class="divide-y">
+							<!-- BEGIN draftrow -->
+							<tr class="row divide-y<!-- IF draftrow.S_ROW_COUNT is odd --> max-lg:bg-gray-50 bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+								<td class="p-3 text-sm">
+									<dfn>{L_LOAD_DRAFT}{L_COLON}</dfn>
+									<div class="list-inner">
+										<a href="{draftrow.U_INSERT}" title="{L_LOAD_DRAFT}" class="topictitle">{draftrow.DRAFT_SUBJECT}</a><br>
+										<!-- IF not S_PRIVMSGS --><!-- IF draftrow.S_LINK_TOPIC -->{L_TOPIC}{L_COLON} <a href="{draftrow.U_VIEW}">{draftrow.TITLE}</a>
+										<!-- ELSEIF draftrow.S_LINK_FORUM -->{L_FORUM}{L_COLON} <a href="{draftrow.U_VIEW}">{draftrow.TITLE}</a>
+										<!-- ELSE -->{L_NO_TOPIC_FORUM}<!-- ENDIF --><!-- ENDIF -->
+									</div>
+								</td>
+								<td class="p-3 text-sm">
+									<dfn>{L_SAVE_DATE}{L_COLON}</dfn>
+									<div class="text-secondary">{draftrow.DATE}</div>
+								</td>
+							</tr>
+							<!-- END draftrow -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ENDIF -->

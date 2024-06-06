@@ -1,0 +1,86 @@
+      </main>
+      
+			<footer class="max-w-6xl layout-container mx-auto px-6 py-4 lg:px-8 text-center text-sm mb-4">
+				<div class="copyright" role="contentinfo">
+					<p class="footer-row">
+            <span class="footer-copyright">{{ CREDIT_LINE }}</span>
+					</p>
+					{% if TRANSLATION_INFO %}
+						<p class="footer-row">
+							<span class="footer-copyright">{{ TRANSLATION_INFO }}</span>
+						</p>
+					{% endif %}
+					{% if DEBUG_OUTPUT %}
+						<p class="footer-row">
+							<span class="footer-info">{{ DEBUG_OUTPUT }}</span>
+						</p>
+					{% endif %}
+				</div>
+			</footer>
+			
+			<div id="darkenwrapper" class="hidden" data-ajax-error-title="{L_AJAX_ERROR_TITLE}" data-ajax-error-text="{L_AJAX_ERROR_TEXT}" data-ajax-error-text-abort="{L_AJAX_ERROR_TEXT_ABORT}" data-ajax-error-text-timeout="{L_AJAX_ERROR_TEXT_TIMEOUT}" data-ajax-error-text-parsererror="{L_AJAX_ERROR_TEXT_PARSERERROR}">
+				<div id="darken" class="darken">&nbsp;</div>
+			</div>
+
+			<div id="loading_indicator" class="loading_indicator"></div>
+
+			<div id="phpbb_alert" class="phpbb_alert zn-overlay size-full fixed top-0 start-0 z-[60] overflow-auto pointer-events-none transition-all zn-overlay-open:ease-out ease-in zn-overlay-open:duration-300 hidden" data-l-err="{L_ERROR}" data-l-timeout-processing-req="{L_TIMEOUT_PROCESSING_REQ}">
+      	<div class="zn-overlay-open:opacity-100 opacity-0 transition-all zn-overlay-open:ease-out ease-in zn-overlay-open:duration-300 md:max-w-lg max-w-[85%] w-full origin-center fixed left-0 top-0 right-0 bottom-0 m-auto max-h-[75%] h-fit rounded-xl p-2 bg-white">
+					<div class="flex flex-col pointer-events-auto overflow-hidden">
+						<button type="button" class="alert_close relative flex overflow-hidden transition-all duration-300 !absolute top-3 end-3 text-secondary p-2 rounded-full bg-transparent border-0 hover:bg-primary/5 hover:text-color">
+            	<i class="iconify" data-mode="style" data-icon="mdi:close" data-height="16" data-width="16" aria-hidden="true"></i>
+						</button>
+						<div class="p-3">
+							<div class="flex max-md:flex-col gap-4">
+								<div class="alert-icon m-auto flex size-12 items-center justify-center rounded-full md:m-0 md:size-10">
+									<span class="inline-flex justify-center items-center size-8 rounded-full border-4 text-white">
+										<i class="iconify alert-info-icon" data-mode="style" data-icon="mdi:information-variant" data-height="24" data-width="24" aria-hidden="true"></i>
+										<i class="iconify alert-error-icon" data-mode="style" data-icon="mdi:close" data-height="24" data-width="24" aria-hidden="true"></i>
+									</span>
+								</div>
+								<div class="max-md:text-center md:w-5/6">
+                	<div class="leading-6 alert_title font-semibold" id="modal-title"></div>
+									<p class="text-sm text-secondary mt-1 alert_text break-words"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="phpbb_confirm" class="phpbb_alert zn-overlay size-full fixed top-0 start-0 z-[60] overflow-auto pointer-events-none transition-all zn-overlay-open:ease-out ease-in zn-overlay-open:duration-300 hidden" data-l-err="{L_ERROR}" data-l-timeout-processing-req="{L_TIMEOUT_PROCESSING_REQ}">
+      	<div class="zn-overlay-open:opacity-100 opacity-0 transition-all zn-overlay-open:ease-out ease-in zn-overlay-open:duration-300 md:max-w-lg max-w-[85%] w-full origin-center fixed left-0 top-0 right-0 bottom-0 m-auto max-h-[75%] h-fit rounded-xl p-2 bg-white">
+					<div class="flex flex-col pointer-events-auto overflow-hidden">
+						<button type="button" class="alert_close absolute top-3 end-3 text-secondary p-2 rounded-full btn-primary-outline bg-transparent border-0 leading-[0]">
+            	<i class="iconify" data-mode="style" data-icon="mdi:close" data-height="16" data-width="16" aria-hidden="true"></i>
+						</button>
+						<div class="p-3">
+							<div class="flex max-md:flex-col gap-4">
+								<div class="m-auto flex size-12 items-center justify-center rounded-full md:m-0 md:size-10 bg-primary/20">
+									<span class="inline-flex justify-center items-center size-8 rounded-full border-4 border-primary/5 bg-primary/90 text-white">
+                  	<i class="iconify" data-mode="style" data-icon="bi:question-lg" data-height="18" data-width="18" aria-hidden="true"></i>
+									</span>
+								</div>
+								<div class="max-md:text-center md:w-5/6">
+									<p class="alert_text break-words"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    <script src="{T_JQUERY_LINK}"></script>
+    <!-- IF S_ALLOW_CDN --><script>window.jQuery || document.write('\x3Cscript src="{T_ASSETS_PATH}/javascript/jquery-3.7.1.min.js?assets_version={T_ASSETS_VERSION}">\x3C/script>');</script><!-- ENDIF -->
+    <script src="{T_ASSETS_PATH}/javascript/core.js?assets_version={T_ASSETS_VERSION}"></script>
+    <script src="{T_THEME_PATH}/assets/js/ajax.js"></script>
+    <script src="{T_THEME_PATH}/assets/js/forum_fn.js"></script>
+    <script src="{T_THEME_PATH}/assets/js/app.js"></script>
+    <script src="{T_THEME_PATH}/assets/js/iconify.min.js"></script>
+
+		<!-- EVENT simple_footer_after -->
+		{$SCRIPTS}
+		{% EVENT simple_footer_body_after %}
+	</body>
+</html>

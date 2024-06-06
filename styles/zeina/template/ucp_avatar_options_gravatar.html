@@ -1,0 +1,19 @@
+<div>
+	<div class="mb-2">
+		<label for="avatar_gravatar_email" class="block text-sm font-medium">{L_GRAVATAR_AVATAR_EMAIL}{L_COLON}</label>
+		<div class="text-sm text-secondary">{L_GRAVATAR_AVATAR_EMAIL_EXPLAIN}</div>
+	</div>
+	<input type="email" name="avatar_gravatar_email" id="avatar_gravatar_email" value="{AVATAR_GRAVATAR_EMAIL}" class="inputbox" data-reset-on-edit="#avatar_gravatar_width, #avatar_gravatar_height">
+</div>
+<div>
+	<div class="mb-2">
+		<label for="avatar_gravatar_width" class="block text-sm font-medium">{L_GRAVATAR_AVATAR_SIZE}{L_COLON}</label>
+		<div class="text-sm text-secondary">{L_GRAVATAR_AVATAR_SIZE_EXPLAIN}</div>
+	</div>
+	<div class="max-md:mt-2">
+		<div class="flex max-md:flex-col md:items-center gap-5 gap-y-3">
+			<label class="flex items-center gap-2 text-sm font-medium" for="avatar_gravatar_width"><input type="number" name="avatar_gravatar_width" id="avatar_gravatar_width" min="{AVATAR_MIN_WIDTH}" max="{AVATAR_MAX_WIDTH}" value="{AVATAR_GRAVATAR_WIDTH}" class="inputbox"> {L_PIXEL}</label> <div class="text-center">&times;</div>
+			<label class="flex items-center gap-2 text-sm font-medium" for="avatar_gravatar_height"><input type="number" name="avatar_gravatar_height" id="avatar_gravatar_height" min="{AVATAR_MIN_HEIGHT}" max="{AVATAR_MAX_HEIGHT}" value="{AVATAR_GRAVATAR_HEIGHT}" class="inputbox"> {L_PIXEL}</label>
+		</div>
+	</div>
+</div>

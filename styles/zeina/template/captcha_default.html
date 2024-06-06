@@ -1,0 +1,34 @@
+<!-- IF S_TYPE == 1 -->
+	<hr class="mb-4 mt-5 pt-2 border-0 border-b border-gray-200">
+
+	<h3 class="captcha-title">{L_CONFIRMATION}</h3>
+	<div class="mb-4 mt-2 bg-white border border-gray-200 text-sm text-secondary rounded-lg p-4" role="alert">
+		<p class="text-sm">{L_CONFIRM_EXPLAIN}</p>
+	</div>
+<!-- ENDIF -->
+	
+	<div class="flex items-center justify-between">
+		<label for="confirm_code" class="block text-sm font-medium">{L_CONFIRM_CODE}{L_COLON}</label>
+		<div class="text-sm flex items-center gap-1">
+			<button type="button" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 rounded-full p-2 text-secondary hover:text-color hover:bg-primary/[0.08]" data-zn-collapse="#zn-captcha-collapse">
+				<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+			</button>
+			<!-- IF S_CONFIRM_REFRESH -->
+				<button type="submit" name="refresh_vc" id="refresh_vc" class="relative flex overflow-hidden transition-all duration-300 rounded-full p-2 text-secondary hover:text-color hover:bg-primary/[0.08]" value="{L_VC_REFRESH}" title="{L_VC_REFRESH}">
+					<i class="iconify" data-mode="style" data-icon="ph:arrow-clockwise-bold" data-width="16" data-height="16" aria-hidden="true"></i>
+					<span class="sr-only">{L_VC_REFRESH}</span>
+				</button>
+			<!-- ENDIF -->
+		</div>
+	</div>
+	<div id="zn-captcha-collapse" class="zn-collapse hidden w-full overflow-hidden" aria-labelledby="zn-captcha-collapse">
+		<p class="text-sm text-secondary pb-2">{L_CONFIRM_CODE_EXPLAIN}</p>
+	</div>
+
+	<div class="mt-1">
+		<div class="block w-full inputbox bg-white">
+			<img src="{CONFIRM_IMAGE_LINK}" alt="{L_CONFIRM_CODE}">
+		</div>
+		<input type="text" name="confirm_code" id="confirm_code" size="8" maxlength="8" class="inputbox bg-white mt-2" placeholder="{L_CONFIRM_CODE}">
+		<input type="hidden" name="confirm_id" id="confirm_id" value="{CONFIRM_ID}">
+	</div>

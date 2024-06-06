@@ -1,0 +1,214 @@
+<!-- IF ERROR -->
+<div class="text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
+	<p class="error">{ERROR}</p>
+</div>
+<!-- ENDIF -->
+
+<div class="divide-y space-y-4">
+	{% EVENT posting_editor_topic_icons_before %}
+	<!-- IF S_SHOW_TOPIC_ICONS or S_SHOW_PM_ICONS -->
+	<div class="first:pt-0 pt-4">
+		{% EVENT posting_editor_topic_icons_prepend %}
+		<label for="icon" class="block text-sm font-medium mb-2">{L_ICON}{L_COLON}</label>
+		<div class="flex flex-wrap items-center gap-4 text-sm"><label for="icon" class="flex items-center gap-2"><input type="radio" class="radio-primary" name="icon" id="icon" value="0" checked="checked"> <!-- IF S_SHOW_TOPIC_ICONS -->{L_NO_TOPIC_ICON}<!-- ELSE -->{L_NO_PM_ICON}<!-- ENDIF --></label>
+		<!-- BEGIN topic_icon --><label for="icon-{topic_icon.ICON_ID}" class="flex items-center gap-2"><input class="radio-primary" type="radio" name="icon" id="icon-{topic_icon.ICON_ID}" value="{topic_icon.ICON_ID}" {topic_icon.S_ICON_CHECKED}><img src="{topic_icon.ICON_IMG}" width="{topic_icon.ICON_WIDTH}" height="{topic_icon.ICON_HEIGHT}" alt="{topic_icon.ICON_ALT}" title="{topic_icon.ICON_ALT}"></label> <!-- END topic_icon --></div>
+		{% EVENT posting_editor_topic_icons_append %}
+	</div>
+	<!-- ENDIF -->
+	{% EVENT posting_editor_topic_icons_after %}
+
+	<!-- IF not S_PRIVMSGS and S_DISPLAY_USERNAME -->
+	<div class="first:pt-0 pt-4">
+		<label for="username" class="block text-sm font-medium mb-2">{L_USERNAME}{L_COLON}</label>
+		<input type="text" name="username" id="username" size="25" value="{USERNAME}" class="inputbox">
+	</div>
+	<!-- ENDIF -->
+
+	<!-- EVENT posting_editor_subject_before -->
+
+	<!-- IF S_POST_ACTION or S_PRIVMSGS or S_EDIT_DRAFT -->
+	<div class="first:pt-0 pt-4">
+		<label for="subject" class="block text-sm font-medium mb-2">{L_SUBJECT}{L_COLON}</label>
+		<!-- EVENT posting_editor_subject_prepend -->
+		<input type="text" name="subject" id="subject" size="45" maxlength="<!-- IF S_NEW_MESSAGE -->120<!-- ELSE -->124<!-- ENDIF -->" value="{SUBJECT}{DRAFT_SUBJECT}" class="inputbox">
+		<!-- EVENT posting_editor_subject_append -->
+	</div>
+		<!-- IF CAPTCHA_TEMPLATE and S_CONFIRM_CODE -->
+			<div class="pt-2"><!-- INCLUDE {CAPTCHA_TEMPLATE} --></div>
+		<!-- ENDIF -->
+	<!-- ENDIF -->
+
+	<!-- EVENT posting_editor_subject_after -->
+
+	<div class="first:pt-0 pt-4">
+		<!-- INCLUDE posting_buttons.html -->
+		<div class="mt-2 md:grid <!-- IF $SIG_EDIT == 1 --> md:grid-cols-4 <!-- ELSE --> md:grid-cols-5 <!-- ENDIF --> md:gap-5">
+			<div class="text-sm <!-- IF $SIG_EDIT == 1 --> md:col-span-3 <!-- ELSE --> md:col-span-4 <!-- ENDIF -->">
+				<!-- EVENT posting_editor_message_before -->
+				<div id="message-box" class="message-box">
+					<textarea <!-- IF S_UCP_ACTION and not S_PRIVMSGS and not S_EDIT_DRAFT -->name="signature" id="signature" style="height: 9em;"<!-- ELSE -->name="message" id="message"<!-- ENDIF --> rows="15" cols="76" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="initInsertions();" class="inputbox">{MESSAGE}{DRAFT_MESSAGE}{SIGNATURE}</textarea>
+				</div>
+				<!-- EVENT posting_editor_message_after -->
+			</div>
+			<div class="text-sm max-md:mt-4">
+				<div id="smiley-box" class="smiley-box">
+					<!-- EVENT posting_editor_smilies_before -->
+					<!-- IF S_SMILIES_ALLOWED and .smiley -->
+						<div class="font-semibold pb-2 mb-2 border-b">{L_SMILIES}</div>
+						<div class="flex items-center flex-wrap">
+							<!-- BEGIN smiley -->
+								<a href="#" class="size-8 flex items-center justify-center rounded-md hover:bg-gray-50" onclick="insert_text('{smiley.A_SMILEY_CODE}', true); return false;"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}"></a>
+							<!-- END smiley -->
+						</div>
+					<!-- ENDIF -->
+				</div>
+				
+				<!-- IF S_SHOW_SMILEY_LINK and S_SMILIES_ALLOWED -->
+					<a href="{U_MORE_SMILIES}" class="pt-2 text-center font-medium block" onclick="popup(this.href, 750, 350, '_phpbbsmilies'); return false;">{L_MORE_SMILIES}</a>
+				<!-- ENDIF -->
+
+				<!-- EVENT posting_editor_smilies_after -->
+				<!-- IF BBCODE_STATUS -->
+				<div class="bbcode-status p-2 my-4 rounded-md border border-dashed">
+					{BBCODE_STATUS}<br>
+					<!-- IF S_BBCODE_ALLOWED -->
+						{IMG_STATUS}<br>
+						<!-- IF S_BBCODE_FLASH -->
+						{FLASH_STATUS}<br>
+						<!-- ENDIF -->
+						{URL_STATUS}<br>
+					<!-- ENDIF -->
+					{SMILIES_STATUS}
+				</div>
+				<!-- ENDIF -->
+				<!-- EVENT posting_editor_bbcode_status_after -->
+				<!-- IF S_EDIT_DRAFT || S_DISPLAY_REVIEW -->
+					<!-- IF S_EDIT_DRAFT --><a class="font-medium text-sm" href="{S_UCP_ACTION}">{L_BACK_TO_DRAFTS}</a><!-- ENDIF -->
+					<!-- IF S_DISPLAY_REVIEW --><a class="font-medium text-sm" href="#review">{L_TOPIC_REVIEW}</a><!-- ENDIF -->
+				<!-- ENDIF -->
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- IF $EXTRA_POSTING_OPTIONS eq 1 -->
+
+	<!-- IF not S_SHOW_DRAFTS -->
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF not S_SHOW_DRAFTS and not $SIG_EDIT eq 1 -->
+	<div class="my-4{% if not S_PRIVMSGS %} card{% endif %} border rounded-xl p-4">
+		<div class="flex max-md:flex-col items-center justify-center gap-2">
+			{S_HIDDEN_ADDRESS_FIELD}
+			{S_HIDDEN_FIELDS}
+			<!-- EVENT posting_editor_submit_buttons -->
+			<!-- IF S_HAS_DRAFTS --><button type="submit" accesskey="d" name="load" value="{L_LOAD_DRAFT}" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full" onclick="load_draft = true;">{L_LOAD_DRAFT}</button> <!-- ENDIF -->
+			<!-- IF S_SAVE_ALLOWED --><button type="submit" accesskey="k" name="save" value="{L_SAVE_DRAFT}" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full">{L_SAVE_DRAFT}</button> <!-- ENDIF -->
+			<button type="submit" name="preview" value="{L_PREVIEW}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full"<!-- IF not S_PRIVMSGS --> onclick="document.getElementById('postform').action += '#preview';"<!-- ENDIF -->>{L_PREVIEW}</button>
+			<button type="submit" accesskey="s" name="post" value="{L_SUBMIT}" class="btn-primary relative flex overflow-hidden transition-all duration-300 justify-center max-md:w-full default-submit-action">{L_SUBMIT}</button>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF not S_PRIVMSGS and not S_SHOW_DRAFTS and not $SIG_EDIT eq 1 -->
+		<div class="md:mx-2 max-md:mb-1">
+			<nav class="flex max-md:flex-col md:gap-2 md:pe-2 max-md:bg-gray-50 max-md:rounded-lg max-md:border max-md:border-gray-200 max-md:overflow-hidden max-md:divide-y" aria-label="Tabs" class="tabs" role="tablist">
+				<button type="button" class="md:-mb-px py-2 px-3 inline-flex items-center gap-2 md:bg-gray-50 text-sm font-medium text-center md:border md:border-gray-200 text-secondary md:rounded-t-lg active" id="options-panel-tab" data-zn-tab="#options-panel" aria-controls="options-panel" role="tab">
+					{L_OPTIONS}
+				</button>
+				<!-- IF S_SHOW_ATTACH_BOX and FILTERS -->
+				<button type="button" class="relative md:-mb-px py-2 px-3 inline-flex items-center gap-2 md:bg-gray-50 text-sm font-medium text-center md:border md:border-gray-200 text-secondary md:rounded-t-lg" id="attach-panel-tab" data-zn-tab="#attach-panel" aria-controls="attach-panel" role="tab">
+					<div>{L_ATTACHMENTS} <strong id="file-total-progress" class="file-total-progress h-0.5 absolute bottom-0 left-0 right-0 w-full block"><strong id="file-total-progress-bar" class="file-total-progress-bar block bg-primary h-full w-0"></strong></strong></div>
+				</button>
+				<!-- ENDIF -->
+				<!-- IF S_SHOW_POLL_BOX || S_POLL_DELETE -->
+				<button type="button" class="md:-mb-px py-2 px-3 inline-flex items-center gap-2 md:bg-gray-50 text-sm font-medium text-center md:border md:border-gray-200 text-secondary md:rounded-t-lg" id="poll-panel-tab" data-zn-tab="#poll-panel" aria-controls="poll-panel" role="tab">
+					{L_ADD_POLL}
+				</button>
+				<!-- ENDIF -->
+				<!-- EVENT posting_editor_add_panel_tab -->
+			</nav>
+		</div>
+	<!-- ENDIF -->
+
+	<!-- IF not S_SHOW_DRAFTS and not $SIG_EDIT eq 1 -->
+		<div id="options-panel" role="tabpanel" aria-labelledby="options-panel">
+			<div class="{% if not S_PRIVMSGS %} card{% endif %} p-4 border rounded-xl space-y-4 divide-y">
+				<div>
+					<!-- EVENT posting_editor_options_prepend -->
+					<!-- IF S_BBCODE_ALLOWED -->
+						<label for="disable_bbcode" class="flex items-center gap-2"><input type="checkbox" class="checkbox-primary" name="disable_bbcode" id="disable_bbcode"{S_BBCODE_CHECKED}> {L_DISABLE_BBCODE}</label>
+					<!-- ENDIF -->
+					<!-- IF S_SMILIES_ALLOWED -->
+						<label for="disable_smilies" class="flex items-center gap-2"><input type="checkbox" class="checkbox-primary" name="disable_smilies" id="disable_smilies"{S_SMILIES_CHECKED}> {L_DISABLE_SMILIES}</label>
+					<!-- ENDIF -->
+					<!-- IF S_LINKS_ALLOWED -->
+						<label for="disable_magic_url" class="flex items-center gap-2"><input type="checkbox" class="checkbox-primary" name="disable_magic_url" id="disable_magic_url"{S_MAGIC_URL_CHECKED}> {L_DISABLE_MAGIC_URL}</label>
+					<!-- ENDIF -->
+					<!-- IF S_SIG_ALLOWED -->
+						<label for="attach_sig" class="flex items-center gap-2"><input type="checkbox" class="checkbox-primary" name="attach_sig" id="attach_sig"{S_SIGNATURE_CHECKED}> {L_ATTACH_SIG}</label>
+					<!-- ENDIF -->
+					<!-- IF S_NOTIFY_ALLOWED -->
+						<label for="notify" class="flex items-center gap-2"><input type="checkbox" class="checkbox-primary" name="notify" id="notify"{S_NOTIFY_CHECKED}> {L_NOTIFY_REPLY}</label>
+					<!-- ENDIF -->
+					<!-- IF S_LOCK_TOPIC_ALLOWED -->
+						<label for="lock_topic" class="flex items-center gap-2"><input type="checkbox" class="checkbox-primary" name="lock_topic" id="lock_topic"{S_LOCK_TOPIC_CHECKED}> {L_LOCK_TOPIC}</label>
+					<!-- ENDIF -->
+					<!-- IF S_LOCK_POST_ALLOWED -->
+						<label for="lock_post" class="flex items-center gap-2"><input type="checkbox" class="checkbox-primary" name="lock_post" id="lock_post"{S_LOCK_POST_CHECKED}> {L_LOCK_POST} [{L_LOCK_POST_EXPLAIN}]</label>
+					<!-- ENDIF -->
+				</div>
+				<!-- IF S_TYPE_TOGGLE or S_TOPIC_TYPE_ANNOUNCE or S_TOPIC_TYPE_STICKY -->
+				<div>
+					<!-- IF S_TYPE_TOGGLE -->
+					<dl class="py-4 md:grid md:grid-cols-5 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="topic_type-0"><!-- IF S_EDIT_POST -->{L_CHANGE_TOPIC_TO}<!-- ELSE -->{L_POST_TOPIC_AS}<!-- ENDIF -->{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-4 max-md:mt-2">
+							<div class="flex max-md:flex-col max-md:w-full">
+								<!-- BEGIN topic_type --><label for="topic_type-{topic_type.VALUE}" class="radio-label"><input type="radio" class="radio-primary" name="topic_type" id="topic_type-{topic_type.VALUE}" value="{topic_type.VALUE}"{topic_type.S_CHECKED}>{topic_type.L_TOPIC_TYPE}</label> <!-- END topic_type -->
+							</div>
+						</dd>
+					</dl>
+					<!-- ENDIF -->
+					<!-- IF S_TOPIC_TYPE_ANNOUNCE or S_TOPIC_TYPE_STICKY -->
+					<dl class="py-4 md:grid md:grid-cols-5 md:gap-5">
+						<dt class="text-sm font-medium leading-6"><label for="topic_time_limit">{L_STICK_TOPIC_FOR}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-4 max-md:mt-2">
+							<label for="topic_time_limit" class="flex items-center gap-2"><input type="number" min="0" max="999" name="topic_time_limit" id="topic_time_limit" value="{TOPIC_TIME_LIMIT}" class="inputbox w-auto"> {L_DAYS}</label>
+							<div class="mt-2 text-secondary">{L_STICK_TOPIC_FOR_EXPLAIN}</div>
+						</dd>
+					</dl>
+					<!-- ENDIF -->
+				</div>
+				<!-- ENDIF -->
+				<!-- IF S_SOFTDELETE_ALLOWED or S_DELETE_ALLOWED or S_EDIT_REASON -->
+				<div>
+					<!-- IF S_SOFTDELETE_ALLOWED or S_DELETE_ALLOWED -->
+					<dl class="py-4 md:grid md:grid-cols-5 md:gap-5">
+						<dt class="text-sm font-medium leading-6"><label>{L_DELETE_POST}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-4 max-md:mt-2">
+							{% if S_SOFTDELETE_ALLOWED %}
+								<label for="delete" class="flex items-center gap-2"><input type="checkbox" class="checkbox-primary" name="delete" id="delete" {{ S_SOFTDELETE_CHECKED }}> {{ lang('DELETE_POST_WARN') }}</label>
+							{% endif %}
+							{% if S_DELETE_ALLOWED %}
+								<label for="delete_permanent" class="flex items-center gap-2"><input type="checkbox" class="checkbox-primary" name="delete_permanent" id="delete_permanent"> {{ lang('DELETE_POST_PERMANENTLY') }}</label>
+							{% endif %}
+						</dd>
+					</dl>
+					<!-- ENDIF -->
+					<!-- IF S_EDIT_REASON -->
+					<dl class="py-4 md:grid md:grid-cols-5 md:gap-5 items-center">
+						<dt class="text-sm font-medium leading-6"><label for="edit_reason">{L_EDIT_REASON}{L_COLON}</label></dt>
+						<dd class="text-sm md:col-span-4 max-md:mt-2">
+							<input type="text" name="edit_reason" id="edit_reason" value="{EDIT_REASON}" class="inputbox">
+						</dd>
+					</dl>
+					<!-- ENDIF -->
+				</div>
+				<!-- ENDIF -->
+	<!-- ENDIF -->
+
+<!-- ENDIF -->

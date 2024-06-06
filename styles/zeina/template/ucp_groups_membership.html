@@ -1,0 +1,201 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+
+	<h2 class="leading-6">{L_USERGROUPS}</h2>
+	<p class="mt-1 text-sm text-secondary">{L_GROUPS_EXPLAIN}</p>
+
+	<!-- DEFINE $SHOW_BUTTONS = 0 -->
+	<!-- IF .leader -->
+	<div class="mt-4">
+		<div class="overflow-auto">
+			<div class="min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden">
+					<table class="min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_GROUP_LEADER}</th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase w-28">{L_SELECT}</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+						<!-- BEGIN leader -->
+							<!-- IF not leader.GROUP_SPECIAL -->
+								<!-- DEFINE $SHOW_BUTTONS = 1 -->
+							<!-- ENDIF -->
+							<tr class="row divide-y <!-- IF leader.S_ROW_COUNT is odd -->max-lg:bg-gray-50 bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+								<td class="p-3">
+									<dfn>{L_GROUP_LEADER}</dfn>
+									<div class="list-inner text-sm">
+										<div class="flex items-center gap-2 mb-1">
+											<!-- IF S_CHANGE_DEFAULT --><input class="radio-primary" title="{L_CHANGE_DEFAULT_GROUP}" type="radio" name="default"<!-- IF leader.S_GROUP_DEFAULT --> checked="checked"<!-- ENDIF --> value="{leader.GROUP_ID}"> <!-- ENDIF -->
+											<a href="{leader.U_VIEW_GROUP}" class="forumtitle font-semibold"<!-- IF leader.GROUP_COLOUR --> style="color:#{leader.GROUP_COLOUR}"<!-- ENDIF -->>{leader.GROUP_NAME}</a>
+										</div>
+										<!-- IF leader.GROUP_DESC --><div class="text-secondary">{leader.GROUP_DESC}</div><!-- ENDIF -->
+										<!-- IF not leader.GROUP_SPECIAL --><div class="text-secondary"><i>{leader.GROUP_STATUS}</i></div><!-- ENDIF -->
+									</div>
+								</td>
+								<td class="p-3 lg:text-center">
+									<dfn>{L_SELECT}</dfn>
+									<input class="radio-primary" type="radio" name="selected" value="{leader.GROUP_ID}" <!-- IF leader.GROUP_SPECIAL -->disabled="disabled"<!-- ENDIF -->>
+								</td>
+							</tr>
+						<!-- END leader -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF .member -->
+	<div class="mt-4">
+		<div class="overflow-auto">
+			<div class="min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden">
+					<table class="min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_GROUP_MEMBER}</th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase w-28">{L_SELECT}</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+						<!-- BEGIN member -->
+							<!-- IF not member.GROUP_SPECIAL -->
+								<!-- DEFINE $SHOW_BUTTONS = 1 -->
+							<!-- ENDIF -->
+							<tr class="row divide-y <!-- IF member.S_ROW_COUNT is odd -->max-lg:bg-gray-50 bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+								<td class="p-3">
+									<dfn>{L_GROUP_MEMBER}</dfn>
+									<div class="list-inner text-sm">
+										<div class="flex items-center gap-2 mb-1">
+											<!-- IF S_CHANGE_DEFAULT --><input class="radio-primary" title="{L_CHANGE_DEFAULT_GROUP}" type="radio" name="default"<!-- IF member.S_GROUP_DEFAULT --> checked="checked"<!-- ENDIF --> value="{member.GROUP_ID}"> <!-- ENDIF -->
+											<a href="{member.U_VIEW_GROUP}" class="forumtitle font-semibold"<!-- IF member.GROUP_COLOUR --> style="color:#{member.GROUP_COLOUR}"<!-- ENDIF -->>{member.GROUP_NAME}</a>
+										</div>
+										<!-- IF member.GROUP_DESC --><div class="text-secondary">{member.GROUP_DESC}</div><!-- ENDIF -->
+										<!-- IF not member.GROUP_SPECIAL --><div class="text-secondary"><i>{member.GROUP_STATUS}</i></div><!-- ENDIF -->
+									</div>
+								</td>
+								<td class="p-3 lg:text-center">
+									<dfn>{L_SELECT}</dfn>
+									<input class="radio-primary" type="radio" name="selected" value="{member.GROUP_ID}" <!-- IF member.GROUP_SPECIAL -->disabled="disabled"<!-- ENDIF -->>
+								</td>
+							</tr>
+						<!-- END member -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF .pending -->
+	<div class="mt-4">
+		<div class="overflow-auto">
+			<div class="min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden">
+					<table class="min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_GROUP_PENDING}</th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase w-28">{L_SELECT}</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+						<!-- BEGIN pending -->
+							<!-- IF not pending.GROUP_SPECIAL -->
+								<!-- DEFINE $SHOW_BUTTONS = 1 -->
+							<!-- ENDIF -->
+							<tr class="row divide-y <!-- IF pending.S_ROW_COUNT is odd -->max-lg:bg-gray-50 bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+								<td class="p-3">
+									<dfn>{L_GROUP_PENDING}</dfn>
+									<div class="list-inner text-sm">
+										<a href="{pending.U_VIEW_GROUP}" class="forumtitle font-semibold"<!-- IF pending.GROUP_COLOUR --> style="color:#{pending.GROUP_COLOUR}"<!-- ENDIF -->>{pending.GROUP_NAME}</a>
+										<!-- IF pending.GROUP_DESC --><div class="text-secondary">{pending.GROUP_DESC}</div><!-- ENDIF -->
+										<!-- IF not pending.GROUP_SPECIAL --><div class="text-secondary"><i>{pending.GROUP_STATUS}</i></div><!-- ENDIF -->
+									</div>
+								</td>
+								<td class="p-3 lg:text-center">
+									<dfn>{L_SELECT}</dfn>
+									<input class="radio-primary" type="radio" name="selected" value="{pending.GROUP_ID}" <!-- IF pending.GROUP_SPECIAL -->disabled="disabled"<!-- ENDIF -->>
+								</td>
+							</tr>
+						<!-- END pending -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF .nonmember -->
+	<div class="mt-4">
+		<div class="overflow-auto">
+			<div class="min-w-full inline-block align-middle">
+				<div class="border border-gray-200 rounded-lg overflow-hidden">
+					<table class="min-w-full">
+						<thead class="bg-slate-50 border-b">
+							<tr>
+								<th scope="col" class="p-3 text-start text-xs font-medium text-secondary uppercase">{L_GROUP_NONMEMBER}</th>
+								<th scope="col" class="p-3 text-center text-xs font-medium text-secondary uppercase w-28">{L_SELECT}</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+						<!-- BEGIN nonmember -->
+							<!-- IF nonmember.S_CAN_JOIN -->
+								<!-- DEFINE $SHOW_BUTTONS = 1 -->
+							<!-- ENDIF -->
+							<tr class="row divide-y<!-- IF nonmember.S_ROW_COUNT is odd --> max-lg:bg-gray-50 bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+								<td class="p-3">
+									<dfn>{L_GROUP_NONMEMBER}</dfn>
+									<div class="list-inner text-sm">
+										<a href="{nonmember.U_VIEW_GROUP}" class="forumtitle font-semibold"<!-- IF nonmember.GROUP_COLOUR --> style="color:#{nonmember.GROUP_COLOUR}"<!-- ENDIF -->>{nonmember.GROUP_NAME}</a>
+										<!-- IF nonmember.GROUP_DESC --><div class="text-secondary">{nonmember.GROUP_DESC}</div><!-- ENDIF -->
+										<!-- IF not nonmember.GROUP_SPECIAL --><div class="text-secondary"><i>{nonmember.GROUP_STATUS}</i></div><!-- ENDIF -->
+									</div>
+								</td>
+								<td class="p-3 lg:text-center">
+									<dfn>{L_SELECT}</dfn>
+									<input class="radio-primary" type="radio" name="selected" value="{nonmember.GROUP_ID}" <!-- IF not nonmember.S_CAN_JOIN -->disabled="disabled"<!-- ENDIF -->>
+								</td>
+							</tr>
+						<!-- END nonmember -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF S_CHANGE_DEFAULT or $SHOW_BUTTONS eq 1 -->
+	<div class="md:flex items-center <!-- IF S_CHANGE_DEFAULT --> justify-between <!-- ELSE --> justify-end <!-- ENDIF --> mt-4">
+		<!-- IF S_CHANGE_DEFAULT -->
+		<div class="flex items-center">
+			<button type="submit" name="submit" value="{L_CHANGE_DEFAULT_GROUP}" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center">{L_CHANGE_DEFAULT_GROUP}</button>
+			{S_FORM_TOKEN}
+		</div>
+		<!-- ENDIF -->
+
+		<!-- IF $SHOW_BUTTONS eq 1 -->
+		<div class="flex max-md:flex-col md:items-center gap-2 max-md:mt-4">
+			<label for="action" class="text-sm">{L_SELECT}{L_COLON}</label>
+			<select name="action" id="action" class="inputbox md:w-auto">
+				<option value="join">{L_JOIN_SELECTED}</option>
+				<option value="resign">{L_RESIGN_SELECTED}</option>
+				<option value="demote">{L_DEMOTE_SELECTED}</option>
+			</select>
+			<button type="submit" name="submit" class="btn-primary relative flex overflow-hidden transition-all duration-300 max-md:w-full justify-center" value="{L_SUBMIT}">{L_SUBMIT}</button>
+			{S_FORM_TOKEN}
+		</div>
+		<!-- ENDIF -->
+	</div>
+	<!-- ENDIF -->
+
+</form>
+
+<!-- INCLUDE ucp_footer.html -->
