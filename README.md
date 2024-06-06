@@ -1,4 +1,4 @@
-![Logo](https://leenoz.com/logo.svg)
+[<img src="https://leenoz.com/logo.svg" height="32px">](logo.svg)
 
 # Project Title
 Zeina Theme
