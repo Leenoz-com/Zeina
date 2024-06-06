@@ -1,6 +1,6 @@
 [<img src="https://leenoz.com/logo.svg" height="32px">](logo.svg)
 
-# Project Title
+# Title
 Zeina Theme
 
 ## Description
