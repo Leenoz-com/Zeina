@@ -1,3 +1,5 @@
+![Logo](https://leenoz.com/logo.svg)
+
 # Project Title
 Zeina Theme
 
@@ -17,7 +19,7 @@ Zeina is a phpBB theme with a clean and modern design that is fully responsive t
 - RTL Support
 
 ## Demo
-https://demo.leenoz.com/zeina/
+[Demo](https://demo.leenoz.com/zeina/)
 
 ## Author
 [Leenoz](https://leenoz.com/zeina)
@@ -26,7 +28,4 @@ https://demo.leenoz.com/zeina/
 [Documentation](https://docs.leenoz.com/zeina)
 
 ## Download Free Version
-https://demo.leenoz.com/zeina/viewtopic.php?t=14
-
-## Pro Version
-https://leenoz.com/zeina
+[Download](https://demo.leenoz.com/zeina/viewtopic.php?t=14)
