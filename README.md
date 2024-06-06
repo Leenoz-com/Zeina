@@ -18,6 +18,10 @@ Zeina is a phpBB theme with a clean and modern design that is fully responsive t
 - Pop-Up Menus with Blur Background
 - RTL Support
 
+## Screenshots
+![App Screenshot](https://leenoz.com/zeina_preview.png)
+![App Screenshot](https://leenoz.com/zeina_preview_2.png)
+
 ## Demo
 [Demo](https://demo.leenoz.com/zeina/)
 
@@ -27,5 +31,5 @@ Zeina is a phpBB theme with a clean and modern design that is fully responsive t
 ## Documentation
 [Documentation](https://docs.leenoz.com/zeina)
 
-## Download Free Version
-[Download](https://demo.leenoz.com/zeina/viewtopic.php?t=14)
+## Support
+For support and feedback, email support@leenoz.com.
