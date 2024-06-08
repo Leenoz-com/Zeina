@@ -54,7 +54,7 @@ For support and feedback, email support@leenoz.com.
 - Custom Copyright
 - Custom CSS & JS
 
-#### Documentation:
+#### Read More:
 [Documentation](https://docs.leenoz.com/zeina)
 
 #### Pricing:
