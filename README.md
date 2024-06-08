@@ -57,5 +57,5 @@ For support and feedback, email support@leenoz.com.
 #### Read More:
 [Documentation](https://docs.leenoz.com)
 
-#### Pricing:
+#### Become a PRO:
 [Zeina Pro Version](https://leenoz.com/zeina#pricing)
