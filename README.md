@@ -34,3 +34,28 @@ Zeina is a phpBB theme with a clean and modern design that is fully responsive t
 
 ## Support
 For support and feedback, email support@leenoz.com.
+
+## Pro Version
+#### Features:
+- Layout Type (Boxed/Fluid)
+- Dark Mode
+- Gradient Colors
+- Colorful Scrollbar
+- Change the theme fonts
+- Scroll-To-Top button
+- Popup Animate (Fade/Zoom/Slide)
+- Ripple Effect
+- Navbar, footer, social media menus
+- Header Image or Video
+- Header Overlay
+- Header Height
+- Parallax Header Effect
+- Panel Head Image
+- Panel Head Gradient Color
+- Hide/Show Last Visit & Current Time
+- Sidebars (Left/Right/Both)
+- Custom Copyright
+- Custom CSS & JS
+
+#### Buy now:
+[Zeina Pro Version](https://leenoz.com/zeina#pricing)
