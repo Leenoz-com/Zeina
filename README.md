@@ -54,6 +54,9 @@ For support and feedback, email support@leenoz.com.
 - Custom Copyright
 - Custom CSS & JS
 
+#### Screenshots:
+![App Screenshot](https://leenoz.com/zeina_pro.png)
+
 #### Read More:
 [Documentation](https://docs.leenoz.com)
 
