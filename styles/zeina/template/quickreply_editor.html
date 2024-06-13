@@ -8,7 +8,7 @@
 		</div>
 		{% endif %}
 	</div>
-	<div id="zn-topics-collapse-quick" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-topics-collapse-quick">
+	<div id="zn-topics-collapse-quick" class="zn-collapse w-full" aria-labelledby="zn-topics-collapse-quick">
 		<div class="p-4 mt-2">
 			<div class="topiclist forums">
 				<!-- EVENT quickreply_editor_subject_before -->
@@ -16,14 +16,14 @@
 					<label for="subject" class="block text-sm font-medium mb-2">{L_SUBJECT}{L_COLON}</label>
 					<input type="text" name="subject" id="subject" size="45" maxlength="124" value="{SUBJECT}" class="inputbox mt-2 block w-full">
 				</div>
-				<!-- EVENT quickreply_editor_message_before -->
 				<div class="mt-3">
 					<label for="quickreply_message" class="block text-sm font-medium mb-2">{L_MESSAGE}{L_COLON}</label>
-					<div id="message-box" class="message-box">
+				  <!-- EVENT quickreply_editor_message_before -->
+					<div id="message-box" class="message-box mt-2">
 						<textarea id="quickreply_message" name="message" rows="7" cols="76" class="inputbox block w-full"></textarea>
 					</div>
+				  <!-- EVENT quickreply_editor_message_after -->
 				</div>
-				<!-- EVENT quickreply_editor_message_after -->
 				<div class="md:flex block justify-between items-center mt-4">
 					{S_FORM_TOKEN}
 					{QR_HIDDEN_FIELDS}
