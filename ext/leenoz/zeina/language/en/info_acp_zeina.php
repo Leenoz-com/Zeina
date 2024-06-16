@@ -34,6 +34,7 @@ $lang = array_merge($lang, [
 	/** General Settings **/
 	'ACP_GENERAL_SETTINGS' => 'General Settings',
 	'ACP_THEME_COLOR' => 'Theme Color',
+  'ACP_FONT_AWESOME' => 'Allow Font Awesome Library?',
 
 	/** Header Settings **/
 	'ACP_HEADER_SETTINGS' => 'Header Settings',
