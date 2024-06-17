@@ -8,14 +8,14 @@
 
 		<!-- IF _file.S_THUMBNAIL -->
 		<dl class="thumbnail p-2 rounded-lg border border-dashed border-gray-200">
-			<dt><a class="flex" href="{_file.U_DOWNLOAD_LINK}"><img src="{_file.THUMB_IMAGE}" class="postimage max-h-20 rounded-lg" alt="{% if _file.COMMENT %}{{ _file.COMMENT|e('html') }}{% else %}{{ _file.DOWNLOAD_NAME }}{% endif %}" title="{_file.DOWNLOAD_NAME} ({_file.FILESIZE} {_file.SIZE_LANG}) {_file.L_DOWNLOAD_COUNT}"></a></dt>
+			<dt><a class="flex" href="{_file.U_DOWNLOAD_LINK}"><img src="{_file.THUMB_IMAGE}" class="postimage rounded-lg" alt="{% if _file.COMMENT %}{{ _file.COMMENT|e('html') }}{% else %}{{ _file.DOWNLOAD_NAME }}{% endif %}" title="{_file.DOWNLOAD_NAME} ({_file.FILESIZE} {_file.SIZE_LANG}) {_file.L_DOWNLOAD_COUNT}"></a></dt>
 			<!-- IF _file.COMMENT --><dd class="mt-2"> {_file.COMMENT}</dd><!-- ENDIF -->
 		</dl>
 		<!-- ENDIF -->
 
 		<!-- IF _file.S_IMAGE -->
 		<dl class="file p-2 rounded-lg border border-dashed border-gray-200">
-			<dt class="attach-image flex"><img src="{_file.U_INLINE_LINK}" class="postimage max-h-20 rounded-lg" alt="{% if _file.COMMENT %}{{ _file.COMMENT|e('html') }}{% else %}{{ _file.DOWNLOAD_NAME }}{% endif %}" onclick="viewableArea(this);"></dt>
+			<dt class="attach-image flex"><img src="{_file.U_INLINE_LINK}" class="postimage rounded-lg" alt="{% if _file.COMMENT %}{{ _file.COMMENT|e('html') }}{% else %}{{ _file.DOWNLOAD_NAME }}{% endif %}" onclick="viewableArea(this);"></dt>
 			<!-- IF _file.COMMENT --><dd><em>{_file.COMMENT}</em></dd><!-- ENDIF -->
 			<dd class="mt-2">{_file.DOWNLOAD_NAME} ({_file.FILESIZE} {_file.SIZE_LANG}) {_file.L_DOWNLOAD_COUNT}</dd>
 		</dl>
