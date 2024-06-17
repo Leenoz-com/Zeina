@@ -15,7 +15,7 @@ $lang = array_merge($lang, [
 	'BREADCRUMBS' => 'Navigation menu',
 	'THEME_MODE' => 'Light/Dark Mode',
 	'INFO' => 'Information',
-	'FOLLOW_US' => 'Follow US',
+	'FOLLOW_US' => 'Follow Us',
 	'SCROLL_TOP_TOP' => 'Scroll to top',
 	'DESIGNED_BY' => 'Designed by',
 	// ------------- Login & Register Page ------------ //
