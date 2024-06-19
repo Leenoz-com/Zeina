@@ -1,15 +1,8 @@
 <div class="border-b border-gray-200 bg-white min-h-16">
-	<div class="max-w-6xl layout-container mx-auto py-4 px-6 lg:px-8 flex max-md:flex-col-reverse flex-wrap md:items-center md:justify-between gap-2 max-md:py-1">
+	<div class="max-w-6xl layout-container mx-auto p-4 lg:px-8 flex max-md:flex-col-reverse flex-wrap md:items-center md:justify-between gap-2 max-md:py-1">
 		<div class="breadcrumbs">
-			<div class="md:hidden mb-2">
-				<button type="button" class="zn-collapse-toggle dropdown-item w-full gap-2 relative flex overflow-hidden transition-all duration-300 rounded-lg" data-zn-collapse="#breadcrumbs" aria-controls="breadcrumbs" aria-label="{L_BREADCRUMBS}">
-					<i class="iconify" data-mode="style" data-icon="ri:menu-4-fill" data-width="20" data-height="20" aria-hidden="true"></i>
-					<span class="text-sm font-medium">{L_BREADCRUMBS}</span>
-				</button>
-			</div>
-
 			<div id="breadcrumbs" class="zn-collapse hidden md:flex max-md:overflow-hidden basis-full grow justify-between">
-				<ol class="breadcrumb md:flex block flex-wrap items-center text-sm font-medium w-full">
+				<ol class="breadcrumb md:flex block flex-wrap items-center text-sm font-medium w-full max-md:mb-2">
 					{% set MICRODATA = 'itemtype="https://schema.org/ListItem" itemprop="itemListElement" itemscope' %}
 					{% set navlink_position = 1 %}
 
@@ -63,26 +56,34 @@
 				</ol>
 			</div>
 		</div>
-		<div class="max-md:mt-2">
-			<!-- EVENT overall_header_searchbox_before -->
-			<!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
-			<div id="search-box" class="search-box search-header" role="search">
-				<form action="{U_SEARCH}" method="get" id="search" class="flex items-center relative">
-					<input name="keywords" id="keywords" type="text" maxlength="128" class="inputbox search md:w-64 w-full shadow-none" size="20" value="{SEARCH_WORDS}" placeholder="{L_SEARCH_MINI}">
-					<div class="absolute ltr:right-1 rtl:left-1 flex items-center">
-						<button class="button button-search relative flex overflow-hidden transition-all duration-300 leading-[0] p-2 text-secondary hover:text-color hover:bg-primary/5 rounded-full" type="submit" title="{L_SEARCH}" aria-label="{L_SEARCH}">
-							<i class="iconify" data-mode="style" data-icon="fluent:search-32-filled" data-width="18" data-height="18" aria-hidden="true"></i>
-						</button>
-						<span class="py-3 border-r"></span>
-						<a href="{U_SEARCH}" class="button button-search-end relative flex overflow-hidden transition-all duration-300 leading-[0] p-2 text-secondary hover:text-color hover:bg-primary/5 rounded-full" title="{L_SEARCH_ADV}">
-							<i class="iconify" data-mode="style" data-icon="lucide:settings" data-width="18" data-height="18" aria-hidden="true"></i><span class="sr-only">{L_SEARCH_ADV}</span>
-						</a>
-					</div>
-					{S_SEARCH_HIDDEN_FIELDS}
-				</form>
+		<div class="flex items-center gap-2 max-md:w-full max-md:mt-2">
+    	<div class="md:hidden">
+				<button type="button" title="{L_BREADCRUMBS}" class="zn-collapse-toggle dropdown-item w-full gap-2 relative flex overflow-hidden transition-all duration-300 rounded-lg" data-zn-collapse="#breadcrumbs" aria-controls="breadcrumbs" aria-label="{L_BREADCRUMBS}">
+					<i class="iconify" data-mode="style" data-icon="ri:menu-4-fill" data-width="20" data-height="20" aria-hidden="true"></i>
+					<span class="sr-only">{L_BREADCRUMBS}</span>
+				</button>
 			</div>
-			<!-- ENDIF -->
-			<!-- EVENT overall_header_searchbox_after -->
+      <div class="max-md:w-full">
+  			<!-- EVENT overall_header_searchbox_before -->
+  			<!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
+  			<div id="search-box" class="search-box search-header" role="search">
+  				<form action="{U_SEARCH}" method="get" id="search" class="flex items-center relative">
+  					<input name="keywords" id="keywords" type="text" maxlength="128" class="inputbox search md:w-64 w-full shadow-none" size="20" value="{SEARCH_WORDS}" placeholder="{L_SEARCH_MINI}">
+  					<div class="absolute ltr:right-1 rtl:left-1 flex items-center">
+  						<button class="button button-search relative flex overflow-hidden transition-all duration-300 leading-[0] p-2 text-secondary hover:text-color hover:bg-primary/5 rounded-full" type="submit" title="{L_SEARCH}" aria-label="{L_SEARCH}">
+  							<i class="iconify" data-mode="style" data-icon="fluent:search-32-filled" data-width="18" data-height="18" aria-hidden="true"></i>
+  						</button>
+  						<span class="py-3 border-r"></span>
+  						<a href="{U_SEARCH}" class="button button-search-end relative flex overflow-hidden transition-all duration-300 leading-[0] p-2 text-secondary hover:text-color hover:bg-primary/5 rounded-full" title="{L_SEARCH_ADV}">
+  							<i class="iconify" data-mode="style" data-icon="lucide:settings" data-width="18" data-height="18" aria-hidden="true"></i><span class="sr-only">{L_SEARCH_ADV}</span>
+  						</a>
+  					</div>
+  					{S_SEARCH_HIDDEN_FIELDS}
+  				</form>
+  			</div>
+  			<!-- ENDIF -->
+  			<!-- EVENT overall_header_searchbox_after -->
+      </div>
 		</div>
 	</div>
 </div>

@@ -77,7 +77,7 @@
 <!-- IF S_SHOW_TOPICS -->
 
 	<!-- IF .searchresults -->
-		<ul class="topics mt-2 grid gap-y-4">
+		<ul class="topics mt-2 grid md:gap-4 gap-2">
 			<li class="card">
 				<div class="flex items-center justify-between card-title">
 					<h2>{L_TOPICS}</h2>
@@ -88,8 +88,8 @@
 					{% endif %}
 				</div>
 				<div id="zn-topics-collapse-{loop.index}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-topics-collapse-{loop.index}">
-					<div class="p-4 mt-2">
-						<ul class="topiclist forums divide-y">
+					<div>
+						<ul class="topiclist forums divide-y md:p-4 md:mt-2 p-2 mt-1">
 							<!-- BEGIN searchresults -->
 								<!-- EVENT search_results_topic_before -->
 								<li class="pt-4 mt-4 first:pt-0 first:mt-0 topic row">
@@ -156,7 +156,7 @@
 											<!-- EVENT topiclist_row_append -->
 										</div>
 
-										<div class="md:col-span-4 flex flex-col gap-2 lg:grid lg:grid-cols-3 md:mt-0 mt-4 md:border-0 md:p-0 p-4 border rounded-lg">
+										<div class="md:col-span-4 flex flex-col gap-2 lg:grid lg:grid-cols-3 md:mt-0 mt-2 md:border-0 md:p-0 p-3 border rounded-lg">
 											<div class="grid grid-cols-2">
 												<div class="topics font-medium text-sm">
 													{searchresults.TOPIC_REPLIES}

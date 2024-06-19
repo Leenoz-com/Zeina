@@ -1,6 +1,6 @@
 <!-- INCLUDE overall_header.html -->
 
-<div class="time flex max-md:flex-col gap-2 my-3 items-center <!-- IF S_USER_LOGGED_IN -->justify-between<!-- ELSE -->justify-end<!-- ENDIF -->">
+<div class="time flex max-md:flex-col gap-2 my-1 items-center <!-- IF S_USER_LOGGED_IN -->justify-between<!-- ELSE -->justify-end<!-- ENDIF -->">
 	<div class="current-time card-sm max-md:w-full">{CURRENT_TIME}</div>
 	<!-- IF S_USER_LOGGED_IN -->
 	<div class="last-visit card-sm max-md:w-full">{LAST_VISIT_DATE}</div>
@@ -9,7 +9,7 @@
 
 <!-- EVENT index_body_markforums_before -->
 <!-- IF U_MARK_FORUMS -->
-	<div class="action-bar flex justify-end my-3">
+	<div class="action-bar flex justify-end my-2">
 		<a href="{U_MARK_FORUMS}" class="mark-read card-sm !transition-[color] relative flex overflow-hidden transition-all duration-300" accesskey="m" data-ajax="mark_forums_read">
 			<i class="iconify" data-mode="style" data-icon="ph:checks-bold" data-width="18" data-height="18" aria-hidden="true"></i>
 			<span>{L_MARK_FORUMS_READ}</span>
@@ -22,7 +22,7 @@
 <!-- EVENT index_body_forumlist_body_after -->
 
 <!-- IF S_DISPLAY_ONLINE_LIST or S_DISPLAY_BIRTHDAY_LIST or NEWEST_USER -->
-<div class="stat-block my-4 card">
+<div class="stat-block md:my-4 mt-2 card">
 	<div class="flex items-center justify-between card-title">
 		<h2>{L_INFO}</h2>
 		{% if zeina.collapse_panel %}
@@ -32,7 +32,7 @@
 		{% endif %}
 	</div>
 	<div id="zn-stat-collapse" class="zn-collapse w-full overflow-hidden" aria-labelledby="stat-collapse-btn">
-		<div class="p-4 mt-2 divide-y space-y-4 stat-content">
+		<div class="md:p-4 md:mt-2 p-2 mt-1 divide-y space-y-4 stat-content">
 			<!-- EVENT index_body_stat_blocks_before -->
 			<!-- IF S_DISPLAY_ONLINE_LIST -->
 			<div class="online-list flex gap-4">
