@@ -89,16 +89,16 @@
 					<div class="md:col-span-4 flex flex-col gap-2 lg:grid lg:grid-cols-3 md:mt-0 mt-2 md:border-0 md:p-0 p-3 border rounded-lg">
 						
 						<!-- IF forumrow.CLICKS -->
-						<div class="redirect font-medium text-sm">
-							{forumrow.CLICKS} <div class="text-secondary md:text-xs mt-0.5">{L_REDIRECTS}</div>
+						<div class="redirect font-medium text-sm max-md:flex items-center gap-2">
+							{forumrow.CLICKS} <div class="text-secondary md:text-xs md:mt-0.5">{L_REDIRECTS}</div>
 						</div>
 						<!-- ELSEIF not forumrow.S_IS_LINK -->
-						<div class="grid grid-cols-2">
-							<div class="topics font-medium text-sm">
-								{forumrow.TOPICS} <div class="text-secondary md:text-xs mt-0.5">{L_TOPICS}</div>
+						<div class="grid grid-cols-2 max-md:py-1">
+							<div class="topics font-medium text-sm max-md:flex items-center gap-2">
+								{forumrow.TOPICS} <div class="text-secondary md:text-xs md:mt-0.5">{L_TOPICS}</div>
 							</div>
-							<div class="posts font-medium text-sm">
-								{forumrow.POSTS} <div class="text-secondary md:text-xs mt-0.5">{L_POSTS}</div>
+							<div class="posts font-medium text-sm max-md:flex items-center gap-2">
+								{forumrow.POSTS} <div class="text-secondary md:text-xs md:mt-0.5">{L_POSTS}</div>
 							</div>
 						</div>
 						<div class="lastpost text-sm col-span-2 max-lg:pt-2 max-lg:border-t<!-- IF not forumrow.LAST_POST_TIME_RFC3339 --> flex items-center <!-- ENDIF -->">

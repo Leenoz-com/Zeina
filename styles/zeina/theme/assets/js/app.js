@@ -190,6 +190,15 @@ const zeina = {};
         });
     });
 
+    // Scroll to the post
+    var hash_el = $(location.hash)[0];
+    if (hash_el) {
+      hash_el.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+
     // Set min-width and min-height to all icons
     $('.iconify').each(function() {
       $(this).css({
