@@ -34,6 +34,7 @@ For support and feedback, email support@leenoz.com.
 
 ## Pro Version
 #### Features:
+- All features in the free version
 - Layout Type (Boxed/Fluid)
 - Dark Mode
 - Gradient Colors
@@ -49,6 +50,7 @@ For support and feedback, email support@leenoz.com.
 - Parallax Header Effect
 - Panel Head Image
 - Panel Head Gradient Color
+- Change Forum Icons (SVG/PNG/GIF)
 - Hide/Show Last Visit & Current Time
 - Sidebars (Left/Right/Both)
 - Custom Copyright
