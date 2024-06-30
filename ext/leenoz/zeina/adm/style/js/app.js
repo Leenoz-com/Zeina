@@ -3,7 +3,7 @@
 
   $(document).ready(function ()
   {
-    var win, preview;
+    var win, preview, app_images;
 
     /**
     * Display a loading spinner
@@ -149,6 +149,13 @@
         }
       });
 
+      let header_image = $(preview).find('.header-image').css('background-image');
+      header_image = header_image.match(/url\((.*?)[\)]/);
+
+      app_images = {
+        'header': header_image ? header_image[0] : '',
+      }
+
       // Update all elements in the preview section
       update_preview('all');
 
@@ -239,7 +246,7 @@
         let header_image = data.get('header_image')['name'] !== '' || data.get('header_image_location') !== '';
         if (header_image) {
           // Add new data
-          let img_val = "center center / cover no-repeat url('" + (data.get('header_image_location') ? '../../' + data.get('header_image_location') : $('.header-image img').attr('src')) + "')";
+          let img_val = "center center / cover no-repeat " + (data.get('header_image_location') ? app_images.header : "url('" + $('.header-image img').attr('src') + "')");
           $(preview).css({"--header-image": img_val});
         }
         else if (data.get('header_image_location') == '') {
