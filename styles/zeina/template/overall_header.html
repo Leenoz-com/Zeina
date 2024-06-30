@@ -49,9 +49,23 @@
         --color-primary: {{ zeina.primary_color }};
         --color-text: var(--color-primary);
         --color-secondary: 107, 114, 128;
-        --header-image: {% if zeina.header_image_location %} center center / cover no-repeat url("{{ '../../' ~ zeina.header_image_location }}"){% endif %};
+        --header-image: {% if zeina.header_image_location %}url("{{ '../../' ~ zeina.header_image_location }}") center center / cover no-repeat{% endif %};
         --panel-bg: {% if zeina.colorful_panel %}{{ zeina.panel_head_color }}{% else %}#f9fafb{% endif %};
       }
+      {% if zeina.font_awesome %}
+      .icon, .button .icon, blockquote cite:before, .uncited:before {
+        display: inline-block;
+        font-family: FontAwesome;
+        font-weight: normal;
+        font-style: normal;
+        font-variant: normal;
+        font-size: 14px;
+        line-height: 1;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      {% endif %}
     </style>
   </head>
 
