@@ -151,11 +151,11 @@
 {% set S_IS_CODEBOX = false %}
 <!-- BEGIN postrow -->
 	<!-- EVENT viewtopic_body_postrow_post_before -->
-	<!-- IF postrow.S_FIRST_UNREAD -->
-		<a id="unread" class="anchor absolute"<!-- IF S_UNREAD_VIEW --> data-url="{postrow.U_MINI_POST}"<!-- ENDIF -->></a>
-	<!-- ENDIF -->
 	<div id="p{postrow.POST_ID}" class="post has-profile card p-6 <!-- IF postrow.S_UNREAD_POST --> unreadpost<!-- ELSEIF postrow.S_POST_REPORTED --> border-red-300 reported<!-- ELSEIF postrow.S_POST_DELETED --> deleted<!-- ELSEIF postrow.POSTER_WARNINGS --> warned<!-- ENDIF -->">
-		<div class="md:flex items-start block justify-between">
+		<!-- IF postrow.S_FIRST_UNREAD -->
+  		<a id="unread" class="anchor"<!-- IF S_UNREAD_VIEW --> data-url="{postrow.U_MINI_POST}"<!-- ENDIF -->></a>
+  	<!-- ENDIF -->
+    <div class="md:flex items-start block justify-between">
 			<div class="postprofile" id="profile{postrow.POST_ID}"<!-- IF postrow.S_POST_HIDDEN --> style="display: none;"<!-- ENDIF -->>
 				<div class="zn-dropdown user_data_dropdown relative">
 					<div class="zn-dropdown-toggle hover:cursor-pointer author<!-- IF postrow.S_ONLINE and not postrow.S_POST_HIDDEN --> online<!-- ENDIF --> flex items-center min-w-0 gap-3">

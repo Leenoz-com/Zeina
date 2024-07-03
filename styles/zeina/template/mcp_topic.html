@@ -84,11 +84,11 @@
 			{% set S_IS_CODEBOX = false %}
 			<!-- BEGIN postrow -->
 			<!-- EVENT mcp_topic_postrow_post_before -->
-      <!-- IF postrow.S_FIRST_UNREAD -->
-  			<a id="unread" class="anchor"<!-- IF S_UNREAD_VIEW --> data-url="{postrow.U_MINI_POST}"<!-- ENDIF -->></a>
-  		<!-- ENDIF -->
 			<div class="post <!-- IF postrow.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF --> mb-5 border p-4 rounded-lg">
-				<div class="postbody" id="pr{postrow.POST_ID}">
+				<!-- IF postrow.S_FIRST_UNREAD -->
+  			  <a id="unread" class="anchor"<!-- IF S_UNREAD_VIEW --> data-url="{postrow.U_MINI_POST}"<!-- ENDIF -->></a>
+  		  <!-- ENDIF -->
+        <div class="postbody" id="pr{postrow.POST_ID}">
 					<ul class="flex items-center gap-3 justify-end">
 						<li>
 							<a href="{postrow.U_POST_DETAILS}" title="{L_POST_DETAILS}" class="button button-icon-only flex items-center">
