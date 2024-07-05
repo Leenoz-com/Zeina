@@ -150,7 +150,7 @@
       });
 
       let header_image = $(preview).find('.header-image').css('background-image');
-      header_image = header_image.match(/url\((.*?)[\)]/);
+      header_image = header_image ? header_image.match(/url\((.*?)[\)]/) : null;
 
       app_images = {
         'header': header_image ? header_image[0] : '',
