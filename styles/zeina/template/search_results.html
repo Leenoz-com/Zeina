@@ -100,8 +100,8 @@
 													{% include 'forumlist_icons.html' with {'IMG_STYLE': searchresults.TOPIC_IMG_STYLE} %}
 												</div>
 												<div class="topic-details">
+													<!-- EVENT topiclist_row_prepend -->
 													<div class="flex items-center gap-2 max-md:py-1">
-														<!-- EVENT topiclist_row_prepend -->
 														<!-- IF searchresults.S_UNREAD_TOPIC and not S_IS_BOT -->
 														<a class="unread leading-[0]" href="{searchresults.U_NEWEST_POST}">
 															<i class="iconify text-color" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{L_NEW_POST}</span>
@@ -135,6 +135,7 @@
 														{L_POST_BY_AUTHOR} <!-- EVENT search_results_topic_author_username_prepend -->{searchresults.TOPIC_AUTHOR_FULL}<!-- EVENT search_results_topic_author_username_append --> &raquo; <time class="text-secondary" datetime="{searchresults.FIRST_POST_TIME_RFC3339}">{searchresults.FIRST_POST_TIME}</time> &raquo; {L_IN} <a href="{searchresults.U_VIEW_FORUM}">{searchresults.FORUM_TITLE}</a>
 														{% EVENT topiclist_row_topic_by_author_after %}
 													</div>
+											    <!-- EVENT topiclist_row_append -->
 												</div>
 											</div>
 											
@@ -153,7 +154,6 @@
 												</ul>
 											</div>
 											<!-- ENDIF -->
-											<!-- EVENT topiclist_row_append -->
 										</div>
 
 										<div class="md:col-span-4 flex flex-col gap-2 lg:grid lg:grid-cols-3 md:mt-0 mt-2 md:border-0 md:p-0 p-3 border rounded-lg">
