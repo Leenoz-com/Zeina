@@ -8,6 +8,9 @@ const zeina = {};
     // Calculate scroll width
     zeina.scrollWidth = window.innerWidth - document.documentElement.clientWidth;
 
+    // Check if the touch screen
+    zeina.isTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+
     // The default width for mobile mode
     zeina.mobileScreen = 768;
 
@@ -177,17 +180,19 @@ const zeina = {};
 
     // Close all dropdown menus when resizing the window
     $(window).on("resize", function () {
-      zeina.dropdown(false);
+      if (!zeina.isTouchScreen) {
+        zeina.dropdown(false);
 
-      // Calc the scroll width
-      zeina.scrollWidth = window.innerWidth - document.documentElement.clientWidth;
+        // Calc the scroll width
+        zeina.scrollWidth = window.innerWidth - document.documentElement.clientWidth;
 
-      // Close open navbar
-      $('[data-zn-collapse="#navbar-alignment"].open, [data-zn-collapse="#navbar-footer"].open')
-        .each(function () {
-          $(this).removeClass('open');
-          $($(this).attr('data-zn-collapse')).removeAttr('style');
-        });
+        // Close open navbar
+        $('[data-zn-collapse="#navbar-alignment"].open, [data-zn-collapse="#navbar-footer"].open')
+          .each(function () {
+            $(this).removeClass('open');
+            $($(this).attr('data-zn-collapse')).removeAttr('style');
+          });
+      }
     });
 
     // Scroll to the post

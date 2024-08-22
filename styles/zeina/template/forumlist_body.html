@@ -46,7 +46,7 @@
 								<span class="forum-image"><!-- EVENT forumlist_body_forum_image_prepend -->{forumrow.FORUM_IMAGE}<!-- EVENT forumlist_body_forum_image_append --></span>
 								<!-- EVENT forumlist_body_forum_image_after -->
 							<!-- ENDIF -->
-							{% set forum_details = forumrow.FORUM_DESC or (loops.forumrow.subforum and forumrow.S_LIST_SUBFORUMS) or forumrow.MODERATORS %}
+							{% set forum_details = forumrow.FORUM_DESC or (forumrow.subforum|length and forumrow.S_LIST_SUBFORUMS) or forumrow.MODERATORS %}
 							<div class="forum-details ms-4<!-- IF not forum_details --> flex items-center<!-- ENDIF --> grow">
 								<h3 class="forum-title text-sm font-semibold block"><a href="{forumrow.U_VIEWFORUM}">{forumrow.FORUM_NAME}</a></h3>
 								<!-- IF forumrow.FORUM_DESC --><p class="forum-desc text-secondary text-sm mt-0.5">{forumrow.FORUM_DESC}</p><!-- ENDIF -->
