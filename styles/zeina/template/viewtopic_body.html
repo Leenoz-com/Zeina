@@ -195,11 +195,14 @@
 				<!-- IF not S_IS_BOT and ($SHOW_POST_BUTTONS or postrow.U_QUOTE) -->
 
 					<div class="topic-tools flex items-center gap-1 p-0">
+						<!-- EVENT viewtopic_body_post_buttons_before -->
 						<!-- IF postrow.U_QUOTE -->
 						<a href="{postrow.U_QUOTE}" title="{L_REPLY_WITH_QUOTE}" class="relative flex overflow-hidden transition-all duration-300 rounded-full text-secondary hover:text-color hover:bg-primary/[0.08] font-medium p-2 inline-flex gap-2" aria-label="{L_BUTTON_QUOTE}">
 							<i class="iconify" data-mode="style" data-icon="mingcute:quote-right-line" data-width="18" data-height="18" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
 						</a>
 						<!-- ENDIF -->
+						<!-- EVENT viewtopic_body_post_buttons_after -->
+
 						<!-- IF $SHOW_POST_BUTTONS -->
 						<div id="post_buttons_{postrow.POST_ID}" class="zn-dropdown relative">
 							<button type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 rounded-full text-secondary hover:text-color hover:bg-primary/[0.08] font-medium p-2 inline-flex gap-2" title="{L_SETTINGS}" aria-label="{L_SETTINGS}">
@@ -207,7 +210,6 @@
 							</button>
 							<div class="zn-dropdown-menu dropdown dropdown-end md:w-48">
 								<ul class="dropdown-contents text-sm" role="menu">
-									<!-- EVENT viewtopic_body_post_buttons_before -->
 									<!-- IF postrow.U_EDIT -->
 									<li>
 										<a href="{postrow.U_EDIT}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" aria-label="{L_BUTTON_EDIT}">
@@ -248,7 +250,6 @@
 										</a>
 									</li>
 									<!-- ENDIF -->
-									<!-- EVENT viewtopic_body_post_buttons_after -->
 								</ul>
 							</div>
 						</div>

@@ -102,6 +102,7 @@
 												<div class="topic-details">
 													<!-- EVENT topiclist_row_prepend -->
 													<div class="flex items-center gap-2 max-md:py-1">
+														<!-- EVENT topiclist_row_topic_title_before -->
 														<!-- IF searchresults.S_UNREAD_TOPIC and not S_IS_BOT -->
 														<a class="unread leading-[0]" href="{searchresults.U_NEWEST_POST}">
 															<i class="iconify text-color" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{L_NEW_POST}</span>
@@ -217,7 +218,7 @@
 						<!-- EVENT search_results_postprofile_before -->
 						<div class="author">{L_POST_BY_AUTHOR} <!-- EVENT search_results_post_author_username_prepend --><span class="font-semibold">{searchresults.POST_AUTHOR_FULL}</span><!-- EVENT search_results_post_author_username_append --></div>
 						<div class="search-result-date text-secondary">{searchresults.POST_DATE}</div>
-						<div class="mt-2">
+						<div class="mt-2 postprofile-data">
 							<div><span class="text-secondary">{L_FORUM}{L_COLON}</span> <a href="{searchresults.U_VIEW_FORUM}">{searchresults.FORUM_TITLE}</a></div>
 							<div><span class="text-secondary">{L_TOPIC}{L_COLON}</span> <a href="{searchresults.U_VIEW_TOPIC}">{searchresults.TOPIC_TITLE}</a></div>
 							<!-- EVENT search_results_topic_title_after -->

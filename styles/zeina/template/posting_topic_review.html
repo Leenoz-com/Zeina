@@ -1,7 +1,7 @@
 <div class="card border rounded-xl p-3 w-full mt-4">	
 	<div class="card-title">
 		<h3 id="review" class="review flex items-center justify-between text-sm font-medium">
-			{L_TOPIC_REVIEW}{L_COLON} {TOPIC_TITLE}
+			<span>{L_TOPIC_REVIEW}{L_COLON} {TOPIC_TITLE}</span>
 			<a href="#review" onclick="viewableArea(getElementById('topicreview'), true); var rev_text = getElementById('review').getElementsByTagName('a').item(0).firstChild; if (rev_text.data == '{LA_EXPAND_VIEW}'){rev_text.data = '{LA_COLLAPSE_VIEW}'; } else if (rev_text.data == '{LA_COLLAPSE_VIEW}'){rev_text.data = '{LA_EXPAND_VIEW}'};">{L_EXPAND_VIEW}</a>
 		</h3>
 	</div>

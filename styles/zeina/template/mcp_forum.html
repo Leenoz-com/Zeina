@@ -67,6 +67,7 @@
 											<div class="topic-details">
 												<!-- EVENT topiclist_row_prepend -->
 												<div class="flex items-center gap-2 max-md:py-1">
+													<!-- EVENT topiclist_row_topic_title_before -->
 													<!-- IF topicrow.S_SELECT_TOPIC --><a href="{topicrow.U_SELECT_TOPIC}" class="topictitle font-medium">[ {L_SELECT_MERGE} ]</a> <!-- ENDIF -->
 													<!-- EVENT mcp_forum_topic_title_before -->
 													<div class="text-sm font-semibold "><!-- IF topicrow.U_VIEW_TOPIC --><a href="{topicrow.U_VIEW_TOPIC}" class="topictitle max-md:py-1 text-sm">{topicrow.TOPIC_TITLE}</a><!-- ELSE -->{topicrow.TOPIC_TITLE}<!-- ENDIF --></div>
@@ -87,6 +88,7 @@
 														</a>
 													<!-- ENDIF -->
 													<!-- IF topicrow.S_MOVED_TOPIC and S_CAN_DELETE -->&nbsp;<a href="{topicrow.U_DELETE_TOPIC}" class="topictitle text-sm">[ {L_DELETE_SHADOW_TOPIC} ]</a><!-- ENDIF -->
+													<!-- EVENT topiclist_row_topic_title_after -->
 												</div>
 
 												<div class="topic-poster flex flex-wrap items-center gap-1 text-xs font-medium mt-1 text-secondary">
