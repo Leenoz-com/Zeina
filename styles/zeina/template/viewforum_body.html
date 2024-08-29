@@ -142,7 +142,7 @@
 			<li class="pt-4 mt-4 first:pt-0 first:mt-0 topic row">
 				<!-- EVENT forumlist_body_forum_row_prepend -->
 				<div class="row-item md:grid md:grid-cols-9 gap-4 items-center">
-					<div class="flex max-md:flex-col w-full md:justify-between md:col-span-5 relative gap-y-3 row-title" title="{topicrow.TOPIC_FOLDER_IMG_ALT}">
+					<div class="flex max-md:flex-col w-full md:justify-between md:col-span-6 relative gap-y-3 row-title" title="{topicrow.TOPIC_FOLDER_IMG_ALT}">
 						<div class="flex flex-row gap-4">
 							<div class="topic-icon mt-0.5 leading-[0] {topicrow.TOPIC_IMG_STYLE}" <!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url('{T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: bottom right;"<!-- ENDIF -->>
 								{% include 'forumlist_icons.html' with {'IMG_STYLE': topicrow.TOPIC_IMG_STYLE} %}
@@ -206,8 +206,8 @@
 						<!-- ENDIF -->
 					</div>
 
-					<div class="md:col-span-4 flex flex-col gap-2 lg:grid lg:grid-cols-3 md:mt-0 mt-2 md:border-0 md:p-0 p-3 border rounded-lg">
-						<div class="grid grid-cols-2 max-md:py-1">
+					<div class="md:col-span-3 flex flex-col max-lg:gap-2 lg:grid lg:grid-cols-5 md:mt-0 mt-2 md:border-0 md:p-0 p-3 border rounded-lg">
+						<div class="grid grid-cols-2 md:col-span-2 max-md:py-1">
 							<div class="topics font-medium text-sm max-md:flex items-center gap-2">
 								{topicrow.REPLIES}
 								<div class="text-secondary md:text-xs md:mt-0.5">{L_REPLIES}</div>
@@ -218,7 +218,7 @@
 							</div>
 						</div>
 
-						<div class="lastpost text-sm col-span-2 max-lg:pt-2 font-medium max-lg:border-t">
+						<div class="lastpost text-sm md:col-span-3 max-lg:pt-2 font-medium max-lg:border-t">
 							{L_POST_BY_AUTHOR} <!-- EVENT viewforum_body_last_post_author_username_prepend -->{topicrow.LAST_POST_AUTHOR_FULL}<!-- EVENT viewforum_body_last_post_author_username_append -->
 							<!-- IF not S_IS_BOT and topicrow.U_LAST_POST -->
 								<a class="align-middle" href="{topicrow.U_LAST_POST}" title="{L_GOTO_LAST_POST}" aria-label="{L_VIEW_LATEST_POST}">

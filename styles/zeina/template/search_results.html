@@ -94,7 +94,7 @@
 								<!-- EVENT search_results_topic_before -->
 								<li class="pt-4 mt-4 first:pt-0 first:mt-0 topic row">
 									<div class="row-item md:grid md:grid-cols-9 gap-4 items-center">
-										<div class="flex max-md:flex-col w-full md:justify-between md:col-span-5 relative gap-y-3 row-title" title="{searchresults.TOPIC_FOLDER_IMG_ALT}">
+										<div class="flex max-md:flex-col w-full md:justify-between md:col-span-6 relative gap-y-3 row-title" title="{searchresults.TOPIC_FOLDER_IMG_ALT}">
 											<div class="flex flex-row gap-4">
 												<div class="topic-icon mt-0.5 leading-[0] {searchresults.TOPIC_IMG_STYLE}"<!-- IF searchresults.TOPIC_ICON_IMG --> style="background-image: url('{T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: bottom right;"<!-- ENDIF -->>
 													{% include 'forumlist_icons.html' with {'IMG_STYLE': searchresults.TOPIC_IMG_STYLE} %}
@@ -156,8 +156,8 @@
 											<!-- ENDIF -->
 										</div>
 
-										<div class="md:col-span-4 flex flex-col gap-2 lg:grid lg:grid-cols-3 md:mt-0 mt-2 md:border-0 md:p-0 p-3 border rounded-lg">
-											<div class="grid grid-cols-2 max-md:py-1">
+										<div class="md:col-span-3 flex flex-col max-lg:gap-2 lg:grid lg:grid-cols-5 md:mt-0 mt-2 md:border-0 md:p-0 p-3 border rounded-lg">
+											<div class="grid grid-cols-2 md:col-span-2 max-md:py-1">
 												<div class="topics font-medium text-sm max-md:flex items-center gap-2">
 													{searchresults.TOPIC_REPLIES}
 													<div class="text-secondary md:text-xs md:mt-0.5">{L_REPLIES}</div>
@@ -168,7 +168,7 @@
 												</div>
 											</div>
 
-											<div class="lastpost text-sm col-span-2 max-lg:pt-2 font-medium max-lg:border-t">
+											<div class="lastpost text-sm md:col-span-3 max-lg:pt-2 font-medium max-lg:border-t">
 												{L_POST_BY_AUTHOR} <!-- EVENT search_results_last_post_author_username_prepend -->{searchresults.LAST_POST_AUTHOR_FULL}<!-- EVENT search_results_last_post_author_username_append -->
 												<!-- IF not S_IS_BOT -->
 													<a class="align-middle" href="{searchresults.U_LAST_POST}" title="{L_GOTO_LAST_POST}" aria-label="{L_VIEW_LATEST_POST}">
