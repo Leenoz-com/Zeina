@@ -46,7 +46,7 @@
 
     <style>
       html {
-        --color-primary: {{ zeina.primary_color }};
+        --color-primary: {{ zeina.primary_color ?: '37, 99, 235' }};
         --color-text: var(--color-primary);
         --color-secondary: 107, 114, 128;
         --header-image: {% if zeina.header_image_location %}url("{{ T_THEME_PATH ~ '/' ~ zeina.header_image_location }}") center center / cover no-repeat{% endif %};

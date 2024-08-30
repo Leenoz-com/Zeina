@@ -23,7 +23,7 @@
 
     <style>
       html {
-        --color-primary: {{ zeina.primary_color }};
+        --color-primary: {{ zeina.primary_color ?: '37, 99, 235' }};
         --color-text: var(--color-primary);
         --panel-bg: {% if zeina.colorful_panel %}{{ zeina.panel_head_color }}{% else %}#f9fafb{% endif %};
         --color-secondary: 107, 114, 128;
