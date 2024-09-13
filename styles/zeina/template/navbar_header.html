@@ -1,4 +1,4 @@
-<div class="text-sm md:py-4 py-3 bg-white">
+<div class="navbar text-sm md:py-4 py-3 bg-white">
   <nav class="max-w-6xl layout-container mx-auto px-4 lg:px-8 md:flex md:items-center md:justify-between md:gap-5">
     <div class="flex items-center {% if zeina.logo_image_location %}justify-between{% else %}md:hidden justify-end{% endif %}">
 			{% if zeina.logo_image_location %}
@@ -6,7 +6,52 @@
 				<img class="mx-auto logo" style="{{ zeina.logo_width ? 'width:' ~ zeina.logo_width ~ 'px;' }}{{ zeina.logo_height ? 'height:' ~ zeina.logo_height ~ 'px;' }}" src="{{ T_THEME_PATH ~ '/' ~ zeina.logo_image_location }}" alt="{SITENAME}">
 			</a>
 			{% endif %}
-      <div class="md:hidden">
+      <div class="md:hidden flex items-center gap-2">
+				<!-- IF S_REGISTERED_USER -->
+        <ul class="flex gap-1 md:items-center" role="menubar">
+  				<!-- IF S_DISPLAY_PM -->
+  				<li class="md:block relative flex items-center" role="presentation">
+  					<a href="{U_PRIVATEMSGS}" class="relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full gap-2 w-full p-2 font-medium" title="{L_PRIVATE_MESSAGES}" role="menuitem">
+  						<div class="p-0 leading-[0]">
+  							<i class="iconify" data-mode="style" data-icon="fluent:mail-24-regular" data-height="24" data-width="24" aria-hidden="true"></i>
+  						</div>
+  						<span class="sr-only">{L_PRIVATE_MESSAGES}</span>
+  					</a>
+  					<!-- IF PRIVATE_MESSAGE_COUNT -->
+  					<span class="absolute top-0 end-0 -mt-1.5 -me-1.5 flex">
+  						<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-50"></span>
+  						<span class="relative inline-flex justify-center items-center text-xs bg-red-500 text-white rounded-full py-0.5 px-1 h-full w-full min-h-5 min-w-5 font-medium">
+  							{PRIVATE_MESSAGE_COUNT}
+  						</span>
+  					</span>
+  					<!-- ENDIF -->
+  				</li>
+  				<!-- ENDIF -->
+
+  				<!-- IF S_NOTIFICATIONS_DISPLAY -->
+  				<li id="notification_dropdown" class="zn-dropdown relative" role="presentation">
+  					<div class="md:block flex items-center relative">
+  						<a href="{U_VIEW_ALL_NOTIFICATIONS}" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full gap-2 w-full p-2 font-medium" title="{L_NOTIFICATIONS}" role="menuitem">
+  							<div class="p-0 leading-[0]">
+  								<i class="iconify" data-mode="style" data-icon="ph:bell" data-height="24" data-width="24" aria-hidden="true"></i>
+  							</div>
+  							<span class="sr-only">{L_NOTIFICATIONS}</span>
+  						</a>
+  						<!-- IF NOTIFICATIONS_COUNT -->
+  						<span id="notification_list_button" class="absolute top-0 end-0 -mt-1.5 -me-1.5 flex">
+  							<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-50"></span>
+  							<strong class="relative inline-flex justify-center items-center text-xs bg-red-500 text-white rounded-full py-0.5 px-1 h-full w-full min-h-5 min-w-5 font-medium">
+  								{NOTIFICATIONS_COUNT}
+  							</strong>
+  						</span>
+  						<!-- ENDIF -->
+  					</div>
+  					<!-- INCLUDE notification_dropdown.html -->
+  				</li>
+  				<!-- ENDIF -->
+        </ul>
+				<!-- ENDIF -->
+
         <button type="button" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full gap-2 p-2" data-zn-collapse="#navbar-alignment" aria-controls="navbar-alignment" aria-label="Toggle navigation">					
 					<span class="zn-collapse-open:hidden block leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:list-bold" data-width="24" data-height="24" aria-hidden="true"></i></span>
 					<span class="zn-collapse-open:block hidden leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:x" data-width="24" data-height="24" aria-hidden="true"></i></span>
@@ -102,15 +147,15 @@
       <ul id="user-menu" class="flex max-md:flex-col gap-1 md:items-center" role="menubar">
 				<!-- IF S_REGISTERED_USER -->
 				<!-- IF S_DISPLAY_PM -->
-				<li class="md:block relative flex items-center" role="presentation">
-					<a href="{U_PRIVATEMSGS}" class="relative flex overflow-hidden transition-all duration-300 dropdown-item md:rounded-full gap-2 w-full p-2 font-medium" title="{L_PRIVATE_MESSAGES}" role="menuitem">
+				<li class="relative max-md:hidden" role="presentation">
+					<a href="{U_PRIVATEMSGS}" class="relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full gap-2 w-full p-2 font-medium" title="{L_PRIVATE_MESSAGES}" role="menuitem">
 						<div class="md:p-0 p-1 leading-[0]">
 							<i class="iconify" data-mode="style" data-icon="fluent:mail-24-regular" data-height="24" data-width="24" aria-hidden="true"></i>
 						</div>
 						<span class="md:hidden">{L_PRIVATE_MESSAGES}</span>
 					</a>
 					<!-- IF PRIVATE_MESSAGE_COUNT -->
-					<span class="absolute md:top-0 md:end-0 md:-mt-1.5 md:-me-1.5 flex end-3">
+					<span class="absolute top-0 end-0 -mt-1.5 -me-1.5 flex">
 						<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-50"></span>
 						<span class="relative inline-flex justify-center items-center text-xs bg-red-500 text-white rounded-full py-0.5 px-1 h-full w-full min-h-5 min-w-5 font-medium">
 							{PRIVATE_MESSAGE_COUNT}
@@ -121,16 +166,16 @@
 				<!-- ENDIF -->
 
 				<!-- IF S_NOTIFICATIONS_DISPLAY -->
-				<li id="notification_dropdown" class="zn-dropdown relative" role="presentation">
-					<div class="md:block flex items-center relative">
-						<a href="{U_VIEW_ALL_NOTIFICATIONS}" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 dropdown-item md:rounded-full gap-2 w-full p-2 font-medium" title="{L_NOTIFICATIONS}" role="menuitem">
+				<li id="notification_dropdown" class="zn-dropdown relative max-md:hidden" role="presentation">
+					<div class="relative">
+						<a href="{U_VIEW_ALL_NOTIFICATIONS}" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full gap-2 w-full p-2 font-medium" title="{L_NOTIFICATIONS}" role="menuitem">
 							<div class="md:p-0 p-1 leading-[0]">
 								<i class="iconify" data-mode="style" data-icon="ph:bell" data-height="24" data-width="24" aria-hidden="true"></i>
 							</div>
 							<span class="md:hidden">{L_NOTIFICATIONS}</span>
 						</a>
 						<!-- IF NOTIFICATIONS_COUNT -->
-						<span id="notification_list_button" class="absolute md:top-0 md:end-0 md:-mt-1.5 md:-me-1.5 flex end-3">
+						<span id="notification_list_button" class="absolute top-0 end-0 -mt-1.5 -me-1.5 flex">
 							<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-50"></span>
 							<strong class="relative inline-flex justify-center items-center text-xs bg-red-500 text-white rounded-full py-0.5 px-1 h-full w-full min-h-5 min-w-5 font-medium">
 								{NOTIFICATIONS_COUNT}
