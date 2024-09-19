@@ -3,7 +3,7 @@
     "type": "phpbb-extension",
     "description": "Control panel for Zeina theme",
     "homepage": "https://leenoz.com/zeina",
-    "version": "1.1.2",
+    "version": "1.1.5",
     "time": "2024-05-25",
     "license": "Personal Use",
     "authors": [

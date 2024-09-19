@@ -57,7 +57,8 @@
 
 	<div class="mt-5 border p-4 rounded-xl">
 		<h3 class="font-medium leading-6">{L_GROUP_SETTINGS_SAVE}</h3>
-
+    
+    <!-- EVENT ucp_group_settings_before -->
 		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
 			<dt class="text-sm"><label for="group_type1" class="font-medium leading-6">{L_GROUP_COLOR}{L_COLON}</label><br><span class="text-secondary">{L_GROUP_COLOR_EXPLAIN}</span></dt>
 			<dd class="text-sm md:col-span-2 max-md:mt-2">
@@ -73,6 +74,7 @@
 				<select name="group_rank" id="group_rank" class="inputbox">{S_RANK_OPTIONS}</select>
 			</dd>
 		</dl>
+    <!-- EVENT ucp_group_settings_after -->
 	</div>
 
 	<!-- INCLUDE ucp_avatar_options.html -->

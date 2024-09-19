@@ -82,6 +82,7 @@
 		<div class="post_details p-4">
 			<div class="post">
 				<div class="postbody">
+		      {% if S_CAN_APPROVE %}
 					<!-- IF S_POST_UNAPPROVED -->
 						<form method="post" id="mcp_approve" action="{U_APPROVE_ACTION}">
 							<div class="post-notice unapproved mb-3 bg-blue-100 border border-blue-200 text-gray-800 rounded-lg p-4" role="alert">
@@ -119,6 +120,7 @@
 							</div>
 						</form>
 					<!-- ENDIF -->
+          {% endif %}
 
 					{% if S_POST_REPORTED and not S_MCP_REPORT %}
 						<div class="post-notice reported mb-3 text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
