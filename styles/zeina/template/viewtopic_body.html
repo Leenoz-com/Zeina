@@ -169,12 +169,12 @@
 						<div class="flex flex-wrap gap-3 w-full">
 							<div class="min-w-0 flex-auto">
 								<!-- EVENT viewtopic_body_post_author_before -->
-								<p class="profile-author text-sm font-semibold">{postrow.POST_AUTHOR_FULL}</p>
+								<div class="profile-author text-sm font-semibold">{postrow.POST_AUTHOR_FULL}</div>
 								<!-- EVENT viewtopic_body_post_author_after -->
 
 								<!-- EVENT viewtopic_body_postrow_rank_before -->
 								<!-- IF postrow.RANK_TITLE -->
-								<p class="profile-rank text-xs font-medium text-secondary">{postrow.RANK_TITLE}</p>
+								<div class="profile-rank text-xs font-medium text-secondary">{postrow.RANK_TITLE}</div>
 								<!-- ENDIF -->
 								<!-- EVENT viewtopic_body_postrow_rank_after -->
 							</div>
@@ -540,8 +540,13 @@
 					<!-- ENDIF -->
 					<div class="grow flex flex-wrap items-center justify-between">
 						<div>
-							<h5 class="font-semibold">{postrow.POST_AUTHOR_FULL}</h5>
+							<!-- EVENT viewtopic_body_post_author_before -->
+							<h5 class="profile-author font-semibold">{postrow.POST_AUTHOR_FULL}</h5>
+							<!-- EVENT viewtopic_body_post_author_after -->
+							
+              <!-- EVENT viewtopic_body_postrow_rank_before -->
 							<!-- IF postrow.RANK_TITLE --><p class="profile-rank leading-6 text-sm font-medium">{postrow.RANK_TITLE}</p><!-- ENDIF -->
+							<!-- EVENT viewtopic_body_postrow_rank_after -->
 						</div>
 						<!-- IF postrow.RANK_IMG -->
 						<span class="inline-flex items-center align-middle gap-2 rank-img">{postrow.RANK_IMG}</span>
