@@ -119,6 +119,23 @@
                 <label for="collapse_panel" class="block text-sm font-semibold mb-2">{L_ACP_COLLAPSE_PANEL}</label>
                 <input type="checkbox" id="collapse_panel" name="collapse_panel" value="1" class="relative w-[35px] h-[21px] bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-blue-500 checked:bg-none checked:text-blue-500 checked:border-blue-500 focus:checked:border-blue-500 before:inline-block before:size-4 before:bg-white checked:before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"{% if zeina.collapse_panel %} checked="checked"{% endif %}>
               </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2">{L_ACP_PROFILE}</label>
+                <div class="bg-gray-100 p-1 rounded-lg grid grid-cols-3 text-sm">
+                  <div class="checkboxes">
+                    <input class="absolute -z-10 invisible h-0 w-0" type="radio" name="profile_view" id="profile_simple" value="simple"{% if zeina.profile_view == 'simple' %} checked="checked"{% endif %}>
+                    <label class="flex items-center justify-center w-full py-1.5 rounded-md font-medium cursor-pointer transition-all" for="profile_simple">{L_ACP_PROFILE_SIMPLE}</label>
+                  </div>
+                  <div class="checkboxes">
+                    <input class="absolute -z-10 invisible h-0 w-0" type="radio" name="profile_view" id="profile_left" value="left"{% if zeina.profile_view == 'left' %} checked="checked"{% endif %}>
+                    <label class="flex items-center justify-center w-full py-1.5 rounded-md font-medium cursor-pointer transition-all" for="profile_left">{L_ACP_PROFILE_LEFT}</label>
+                  </div>
+                  <div class="checkboxes">
+                    <input class="absolute -z-10 invisible h-0 w-0" type="radio" name="profile_view" id="profile_right" value="right"{% if zeina.profile_view == 'right' %} checked="checked"{% endif %}>
+                    <label class="flex items-center justify-center w-full py-1.5 rounded-md font-medium cursor-pointer transition-all" for="profile_right">{L_ACP_PROFILE_RIGHT}</label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

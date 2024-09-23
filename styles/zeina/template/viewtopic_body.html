@@ -91,7 +91,7 @@
 
 <!-- EVENT viewtopic_body_poll_before -->
 <!-- IF S_HAS_POLL -->
-	<form method="post" action="{S_POLL_ACTION}" data-ajax="vote_poll" data-refresh="true" class="topic_poll">
+	<form method="post" action="{S_POLL_ACTION}" data-ajax="vote_poll" class="topic_poll">
 		<div class="card w-full mt-3 p-6">
 			<div class="flex max-md:flex-col md:justify-between gap-2">
 				<div>
@@ -115,7 +115,7 @@
 						<!-- IF S_CAN_VOTE --><label for="vote_{poll_option.POLL_OPTION_ID}" class="ms-3 w-full"><!-- ELSE --><div class="w-full"><!-- ENDIF -->
 							<div class="mb-2 flex justify-between items-center">
 								<span class="block text-sm font-semibold">{poll_option.POLL_OPTION_CAPTION}</span>
-								<span class="text-sm poll_option_percent <!-- IF not S_DISPLAY_RESULTS --> hidden <!-- ELSE --> block <!-- ENDIF -->"><!-- IF poll_option.POLL_OPTION_RESULT == 0 -->{L_NO_VOTES}<!-- ELSE -->({poll_option.POLL_OPTION_RESULT}) {poll_option.POLL_OPTION_PERCENT}<!-- ENDIF --></span>
+								<span class="text-sm poll_option_percent<!-- IF not S_DISPLAY_RESULTS --> hidden<!-- ELSE --> block<!-- ENDIF -->"><!-- IF poll_option.POLL_OPTION_RESULT == 0 -->{L_NO_VOTES}<!-- ELSE -->({poll_option.POLL_OPTION_RESULT}) {poll_option.POLL_OPTION_PERCENT}<!-- ENDIF --></span>
 							</div>
 							<div class="resultbar progressbar <!-- IF not S_DISPLAY_RESULTS --> hidden <!-- ELSE --> flex <!-- ENDIF --> w-full h-2 bg-gray-100 rounded-full overflow-hidden" role="progressbar" aria-valuenow="{poll_option.POLL_OPTION_PERCENT_REL|number_format}" aria-valuemin="0" aria-valuemax="100" aria-label="{poll_option.POLL_OPTION_CAPTION}">
 								<div class="flex flex-col h-full justify-center rounded-full overflow-hidden bg-primary transition-all duration-300" style="width:{poll_option.POLL_OPTION_PERCENT_REL};"></div>
@@ -151,126 +151,99 @@
 {% set S_IS_CODEBOX = false %}
 <!-- BEGIN postrow -->
 	<!-- EVENT viewtopic_body_postrow_post_before -->
-	<div id="p{postrow.POST_ID}" class="post has-profile card p-6 <!-- IF postrow.S_UNREAD_POST --> unreadpost<!-- ELSEIF postrow.S_POST_REPORTED --> border-red-300 reported<!-- ELSEIF postrow.S_POST_DELETED --> deleted<!-- ELSEIF postrow.POSTER_WARNINGS --> warned<!-- ENDIF -->">
-		<!-- IF postrow.S_FIRST_UNREAD -->
-  		<a id="unread" class="anchor"<!-- IF S_UNREAD_VIEW --> data-url="{postrow.U_MINI_POST}"<!-- ENDIF -->></a>
-  	<!-- ENDIF -->
-    <div class="md:flex items-start block justify-between">
-			<div class="postprofile" id="profile{postrow.POST_ID}"<!-- IF postrow.S_POST_HIDDEN --> style="display: none;"<!-- ENDIF -->>
-				<div class="zn-dropdown user_data_dropdown relative">
-					<div class="zn-dropdown-toggle hover:cursor-pointer author<!-- IF postrow.S_ONLINE and not postrow.S_POST_HIDDEN --> online<!-- ENDIF --> flex items-center min-w-0 gap-3">
-						<div class="avatar-container relative author-img-sm">
-							<!-- EVENT viewtopic_body_avatar_before -->
-							<!-- IF postrow.POSTER_AVATAR -->
-								<!-- IF postrow.U_POST_AUTHOR --><a href="{postrow.U_POST_AUTHOR}" class="avatar flex h-9 w-9 rounded-full overflow-hidden">{postrow.POSTER_AVATAR}</a><!-- ELSE --><span class="avatar flex h-9 w-9 rounded-full overflow-hidden">{postrow.POSTER_AVATAR}</span><!-- ENDIF -->
-							<!-- ENDIF -->
-							<!-- EVENT viewtopic_body_avatar_after -->
-						</div>
-						<div class="flex flex-wrap gap-3 w-full">
-							<div class="min-w-0 flex-auto">
-								<!-- EVENT viewtopic_body_post_author_before -->
-								<div class="profile-author text-sm font-semibold">{postrow.POST_AUTHOR_FULL}</div>
-								<!-- EVENT viewtopic_body_post_author_after -->
+	<div id="p{postrow.POST_ID}" class="post has-profile card p-6{% if zeina.profile_view == 'simple' %} has-simple-profile{% endif %}<!-- IF postrow.S_UNREAD_POST --> unreadpost<!-- ELSEIF postrow.S_POST_REPORTED --> border-red-300 reported<!-- ELSEIF postrow.S_POST_DELETED --> deleted<!-- ELSEIF postrow.POSTER_WARNINGS --> warned<!-- ENDIF -->{% if zeina.profile_view !== 'simple' %} flex gap-4{% if zeina.profile_view == 'right' %} flex-row-reverse{% endif %}{% endif %} max-md:!z-auto" style="z-index: {{ loop|length - loop.index0 }};">
+    {% if zeina.profile_view !== 'simple' %}
+    <div class="postprofile max-md:!hidden max-w-44 min-w-44 w-full" id="profile{postrow.POST_ID}"<!-- IF postrow.S_POST_HIDDEN --> style="display: none;"<!-- ENDIF -->>
+      <div class="{% if zeina.profile_view == 'right' %}border-s ps-5{% else %}border-e pe-5{% endif %}">
+    		<div class="flex flex-col items-center justify-center text-sm gap-0.5">
+          <div class="flex flex-col items-center justify-center <!-- IF postrow.RANK_TITLE or postrow.RANK_IMG -->has-profile-rank<!-- ELSE -->no-profile-rank<!-- ENDIF --> <!-- IF postrow.POSTER_AVATAR -->has-avatar<!-- ELSE -->no-avatar<!-- ENDIF -->">
+    				<div class="avatar-container">
+    					<!-- EVENT viewtopic_body_avatar_before -->
+    					<!-- IF postrow.POSTER_AVATAR -->
+    						<!-- IF postrow.U_POST_AUTHOR --><a href="{postrow.U_POST_AUTHOR}" class="avatar inline-block rounded-lg overflow-hidden">{postrow.POSTER_AVATAR}</a><!-- ELSE --><span class="avatar inline-block rounded-lg overflow-hidden">{postrow.POSTER_AVATAR}</span><!-- ENDIF -->
+    					<!-- ENDIF -->
+    					<!-- EVENT viewtopic_body_avatar_after -->
+    				</div>
+    				<!-- EVENT viewtopic_body_post_author_before -->
+    				<div class="profile-author flex items-center gap-2 mt-1">
+              <!-- IF postrow.S_ONLINE -->
+                <span class="flex relative">
+      						<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-500 opacity-50"></span>
+      						<span class="relative bg-teal-500 rounded-full p-1"></span>
+      					</span>
+  				    <!-- ENDIF -->
+              <!-- IF not postrow.U_POST_AUTHOR --><strong>{postrow.POST_AUTHOR_FULL}</strong><!-- ELSE -->{postrow.POST_AUTHOR_FULL}<!-- ENDIF -->
+            </div>
+    				<!-- EVENT viewtopic_body_post_author_after -->
+    			</div>
+           
+    			<!-- EVENT viewtopic_body_postrow_rank_before -->
+    			<!-- IF postrow.RANK_TITLE or postrow.RANK_IMG --><div class="profile-rank flex flex-col items-center justify-center text-secondary gap-1.5">{postrow.RANK_TITLE}<!-- IF postrow.RANK_TITLE and postrow.RANK_IMG --><br /><!-- ENDIF -->{postrow.RANK_IMG}</div><!-- ENDIF -->
+    			<!-- EVENT viewtopic_body_postrow_rank_after -->
+        </div>
+        <div class="text-sm mt-2 border-t pt-2 flex flex-col gap-1">
+      		<!-- IF postrow.POSTER_POSTS != '' --><div class="profile-posts"><span class="font-medium">{L_POSTS}{L_COLON}</span> <!-- IF postrow.U_SEARCH !== '' --><a href="{postrow.U_SEARCH}"><!-- ENDIF -->{postrow.POSTER_POSTS}<!-- IF postrow.U_SEARCH !== '' --></a><!-- ENDIF --></div><!-- ENDIF -->
+      		<!-- IF postrow.POSTER_JOINED --><div class="profile-joined"><span class="font-medium">{L_JOINED}{L_COLON}</span> {postrow.POSTER_JOINED}</div><!-- ENDIF -->
+      		<!-- IF postrow.POSTER_WARNINGS --><div class="profile-warnings"><span class="font-medium">{L_WARNINGS}{L_COLON}</span> {postrow.POSTER_WARNINGS}</div><!-- ENDIF -->
 
-								<!-- EVENT viewtopic_body_postrow_rank_before -->
-								<!-- IF postrow.RANK_TITLE -->
-								<div class="profile-rank text-xs font-medium text-secondary">{postrow.RANK_TITLE}</div>
-								<!-- ENDIF -->
-								<!-- EVENT viewtopic_body_postrow_rank_after -->
-							</div>
-							<!-- IF postrow.RANK_IMG --><span class="rank-img-sm">{postrow.RANK_IMG}</span><!-- ENDIF -->
-						</div>
-					</div>
-					<div class="zn-dropdown-menu dropdown dropdown-start md:w-80 max-md:max-w-[85%] no_data" data-dropdown="user_data_{postrow.POST_ID}"></div>
-				</div>
-			</div>
-			<!-- IF postrow.S_POST_HIDDEN -->
-			<span class="max-md:hidden">&nbsp;</span>
-			<!-- ENDIF -->
-			<div class="flex items-center gap-1 justify-end <!-- IF not postrow.S_POST_HIDDEN -->max-md:mt-2<!-- ENDIF -->">
-				<time class="text-secondary p-1 text-sm" datetime="{postrow.POST_DATE_RFC3339}">{postrow.POST_DATE}</time>
+      		<!-- IF postrow.S_PROFILE_FIELD1 -->
+      			<!-- Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
+      			<div><span class="font-medium">{postrow.PROFILE_FIELD1_NAME}{L_COLON}</span> {postrow.PROFILE_FIELD1_VALUE}</div>
+      		<!-- ENDIF -->
 
-				<!-- DEFINE $SHOW_POST_BUTTONS = (postrow.U_EDIT or postrow.U_DELETE or postrow.U_REPORT or postrow.U_WARN or postrow.U_INFO) -->
-				<!-- EVENT viewtopic_body_post_buttons_list_before -->
-				<!-- IF not S_IS_BOT and ($SHOW_POST_BUTTONS or postrow.U_QUOTE) -->
+      		<!-- EVENT viewtopic_body_postrow_custom_fields_before -->
+      		<!-- BEGIN custom_fields -->
+      			<!-- IF not postrow.custom_fields.S_PROFILE_CONTACT -->
+      				<div class="profile-custom-field profile-{postrow.custom_fields.PROFILE_FIELD_IDENT}"><span class="font-medium">{postrow.custom_fields.PROFILE_FIELD_NAME}{L_COLON}</span> {postrow.custom_fields.PROFILE_FIELD_VALUE}</div>
+      			<!-- ENDIF -->
+      		<!-- END custom_fields -->
+      		<!-- EVENT viewtopic_body_postrow_custom_fields_after -->
 
-					<div class="topic-tools flex items-center gap-1 p-0">
-						<!-- EVENT viewtopic_body_post_buttons_before -->
-						<!-- IF postrow.U_QUOTE -->
-						<a href="{postrow.U_QUOTE}" title="{L_REPLY_WITH_QUOTE}" class="relative flex overflow-hidden transition-all duration-300 rounded-full text-secondary hover:text-color hover:bg-primary/[0.08] font-medium p-2 inline-flex gap-2" aria-label="{L_BUTTON_QUOTE}">
-							<i class="iconify" data-mode="style" data-icon="mingcute:quote-right-line" data-width="18" data-height="18" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
-						</a>
-						<!-- ENDIF -->
-						<!-- EVENT viewtopic_body_post_buttons_after -->
+      		<!-- EVENT viewtopic_body_contact_fields_before -->
+      		<!-- IF not S_IS_BOT and .postrow.contact -->
+      			<div class="profile-contact flex items-center gap-2">
+      				<span class="font-medium">{L_CONTACT}{L_COLON}</span>
 
-						<!-- IF $SHOW_POST_BUTTONS -->
-						<div id="post_buttons_{postrow.POST_ID}" class="zn-dropdown relative">
-							<button type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 rounded-full text-secondary hover:text-color hover:bg-primary/[0.08] font-medium p-2 inline-flex gap-2" title="{L_SETTINGS}" aria-label="{L_SETTINGS}">
-								<i class="iconify" data-mode="style" data-icon="lucide:settings" data-width="18" data-height="18" aria-hidden="true"></i>
-							</button>
-							<div class="zn-dropdown-menu dropdown dropdown-end md:w-48">
-								<ul class="dropdown-contents text-sm" role="menu">
-									<!-- IF postrow.U_EDIT -->
-									<li>
-										<a href="{postrow.U_EDIT}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" aria-label="{L_BUTTON_EDIT}">
-											<i class="iconify" data-mode="style" data-icon="lucide:edit" data-width="16" data-height="16" aria-hidden="true"></i>
-											{L_BUTTON_EDIT}
-										</a>
-									</li>
-									<!-- ENDIF -->
-									<!-- IF postrow.U_DELETE -->
-									<li>
-										<a href="{postrow.U_DELETE}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" data-ajax="true" data-refresh="true" aria-label="{L_BUTTON_DELETE}">
-											<i class="iconify" data-mode="style" data-icon="lucide:trash-2" data-width="16" data-height="16" aria-hidden="true"></i>
-											{L_BUTTON_DELETE}
-										</a>
-									</li>
-									<!-- ENDIF -->
-									<!-- IF postrow.U_REPORT -->
-									<li>
-										<a href="{postrow.U_REPORT}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" aria-label="{L_BUTTON_REPORT}">
-											<i class="iconify" data-mode="style" data-icon="lucide:circle-alert" data-width="16" data-height="16" aria-hidden="true"></i>
-											{L_BUTTON_REPORT}
-										</a>
-									</li>
-									<!-- ENDIF -->
-									<!-- IF postrow.U_WARN -->
-									<li>
-										<a href="{postrow.U_WARN}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" aria-label="{L_BUTTON_WARN}">
-											<i class="iconify" data-mode="style" data-icon="lucide:triangle-alert" data-width="16" data-height="16" aria-hidden="true"></i>
-											{L_BUTTON_WARN}
-										</a>
-									</li>
-									<!-- ENDIF -->
-									<!-- IF postrow.U_INFO -->
-									<li>
-										<a href="{postrow.U_INFO}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" aria-label="{L_BUTTON_INFORMATION}">
-											<i class="iconify" data-mode="style" data-icon="lucide:info" data-width="16" data-height="16" aria-hidden="true"></i>
-											{L_BUTTON_INFORMATION}
-										</a>
-									</li>
-									<!-- ENDIF -->
-								</ul>
-							</div>
-						</div>
-						<!-- ENDIF -->
-					</div>
-				<!-- ENDIF -->
-				<!-- EVENT viewtopic_body_post_buttons_list_after -->
-			</div>
+              <div class="zn-dropdown relative leading-[0]">
+        				<button type="button" class="zn-dropdown-toggle link leading-[0]" title="{postrow.CONTACT_USER}">
+        					<i class="iconify p-px" data-mode="style" data-icon="ep:chat-dot-round" data-width="18" data-height="18" aria-hidden="true"></i>
+                  <span class="sr-only">{postrow.CONTACT_USER}</span>
+        				</button>
+        				<div class="zn-dropdown-menu dropdown dropdown-{{ zeina.profile_view == 'left' ? 'start' : 'end' }} md:w-56">
+      						<ul class="dropdown-content contact-icons">
+                    {% set icons = {pm: 'ph:chat-circle-dots', email: 'fluent:mail-24-regular', phpbb_icq: 'fontisto:icq', phpbb_aol: 'simple-icons:aol', phpbb_website: 'ph:globe', phpbb_youtube: 'ri:youtube-line', phpbb_facebook: 'ri:facebook-circle-line', phpbb_skype: 'ri:skype-line', phpbb_twitter: 'ri:twitter-line', phpbb_yahoo: 'mdi:yahoo'} %}
+      							<!-- BEGIN contact -->
+      								{% set REMAINDER = postrow.contact.S_ROW_COUNT % 4 %}
+      								<!-- DEFINE $S_LAST_CELL = ((REMAINDER eq 3) or (postrow.contact.S_LAST_ROW and postrow.contact.S_NUM_ROWS < 4)) -->
+      								<!-- IF REMAINDER eq 0 -->
+      									<li>
+      								<!-- ENDIF -->
+      									<a class="relative flex overflow-hidden transition-all duration-300 dropdown-item gap-1.5" href="<!-- IF postrow.contact.U_CONTACT -->{postrow.contact.U_CONTACT}<!-- ELSE -->{postrow.U_POST_AUTHOR}<!-- ENDIF -->" title="{postrow.contact.NAME}"<!-- IF postrow.contact.ID eq 'jabber' --> onclick="popup(this.href, 750, 320); return false;"<!-- ENDIF -->>
+      										{% EVENT viewtopic_body_contact_icon_prepend %}
+                          {% if postrow.contact.ID in icons|keys %}<span class="leading-[0]"><i class="iconify" data-mode="style" data-icon="{{ icons[postrow.contact.ID] }}" data-width="18" data-height="18" aria-hidden="true"></i></span>{% else %}<i class="icon {postrow.contact.ID}-icon" aria-hidden="true"></i>{% endif %}
+                          {postrow.contact.NAME}
+                          {% EVENT viewtopic_body_contact_icon_append %}
+      									</a>
+      								<!-- IF REMAINDER eq 3 or postrow.contact.S_LAST_ROW -->
+      									</li>
+      								<!-- ENDIF -->
+      							<!-- END contact -->
+                  </ul>
+                </div>
+              </div>
+      			</div>
+      		<!-- ENDIF -->
+      		<!-- EVENT viewtopic_body_contact_fields_after -->
+        </div>
+      </div>
 		</div>
-
-		<!-- EVENT viewtopic_body_post_subject_before -->
-		<div class="post-title flex items-center mt-3 gap-2 font-semibold">
-			{% if postrow.POST_ICON_IMG %}
-				<img src="{{ T_ICONS_PATH }}{{ postrow.POST_ICON_IMG }}" width="{{ postrow.POST_ICON_IMG_WIDTH }}" height="{{ postrow.POST_ICON_IMG_HEIGHT }}" alt="{{ postrow.POST_ICON_IMG_ALT }}" title="{{ postrow.POST_ICON_IMG_ALT }}">
-			{% endif %}
-			<a {% if postrow.S_FIRST_UNREAD %}class="first-unread" {% endif %}href="{{ postrow.U_MINI_POST }}">{{ postrow.POST_SUBJECT }}</a>
-		</div>
-
-		<div class="postbody mt-2.5 pt-2.5 border-t">
+		{% endif %}
 		
-			<!-- IF postrow.S_POST_HIDDEN -->
+    <div class="postbody grow">
+      <!-- IF postrow.S_FIRST_UNREAD -->
+  		  <a id="unread" class="anchor"<!-- IF S_UNREAD_VIEW --> data-url="{postrow.U_MINI_POST}"<!-- ENDIF -->></a>
+  	  <!-- ENDIF -->
+      <!-- IF postrow.S_POST_HIDDEN -->
 				<!-- IF postrow.S_POST_DELETED -->
 					<div id="post_hidden{postrow.POST_ID}" class="ignore text-secondary bg-slate-50 border border-gray-200 text-sm rounded-lg p-3" role="alert">
 						<div class="flex gap-2 text-xs">
@@ -291,131 +264,277 @@
 			<!-- ENDIF -->
 			
 			<div id="post_content{postrow.POST_ID}"<!-- IF postrow.S_POST_HIDDEN --> style="display: none;"<!-- ENDIF -->>
-				<!-- IF postrow.S_POST_UNAPPROVED -->
-					<!-- IF postrow.S_CAN_APPROVE -->
-					<form method="post" class="mcp_approve" action="{postrow.U_APPROVE_ACTION}">
-						<div class="post-notice unapproved mb-3 bg-yellow-100/50 border border-yellow-800/10 text-sm text-yellow-800 rounded-lg p-4" role="alert">
-							<div class="flex max-md:flex-col gap-2 text-sm">
-								<div class="flex gap-2">
-									<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:warning" data-width="16" data-height="16" aria-hidden="true"></i></div>
-									<div class="font-semibold">{L_POST_UNAPPROVED_ACTION}</div>
-								</div>
-								<div class="flex gap-3">
-									<input type="submit" value="{L_DISAPPROVE}" name="action[disapprove]" class="inline-flex items-center gap-2 text-sm font-semibold text-yellow-700 hover:text-yellow-900 hover:cursor-pointer">
-									<input type="submit" value="{L_APPROVE}" name="action[approve]" class="inline-flex items-center gap-2 text-sm font-semibold text-yellow-700 hover:text-yellow-900 hover:cursor-pointer">
-									<input type="hidden" name="post_id_list[]" value="{postrow.POST_ID}">
-									{S_FORM_TOKEN}
-								</div>
-							</div>
-						</div>
-					</form>
-					<!-- ELSE -->
-					<div class="post-notice unapproved my-4 bg-yellow-100/50 border border-yellow-800/10 text-sm text-yellow-800 rounded-lg p-4" role="alert">
-						<div class="flex gap-2 text-sm">
-							<span class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:warning" data-width="16" data-height="16" aria-hidden="true"></i></span>
-							<span class="font-medium">{L_POST_UNAPPROVED_EXPLAIN}</span>
-						</div>
-					</div>
-					<!-- ENDIF -->
-				<!-- ELSEIF postrow.S_POST_DELETED -->
-				<form method="post" class="mcp_approve" action="{postrow.U_APPROVE_ACTION}">
-					<div class="post-notice deleted mb-3 bg-blue-100 border border-blue-200 text-gray-800 rounded-lg p-4" role="alert">
-						<div class="flex max-md:flex-col gap-2 text-sm">
-							<div class="flex gap-2">
-								<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i></div>
-								<div class="font-semibold">{L_POST_DELETED_ACTION}</div>
-							</div>
-							<div class="flex gap-3">
-								<!-- IF postrow.S_DELETE_PERMANENT -->
-								<input type="submit" value="{L_DELETE}" name="action[delete]" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 hover:cursor-pointer">
-								<!-- ENDIF -->
-								<input type="submit" value="{L_RESTORE}" name="action[restore]" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 hover:cursor-pointer">
-								<input type="hidden" name="post_id_list[]" value="{postrow.POST_ID}">
-								{S_FORM_TOKEN}
-							</div>
-						</div>
-					</div>
-				</form>
-				<!-- ENDIF -->
+        <div {% if zeina.profile_view == 'simple' %} class="postprofile postprofile-simple flex flex-wrap gap-2 items-start justify-between pb-4" id="profile{postrow.POST_ID}" {% else %} class="postprofile"{% endif %}>
+  				<div class="zn-dropdown user_data_dropdown relative{% if zeina.profile_view !== 'simple' %} md:hidden{% endif %}">
+  					<div class="zn-dropdown-toggle hover:cursor-pointer author<!-- IF postrow.S_ONLINE and not postrow.S_POST_HIDDEN --> online<!-- ENDIF --> flex items-center min-w-0 gap-3">
+  						<div class="avatar-container relative author-img-sm">
+  							<!-- EVENT viewtopic_body_avatar_before -->
+  							<!-- IF postrow.POSTER_AVATAR -->
+  								<!-- IF postrow.U_POST_AUTHOR --><a href="{postrow.U_POST_AUTHOR}" class="avatar flex h-9 w-9 rounded-full overflow-hidden">{postrow.POSTER_AVATAR}</a><!-- ELSE --><span class="avatar flex h-9 w-9 rounded-full overflow-hidden">{postrow.POSTER_AVATAR}</span><!-- ENDIF -->
+  							<!-- ENDIF -->
+  							<!-- EVENT viewtopic_body_avatar_after -->
+  						</div>
+  						<div class="flex flex-wrap gap-3 w-full">
+  							<div class="min-w-0 flex-auto">
+  								<!-- EVENT viewtopic_body_post_author_before -->
+  								<div class="profile-author text-sm font-semibold">{postrow.POST_AUTHOR_FULL}</div>
+  								<!-- EVENT viewtopic_body_post_author_after -->
 
-				<!-- IF postrow.S_POST_REPORTED -->
-				<div class="post-notice reported mb-3 text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
-					<div class="flex gap-2 text-sm">
-						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:circle-alert" data-width="16" data-height="16" aria-hidden="true"></i></div>
-						<a href="{postrow.U_MCP_REPORT}" class="font-medium">{L_POST_REPORTED}</a>
-					</div>
-				</div>
-				<!-- ENDIF -->
+  								<!-- EVENT viewtopic_body_postrow_rank_before -->
+  								<!-- IF postrow.RANK_TITLE -->
+  								<div class="profile-rank text-xs font-medium text-secondary">{postrow.RANK_TITLE}</div>
+  								<!-- ENDIF -->
+  								<!-- EVENT viewtopic_body_postrow_rank_after -->
+  							</div>
+  							<!-- IF postrow.RANK_IMG --><span class="rank-img-sm">{postrow.RANK_IMG}</span><!-- ENDIF -->
+  						</div>
+  					</div>
+  					<div class="zn-dropdown-menu dropdown dropdown-start md:w-80 max-md:max-w-[85%] no_data" data-dropdown="user_data_{postrow.POST_ID}"></div>
+  				</div>
+          {% if zeina.profile_view !== 'simple' %}
+          <div class="flex flex-wrap items-start justify-between gap-2 max-md:mt-2 w-full">
+            <div>
+              <!-- EVENT viewtopic_body_post_subject_before -->
+          		<div class="post-title flex items-center gap-2 font-semibold mb-1">
+          			{% if postrow.POST_ICON_IMG %}
+          				<img src="{{ T_ICONS_PATH }}{{ postrow.POST_ICON_IMG }}" width="{{ postrow.POST_ICON_IMG_WIDTH }}" height="{{ postrow.POST_ICON_IMG_HEIGHT }}" alt="{{ postrow.POST_ICON_IMG_ALT }}" title="{{ postrow.POST_ICON_IMG_ALT }}">
+          			{% endif %}
+          			<a {% if postrow.S_FIRST_UNREAD %}class="first-unread" {% endif %}href="{{ postrow.U_MINI_POST }}">{{ postrow.POST_SUBJECT }}</a>
+          		</div>
+              
+              <!-- EVENT viewtopic_body_postrow_post_details_before -->
+              <p class="author text-xs text-secondary flex flex-wrap items-center gap-1">
+                <!-- IF S_IS_BOT -->
+        					<span class="leading-[0]"><i class="iconify<!-- IF postrow.S_UNREAD_POST --> text-red-700<!-- ENDIF -->" data-mode="style" data-icon="ph:file" data-height="12" data-width="12" aria-hidden="true"></i><span class="sr-only">{postrow.MINI_POST}</span></span>
+        				<!-- ELSE -->
+    						<a class="unread leading-[0]" href="{postrow.U_MINI_POST}" title="{postrow.MINI_POST}">
+    							<i class="iconify<!-- IF postrow.S_UNREAD_POST --> text-red-700<!-- ENDIF -->" data-mode="style" data-icon="ph:file" data-height="12" data-width="12" aria-hidden="true"></i><span class="sr-only">{postrow.MINI_POST}</span>
+    						</a>
+                <span>{L_POST_BY_AUTHOR} <strong>{postrow.POST_AUTHOR_FULL}</strong> &raquo; </span><time datetime="{postrow.POST_DATE_RFC3339}">{postrow.POST_DATE}</time>
+        				<!-- ENDIF -->
+              </p>
+      			  <!-- EVENT viewtopic_body_postrow_post_details_after -->
+            </div>
+          {% endif %}
 
-				{% EVENT viewtopic_body_postrow_content_before %}
+    			<div class="flex items-center gap-1 justify-end">
+    				
+            {% if zeina.profile_view == 'simple' %}
+    			  <!-- EVENT viewtopic_body_postrow_post_details_before -->
+            <time class="text-secondary p-1 text-sm max-md:hidden" datetime="{postrow.POST_DATE_RFC3339}">{postrow.POST_DATE}</time>
+    			  <!-- EVENT viewtopic_body_postrow_post_details_after -->
+            {% endif %}
 
-				<div class="content">{postrow.MESSAGE}</div>
+    				<!-- DEFINE $SHOW_POST_BUTTONS = (postrow.U_EDIT or postrow.U_DELETE or postrow.U_REPORT or postrow.U_WARN or postrow.U_INFO) -->
+    				<!-- EVENT viewtopic_body_post_buttons_list_before -->
+    				<!-- IF not S_IS_BOT and ($SHOW_POST_BUTTONS or postrow.U_QUOTE) -->
 
-				{#-- Highlight codes --#}
-				{% if 'class="codebox"' in postrow.MESSAGE and not S_IS_CODEBOX %}
-					{% set S_IS_CODEBOX = true %}
-				{% endif %}
+    					<div class="topic-tools flex items-center gap-1 p-0">
+    						<!-- EVENT viewtopic_body_post_buttons_before -->
+    						<!-- IF postrow.U_QUOTE -->
+    						<a href="{postrow.U_QUOTE}" title="{L_REPLY_WITH_QUOTE}" class="relative flex overflow-hidden transition-all duration-300 rounded-full text-secondary hover:text-color hover:bg-primary/[0.08] font-medium p-2 inline-flex gap-2" aria-label="{L_BUTTON_QUOTE}">
+    							<i class="iconify" data-mode="style" data-icon="mingcute:quote-right-line" data-width="18" data-height="18" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+    						</a>
+    						<!-- ENDIF -->
+    						<!-- EVENT viewtopic_body_post_buttons_after -->
 
-				<!-- EVENT viewtopic_body_postrow_content_after -->
+    						<!-- IF $SHOW_POST_BUTTONS -->
+    						<div id="post_buttons_{postrow.POST_ID}" class="zn-dropdown relative">
+    							<button type="button" class="zn-dropdown-toggle relative flex overflow-hidden transition-all duration-300 rounded-full text-secondary hover:text-color hover:bg-primary/[0.08] font-medium p-2 inline-flex gap-2" title="{L_SETTINGS}" aria-label="{L_SETTINGS}">
+    								<i class="iconify" data-mode="style" data-icon="lucide:settings" data-width="18" data-height="18" aria-hidden="true"></i>
+    							</button>
+    							<div class="zn-dropdown-menu dropdown dropdown-end md:w-48">
+    								<ul class="dropdown-contents text-sm" role="menu">
+    									<!-- IF postrow.U_EDIT -->
+    									<li>
+    										<a href="{postrow.U_EDIT}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" aria-label="{L_EDIT_POST}">
+    											<i class="iconify" data-mode="style" data-icon="lucide:edit" data-width="16" data-height="16" aria-hidden="true"></i>
+    											{L_BUTTON_EDIT}
+    										</a>
+    									</li>
+    									<!-- ENDIF -->
+    									<!-- IF postrow.U_DELETE -->
+    									<li>
+    										<a href="{postrow.U_DELETE}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" data-ajax="true" data-refresh="true" aria-label="{L_DELETE_POST}">
+    											<i class="iconify" data-mode="style" data-icon="lucide:trash-2" data-width="16" data-height="16" aria-hidden="true"></i>
+    											{L_BUTTON_DELETE}
+    										</a>
+    									</li>
+    									<!-- ENDIF -->
+    									<!-- IF postrow.U_REPORT -->
+    									<li>
+    										<a href="{postrow.U_REPORT}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" aria-label="{L_REPORT_POST}">
+    											<i class="iconify" data-mode="style" data-icon="lucide:circle-alert" data-width="16" data-height="16" aria-hidden="true"></i>
+    											{L_BUTTON_REPORT}
+    										</a>
+    									</li>
+    									<!-- ENDIF -->
+    									<!-- IF postrow.U_WARN -->
+    									<li>
+    										<a href="{postrow.U_WARN}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" aria-label="{L_WARN_USER}">
+    											<i class="iconify" data-mode="style" data-icon="lucide:triangle-alert" data-width="16" data-height="16" aria-hidden="true"></i>
+    											{L_BUTTON_WARN}
+    										</a>
+    									</li>
+    									<!-- ENDIF -->
+    									<!-- IF postrow.U_INFO -->
+    									<li>
+    										<a href="{postrow.U_INFO}" class="dropdown-item relative flex overflow-hidden transition-all duration-300 gap-2" aria-label="{L_INFORMATION}">
+    											<i class="iconify" data-mode="style" data-icon="lucide:info" data-width="16" data-height="16" aria-hidden="true"></i>
+    											{L_BUTTON_INFORMATION}
+    										</a>
+    									</li>
+    									<!-- ENDIF -->
+    								</ul>
+    							</div>
+    						</div>
+    						<!-- ENDIF -->
+    					</div>
+    				<!-- ENDIF -->
+    				<!-- EVENT viewtopic_body_post_buttons_list_after -->
+    			</div>
+          {% if zeina.profile_view !== 'simple' %}</div>{% endif%}
+        </div>
+        
+        {% if zeina.profile_view == 'simple' %}
+        <!-- EVENT viewtopic_body_post_subject_before -->
+    		<div class="post-title flex items-center gap-2 font-semibold">
+    			{% if postrow.POST_ICON_IMG %}
+    				<img src="{{ T_ICONS_PATH }}{{ postrow.POST_ICON_IMG }}" width="{{ postrow.POST_ICON_IMG_WIDTH }}" height="{{ postrow.POST_ICON_IMG_HEIGHT }}" alt="{{ postrow.POST_ICON_IMG_ALT }}" title="{{ postrow.POST_ICON_IMG_ALT }}">
+    			{% endif %}
+    			<a {% if postrow.S_FIRST_UNREAD %}class="first-unread" {% endif %}href="{{ postrow.U_MINI_POST }}">{{ postrow.POST_SUBJECT }}</a>
+    		</div>
+        {% endif %}
 
-				<!-- IF postrow.S_HAS_ATTACHMENTS -->
-				<div class="attachbox mt-5">
-					<div class="font-semibold text-sm">
-						{L_ATTACHMENTS}{L_COLON}
-					</div>
-					<div class="attachments inline-block text-sm">
-					<!-- BEGIN attachment -->
-						<div class="mt-2">{postrow.attachment.DISPLAY_ATTACHMENT}</div>
-					<!-- END attachment -->
-					</div>
-				</div>
-				<!-- ENDIF -->
+    		<div class="mt-2.5 pt-2.5 border-t">
+    			<div>
+    				<!-- IF postrow.S_POST_UNAPPROVED -->
+              <!-- IF postrow.S_CAN_APPROVE -->
+      					<form method="post" class="mcp_approve" action="{postrow.U_APPROVE_ACTION}">
+      						<div class="post-notice unapproved mb-3 bg-yellow-100/50 border border-yellow-800/10 text-sm text-yellow-800 rounded-lg p-4" role="alert">
+      							<div class="flex max-md:flex-col gap-2 text-sm">
+      								<div class="flex gap-2">
+      									<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:warning" data-width="16" data-height="16" aria-hidden="true"></i></div>
+      									<div class="font-semibold">{L_POST_UNAPPROVED_ACTION}</div>
+      								</div>
+      								<div class="flex gap-3">
+      									<input type="submit" value="{L_DISAPPROVE}" name="action[disapprove]" class="inline-flex items-center gap-2 text-sm font-semibold text-yellow-700 hover:text-yellow-900 hover:cursor-pointer">
+      									<input type="submit" value="{L_APPROVE}" name="action[approve]" class="inline-flex items-center gap-2 text-sm font-semibold text-yellow-700 hover:text-yellow-900 hover:cursor-pointer">
+      									<input type="hidden" name="post_id_list[]" value="{postrow.POST_ID}">
+      									{S_FORM_TOKEN}
+      								</div>
+      							</div>
+      						</div>
+      					</form>
+              <!-- ELSE -->
+      					<div class="post-notice unapproved my-4 bg-yellow-100/50 border border-yellow-800/10 text-sm text-yellow-800 rounded-lg p-4" role="alert">
+      						<div class="flex gap-2 text-sm">
+      							<span class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:warning" data-width="16" data-height="16" aria-hidden="true"></i></span>
+      							<span class="font-medium">{L_POST_UNAPPROVED_EXPLAIN}</span>
+      						</div>
+      					</div>
+      				<!-- ENDIF -->
+    				<!-- ELSEIF postrow.S_POST_DELETED -->
+    				<form method="post" class="mcp_approve" action="{postrow.U_APPROVE_ACTION}">
+    					<div class="post-notice deleted mb-3 bg-blue-100 border border-blue-200 text-gray-800 rounded-lg p-4" role="alert">
+    						<div class="flex max-md:flex-col gap-2 text-sm">
+    							<div class="flex gap-2">
+    								<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i></div>
+    								<div class="font-semibold">{L_POST_DELETED_ACTION}</div>
+    							</div>
+    							<div class="flex gap-3">
+    								<!-- IF postrow.S_DELETE_PERMANENT -->
+    								<input type="submit" value="{L_DELETE}" name="action[delete]" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 hover:cursor-pointer">
+    								<!-- ENDIF -->
+    								<input type="submit" value="{L_RESTORE}" name="action[restore]" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 hover:cursor-pointer">
+    								<input type="hidden" name="post_id_list[]" value="{postrow.POST_ID}">
+    								{S_FORM_TOKEN}
+    							</div>
+    						</div>
+    					</div>
+    				</form>
+    				<!-- ENDIF -->
 
-				<!-- EVENT viewtopic_body_postrow_post_notices_before -->
+    				<!-- IF postrow.S_POST_REPORTED -->
+    				<div class="post-notice reported mb-3 text-sm text-red-700 bg-red-50 border border-red-300 rounded-lg p-4" role="alert">
+    					<div class="flex gap-2 text-sm">
+    						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:circle-alert" data-width="16" data-height="16" aria-hidden="true"></i></div>
+    						<a href="{postrow.U_MCP_REPORT}" class="font-medium">{L_POST_REPORTED}</a>
+    					</div>
+    				</div>
+    				<!-- ENDIF -->
 
-				<!-- IF postrow.S_DISPLAY_NOTICE -->
-				<div class="rules my-3 bg-yellow-100/50 border border-yellow-800/10 text-sm text-yellow-800 rounded-lg p-4" role="alert">
-					<div class="flex gap-2 text-sm">
-						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:warning" data-width="16" data-height="16" aria-hidden="true"></i></div>
-						<p>{L_DOWNLOAD_NOTICE}</p>
-					</div>
-				</div>
-				<!-- ENDIF -->
+    				{% EVENT viewtopic_body_postrow_content_before %}
 
-				<!-- IF postrow.DELETED_MESSAGE or postrow.DELETE_REASON -->
-					<div class="notice post_deleted_msg mt-3 text-red-700 bg-red-50 border border-red-300 rounded-lg p-3" role="alert">
-						<div class="flex gap-2 text-xs">
-							<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:trash-2" data-width="16" data-height="16" aria-hidden="true"></i></div>
-							<p class="leading-relaxed">{postrow.DELETED_MESSAGE}<!-- IF postrow.DELETE_REASON --><br><strong>{L_REASON}{L_COLON}</strong> <em>{postrow.DELETE_REASON}</em><!-- ENDIF --></p>
-						</div>
-					</div>
-				<!-- ELSEIF postrow.EDITED_MESSAGE or postrow.EDIT_REASON -->
-					<div class="notice mt-3 bg-slate-50 border border-gray-200 text-secondary rounded-lg p-3" role="alert">
-						<div class="flex gap-2 text-xs">
-							<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="16" data-height="16" aria-hidden="true"></i></div>
-							<p class="leading-relaxed">{postrow.EDITED_MESSAGE}<!-- IF postrow.EDIT_REASON --><br><strong>{L_REASON}{L_COLON}</strong> <em>{postrow.EDIT_REASON}</em><!-- ENDIF --></p>
-						</div>
-					</div>
-				<!-- ENDIF -->
+    				<div class="content">{postrow.MESSAGE}</div>
 
-				<!-- IF postrow.BUMPED_MESSAGE -->
-				<div class="notice mt-3 bg-slate-50 border border-gray-200 text-secondary rounded-lg p-3" role="alert">
-					<div class="flex gap-2 text-xs">
-						<div class="leading-[0]"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="16" data-height="16" aria-hidden="true"></i></div>
-						<p>{postrow.BUMPED_MESSAGE}</p>
-					</div>
-				</div>
-				<!-- ENDIF -->
+    				{#-- Highlight codes --#}
+    				{% if 'class="codebox"' in postrow.MESSAGE and not S_IS_CODEBOX %}
+    					{% set S_IS_CODEBOX = true %}
+    				{% endif %}
 
-				<!-- EVENT viewtopic_body_postrow_post_notices_after -->
+    				<!-- EVENT viewtopic_body_postrow_content_after -->
 
-				{% EVENT viewtopic_body_postrow_signature_before %}
-					{% if postrow.SIGNATURE %}<div id="sig{{ postrow.POST_ID }}" class="signature mt-3 pt-3 border-t border-dashed border-gray-200">{{ postrow.SIGNATURE }}</div>{% endif %}
-				{% EVENT viewtopic_body_postrow_signature_after %}
+    				<!-- IF postrow.S_HAS_ATTACHMENTS -->
+    				<div class="attachbox mt-5">
+    					<div class="font-semibold text-sm">
+    						{L_ATTACHMENTS}{L_COLON}
+    					</div>
+    					<div class="attachments inline-block text-sm">
+    					<!-- BEGIN attachment -->
+    						<div class="mt-2">{postrow.attachment.DISPLAY_ATTACHMENT}</div>
+    					<!-- END attachment -->
+    					</div>
+    				</div>
+    				<!-- ENDIF -->
 
-				<!-- EVENT viewtopic_body_postrow_post_content_footer -->
-			</div>
-		</div>
+    				<!-- EVENT viewtopic_body_postrow_post_notices_before -->
+
+    				<!-- IF postrow.S_DISPLAY_NOTICE -->
+    				<div class="rules my-3 bg-yellow-100/50 border border-yellow-800/10 text-sm text-yellow-800 rounded-lg p-4" role="alert">
+    					<div class="flex gap-2 text-sm">
+    						<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="ph:warning" data-width="16" data-height="16" aria-hidden="true"></i></div>
+    						<p>{L_DOWNLOAD_NOTICE}</p>
+    					</div>
+    				</div>
+    				<!-- ENDIF -->
+
+    				<!-- IF postrow.DELETED_MESSAGE or postrow.DELETE_REASON -->
+    					<div class="notice post_deleted_msg mt-3 text-red-700 bg-red-50 border border-red-300 rounded-lg p-3" role="alert">
+    						<div class="flex gap-2 text-xs">
+    							<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:trash-2" data-width="16" data-height="16" aria-hidden="true"></i></div>
+    							<p class="leading-relaxed">{postrow.DELETED_MESSAGE}<!-- IF postrow.DELETE_REASON --><br><strong>{L_REASON}{L_COLON}</strong> <em>{postrow.DELETE_REASON}</em><!-- ENDIF --></p>
+    						</div>
+    					</div>
+    				<!-- ELSEIF postrow.EDITED_MESSAGE or postrow.EDIT_REASON -->
+    					<div class="notice mt-3 bg-slate-50 border border-gray-200 text-secondary rounded-lg p-3" role="alert">
+    						<div class="flex gap-2 text-xs">
+    							<div class="leading-[0] mt-0.5"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="16" data-height="16" aria-hidden="true"></i></div>
+    							<p class="leading-relaxed">{postrow.EDITED_MESSAGE}<!-- IF postrow.EDIT_REASON --><br><strong>{L_REASON}{L_COLON}</strong> <em>{postrow.EDIT_REASON}</em><!-- ENDIF --></p>
+    						</div>
+    					</div>
+    				<!-- ENDIF -->
+
+    				<!-- IF postrow.BUMPED_MESSAGE -->
+    				<div class="notice mt-3 bg-slate-50 border border-gray-200 text-secondary rounded-lg p-3" role="alert">
+    					<div class="flex gap-2 text-xs">
+    						<div class="leading-[0]"><i class="iconify" data-mode="style" data-icon="lucide:info" data-width="16" data-height="16" aria-hidden="true"></i></div>
+    						<p>{postrow.BUMPED_MESSAGE}</p>
+    					</div>
+    				</div>
+    				<!-- ENDIF -->
+
+    				<!-- EVENT viewtopic_body_postrow_post_notices_after -->
+
+    				{% EVENT viewtopic_body_postrow_signature_before %}
+    					{% if postrow.SIGNATURE %}<div id="sig{{ postrow.POST_ID }}" class="signature mt-3 pt-3 border-t border-dashed border-gray-200">{{ postrow.SIGNATURE }}</div>{% endif %}
+    				{% EVENT viewtopic_body_postrow_signature_after %}
+
+    				<!-- EVENT viewtopic_body_postrow_post_content_footer -->
+    			</div>
+    		</div>
+      </div>
+    </div>
 	</div>
 	<!-- EVENT viewtopic_body_postrow_post_after -->
 <!-- END postrow -->
@@ -473,7 +592,6 @@
 
 {% EVENT viewtopic_body_online_list_before %}
 
-
 <!-- IF (S_DISPLAY_ONLINE_LIST and U_VIEWONLINE) or MODERATORS -->
 <div class="stat-block md:my-4 mt-2 card">
 	<div class="flex items-center justify-between card-title">
@@ -511,7 +629,6 @@
 
 {% EVENT viewtopic_body_online_list_after %}
 
-
 {% if S_IS_CODEBOX %}
 	{% INCLUDECSS T_THEME_PATH ~ '/assets/css/highlight.min.css' %}
 	{% INCLUDEJS T_THEME_PATH ~ '/assets/js/highlight.min.js' %}
@@ -540,14 +657,14 @@
 					<!-- ENDIF -->
 					<div class="grow flex flex-wrap items-center justify-between">
 						<div>
-							<!-- EVENT viewtopic_body_post_author_before -->
+              <!-- EVENT viewtopic_body_post_author_before -->
 							<h5 class="profile-author font-semibold">{postrow.POST_AUTHOR_FULL}</h5>
 							<!-- EVENT viewtopic_body_post_author_after -->
-							
-              <!-- EVENT viewtopic_body_postrow_rank_before -->
+
+							<!-- EVENT viewtopic_body_postrow_rank_before -->
 							<!-- IF postrow.RANK_TITLE --><p class="profile-rank leading-6 text-sm font-medium">{postrow.RANK_TITLE}</p><!-- ENDIF -->
 							<!-- EVENT viewtopic_body_postrow_rank_after -->
-						</div>
+            </div>
 						<!-- IF postrow.RANK_IMG -->
 						<span class="inline-flex items-center align-middle gap-2 rank-img">{postrow.RANK_IMG}</span>
 						<!-- ENDIF -->

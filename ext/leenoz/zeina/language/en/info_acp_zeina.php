@@ -44,4 +44,8 @@ $lang = array_merge($lang, [
 	'ACP_PANELS_SETTINGS' => 'Panels Settings',
 	'ACP_COLLAPSE_PANEL' => 'Collapsible Panel',
 	'ACP_COLORFUL_PANEL' => 'Colorful Panel Head',
+	'ACP_PROFILE' => 'Profile View',
+	'ACP_PROFILE_SIMPLE' => 'Simple',
+	'ACP_PROFILE_LEFT' => 'Left',
+	'ACP_PROFILE_RIGHT' => 'Right',
 ]);

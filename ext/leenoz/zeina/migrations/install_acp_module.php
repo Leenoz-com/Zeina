@@ -30,6 +30,7 @@ class install_acp_module extends \phpbb\db\migration\migration
 					// Panels settings
 					'colorful_panel' => 0,
 					'collapse_panel' => 1,
+					'profile_view' => 'simple',
 				))
 			)),
 			array('module.add', array(
