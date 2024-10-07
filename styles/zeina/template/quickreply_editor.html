@@ -1,5 +1,5 @@
-<!-- EVENT quickreply_editor_panel_before -->
 <form method="post" action="{U_QR_ACTION}" id="qr_postform" class="card my-3">
+<!-- EVENT quickreply_editor_panel_before -->
 	<div class="flex items-center justify-between card-title">
 		<h2 class="stat-title">{L_QUICKREPLY}</h2>
 		{% if zeina.collapse_panel %}
@@ -27,19 +27,21 @@
 				<div class="md:flex block justify-between items-center mt-4">
 					{S_FORM_TOKEN}
 					{QR_HIDDEN_FIELDS}
-					<div class="fullscreen-comment">
-						<button type="submit" accesskey="f" name="preview" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center" id="qr_full_editor" value="{L_PREVIEW}">
-							<i class="iconify" data-mode="style" data-icon="fluent:full-screen-maximize-24-filled" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_FULL_EDITOR}</span>
-						</button>
+          <div class="fullscreen-comment">
+            <label class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center">
+							<i class="iconify" data-mode="style" data-icon="fluent:full-screen-maximize-24-filled" data-width="18" data-height="18" aria-hidden="true"></i>
+            	<input id="qr_full_editor" type="submit" name="preview" value="{L_PREVIEW}" role="button" class="button1" />
+      			</label>
 					</div>
 					<div class="submit-comment md:mt-0 mt-2">
-						<button type="submit" accesskey="s" name="post" class="btn-primary relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center" value="{L_SUBMIT}">
-							<i class="iconify" data-mode="style" data-icon="mingcute:pencil-line" data-width="18" data-height="18" aria-hidden="true"></i><span>{L_SUBMIT}</span>
-						</button>
+      			<label class="btn-primary relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center">
+							<i class="iconify" data-mode="style" data-icon="mingcute:pencil-line" data-width="18" data-height="18" aria-hidden="true"></i>
+              <input type="submit" accesskey="s" name="post" role="button" value="{L_SUBMIT}" class="button1 default-submit-action" />
+      			</label>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</form>
 <!-- EVENT quickreply_editor_panel_after -->
+</form>

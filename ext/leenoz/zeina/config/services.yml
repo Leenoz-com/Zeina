@@ -1,19 +1,20 @@
 services:
-    leenoz.zeina.controller.acp:
-        class: leenoz\zeina\controller\acp_controller
-        arguments:
-            - '@config_text'
-            - '@language'
-            - '@log'
-            - '@request'
-            - '@template'
-            - '@user'
+  leenoz.zeina.controller.acp:
+    class: leenoz\zeina\controller\acp_controller
+    arguments:
+      - "@config_text"
+      - "@language"
+      - "@log"
+      - "@request"
+      - "@template"
+      - "@user"
+      - "@dbal.conn"
 
-    leenoz.zeina.listener:
-        class: leenoz\zeina\event\main_listener
-        arguments:
-            - '@config'
-            - '@config_text'
-            - '@template'
-        tags:
-            - { name: event.listener }
+  leenoz.zeina.listener:
+    class: leenoz\zeina\event\main_listener
+    arguments:
+      - "@config"
+      - "@config_text"
+      - "@template"
+    tags:
+      - { name: event.listener }

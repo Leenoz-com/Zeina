@@ -2,8 +2,6 @@
 
 namespace leenoz\zeina\controller;
 
-use Error;
-
 /**
  * Zeina ACP controller.
  */
@@ -27,6 +25,9 @@ class acp_controller
 	/** @var \phpbb\user */
 	protected $user;
 
+	/** @var \phpbb\db\driver\driver_interface */
+	protected $db;
+
 	/** @var string Theme dir */
 	protected $theme_path;
 
@@ -45,8 +46,17 @@ class acp_controller
 	 * @param \phpbb\request\request		$request			Request object
 	 * @param \phpbb\template\template	$template			Template object
 	 * @param \phpbb\user								$user					User object
+	 * @param \phpbb\db\driver\driver_interface $db
 	 */
-	public function __construct(\phpbb\config\db_text $config_text, \phpbb\language\language $language, \phpbb\log\log $log, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(
+    \phpbb\config\db_text $config_text, 
+    \phpbb\language\language $language, 
+    \phpbb\log\log $log, 
+    \phpbb\request\request $request, 
+    \phpbb\template\template $template, 
+    \phpbb\user $user,
+    \phpbb\db\driver\driver_interface $db
+  )
 	{
 		global $phpbb_root_path;
 
@@ -56,6 +66,7 @@ class acp_controller
 		$this->request			= $request;
 		$this->template			= $template;
 		$this->user					= $user;
+		$this->db					  = $db;
 		$this->theme_path   = $phpbb_root_path . "styles/zeina/theme/";
 		$this->colors_array = array(
 			"blue_theme" 		=> array("37, 99, 235"),
@@ -188,11 +199,30 @@ class acp_controller
 
 		$this->template->assign_vars([
 			"U_ACTION" => $this->u_action,
+      "STYLE_ID" => $this->getStyleID(),
 			"T_THEME_PATH" => $this->theme_path,
 			"colors_array" => $this->colors_array,
 			"zeina" => $data,
 		]);
 	}
+
+  /**
+   * Get style ID
+   * @return integer
+   */
+  protected function getStyleID()
+  {
+    $sql = 'SELECT style_id
+			FROM ' . STYLES_TABLE . '
+      WHERE style_path = "zeina"';
+
+		$result = $this->db->sql_query($sql);
+
+		$rows = $this->db->sql_fetchrow($result);
+		$this->db->sql_freeresult($result);
+
+    return $rows && isset($rows['style_id']) ? (int)$rows['style_id'] : null;
+  }
 
 	/**
 	 * Remove an image from server
