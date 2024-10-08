@@ -34,8 +34,8 @@
 			<!-- EVENT forumlist_body_forum_row_before -->
 			<li class="pt-4 mt-4 first:pt-0 first:mt-0 forum row">
 				<!-- EVENT forumlist_body_forum_row_prepend -->
-				<div class="row-item md:grid md:grid-cols-9 gap-4 items-center">
-					<div class="flex w-full<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED --> justify-between<!-- ENDIF --> md:col-span-5 relative row-title {forumrow.FORUM_IMG_STYLE}" title="{% if forumrow.S_IS_LINK %}{{ lang('FORUM_LINK') }}{% else %}{{ forumrow.FORUM_FOLDER_IMG_ALT }}{% endif %}">
+				<div class="row-item flex max-md:flex-col gap-4 max-md:gap-2 items-center">
+					<div class="flex w-full<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED --> justify-between<!-- ENDIF --> relative row-title {forumrow.FORUM_IMG_STYLE}" title="{% if forumrow.S_IS_LINK %}{{ lang('FORUM_LINK') }}{% else %}{{ forumrow.FORUM_FOLDER_IMG_ALT }}{% endif %}">
 						<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED -->
 						<div class="forum-row flex flex-row flex-grow">
 						<!-- ENDIF -->
@@ -69,7 +69,7 @@
 								<div class="moderators mt-2">
 									<div class="moderators-title text-sm font-medium mb-1">{forumrow.L_MODERATOR_STR}{L_COLON}</div>
 									{% set moderators = forumrow.MODERATORS|split(',') %}
-									<ul class="flex max-md:flex-col flex-wrap md:items-center gap-1.5 text-sm">
+									<ul class="flex flex-wrap max-md:flex-col md:items-center gap-1.5 text-sm">
 										{% for moderator in moderators %}
 											<li class="md:p-0 inline-block max-md:w-full md:border-0 border rounded-lg mod">{{ moderator }}{% if not loop.last %}<span class="max-md:hidden">{L_COMMA_SEPARATOR}</span>{% endif %}</li>
 										{% endfor %}
@@ -87,22 +87,22 @@
 						<!-- ENDIF -->
 					</div>
 					<!-- IF forumrow.CLICKS or not forumrow.S_IS_LINK -->
-					<div class="md:col-span-4 flex flex-col max-lg:gap-2 lg:grid lg:grid-cols-3 md:mt-0 mt-2 md:border-0 md:p-0 p-3 border rounded-lg">
+					<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 md:p-0 p-3 border rounded-lg">
 						
 						<!-- IF forumrow.CLICKS -->
 						<div class="redirect font-medium text-sm max-md:flex items-center gap-2">
 							{forumrow.CLICKS} <div class="text-secondary md:text-xs md:mt-0.5">{L_REDIRECTS}</div>
 						</div>
 						<!-- ELSEIF not forumrow.S_IS_LINK -->
-						<div class="grid grid-cols-2 max-md:py-1">
-							<div class="topics font-medium text-sm max-md:flex items-center gap-2">
+						<div class="lg:flex grid grid-cols-2 max-md:py-1">
+							<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20">
 								{forumrow.TOPICS} <div class="text-secondary md:text-xs md:mt-0.5">{L_TOPICS}</div>
 							</div>
-							<div class="posts font-medium text-sm max-md:flex items-center gap-2">
+							<div class="posts font-medium text-sm max-md:flex items-center gap-2 lg:w-20">
 								{forumrow.POSTS} <div class="text-secondary md:text-xs md:mt-0.5">{L_POSTS}</div>
 							</div>
 						</div>
-						<div class="lastpost text-sm col-span-2 max-lg:pt-2 max-lg:border-t<!-- IF not forumrow.LAST_POST_TIME_RFC3339 --> flex items-center <!-- ENDIF -->">
+						<div class="lastpost text-sm max-lg:pt-2 max-lg:border-t sm:w-[310px] w-full<!-- IF not forumrow.LAST_POST_TIME_RFC3339 --> flex items-center <!-- ENDIF -->">
 							<!-- IF forumrow.U_UNAPPROVED_TOPICS -->
 								<a class="leading-[0] me-1" href="{forumrow.U_UNAPPROVED_TOPICS}" title="{L_TOPICS_UNAPPROVED}">
 									<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
@@ -128,7 +128,7 @@
 							{% endif %}
 							<!-- ENDIF -->
 							<!-- IF forumrow.LAST_POST_TIME_RFC3339 -->
-							<div class="flex flex-wrap max-md:flex-col-reverse md:items-center gap-1 md:text-xs text-sm font-medium text-secondary mt-0.5">
+							<div class="flex flex-wrap md:items-center gap-1 text-xs font-medium text-secondary mt-0.5">
 								<span class="before:content-['\00BB'] before:me-1 before:md:hidden">{L_POST_BY_AUTHOR} <!-- EVENT forumlist_body_last_poster_username_prepend -->{forumrow.LAST_POSTER_FULL}<!-- EVENT forumlist_body_last_poster_username_append --></span>
 								<span>&raquo; <time datetime="{forumrow.LAST_POST_TIME_RFC3339}">{forumrow.LAST_POST_TIME}</time></span>
 							</div>

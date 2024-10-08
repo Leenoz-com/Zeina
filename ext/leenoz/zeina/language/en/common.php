@@ -17,7 +17,7 @@ $lang = array_merge($lang, [
 	'INFO' => 'Information',
 	'FOLLOW_US' => 'Follow Us',
 	'SCROLL_TOP_TOP' => 'Scroll to top',
-	'DESIGNED_BY' => 'Designed by',
+	'DESIGN_BY' => 'Design by',
 	// ------------- Login & Register Page ------------ //
 	'OR' => 'or',
 	'SIGN_WITH' => 'Sign in with',
