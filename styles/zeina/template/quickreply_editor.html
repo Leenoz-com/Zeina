@@ -1,47 +1,49 @@
-<form method="post" action="{U_QR_ACTION}" id="qr_postform" class="card my-3">
-<!-- EVENT quickreply_editor_panel_before -->
-	<div class="flex items-center justify-between card-title">
-		<h2 class="stat-title">{L_QUICKREPLY}</h2>
-		{% if zeina.collapse_panel %}
-		<div class="collapse-panel zn-collapse-toggle open leading-[0] py-0.5 px-1 hover:cursor-pointer" data-zn-collapse="#zn-topics-collapse-quick">
-			<div class="zn-collapse-open:[transform:rotate(180deg)] transition-all duration-300"><i class="iconify" data-mode="style" data-icon="ri:arrow-down-s-line" data-width="18" data-height="18" aria-hidden="true"></i></div>
-		</div>
-		{% endif %}
-	</div>
-	<div id="zn-topics-collapse-quick" class="zn-collapse w-full" aria-labelledby="zn-topics-collapse-quick">
-		<div>
-			<div class="topiclist forums md:p-4 md:mt-2 p-2 mt-1">
-				<!-- EVENT quickreply_editor_subject_before -->
-				<div>
-					<label for="subject" class="block text-sm font-medium mb-2">{L_SUBJECT}{L_COLON}</label>
-					<input type="text" name="subject" id="subject" size="45" maxlength="124" value="{SUBJECT}" class="inputbox mt-2 block w-full">
-				</div>
-				<div class="mt-3">
-					<label for="quickreply_message" class="block text-sm font-medium mb-2">{L_MESSAGE}{L_COLON}</label>
-				  <!-- EVENT quickreply_editor_message_before -->
-					<div id="message-box" class="message-box mt-2">
-						<textarea id="quickreply_message" name="message" rows="7" cols="76" class="inputbox block w-full"></textarea>
-					</div>
-				  <!-- EVENT quickreply_editor_message_after -->
-				</div>
-				<div class="md:flex block justify-between items-center mt-4">
-					{S_FORM_TOKEN}
-					{QR_HIDDEN_FIELDS}
-          <div class="fullscreen-comment">
-            <label class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center">
-							<i class="iconify" data-mode="style" data-icon="fluent:full-screen-maximize-24-filled" data-width="18" data-height="18" aria-hidden="true"></i>
-            	<input id="qr_full_editor" type="submit" name="preview" value="{L_PREVIEW}" role="button" class="button1" />
-      			</label>
-					</div>
-					<div class="submit-comment md:mt-0 mt-2">
-      			<label class="btn-primary relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center">
-							<i class="iconify" data-mode="style" data-icon="mingcute:pencil-line" data-width="18" data-height="18" aria-hidden="true"></i>
-              <input type="submit" accesskey="s" name="post" role="button" value="{L_SUBMIT}" class="button1 default-submit-action" />
-      			</label>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- EVENT quickreply_editor_panel_after -->
+<form method="post" action="{U_QR_ACTION}" id="qr_postform">
+  <!-- EVENT quickreply_editor_panel_before -->
+  <div class="card my-3">
+  	<div class="flex items-center justify-between card-title">
+  		<h2 class="stat-title">{L_QUICKREPLY}</h2>
+  		{% if zeina.collapse_panel %}
+  		<div class="collapse-panel zn-collapse-toggle open leading-[0] py-0.5 px-1 hover:cursor-pointer" data-zn-collapse="#zn-topics-collapse-quick">
+  			<div class="zn-collapse-open:[transform:rotate(180deg)] transition-all duration-300"><i class="iconify" data-mode="style" data-icon="ri:arrow-down-s-line" data-width="18" data-height="18" aria-hidden="true"></i></div>
+  		</div>
+  		{% endif %}
+  	</div>
+  	<div id="zn-topics-collapse-quick" class="zn-collapse w-full" aria-labelledby="zn-topics-collapse-quick">
+  		<div>
+  			<div class="topiclist forums md:p-4 md:mt-2 p-2 mt-1">
+  				<!-- EVENT quickreply_editor_subject_before -->
+  				<div>
+  					<label for="subject" class="block text-sm font-medium mb-2">{L_SUBJECT}{L_COLON}</label>
+  					<input type="text" name="subject" id="subject" size="45" maxlength="124" value="{SUBJECT}" class="inputbox mt-2 block w-full">
+  				</div>
+  				<div class="mt-3">
+  					<label for="quickreply_message" class="block text-sm font-medium mb-2">{L_MESSAGE}{L_COLON}</label>
+  				  <!-- EVENT quickreply_editor_message_before -->
+  					<div id="message-box" class="message-box mt-2">
+  						<textarea id="quickreply_message" name="message" rows="7" cols="76" class="inputbox block w-full"></textarea>
+  					</div>
+  				  <!-- EVENT quickreply_editor_message_after -->
+  				</div>
+  				<div class="md:flex block justify-between items-center mt-4">
+  					{S_FORM_TOKEN}
+  					{QR_HIDDEN_FIELDS}
+            <div class="fullscreen-comment">
+              <label class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center">
+  							<i class="iconify" data-mode="style" data-icon="fluent:full-screen-maximize-24-filled" data-width="18" data-height="18" aria-hidden="true"></i>
+              	<input id="qr_full_editor" type="submit" name="preview" value="{L_PREVIEW}" role="button" class="button1" />
+        			</label>
+  					</div>
+  					<div class="submit-comment md:mt-0 mt-2">
+        			<label class="btn-primary relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center">
+  							<i class="iconify" data-mode="style" data-icon="mingcute:pencil-line" data-width="18" data-height="18" aria-hidden="true"></i>
+                <input type="submit" accesskey="s" name="post" role="button" value="{L_SUBMIT}" class="button1 default-submit-action" />
+        			</label>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+  <!-- EVENT quickreply_editor_panel_after -->
 </form>
