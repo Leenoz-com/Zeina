@@ -94,7 +94,7 @@
 								<!-- EVENT search_results_topic_before -->
 								<li class="pt-4 mt-4 first:pt-0 first:mt-0 topic row">
 									<div class="row-item flex max-md:flex-col gap-4 max-md:gap-2 items-center">
-										<div class="flex w-full md:justify-between relative gap-y-3 row-title" title="{searchresults.TOPIC_FOLDER_IMG_ALT}">
+										<div class="flex w-full flex-wrap md:justify-between relative gap-y-3 row-title" title="{searchresults.TOPIC_FOLDER_IMG_ALT}">
 											<div class="flex flex-row grow gap-4">
 												<div class="topic-icon mt-0.5 leading-[0] {searchresults.TOPIC_IMG_STYLE}"<!-- IF searchresults.TOPIC_ICON_IMG --> style="background-image: url('{T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: bottom right;"<!-- ENDIF -->>
 													{% include 'forumlist_icons.html' with {'IMG_STYLE': searchresults.TOPIC_IMG_STYLE} %}
@@ -141,7 +141,7 @@
 											</div>
 											
 											<!-- IF .searchresults.pagination -->
-											<div class="pagination flex items-center gap-1 max-md:justify-center">
+											<div class="pagination flex items-center gap-1 max-md:grow max-md:justify-center">
 												<i class="iconify text-secondary" data-mode="style" data-icon="ph:copy" data-width="16" data-height="16" aria-hidden="true"></i>
 												<ul class="flex items-center text-sm text-center justify-center gap-1">
 												<!-- BEGIN pagination -->
