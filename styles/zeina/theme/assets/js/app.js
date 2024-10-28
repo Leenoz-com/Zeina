@@ -165,7 +165,7 @@ const zeina = {};
       }
 
       // if the target of the click isn't the modal not a descendant of the modal
-      if (!modal.is(e.target) && modal.has(e.target).length === 0) {
+      if (modal.length && !modal.is(e.target) && modal.has(e.target).length === 0) {
         $(".zn-overlay.open").close();
       }
     });
