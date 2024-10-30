@@ -641,110 +641,106 @@
 	</script>
 {% endif %}
 
-{% if zeina.profile_view == 'simple' %}
-  {% embed "overall_footer.html" %}
-  	{% block footer_scripts %}
-  	<script>
-  	(function ($) {
-  		const userData = [];
-  		<!-- BEGIN postrow -->
-  		userData["user_data_{postrow.POST_ID}"] = `
-  			<div class="dropdown-content">
-  				<div class="py-3 px-4 border-b flex flex-wrap items-center gap-3">
-  					<!-- IF postrow.POSTER_AVATAR -->
-  						<div class="h-16 w-16 mx-auto rounded-full overflow-hidden">
-  						<!-- IF postrow.U_POST_AUTHOR --><a href="{postrow.U_POST_AUTHOR}" class="avatar">{postrow.POSTER_AVATAR}</a><!-- ELSE --><span class="avatar">{postrow.POSTER_AVATAR}</span><!-- ENDIF -->
-  						</div>
-  					<!-- ENDIF -->
-  					<div class="grow flex flex-wrap items-center justify-between">
-  						<div>
-                <!-- EVENT viewtopic_body_post_author_before -->
-  							<h5 class="profile-author font-semibold">{postrow.POST_AUTHOR_FULL}</h5>
-  							<!-- EVENT viewtopic_body_post_author_after -->
+{% embed "overall_footer.html" %}
+	{% block footer_scripts %}
+	<script>
+	(function ($) {
+		const userData = [];
+		<!-- BEGIN postrow -->
+		userData["user_data_{postrow.POST_ID}"] = `
+			<div class="dropdown-content">
+				<div class="py-3 px-4 border-b flex flex-wrap items-center gap-3">
+					<!-- IF postrow.POSTER_AVATAR -->
+						<div class="h-16 w-16 mx-auto rounded-full overflow-hidden">
+						<!-- IF postrow.U_POST_AUTHOR --><a href="{postrow.U_POST_AUTHOR}" class="avatar">{postrow.POSTER_AVATAR}</a><!-- ELSE --><span class="avatar">{postrow.POSTER_AVATAR}</span><!-- ENDIF -->
+						</div>
+					<!-- ENDIF -->
+					<div class="grow flex flex-wrap items-center justify-between">
+						<div>
+              <!-- EVENT viewtopic_body_post_author_before -->
+							<h5 class="profile-author font-semibold">{postrow.POST_AUTHOR_FULL}</h5>
+							<!-- EVENT viewtopic_body_post_author_after -->
 
-  							<!-- EVENT viewtopic_body_postrow_rank_before -->
-  							<!-- IF postrow.RANK_TITLE --><p class="profile-rank leading-6 text-sm font-medium">{postrow.RANK_TITLE}</p><!-- ENDIF -->
-  							<!-- EVENT viewtopic_body_postrow_rank_after -->
-              </div>
-  						<!-- IF postrow.RANK_IMG -->
-  						<span class="inline-flex items-center align-middle gap-2 rank-img">{postrow.RANK_IMG}</span>
-  						<!-- ENDIF -->
-  					</div>
-  				</div>
-  				<ul class="py-3 px-4 flex flex-col gap-2">
-  					<!-- IF postrow.POSTER_POSTS != '' -->
-  					<li class="profile-posts flex flex-wrap gap-1 text-sm">
-  						<span class="font-medium">{L_POSTS}{L_COLON}</span>
-  						<!-- IF postrow.U_SEARCH !== '' --><a href="{postrow.U_SEARCH}"><!-- ENDIF -->{postrow.POSTER_POSTS}<!-- IF postrow.U_SEARCH !== '' --></a><!-- ENDIF -->
-  					</li>
-  					<!-- ENDIF -->
-  					<!-- IF postrow.POSTER_JOINED -->
-  					<li class="profile-joined flex flex-wrap gap-1 text-sm">
-  						<span class="font-medium">{L_JOINED}{L_COLON}</span> {postrow.POSTER_JOINED}
-  					</li>
-  					<!-- ENDIF -->
-  					<!-- IF postrow.POSTER_WARNINGS -->
-  					<li class="profile-warnings flex flex-wrap gap-1 text-sm">
-  						<span class="font-medium">{L_WARNINGS}{L_COLON}</span> {postrow.POSTER_WARNINGS}
-  					</li>
-  					<!-- ENDIF -->
-  					<!-- IF postrow.S_PROFILE_FIELD1 -->
-  					<!-- Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
-  					<li class="profile-warnings flex flex-wrap gap-1 text-sm">
-  						<span class="font-medium">{postrow.PROFILE_FIELD1_NAME}{L_COLON}</span> {postrow.PROFILE_FIELD1_VALUE}
-  					</li>
-  					<!-- ENDIF -->
+							<!-- EVENT viewtopic_body_postrow_rank_before -->
+							<!-- IF postrow.RANK_TITLE --><p class="profile-rank leading-6 text-sm font-medium">{postrow.RANK_TITLE}</p><!-- ENDIF -->
+							<!-- EVENT viewtopic_body_postrow_rank_after -->
+            </div>
+						<!-- IF postrow.RANK_IMG -->
+						<span class="inline-flex items-center align-middle gap-2 rank-img">{postrow.RANK_IMG}</span>
+						<!-- ENDIF -->
+					</div>
+				</div>
+				<ul class="py-3 px-4 flex flex-col gap-2">
+					<!-- IF postrow.POSTER_POSTS != '' -->
+					<li class="profile-posts flex flex-wrap gap-1 text-sm">
+						<span class="font-medium">{L_POSTS}{L_COLON}</span>
+						<!-- IF postrow.U_SEARCH !== '' --><a href="{postrow.U_SEARCH}"><!-- ENDIF -->{postrow.POSTER_POSTS}<!-- IF postrow.U_SEARCH !== '' --></a><!-- ENDIF -->
+					</li>
+					<!-- ENDIF -->
+					<!-- IF postrow.POSTER_JOINED -->
+					<li class="profile-joined flex flex-wrap gap-1 text-sm">
+						<span class="font-medium">{L_JOINED}{L_COLON}</span> {postrow.POSTER_JOINED}
+					</li>
+					<!-- ENDIF -->
+					<!-- IF postrow.POSTER_WARNINGS -->
+					<li class="profile-warnings flex flex-wrap gap-1 text-sm">
+						<span class="font-medium">{L_WARNINGS}{L_COLON}</span> {postrow.POSTER_WARNINGS}
+					</li>
+					<!-- ENDIF -->
+					<!-- IF postrow.S_PROFILE_FIELD1 -->
+					<!-- Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
+					<li class="profile-warnings flex flex-wrap gap-1 text-sm">
+						<span class="font-medium">{postrow.PROFILE_FIELD1_NAME}{L_COLON}</span> {postrow.PROFILE_FIELD1_VALUE}
+					</li>
+					<!-- ENDIF -->
 
-  					<!-- EVENT viewtopic_body_postrow_custom_fields_before -->
-  					<!-- BEGIN custom_fields -->
-  					<!-- IF not postrow.custom_fields.S_PROFILE_CONTACT -->
-  					<li class="profile-custom-field profile-{postrow.custom_fields.PROFILE_FIELD_IDENT} flex flex-wrap gap-1 text-sm">
-  						<span class="font-medium">{postrow.custom_fields.PROFILE_FIELD_NAME}{L_COLON}</span> {postrow.custom_fields.PROFILE_FIELD_VALUE}
-  					</li>
-  						<!-- ENDIF -->
-  					<!-- END custom_fields -->
-  					<!-- EVENT viewtopic_body_postrow_custom_fields_after -->
+					<!-- EVENT viewtopic_body_postrow_custom_fields_before -->
+					<!-- BEGIN custom_fields -->
+					<!-- IF not postrow.custom_fields.S_PROFILE_CONTACT -->
+					<li class="profile-custom-field profile-{postrow.custom_fields.PROFILE_FIELD_IDENT} flex flex-wrap gap-1 text-sm">
+						<span class="font-medium">{postrow.custom_fields.PROFILE_FIELD_NAME}{L_COLON}</span> {postrow.custom_fields.PROFILE_FIELD_VALUE}
+					</li>
+						<!-- ENDIF -->
+					<!-- END custom_fields -->
+					<!-- EVENT viewtopic_body_postrow_custom_fields_after -->
 
-  					<!-- EVENT viewtopic_body_contact_fields_before -->
-  					<!-- IF not S_IS_BOT and .postrow.contact -->
-  					<li class="mt-2 profile-contact text-sm flex flex-wrap items-center gap-1" title="{postrow.CONTACT_USER}">
-  						<div class="md:hidden font-medium mb-1">{L_CONTACT}{L_COLON}</div>
-  						{% set icons = {pm: 'ph:chat-circle-dots', email: 'fluent:mail-24-regular', phpbb_icq: 'fontisto:icq', phpbb_aol: 'simple-icons:aol', phpbb_website: 'ph:globe', phpbb_youtube: 'ri:youtube-line', phpbb_facebook: 'ri:facebook-circle-line', phpbb_skype: 'ri:skype-line', phpbb_twitter: 'ri:twitter-line', phpbb_yahoo: 'mdi:yahoo'} %}
-  						<!-- BEGIN contact -->
-  						<a href="<!-- IF postrow.contact.U_CONTACT -->{postrow.contact.U_CONTACT}<!-- ELSE -->{postrow.U_POST_AUTHOR}<!-- ENDIF -->" class="relative flex overflow-hidden transition-all duration-300 dropdown-item md:rounded-full gap-2 max-md:w-full md:p-2 p-3 text-secondary border hover:border-primary/5" title="{postrow.contact.NAME}"<!-- IF postrow.contact.ID eq 'jabber' --> onclick="popup(this.href, 750, 320); return false;"<!-- ENDIF --> aria-label="{postrow.contact.NAME}">
-  							{% EVENT viewtopic_body_contact_icon_prepend %}
-  							{% if postrow.contact.ID in icons|keys %}<span class="leading-[0]"><i class="iconify" data-mode="style" data-icon="{{ icons[postrow.contact.ID] }}" data-width="18" data-height="18" aria-hidden="true"></i></span>{% else %}<i class="icon {postrow.contact.ID}-icon" aria-hidden="true"></i>{% endif %}
-  							<span class="md:hidden">{postrow.contact.NAME}</span>
-  							{% EVENT viewtopic_body_contact_icon_append %}
-  						</a>
-  						<!-- END contact -->
-  					</li>
-  					<!-- ENDIF -->
-  					<!-- EVENT viewtopic_body_contact_fields_after -->
-  				</ul>
-  			</div>`;
-  		<!-- END postrow -->
+					<!-- EVENT viewtopic_body_contact_fields_before -->
+					<!-- IF not S_IS_BOT and .postrow.contact -->
+					<li class="mt-2 profile-contact text-sm flex flex-wrap items-center gap-1" title="{postrow.CONTACT_USER}">
+						<div class="md:hidden font-medium mb-1">{L_CONTACT}{L_COLON}</div>
+						{% set icons = {pm: 'ph:chat-circle-dots', email: 'fluent:mail-24-regular', phpbb_icq: 'fontisto:icq', phpbb_aol: 'simple-icons:aol', phpbb_website: 'ph:globe', phpbb_youtube: 'ri:youtube-line', phpbb_facebook: 'ri:facebook-circle-line', phpbb_skype: 'ri:skype-line', phpbb_twitter: 'ri:twitter-line', phpbb_yahoo: 'mdi:yahoo'} %}
+						<!-- BEGIN contact -->
+						<a href="<!-- IF postrow.contact.U_CONTACT -->{postrow.contact.U_CONTACT}<!-- ELSE -->{postrow.U_POST_AUTHOR}<!-- ENDIF -->" class="relative flex overflow-hidden transition-all duration-300 dropdown-item md:rounded-full gap-2 max-md:w-full md:p-2 p-3 text-secondary border hover:border-primary/5" title="{postrow.contact.NAME}"<!-- IF postrow.contact.ID eq 'jabber' --> onclick="popup(this.href, 750, 320); return false;"<!-- ENDIF --> aria-label="{postrow.contact.NAME}">
+							{% EVENT viewtopic_body_contact_icon_prepend %}
+							{% if postrow.contact.ID in icons|keys %}<span class="leading-[0]"><i class="iconify" data-mode="style" data-icon="{{ icons[postrow.contact.ID] }}" data-width="18" data-height="18" aria-hidden="true"></i></span>{% else %}<i class="icon {postrow.contact.ID}-icon" aria-hidden="true"></i>{% endif %}
+							<span class="md:hidden">{postrow.contact.NAME}</span>
+							{% EVENT viewtopic_body_contact_icon_append %}
+						</a>
+						<!-- END contact -->
+					</li>
+					<!-- ENDIF -->
+					<!-- EVENT viewtopic_body_contact_fields_after -->
+				</ul>
+			</div>`;
+		<!-- END postrow -->
 
-  		/* 
-  		* Set user data only if the customer clicks on the user's avatar
-  		* This is important to reduce dom elements to improve performance
-  		*/
-  		$(document).ready(function () {
-  			$(this).on("click", ".user_data_dropdown .zn-dropdown-toggle", function () {
-  				if (!$(this).parent().hasClass('open')) {
-  					let drowdown = $(this).parent().find('.no_data');
-  					if (drowdown.length && Object.keys(userData).length) {
-  						let postID = drowdown.attr('data-dropdown');
-  						drowdown.html(userData[postID] ? userData[postID] : '');
-  						drowdown.removeClass('no_data');
-  					}
-  				}
-  			});
-  		});
-  	})(jQuery);
-  	</script>
-  	{% endblock %}
-  {% endembed %}
-{% else %}
-  <!-- INCLUDE overall_footer.html -->
-{% endif %}
+		/* 
+		* Set user data only if the customer clicks on the user's avatar
+		* This is important to reduce dom elements to improve performance
+		*/
+		$(document).ready(function () {
+			$(this).on("click", ".user_data_dropdown .zn-dropdown-toggle", function () {
+				if (!$(this).parent().hasClass('open')) {
+					let drowdown = $(this).parent().find('.no_data');
+					if (drowdown.length && Object.keys(userData).length) {
+						let postID = drowdown.attr('data-dropdown');
+						drowdown.html(userData[postID] ? userData[postID] : '');
+						drowdown.removeClass('no_data');
+					}
+				}
+			});
+		});
+	})(jQuery);
+	</script>
+	{% endblock %}
+{% endembed %}
