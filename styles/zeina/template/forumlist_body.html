@@ -55,9 +55,9 @@
 									<!-- EVENT forumlist_body_subforums_before -->
 									<div class="subforums mt-2">
 										<div class="subforums-title text-sm font-medium mb-1">{forumrow.L_SUBFORUM_STR}{L_COLON}</div>
-										<ul class="flex flex-wrap max-md:flex-col gap-4 gap-y-2 text-sm md:list-[circle] list-inside">
+										<ul class="flex flex-wrap gap-4 gap-y-2 text-sm list-[circle] list-inside">
 											<!-- BEGIN subforum -->
-												<li><!-- EVENT forumlist_body_subforum_link_prepend --><a href="{forumrow.subforum.U_SUBFORUM}" class="md:p-0 p-3 md:-ms-1.5 inline-block max-md:w-full md:border-0 border rounded-lg subforum<!-- IF forumrow.subforum.S_UNREAD --> text-color unread<!-- ELSE --> read<!-- ENDIF -->" title="{% if forumrow.subforum.IS_LINK %}{{ lang('FORUM_LINK') }}{% elseif forumrow.subforum.S_UNREAD %}{{ lang('UNREAD_POSTS') }}{% else %}{{ lang('NO_UNREAD_POSTS') }}{% endif %}">
+												<li><!-- EVENT forumlist_body_subforum_link_prepend --><a href="{forumrow.subforum.U_SUBFORUM}" class="-ms-1.5 inline-block subforum<!-- IF forumrow.subforum.S_UNREAD --> text-color unread<!-- ELSE --> read<!-- ENDIF -->" title="{% if forumrow.subforum.IS_LINK %}{{ lang('FORUM_LINK') }}{% elseif forumrow.subforum.S_UNREAD %}{{ lang('UNREAD_POSTS') }}{% else %}{{ lang('NO_UNREAD_POSTS') }}{% endif %}">
   											{forumrow.subforum.SUBFORUM_NAME}</a><!-- EVENT forumlist_body_subforum_link_append --></li>
 											<!-- END subforum -->
 										</ul>
@@ -69,9 +69,9 @@
 								<div class="moderators mt-2">
 									<div class="moderators-title text-sm font-medium mb-1">{forumrow.L_MODERATOR_STR}{L_COLON}</div>
 									{% set moderators = forumrow.MODERATORS|split(',') %}
-									<ul class="flex flex-wrap max-md:flex-col md:items-center gap-1.5 text-sm">
+									<ul class="flex flex-wrap md:items-center gap-1.5 text-sm">
 										{% for moderator in moderators %}
-											<li class="md:p-0 inline-block max-md:w-full md:border-0 border rounded-lg mod">{{ moderator }}{% if not loop.last %}<span class="max-md:hidden">{L_COMMA_SEPARATOR}</span>{% endif %}</li>
+											<li class="inline-block mod">{{ moderator }}{% if not loop.last %}{L_COMMA_SEPARATOR}{% endif %}</li>
 										{% endfor %}
 									</ul>
 								</div>
