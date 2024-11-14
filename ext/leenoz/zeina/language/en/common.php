@@ -16,7 +16,6 @@ $lang = array_merge($lang, [
 	'THEME_MODE' => 'Light/Dark Mode',
 	'INFO' => 'Information',
 	'FOLLOW_US' => 'Follow Us',
-	'SCROLL_TOP_TOP' => 'Scroll to top',
 	'DESIGN_BY' => 'Design by',
 	// ------------- Login & Register Page ------------ //
 	'OR' => 'or',

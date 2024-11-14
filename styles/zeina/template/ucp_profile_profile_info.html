@@ -39,7 +39,7 @@
 		<!-- BEGIN profile_fields -->
 		<dl class="py-4 md:grid md:grid-cols-3 md:gap-5">
 			<dt class="text-sm"><label class="font-medium leading-6"<!-- IF profile_fields.FIELD_ID --> for="{profile_fields.FIELD_ID}"<!-- ENDIF -->>{profile_fields.LANG_NAME}{L_COLON}<!-- IF profile_fields.S_REQUIRED --> *<!-- ENDIF --></label>
-				<!-- IF profile_fields.LANG_EXPLAIN --><br><span class="text-secondary">{L_BIRTHDAY_EXPLAIN}</span><!-- ENDIF -->
+				<!-- IF profile_fields.LANG_EXPLAIN --><br><span class="text-secondary">{profile_fields.LANG_EXPLAIN}</span><!-- ENDIF -->
 				<!-- IF profile_fields.ERROR --><br><div class="text-red-700">{profile_fields.ERROR}</div><!-- ENDIF -->
 			</dt>
 			<dd class="text-sm md:col-span-2 max-md:mt-2">{profile_fields.FIELD}</dd>
