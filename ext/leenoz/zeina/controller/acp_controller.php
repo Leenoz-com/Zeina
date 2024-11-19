@@ -28,6 +28,9 @@ class acp_controller
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
+  /** @var array Style data */
+  protected $styleData;
+
 	/** @var string Theme dir */
 	protected $theme_path;
 
@@ -67,7 +70,8 @@ class acp_controller
 		$this->template			= $template;
 		$this->user					= $user;
 		$this->db					  = $db;
-		$this->theme_path   = $phpbb_root_path . "styles/zeina/theme/";
+    $this->styleData    = $this->getStyleData();
+		$this->theme_path   = $phpbb_root_path . "styles/". $this->styleData['style_path'] ."/theme/";
 		$this->colors_array = array(
 			"blue_theme" 		=> array("37, 99, 235"),
 			"red_theme" 		=> array("185, 28, 28"),
@@ -199,7 +203,7 @@ class acp_controller
 
 		$this->template->assign_vars([
 			"U_ACTION" => $this->u_action,
-      "STYLE_ID" => $this->getStyleID(),
+      "STYLE_ID" => $this->styleData['style_id'],
 			"T_THEME_PATH" => $this->theme_path,
 			"colors_array" => $this->colors_array,
 			"zeina" => $data,
@@ -208,20 +212,19 @@ class acp_controller
 
   /**
    * Get style ID
-   * @return integer
+   * @return array
    */
-  protected function getStyleID()
+  protected function getStyleData()
   {
-    $sql = 'SELECT style_id
-			FROM ' . STYLES_TABLE . '
-      WHERE style_path = "zeina"';
+    $sql = 'SELECT * FROM ' . STYLES_TABLE . '
+      WHERE style_name like "%zeina%"';
 
 		$result = $this->db->sql_query($sql);
 
 		$rows = $this->db->sql_fetchrow($result);
 		$this->db->sql_freeresult($result);
 
-    return $rows && isset($rows['style_id']) ? (int)$rows['style_id'] : null;
+    return $rows;
   }
 
 	/**
