@@ -28,7 +28,7 @@ class install_acp_module extends \phpbb\db\migration\migration
 					'header_image_location' => '',
 
 					// Panels settings
-					'colorful_panel' => 0,
+					'colorful_panel' => 1,
 					'collapse_panel' => 1,
 					'profile_view' => 'simple',
 				))
