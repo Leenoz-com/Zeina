@@ -23,6 +23,7 @@ class install_acp_module extends \phpbb\db\migration\migration
 
           // General settings
 					'theme_color' => 'blue_theme',
+          'font_awesome' => 1,
 
 					// Header settings
 					'header_image_location' => '',
