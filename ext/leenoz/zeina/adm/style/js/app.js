@@ -142,13 +142,17 @@
           !this.hasAttribute('onclick') &&
           !$(this).parents('.user_data_dropdown').length
         ) {
-          // Load iframe with new link
-          let new_link = this.href + (this.href.indexOf('?') > -1 ? '&' : '?') + "preview_mode=1";
-          win.location.href = new_link;
-
           // Show loading message
           $("#preview_area").removeClass('show');
           loadingIndicator(true, 1);
+          win.document.body.innerHTML = '';
+
+          // Load iframe with new link
+          let new_link = this.href + (this.href.indexOf('?') > -1 ? '&' : '?') + "preview_mode=1";
+          new_link = new_link.replaceAll('#', '&');
+          win.location.href = new_link;
+
+          // Refesh preview area
           load_preview();
         }
       });
