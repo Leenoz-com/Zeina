@@ -149,6 +149,7 @@
           // Show loading message
           $("#preview_area").removeClass('show');
           loadingIndicator(true, 1);
+          load_preview();
         }
       });
 
@@ -167,18 +168,21 @@
         $(iframe).addClass('show');
       }, 400);
     }
-
-    var preview_timer = setInterval(function ()
-    {
-      var iframe = document.getElementById('preview_area');
-      var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-      // Check if loading is complete
-      if ((iframeDoc.readyState == 'complete' || iframeDoc.readyState == 'interactive') && $(iframeDoc).find('#page-footer').length) {
-        preview_area(iframe);
-        clearInterval(preview_timer);
-        return;
-      }
-    }, 500);
+    
+    function load_preview() {
+      var preview_timer = setInterval(function ()
+      {
+        var iframe = document.getElementById('preview_area');
+        var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        // Check if loading is complete
+        if ((iframeDoc.readyState == 'complete' || iframeDoc.readyState == 'interactive') && $(iframeDoc).find('#page-footer').length) {
+          preview_area(iframe);
+          clearInterval(preview_timer);
+          return;
+        }
+      }, 500);
+    }
+    load_preview();
 
     // Update Preview Section
     $('input:not([type="file"]), select').on('change', function () {
