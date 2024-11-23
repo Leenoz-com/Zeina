@@ -124,9 +124,12 @@
       });
     });
 
-    $('#preview_area').on("load", function() {
+    /**
+    * Loading preview area
+    */
+    function preview_area(iframe) {
       // Get the template content
-      win = this.contentWindow;
+      win = iframe.contentWindow;
       preview = win.document.documentElement;
 
       // Prevent load preview section when clicking on the collapse button and dropdown buttons
@@ -161,9 +164,21 @@
 
       setTimeout(() => {
         loadingIndicator(false, 1);
-        $(this).addClass('show');
+        $(iframe).addClass('show');
       }, 400);
-    });
+    }
+
+    var preview_timer = setInterval(function ()
+    {
+      var iframe = document.getElementById('preview_area');
+      var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+      // Check if loading is complete
+      if ((iframeDoc.readyState == 'complete' || iframeDoc.readyState == 'interactive') && $(iframeDoc).find('#page-footer').length) {
+        preview_area(iframe);
+        clearInterval(preview_timer);
+        return;
+      }
+    }, 500);
 
     // Update Preview Section
     $('input:not([type="file"]), select').on('change', function () {
