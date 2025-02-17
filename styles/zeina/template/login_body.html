@@ -54,10 +54,10 @@
 					</div>
 					<div class="mt-2 relative">
 						<input type="password" id="{PASSWORD_CREDENTIAL}" name="{PASSWORD_CREDENTIAL}" size="25" autocomplete="current-password" class="inputbox bg-white">
-						<button type="button" title="{L_SHOW_PASSWORD}" data-zn-password="#{PASSWORD_CREDENTIAL}" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
+						<button type="button" title="{{ lang('Show Password') }}" data-zn-password="#{PASSWORD_CREDENTIAL}" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
   						<span class="zn-password-active:block hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye" data-height="14" data-width="14"></i></span>
   						<span class="zn-password-active:hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye-slash" data-height="14" data-width="14"></i></span>
-							<span class="sr-only">{L_SHOW_PASSWORD}</span>
+							<span class="sr-only">{{ lang('Show Password') }}</span>
 						</button>
 					</div>
 				</div>
@@ -93,7 +93,7 @@
 				<!-- IF U_RESEND_ACTIVATION --><a href="{U_RESEND_ACTIVATION}" class="text-sm text-center font-medium text-color">{L_RESEND_ACTIVATION}</a><!-- ENDIF -->
 				<!-- IF not S_ADMIN_AUTH and S_REGISTER_ENABLED -->
 					<p class="text-center text-sm text-secondary">
-						{L_NOT_MEMBER}
+						{{ lang('Not a member?') }}
 						<a href="{U_REGISTER}" class="font-medium text-color">{L_REGISTER}</a>
 					</p>
 				<!-- ENDIF -->

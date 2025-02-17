@@ -6,10 +6,10 @@
 			{% else %}
 			<i class="iconify" data-mode="style" data-icon="logos:{{ oauth.SERVICE_NAME|lower == 'google' ? 'google-icon' : oauth.SERVICE_NAME|lower }}" data-width="16" data-height="16" aria-hidden="true"></i>
 			{% endif %}
-			{{ S_REGISTER_FORM ? lang('REGISTER_WITH') : lang('SIGN_WITH') }} {{ oauth.SERVICE_NAME }}
+			{{ S_REGISTER_FORM ? lang('Sign up with') : lang('Sign in with') }} {{ oauth.SERVICE_NAME }}
 		</a>
 	{% endfor %}
 	<div class="block mt-4">
-		<div class="py-3 flex items-center font-medium text-xs text-secondary uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6">{L_OR}</div>
+		<div class="py-3 flex items-center font-medium text-xs text-secondary uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6">{{ lang('or') }}</div>
 	</div>
 </div>

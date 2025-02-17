@@ -12,16 +12,13 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, [
 	// -------------------- Global -------------------- //
-	'BREADCRUMBS' => 'Navigation menu',
-	'THEME_MODE' => 'Light/Dark Mode',
-	'INFO' => 'Information',
-	'FOLLOW_US' => 'Follow Us',
-	'DESIGN_BY' => 'Design by',
+	'Follow Us' => 'Follow Us',
+	'Design by' => 'Design by',
 	// ------------- Login & Register Page ------------ //
-	'OR' => 'or',
-	'SIGN_WITH' => 'Sign in with',
-	'REGISTER_WITH' => 'Sign up with',
-	'SHOW_PASSWORD' => 'Show/hide password',
-	'NOT_MEMBER' => 'Not a member?',
-	'IS_MEMBER' => 'Member?',
+	'or' => 'or',
+	'Sign in with' => 'Sign in with',
+	'Sign up with' => 'Sign up with',
+	'Show Password' => 'Show Password',
+	'Not a member?' => 'Not a member?',
+	'Member?' => 'Member?',
 ]);
