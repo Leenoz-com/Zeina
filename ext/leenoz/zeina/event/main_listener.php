@@ -71,6 +71,8 @@ class main_listener implements EventSubscriberInterface
 
 		$zeina_config = unserialize($this->config_text->get('zeina_config'));
 		
+		$zeina_config["enabled"] = 1;
+
 		// Set default values for preview mode (Zeina Panel)
 		if ($request->variable('preview_mode', 0) == 1 && $auth->acl_get('a_')) {
 			if ($zeina_config["logo_image_location"] == '')

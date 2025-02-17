@@ -50,10 +50,10 @@
         --color-text: var(--color-primary);
         --color-secondary: 107, 114, 128;
         --header-image: {% if zeina.header_image_location %}url("{{ T_THEME_PATH ~ '/' ~ zeina.header_image_location }}") center center / cover no-repeat{% endif %};
-        --panel-bg: {% if zeina.colorful_panel %}{{ zeina.panel_head_color }}{% else %}#f9fafb{% endif %};
+        --panel-bg: {% if zeina.enabled %}{% if zeina.colorful_panel %}{{ zeina.panel_head_color }}{% else %}#f9fafb{% endif %}{% else %} #2563eb {% endif %};
       }
       .header-section .header-image {
-        background: var(--header-image);
+        background: {% if zeina.enabled %} var(--header-image) {% else %} url("{{ T_THEME_PATH }}/images/header.jpg") center center / cover no-repeat {% endif %};
       }
 
       {% if zeina.font_awesome %}
@@ -73,7 +73,7 @@
     </style>
   </head>
 
-  <body id="phpbb" class="bg-gray-100 text-gray-800 leading-relaxed relative{{ zeina.colorful_panel ? ' card-primary' }} {{ BODY_CLASS }}">
+  <body id="phpbb" class="bg-gray-100 text-gray-800 leading-relaxed relative{{ zeina.colorful_panel or not zeina.enabled ? ' card-primary' }} {{ BODY_CLASS }}">
     <!-- EVENT overall_header_body_before -->
     <div class="wrapper flex flex-col min-h-screen">
       <a id="top" class="top-anchor" accesskey="t"></a>

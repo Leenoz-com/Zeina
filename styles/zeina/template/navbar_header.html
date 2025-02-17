@@ -1,11 +1,17 @@
 <div class="navbar text-sm md:py-4 py-3 bg-white">
   <nav class="max-w-6xl layout-container mx-auto px-4 lg:px-8 md:flex md:items-center md:justify-between md:gap-5">
-    <div class="flex items-center {% if zeina.logo_image_location %}justify-between{% else %}md:hidden justify-end{% endif %}">
-			{% if zeina.logo_image_location %}
-			<a href="{% if U_SITE_HOME %}{{ U_SITE_HOME }}{% else %}{{ U_INDEX }}{% endif %}">
-				<img class="mx-auto logo" style="{{ zeina.logo_width ? 'width:' ~ zeina.logo_width ~ 'px;' }}{{ zeina.logo_height ? 'height:' ~ zeina.logo_height ~ 'px;' }}" src="{{ T_THEME_PATH ~ '/' ~ zeina.logo_image_location }}" alt="{SITENAME}">
-			</a>
-			{% endif %}
+    <div class="flex items-center {% if zeina.logo_image_location or not zeina.enabled %}justify-between{% else %}md:hidden justify-end{% endif %}">
+  		{% if zeina.enabled %}
+        {% if zeina.logo_image_location %}
+  			<a href="{% if U_SITE_HOME %}{{ U_SITE_HOME }}{% else %}{{ U_INDEX }}{% endif %}">
+  				<img class="mx-auto logo" style="{{ zeina.logo_width ? 'width:' ~ zeina.logo_width ~ 'px;' }}{{ zeina.logo_height ? 'height:' ~ zeina.logo_height ~ 'px;' }}" src="{{ T_THEME_PATH ~ '/' ~ zeina.logo_image_location }}" alt="{SITENAME}">
+  			</a>
+  			{% endif %}
+      {% else %}
+        <a href="{% if U_SITE_HOME %}{{ U_SITE_HOME }}{% else %}{{ U_INDEX }}{% endif %}">
+  				<img class="mx-auto logo" style="height: 24px" src="{{ T_THEME_PATH ~ '/images/logo.svg' }}" alt="{SITENAME}">
+  			</a>
+  		{% endif %}
       <div class="md:hidden flex items-center gap-2">
 				<!-- IF S_REGISTERED_USER -->
         <ul class="flex gap-1 md:items-center" role="menubar">
