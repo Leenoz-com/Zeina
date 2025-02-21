@@ -105,7 +105,7 @@
 													</div>
 													<div class="notification_text">
 														<!-- IF notification_list.URL --><a href="<!-- IF notification_list.UNREAD -->{notification_list.U_MARK_READ}<!-- ELSE -->{notification_list.URL}<!-- ENDIF -->"><!-- ENDIF -->
-														<p class="notification-title">{notification_list.FORMATTED_TITLE}</p>
+														<p class="notification-title">{notification_list.FORMATTED_TITLE}<!-- IF notification_list.REFERENCE --> {notification_list.REFERENCE}<!-- ENDIF --></p>
 														<!-- IF notification_list.URL --></a><!-- ENDIF -->
 														<!-- IF notification_list.REASON --><p class="notification-reason">{notification_list.REASON}</p><!-- ENDIF -->
 														<div class="flex flex-col gap-y-1 mt-2">
