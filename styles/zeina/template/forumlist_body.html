@@ -80,29 +80,29 @@
 						<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED -->
 						</div>
 							<div class="md:flex items-center">
-								<a class="feed-icon-forum relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full text-secondary font-medium p-2" title="{L_FEED} - {forumrow.FORUM_NAME}" href="{U_FEED}?f={forumrow.FORUM_ID}" aria-label="{L_FEED} - {forumrow.FORUM_NAME}">
+								<a class="feed-icon-forum relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full text-secondary font-medium p-2" title="{L_FEED} - {forumrow.FORUM_NAME}" href="{{ path('phpbb_feed_forum', { forum_id : forumrow.FORUM_ID } ) }}" aria-label="{L_FEED} - {forumrow.FORUM_NAME}">
 									<i class="iconify" data-mode="style" data-icon="ph:rss-simple-bold" data-width="18" data-height="18" aria-hidden="true"></i>
 								</a>
 							</div>
 						<!-- ENDIF -->
 					</div>
 					<!-- IF forumrow.CLICKS or not forumrow.S_IS_LINK -->
-					<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 md:p-0 p-3 border rounded-lg">
+					<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 border rounded-lg">
 						
 						<!-- IF forumrow.CLICKS -->
-						<div class="redirect font-medium text-sm max-md:flex items-center gap-2 sm:w-[310px] w-full">
+						<div class="redirect font-medium text-sm max-md:flex items-center gap-2 sm:w-[310px] md:p-0 p-2 w-full justify-center">
 							{forumrow.CLICKS} <div class="text-secondary md:text-xs md:mt-0.5">{L_REDIRECTS}</div>
 						</div>
 						<!-- ELSEIF not forumrow.S_IS_LINK -->
-						<div class="lg:flex grid grid-cols-2 max-md:py-1">
-							<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20">
+						<div class="lg:flex grid grid-cols-2 md:p-0 p-2 max-md:divide-x divide-gray-200">
+							<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
 								{forumrow.TOPICS} <div class="text-secondary md:text-xs md:mt-0.5">{L_TOPICS}</div>
 							</div>
-							<div class="posts font-medium text-sm max-md:flex items-center gap-2 lg:w-20">
+							<div class="posts font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
 								{forumrow.POSTS} <div class="text-secondary md:text-xs md:mt-0.5">{L_POSTS}</div>
 							</div>
 						</div>
-						<div class="lastpost text-sm max-lg:pt-2 max-lg:border-t sm:w-[310px] w-full<!-- IF not forumrow.LAST_POST_TIME_RFC3339 --> flex items-center <!-- ENDIF -->">
+						<div class="lastpost text-sm max-lg:pt-2 max-lg:border-t sm:w-[310px] max-md:hidden w-full<!-- IF not forumrow.LAST_POST_TIME_RFC3339 --> flex items-center <!-- ENDIF -->">
 							<!-- IF forumrow.U_UNAPPROVED_TOPICS -->
 								<a class="leading-[0] me-1" href="{forumrow.U_UNAPPROVED_TOPICS}" title="{L_TOPICS_UNAPPROVED}">
 									<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>

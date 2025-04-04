@@ -144,7 +144,7 @@
 				<div class="row-item flex max-md:flex-col gap-4 max-md:gap-2 items-center">
 					<div class="flex flex-wrap w-full md:justify-between relative gap-y-3 row-title" title="{topicrow.TOPIC_FOLDER_IMG_ALT}">
 						<div class="flex flex-row grow gap-4">
-							<div class="topic-icon mt-0.5 leading-[0] {topicrow.TOPIC_IMG_STYLE}" <!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url('{T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: bottom right;"<!-- ENDIF -->>
+							<div class="topic-icon mt-0.5 leading-[0] {topicrow.TOPIC_IMG_STYLE}" <!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url('{T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: top 15px right;"<!-- ENDIF -->>
 								{% include 'forumlist_icons.html' with {'IMG_STYLE': topicrow.TOPIC_IMG_STYLE} %}
 							</div>
 							<div class="topic-details">
@@ -177,7 +177,14 @@
 									<!-- EVENT topiclist_row_topic_title_after -->
 								</div>
 
-								<div class="topic-poster flex flex-wrap items-center gap-1 text-xs font-medium mt-0.5 text-secondary">
+								<!-- IF not S_IS_BOT -->
+      						<div class="md:hidden text-xs text-secondary">
+      							{L_LAST_POST} {L_POST_BY_AUTHOR} <!-- EVENT viewforum_body_last_post_author_username_prepend -->{topicrow.LAST_POST_AUTHOR_FULL}<!-- EVENT viewforum_body_last_post_author_username_append --> &raquo; <a href="{topicrow.U_LAST_POST}" title="{L_GOTO_LAST_POST}"><time datetime="{topicrow.LAST_POST_TIME_RFC3339}">{topicrow.LAST_POST_TIME}</time></a>
+      							<!-- IF topicrow.S_POST_GLOBAL and FORUM_ID != topicrow.FORUM_ID --><br />{L_POSTED} {L_IN} <a href="{topicrow.U_VIEW_FORUM}">{topicrow.FORUM_NAME}</a><!-- ENDIF -->
+      						</div>
+							  <!-- ENDIF -->
+
+								<div class="topic-poster max-md:hidden flex flex-wrap items-center gap-1 text-xs font-medium mt-0.5 text-secondary">
 									<!-- IF topicrow.S_HAS_POLL --><i class="iconify" data-mode="style" data-icon="fluent:data-histogram-16-regular" data-height="16" data-width="16" aria-hidden="true"></i><!-- ENDIF -->
 									<!-- IF topicrow.ATTACH_ICON_IMG --><i class="iconify" data-mode="style" data-icon="ph:paperclip-bold" data-height="16" data-width="16" aria-hidden="true"></i><!-- ENDIF -->
 									{% EVENT topiclist_row_topic_by_author_before %}
@@ -206,19 +213,19 @@
 						<!-- ENDIF -->
 					</div>
 
-					<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 md:p-0 p-3 border rounded-lg">
-						<div class="lg:flex grid grid-cols-2 max-md:py-1">
-							<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20">
+					<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 border rounded-lg">
+						<div class="lg:flex grid grid-cols-2 md:p-0 p-2 max-md:divide-x divide-gray-200">
+							<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
 								{topicrow.REPLIES}
 								<div class="text-secondary md:text-xs md:mt-0.5">{L_REPLIES}</div>
 							</div>
-							<div class="posts font-medium text-sm max-md:flex items-center gap-2 lg:w-20">
+							<div class="posts font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
 								{topicrow.VIEWS}
 								<div class="text-secondary md:text-xs md:mt-0.5">{L_VIEWS}</div>
 							</div>
 						</div>
 
-						<div class="lastpost text-sm max-lg:pt-2 font-medium max-lg:border-t sm:w-52 w-full">
+						<div class="lastpost text-sm max-lg:pt-2 font-medium max-lg:border-t sm:w-52 w-full max-md:hidden">
 							{L_POST_BY_AUTHOR} <!-- EVENT viewforum_body_last_post_author_username_prepend -->{topicrow.LAST_POST_AUTHOR_FULL}<!-- EVENT viewforum_body_last_post_author_username_append -->
 							<!-- IF not S_IS_BOT and topicrow.U_LAST_POST -->
 								<a class="align-middle" href="{topicrow.U_LAST_POST}" title="{L_GOTO_LAST_POST}" aria-label="{L_VIEW_LATEST_POST}">

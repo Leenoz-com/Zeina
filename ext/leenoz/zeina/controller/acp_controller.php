@@ -249,11 +249,19 @@ class acp_controller
 	protected function upload($file, $path)
 	{
 		$location = $path . basename($file["name"]);
-		if (@move_uploaded_file($file["tmp_name"], $location))
+
+    if (!is_writable($path))
 		{
-			return true;
+			if (!phpbb_chmod($path, CHMOD_READ | CHMOD_WRITE))
+			{
+				return false;
+			}
 		}
-		else return false;
+    
+    if (@move_uploaded_file($file["tmp_name"], $location)) {
+      return true;
+    }
+    else return false;
 	}
 
 	/**
