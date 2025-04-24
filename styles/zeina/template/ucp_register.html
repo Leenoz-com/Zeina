@@ -63,7 +63,7 @@
 				<div>
 					<div class="mb-1 flex items-center justify-between gap-1">
 						<label for="username" class="block text-sm font-medium">{L_USERNAME}{L_COLON}</label>
-						<button type="button" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 rounded-full p-2 text-secondary hover:text-color hover:bg-primary/[0.08]" data-zn-collapse="#zn-username-collapse">
+						<button type="button" tabindex="-1" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 rounded-full p-2 text-secondary hover:text-color hover:bg-primary/[0.08]" data-zn-collapse="#zn-username-collapse">
 							<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
 						</button>
 					</div>
@@ -75,7 +75,7 @@
 				<div>
 					<div class="mb-1 flex items-center justify-between gap-1">
 						<label for="new_password" class="block text-sm font-medium">{L_PASSWORD}{L_COLON}</label>
-						<button type="button" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 rounded-full p-2 text-secondary hover:text-color hover:bg-primary/[0.08]" data-zn-collapse="#zn-password-collapse">
+						<button type="button" tabindex="-1" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 rounded-full p-2 text-secondary hover:text-color hover:bg-primary/[0.08]" data-zn-collapse="#zn-password-collapse">
 							<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
 						</button>
 					</div>
@@ -84,7 +84,7 @@
 					</div>
 					<div class="relative">
 						<input type="password" name="new_password" id="new_password" size="25" value="{PASSWORD}" class="inputbox bg-white" title="{L_NEW_PASSWORD}" autocomplete="off">
-						<button type="button" title="{{ lang('Show Password') }}" data-zn-password="#new_password" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
+						<button type="button" title="{{ lang('Show Password') }}" data-zn-password="#new_password" tabindex="-1" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
   						<span class="zn-password-active:block hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye" data-height="14" data-width="14"></i></span>
   						<span class="zn-password-active:hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye-slash" data-height="14" data-width="14"></i></span>
 							<span class="sr-only">{{ lang('Show Password') }}</span>
@@ -95,7 +95,7 @@
 					<label for="password_confirm" class="block text-sm font-medium mb-2">{L_CONFIRM_PASSWORD}{L_COLON}</label>
 					<div class="relative">
 						<input type="password" name="password_confirm" id="password_confirm" size="25" value="{PASSWORD_CONFIRM}" class="inputbox bg-white" title="{L_CONFIRM_PASSWORD}" autocomplete="off">
-						<button type="button" title="{{ lang('Show Password') }}" data-zn-password="#password_confirm" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
+						<button type="button" title="{{ lang('Show Password') }}" data-zn-password="#password_confirm" tabindex="-1" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
   						<span class="zn-password-active:block hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye" data-height="14" data-width="14"></i></span>
   						<span class="zn-password-active:hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye-slash" data-height="14" data-width="14"></i></span>
 							<span class="sr-only">{{ lang('Show Password') }}</span>

@@ -10,12 +10,12 @@
 				<div class="flex items-center justify-between">
 					<label for="password" class="block text-sm font-medium">{L_PASSWORD}{L_COLON}</label>
 					<!-- IF U_SEND_PASSWORD -->
-					<a href="{U_SEND_PASSWORD}" class="text-sm font-medium text-color">{L_FORGOT_PASS}</a>
+					<a href="{U_SEND_PASSWORD}" tabindex="-1" class="text-sm font-medium text-color">{L_FORGOT_PASS}</a>
 					<!-- ENDIF -->
 				</div>
 				<div class="mt-2 relative">
 					<input type="password" id="password" name="password" size="10" autocomplete="current-password" class="inputbox">
-					<button type="button" title="{{ lang('Show Password') }}" aria-label="{{ lang('Show Password') }}" data-zn-password="#password" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
+					<button type="button" title="{{ lang('Show Password') }}" aria-label="{{ lang('Show Password') }}" data-zn-password="#password" tabindex="-1" class="zn-password-toggle absolute top-0 end-0 px-3 rounded-e-md flex items-center h-full">
 						<span class="zn-password-active:block hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye" data-height="14" data-width="14"></i></span>
 						<span class="zn-password-active:hidden leading-[0]"><i class="iconify text-secondary" data-mode="style" data-icon="ph:eye-slash" data-height="14" data-width="14"></i></span>
 					</button>
