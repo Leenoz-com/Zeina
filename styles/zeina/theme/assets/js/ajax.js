@@ -22,7 +22,8 @@ phpbb.addAjaxCallback('mark_forums_read', function(res) {
 				$this.removeClass(unreadClass).addClass(readClass);
 			}
 		});
-		$this.children('.row-title[title="' + unreadTitle + '"]').attr('title', readTitle);
+		$this.find('.forum_icon i').removeClass('text-color').addClass('text-current');
+		$this.parent().find('.row-title[title="' + unreadTitle + '"]').attr('title', readTitle);
 	});
 
 	// Mark subforums read
@@ -83,7 +84,8 @@ phpbb.addAjaxCallback('mark_topics_read', function(res, updateTopicLinks) {
 				$this.removeClass(unreadClass).addClass(readClass);
 			}
 		});
-		$this.children('.row-title[title="' + unreadTitle + '"]').attr('title', readTitle);
+		$this.find('.forum_icon i').removeClass('text-color').addClass('text-current');
+		$this.parents('.row-item').children('.row-title[title="' + unreadTitle + '"]').attr('title', readTitle);
 	});
 
 	// Remove link to first unread post
