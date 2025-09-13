@@ -21,10 +21,10 @@
 					<h3><a class="text-sm" href="{post_review_row.U_MINI_POST}">{post_review_row.POST_SUBJECT}</a></h3>
 					<p class="author text-sm text-secondary border-b pb-2">
 						<!-- IF S_IS_BOT -->
-						<span><i class="iconify" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{post_review_row.MINI_POST}</span></span>
+						<span><i class="iconify text-color" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{post_review_row.MINI_POST}</span></span>
 						<!-- ELSE -->
 						<a href="{post_review_row.U_MINI_POST}" title="{post_review_row.MINI_POST}">
-							<i class="iconify" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{post_review_row.MINI_POST}</span>
+							<i class="iconify text-color" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{post_review_row.MINI_POST}</span>
 						</a>
 						{L_POST_BY_AUTHOR} <!-- EVENT posting_review_row_post_author_username_prepend --><span class="font-semibold">{post_review_row.POST_AUTHOR_FULL}</span><!-- EVENT posting_review_row_post_author_username_append --> &raquo; {post_review_row.POST_DATE}
 						<!-- ENDIF -->

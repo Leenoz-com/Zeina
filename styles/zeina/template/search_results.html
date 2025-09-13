@@ -89,14 +89,14 @@
 				</div>
 				<div id="zn-topics-collapse-{loop.index}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-topics-collapse-{loop.index}">
 					<div>
-						<ul class="topiclist forums divide-y md:p-4 md:mt-2 p-2 mt-1">
+						<ul class="topiclist forums divide-y md:p-4 p-2 mt-1">
 							<!-- BEGIN searchresults -->
 								<!-- EVENT search_results_topic_before -->
 								<li class="pt-4 mt-4 first:pt-0 first:mt-0 topic row">
 									<div class="row-item flex max-md:flex-col gap-4 max-md:gap-2 items-center">
 										<div class="flex w-full flex-wrap md:justify-between relative gap-y-3 row-title" title="{searchresults.TOPIC_FOLDER_IMG_ALT}">
 											<div class="flex flex-row grow gap-4">
-												<div class="topic-icon mt-0.5 leading-[0] {searchresults.TOPIC_IMG_STYLE}"<!-- IF searchresults.TOPIC_ICON_IMG --> style="background-image: url('{T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: top 15px right;"<!-- ENDIF -->>
+												<div class="topic-icon mt-0.5 leading-[0] {searchresults.TOPIC_IMG_STYLE}"<!-- IF searchresults.TOPIC_ICON_IMG --> style="--topic-icon: url('{T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}');"<!-- ENDIF -->>
 													{% include 'forumlist_icons.html' with {'IMG_STYLE': searchresults.TOPIC_IMG_STYLE} %}
 												</div>
 												<div class="topic-details">
@@ -164,9 +164,9 @@
 											<!-- ENDIF -->
 										</div>
 
-										<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 border rounded-lg">
-											<div class="lg:flex grid grid-cols-2 md:p-0 p-2 max-md:divide-x divide-gray-200">
-												<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
+										<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 border rounded-lg{% if not searchresults.TOPIC_REPLIES and not searchresults.TOPIC_VIEWS %} max-md:hidden{% endif %}">
+          						<div class="lg:flex grid grid-cols-2 md:p-0 p-1.5 max-md:divide-x divide-gray-200">
+          							<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
 													{searchresults.TOPIC_REPLIES}
 													<div class="text-secondary md:text-xs md:mt-0.5">{L_REPLIES}</div>
 												</div>

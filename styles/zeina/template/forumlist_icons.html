@@ -1,4 +1,5 @@
 {% set forum_icon_color = 'unread' in IMG_STYLE ? 'text-color' : 'text-current' %}
+<div class="forum_icon">
 {% if 'locked' in IMG_STYLE %}
 	<i class="iconify {{ forum_icon_color }} mt-0.5" data-mode="style" data-icon="octicon:lock-24" data-width="32" data-height="32" aria-hidden="true"></i>
 {% elseif 'subforum' in IMG_STYLE %}
@@ -16,3 +17,4 @@
 {% else %}
 	<i class="iconify {{ forum_icon_color }} mt-0.5" data-mode="style" data-icon="fluent:chat-32-regular" data-width="32" data-height="32" aria-hidden="true"></i>
 {% endif %}
+</div>

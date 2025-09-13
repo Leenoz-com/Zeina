@@ -1,7 +1,7 @@
 <!-- IF .forumrow -->
 	<!-- BEGIN forumrow -->
 		<!-- IF forumrow.S_FIRST_ROW  -->
-			<ul class="categories mt-2 grid md:gap-4 gap-2">
+			<ul class="categories mt-2 mb-5 grid md:gap-4 gap-2">
 		<!-- ENDIF -->
 
 		<!-- IF (forumrow.S_IS_CAT and not forumrow.S_FIRST_ROW) or forumrow.S_NO_CAT  -->
@@ -26,7 +26,7 @@
 					{% endif %}
 				</div>
 				<div id="zn-category-collapse-{forumrow.FORUM_ID}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-category-collapse-{forumrow.FORUM_ID}">
-					<ul class="topiclist forums divide-y md:p-4 md:mt-2 p-2 mt-1">
+					<ul class="topiclist forums divide-y md:p-4 p-2 mt-1">
 		<!-- ENDIF -->
 		<!-- EVENT forumlist_body_category_header_after -->
 
@@ -87,14 +87,14 @@
 						<!-- ENDIF -->
 					</div>
 					<!-- IF forumrow.CLICKS or not forumrow.S_IS_LINK -->
-					<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 border rounded-lg">
+					<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 border rounded-lg{% if not forumrow.TOPICS and not forumrow.POSTS and not forumrow.CLICKS %} max-md:hidden{% endif %}">
 						
 						<!-- IF forumrow.CLICKS -->
-						<div class="redirect font-medium text-sm max-md:flex items-center gap-2 sm:w-[310px] md:p-0 p-2 w-full justify-center">
+						<div class="redirect font-medium text-sm max-md:flex items-center gap-2 md:w-[310px] md:p-0 p-1.5 w-full justify-center">
 							{forumrow.CLICKS} <div class="text-secondary md:text-xs md:mt-0.5">{L_REDIRECTS}</div>
 						</div>
 						<!-- ELSEIF not forumrow.S_IS_LINK -->
-						<div class="lg:flex grid grid-cols-2 md:p-0 p-2 max-md:divide-x divide-gray-200">
+						<div class="lg:flex grid grid-cols-2 md:p-0 p-1.5 max-md:divide-x divide-gray-200">
 							<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
 								{forumrow.TOPICS} <div class="text-secondary md:text-xs md:mt-0.5">{L_TOPICS}</div>
 							</div>
@@ -102,7 +102,7 @@
 								{forumrow.POSTS} <div class="text-secondary md:text-xs md:mt-0.5">{L_POSTS}</div>
 							</div>
 						</div>
-						<div class="lastpost text-sm max-lg:pt-2 max-lg:border-t sm:w-[310px] max-md:hidden w-full<!-- IF not forumrow.LAST_POST_TIME_RFC3339 --> flex items-center <!-- ENDIF -->">
+						<div class="lastpost text-sm max-lg:pt-2 max-lg:border-t md:w-[310px] max-md:hidden w-full<!-- IF not forumrow.LAST_POST_TIME_RFC3339 --> flex items-center <!-- ENDIF -->">
 							<!-- IF forumrow.U_UNAPPROVED_TOPICS -->
 								<a class="leading-[0] me-1" href="{forumrow.U_UNAPPROVED_TOPICS}" title="{L_TOPICS_UNAPPROVED}">
 									<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>

@@ -13,8 +13,9 @@
   			</a>
   		{% endif %}
       <div class="md:hidden flex items-center gap-2">
-				<!-- IF S_REGISTERED_USER -->
         <ul class="flex gap-1 md:items-center" role="menubar">
+        <!-- EVENT zeina_navbar_icons_prepend -->
+				<!-- IF S_REGISTERED_USER -->
   				<!-- IF S_DISPLAY_PM -->
   				<li class="md:block relative flex items-center" role="presentation">
   					<a href="{U_PRIVATEMSGS}" class="relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full gap-2 w-full p-2 font-medium" title="{L_PRIVATE_MESSAGES}" role="menuitem">
@@ -55,8 +56,9 @@
   					<!-- INCLUDE notification_dropdown.html -->
   				</li>
   				<!-- ENDIF -->
-        </ul>
 				<!-- ENDIF -->
+        <!-- EVENT zeina_navbar_icons_append -->
+        </ul>
 
         <button type="button" class="zn-collapse-toggle relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full gap-2 p-2" data-zn-collapse="#navbar-alignment" aria-controls="navbar-alignment" aria-label="Toggle navigation">					
 					<span class="zn-collapse-open:hidden block leading-[0]"><i class="iconify" data-mode="style" data-icon="ph:list-bold" data-width="24" data-height="24" aria-hidden="true"></i></span>
@@ -151,6 +153,7 @@
       </ul>
 			<div class="navbar-menu-divider md:hidden border-t my-2"></div>
       <ul id="user-menu" class="flex max-md:flex-col gap-1 md:items-center" role="menubar">
+        <!-- EVENT zeina_navbar_icons_prepend -->
 				<!-- IF S_REGISTERED_USER -->
 				<!-- IF S_DISPLAY_PM -->
 				<li class="relative max-md:hidden" role="presentation">
@@ -255,6 +258,7 @@
 
 					<!-- EVENT navbar_header_logged_out_content -->
 				<!-- ENDIF -->
+        <!-- EVENT zeina_navbar_icons_append -->
 			</ul>
     </div>
   </nav>

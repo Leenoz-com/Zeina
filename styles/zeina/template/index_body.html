@@ -1,9 +1,9 @@
 <!-- INCLUDE overall_header.html -->
 
-<div class="time flex max-md:flex-col gap-2 my-1 mt-2 items-center <!-- IF S_USER_LOGGED_IN -->justify-between<!-- ELSE -->justify-end<!-- ENDIF -->">
-	<div class="current-time card-sm max-md:w-full">{CURRENT_TIME}</div>
+<div class="time flex flex-wrap gap-2 mb-3 p-1 items-center <!-- IF S_USER_LOGGED_IN -->justify-between<!-- ELSE -->justify-end<!-- ENDIF -->">
+	<div class="current-time text-xs font-semibold text-gray-600">{CURRENT_TIME}</div>
 	<!-- IF S_USER_LOGGED_IN -->
-	<div class="last-visit card-sm max-md:w-full">{LAST_VISIT_DATE}</div>
+	<div class="last-visit text-xs font-semibold text-gray-600">{LAST_VISIT_DATE}</div>
 	<!-- ENDIF -->
 </div>
 
@@ -32,7 +32,7 @@
 		{% endif %}
 	</div>
 	<div id="zn-stat-collapse" class="zn-collapse w-full overflow-hidden" aria-labelledby="stat-collapse-btn">
-		<div class="md:p-4 md:mt-2 p-2 mt-1 divide-y space-y-4 stat-content">
+		<div class="md:p-4 p-2 mt-1 divide-y space-y-4 stat-content">
 			<!-- EVENT index_body_stat_blocks_before -->
 			<!-- IF S_DISPLAY_ONLINE_LIST -->
 			<div class="online-list flex gap-4">

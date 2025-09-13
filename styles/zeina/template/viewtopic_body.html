@@ -324,9 +324,11 @@
     			<div class="flex items-center gap-1 justify-end grow">
     				
             {% if zeina.profile_view == 'simple' %}
-    			  <!-- EVENT viewtopic_body_postrow_post_details_before -->
-            <time class="text-secondary p-1 text-sm max-md:hidden" datetime="{postrow.POST_DATE_RFC3339}">{postrow.POST_DATE}</time>
-    			  <!-- EVENT viewtopic_body_postrow_post_details_after -->
+    			  <span class="max-md:hidden">
+      			  <!-- EVENT viewtopic_body_postrow_post_details_before -->
+              <time class="text-secondary p-1 text-sm" datetime="{postrow.POST_DATE_RFC3339}">{postrow.POST_DATE}</time>
+      			  <!-- EVENT viewtopic_body_postrow_post_details_after -->
+            </span>
             {% endif %}
 
     				<!-- DEFINE $SHOW_POST_BUTTONS = (postrow.U_EDIT or postrow.U_DELETE or postrow.U_REPORT or postrow.U_WARN or postrow.U_INFO) -->
@@ -408,6 +410,11 @@
     			{% endif %}
     			<a {% if postrow.S_FIRST_UNREAD %}class="first-unread" {% endif %}href="{{ postrow.U_MINI_POST }}">{{ postrow.POST_SUBJECT }}</a>
     		</div>
+        <div class="hidden max-md:flex">
+  			  <!-- EVENT viewtopic_body_postrow_post_details_before -->
+          <time class="text-secondary mt-0.5 text-xs" datetime="{postrow.POST_DATE_RFC3339}">{postrow.POST_DATE}</time>
+  			  <!-- EVENT viewtopic_body_postrow_post_details_after -->
+        </div>
         {% endif %}
 
     		<div class="mt-2.5 pt-2.5 border-t">
@@ -531,7 +538,7 @@
     				<!-- EVENT viewtopic_body_postrow_post_notices_after -->
 
     				{% EVENT viewtopic_body_postrow_signature_before %}
-    					{% if postrow.SIGNATURE %}<div id="sig{{ postrow.POST_ID }}" class="signature mt-3 pt-3 border-t border-dashed border-gray-200">{{ postrow.SIGNATURE }}</div>{% endif %}
+    					{% if postrow.SIGNATURE %}<div id="sig{{ postrow.POST_ID }}" class="signature text-sm mt-3 pt-3 border-t border-dashed border-gray-200">{{ postrow.SIGNATURE }}</div>{% endif %}
     				{% EVENT viewtopic_body_postrow_signature_after %}
 
     				<!-- EVENT viewtopic_body_postrow_post_content_footer -->
@@ -607,7 +614,7 @@
 		{% endif %}
 	</div>
 	<div id="zn-stat-collapse" class="zn-collapse w-full overflow-hidden" aria-labelledby="stat-collapse-btn">
-		<div class="md:p-4 md:mt-2 p-2 mt-1 divide-y space-y-4 stat-content">
+		<div class="md:p-4 p-2 mt-1 divide-y space-y-4 stat-content">
 			<!-- IF S_DISPLAY_ONLINE_LIST and U_VIEWONLINE -->
 			<div class="online-list flex gap-4">
 				<div class="mt-0.5 size-8"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4"><path stroke-linecap="round" stroke-linejoin="round" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12s4.477 10 10 10"/><path stroke-linecap="round" stroke-linejoin="round" d="M13 2.05S16 6 16 12m-5 9.95S8 18 8 12c0-6 3-9.95 3-9.95M2.63 15.5H12m-9.37-7h18.74"/><path d="M21.879 17.917c.494.304.463 1.043-.045 1.101l-2.567.291l-1.151 2.312c-.228.459-.933.234-1.05-.334l-1.255-6.116c-.099-.48.333-.782.75-.525z" clip-rule="evenodd"/></g></svg></div>

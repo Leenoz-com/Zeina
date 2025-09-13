@@ -61,7 +61,7 @@
 									<dfn>{L_TOPICS}{L_COLON}</dfn>
 									<div class="flex max-md:flex-col w-full md:justify-between md:col-span-5 relative gap-y-3">
 										<div class="flex flex-row gap-4">
-											<div class="topic-icon mt-0.5 leading-[0] {topicrow.TOPIC_IMG_STYLE}"<!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="background-image: url('{T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: top 15px right;"<!-- ENDIF -->>
+											<div class="topic-icon mt-0.5 leading-[0] {topicrow.TOPIC_IMG_STYLE}"<!-- IF topicrow.TOPIC_ICON_IMG and S_TOPIC_ICONS --> style="--topic-icon: url('{T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}');"<!-- ENDIF -->>
 												{% include 'forumlist_icons.html' with {'IMG_STYLE': topicrow.TOPIC_IMG_STYLE} %}
 											</div>
 											<div class="topic-details">

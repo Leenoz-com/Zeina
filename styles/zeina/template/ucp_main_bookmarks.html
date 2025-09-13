@@ -50,7 +50,7 @@
 									<div class="flex max-md:flex-col w-full md:justify-between md:col-span-5 relative gap-y-3" title="{topicrow.TOPIC_FOLDER_IMG_ALT}">
 										<div class="flex flex-row gap-4">
 											<!-- IF topicrow.S_UNREAD_TOPIC --><a href="{topicrow.U_NEWEST_POST}" class="row-item-link"></a><!-- ENDIF -->
-											<div class="topic-icon mt-0.5 leading-[0] {topicrow.TOPIC_IMG_STYLE}"<!-- IF topicrow.TOPIC_ICON_IMG --> style="background-image: url('{T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}'); background-repeat: no-repeat; background-size: 24px; background-position: top 15px right;"<!-- ENDIF -->>
+											<div class="topic-icon mt-0.5 leading-[0] {topicrow.TOPIC_IMG_STYLE}"<!-- IF topicrow.TOPIC_ICON_IMG --> style="--topic-icon: url('{T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}');"<!-- ENDIF -->>
 												{% include 'forumlist_icons.html' with {'IMG_STYLE': topicrow.TOPIC_IMG_STYLE} %}
 											</div>
 											<div class="topic-details">
