@@ -1,5 +1,5 @@
-<div id="attach-panel" role="tabpanel" aria-labelledby="attach-panel" class="hidden">
-	<div class="card p-4">
+<div id="attach-panel" role="tabpanel" aria-labelledby="attach-panel" class="{% if not S_PRIVMSGS %}hidden{% else %}mt-3{% endif %}">
+	<div class="{% if not S_PRIVMSGS %}card {% endif %}border rounded-xl p-4 p-4">
 
 	<p>{L_ADD_ATTACHMENT_EXPLAIN} <span class="hidden" id="drag-n-drop-message">{L_PLUPLOAD_DRAG_TEXTAREA}</span></p>
 	{% if MAX_ATTACHMENT_FILESIZE is not empty %}<p>{{ MAX_ATTACHMENT_FILESIZE }}</p>{% endif %}
