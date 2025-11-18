@@ -3,9 +3,9 @@
     "type": "phpbb-extension",
     "description": "Control panel for Zeina theme",
     "homepage": "https://leenoz.com/zeina",
-    "version": "1.2.9",
-    "time": "2025-10-27",
-    "license": "GPL v2.0",
+    "version": "1.3.0",
+    "time": "2025-11-18",
+    "license": "GPL-2.0-only",
     "authors": [
         {
             "name": "Leenoz",

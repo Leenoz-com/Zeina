@@ -161,7 +161,8 @@ const zeina = {};
         (!dropdown.is(e.target) && dropdown.has(e.target).length === 0) ||
         (dropdown.has(e.target).length && (dropdown.find('a').is(e.target) || dropdown.find('a').has(e.target).length) && !$(e.target).hasClass('zn-dropdown-toggle'))
       ) {
-        zeina.dropdown(false);
+        if (!$(e.target).parents('#notification_list').length)
+          zeina.dropdown(false);
       }
 
       // if the target of the click isn't the modal not a descendant of the modal

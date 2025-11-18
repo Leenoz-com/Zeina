@@ -20,8 +20,8 @@
 		<ul id="notification_list" class="grid gap-2 max-h-72 overflow-auto p-3">
 			<!-- BEGIN notifications -->
 				<li class="<!-- IF notifications.UNREAD --> bg2<!-- ENDIF --><!-- IF notifications.STYLING --> {notifications.STYLING}<!-- ENDIF --><!-- IF not notifications.URL --> no-url<!-- ENDIF --> md:pt-2 first:pt-0 border-t first:border-0">
-					<div class="block md:p-2 p-3 rounded-lg transition-all duration-300 hover:bg-primary/[0.08]">
-						<div class="flex justify-between w-full">
+					<div id="notification-body" class="relative overflow-hidden block md:p-2 p-3 rounded-lg transition-all duration-300 hover:bg-primary/[0.08]">
+						<div id="notification-content" class="flex items-center justify-between w-full">
 							<!-- IF notifications.URL -->
 							<a class="notification-block grow non-link" href="<!-- IF notifications.UNREAD -->{notifications.U_MARK_READ}" data-real-url="{notifications.URL}<!-- ELSE -->{notifications.URL}<!-- ENDIF -->">
 							<!-- ENDIF -->
@@ -43,8 +43,8 @@
 							</a>
 							<!-- ENDIF -->
 							<!-- IF notifications.UNREAD -->
-							<a href="{notifications.U_MARK_READ}" class="mark_read icon-mark relative px-4 md:block hidden" data-ajax="notification.mark_read" title="{L_MARK_READ}">
-								<span class="flex absolute top-1 end-1 h-3 w-3"><span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span></span>
+							<a href="{notifications.U_MARK_READ}" class="mark_read icon-mark bg-white leading-[0] rounded-full absolute transition-all duration-300 md:block hidden" data-ajax="notification.mark_read" title="{L_MARK_READ}">
+					      <i class="iconify" data-mode="style" data-icon="si:check-line" data-height="20" data-width="20"></i>
 								<span class="sr-only">{L_MARK_READ}</span>
 							</a>
 							<!-- ENDIF -->
