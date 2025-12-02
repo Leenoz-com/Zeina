@@ -13,7 +13,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, [
 	// -------------------- Global -------------------- //
 	'Follow Us' => 'Follow Us',
-	'Design by' => 'Design by',
+	'Designed by' => 'Designed by',
 	// ------------- Login & Register Page ------------ //
 	'or' => 'or',
 	'Sign in with' => 'Sign in with',
