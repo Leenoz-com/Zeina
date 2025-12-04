@@ -25,16 +25,15 @@
   					</div>
   				  <!-- EVENT quickreply_editor_message_after -->
   				</div>
-  				<div class="md:flex block justify-between items-center mt-4">
+  				<div class="md:flex block justify-center gap-2 items-center mt-4">
   					{S_FORM_TOKEN}
   					{QR_HIDDEN_FIELDS}
-
 						<div class="fullscreen-comment relative">
-              <button id="qr_full_editor" type="submit" onclick="this.nextElementSibling.click();" role="button" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center">
+              <button type="button" onclick="this.nextElementSibling.click();" role="button" class="btn-primary-outline relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center">
   							<i class="iconify" data-mode="style" data-icon="fluent:full-screen-maximize-24-filled" data-width="18" data-height="18" aria-hidden="true"></i>
-                {L_PREVIEW}
+                {L_FULL_EDITOR}
         			</button>
-							<input type="submit" name="preview" value="{L_PREVIEW}" role="button" class="opacity-0 absolute -z-10 top-0">
+							<input id="qr_full_editor" type="submit" accesskey="f" name="preview" value="{L_FULL_EDITOR}" role="button" class="opacity-0 absolute -z-10 top-0">
   					</div>
   					<div class="submit-comment md:mt-0 mt-2 relative">
         			<button type="button" onclick="this.nextElementSibling.click();" role="button" class="btn-primary relative flex overflow-hidden transition-all duration-300 w-full gap-2 max-md:justify-center">
