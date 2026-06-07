@@ -1,6 +1,6 @@
 <div class="mb-4 max-w-sm mx-auto w-full">
 	{% for oauth in oauth %}
-		<a href="{{ oauth.REDIRECT_URL }}" class="relative flex overflow-hidden transition-all duration-300{% if not loop.first %} mt-2{% endif %} w-full py-3 px-4 justify-center items-center gap-3 text-sm font-medium inputbox bg-white">
+		<a href="{{ oauth.LOGIN_URL }}" class="relative flex overflow-hidden transition-all duration-300{% if not loop.first %} mt-2{% endif %} w-full py-3 px-4 justify-center items-center gap-3 text-sm font-medium inputbox bg-white">
 			{% if oauth.SERVICE_NAME|lower == 'bitly' %}
 			<i class="iconify" data-mode="style" data-icon="cib:bitly" data-width="16" data-height="16" aria-hidden="true" style="color: #f75e15"></i>
 			{% else %}

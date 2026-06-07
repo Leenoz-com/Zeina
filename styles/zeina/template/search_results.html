@@ -103,11 +103,11 @@
 													<!-- EVENT topiclist_row_prepend -->
 													<div class="flex items-center gap-2 max-md:py-1">
 														<!-- EVENT topiclist_row_topic_title_before -->
-														<!-- IF searchresults.S_UNREAD_TOPIC and not S_IS_BOT -->
+														{% if searchresults.U_NEWEST_POST and searchresults.S_UNREAD_TOPIC and not S_IS_BOT %}
 														<a class="unread leading-[0]" href="{searchresults.U_NEWEST_POST}">
 															<i class="iconify text-color" data-mode="style" data-icon="ph:file" data-width="14" data-height="14" aria-hidden="true"></i><span class="sr-only">{L_NEW_POST}</span>
 														</a>
-														<!-- ENDIF -->
+														{% endif %}
 														
 														<h3 class="text-sm font-semibold "><!-- IF searchresults.U_VIEW_TOPIC --><a href="{searchresults.U_VIEW_TOPIC}" class="topictitle max-md:py-1">{searchresults.TOPIC_TITLE}</a><!-- ELSE -->{searchresults.TOPIC_TITLE}<!-- ENDIF --></h3>
 														
@@ -165,8 +165,8 @@
 										</div>
 
 										<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 border rounded-lg{% if not searchresults.TOPIC_REPLIES and not searchresults.TOPIC_VIEWS %} max-md:hidden{% endif %}">
-          						<div class="lg:flex grid grid-cols-2 md:p-0 p-1.5 max-md:divide-x divide-gray-200">
-          							<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
+          									<div class="lg:flex grid grid-cols-2 md:p-0 p-1.5 max-md:divide-x divide-gray-200">
+          										<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
 													{searchresults.TOPIC_REPLIES}
 													<div class="text-secondary md:text-xs md:mt-0.5">{L_REPLIES}</div>
 												</div>
@@ -178,11 +178,11 @@
 
 											<div class="lastpost text-sm max-lg:pt-2 font-medium max-lg:border-t sm:w-52 w-full max-md:hidden">
 												{L_POST_BY_AUTHOR} <!-- EVENT search_results_last_post_author_username_prepend -->{searchresults.LAST_POST_AUTHOR_FULL}<!-- EVENT search_results_last_post_author_username_append -->
-												<!-- IF not S_IS_BOT -->
+												{% if not S_IS_BOT and searchresults.U_LAST_POST %}
 													<a class="align-middle" href="{searchresults.U_LAST_POST}" title="{L_GOTO_LAST_POST}" aria-label="{L_VIEW_LATEST_POST}">
 														<i class="iconify" data-mode="style" data-icon="ph:arrow-square-out-bold" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
 													</a>
-												<!-- ENDIF -->
+												{% endif %}
 												<time class="text-xs block mt-0.5 text-secondary" datetime="{searchresults.LAST_POST_TIME_RFC3339}">{searchresults.LAST_POST_TIME}</time>
 											</div>
 											{% EVENT search_results_topic_row_lastpost_after %}
