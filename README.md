@@ -27,7 +27,7 @@ Zeina is a phpBB theme with a clean and modern design that is fully responsive t
 [Demo](https://demo.leenoz.com/zeina/)
 
 ## Author
-[Leenoz](https://leenoz.com/zeina)
+[Leenoz](https://leenoz.com/)
 
 ## Support
 For support and feedback, email support@leenoz.com.
