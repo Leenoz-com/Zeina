@@ -13,6 +13,8 @@
     */
     function loadingIndicator(active = true, type = 0) {
       if (type == 1)
+        $('.zn-overlay .loading-data').toggleClass('hidden', !active);
+      else if (type == 2)
         $('.preview .loading-data').toggleClass('hidden', !active);
       else
         $('#submit-settings').toggleClass('saving', active);
@@ -144,13 +146,17 @@
         ) {
           // Show loading message
           $("#preview_area").removeClass('show');
-          loadingIndicator(true, 1);
+          loadingIndicator(true, 2);
           win.document.body.innerHTML = '';
 
           // Load iframe with new link
           let new_link = this.href + (this.href.indexOf('?') > -1 ? '&' : '?') + "preview_mode=1";
           new_link = new_link.replaceAll('#', '&');
-          win.location.href = new_link;
+
+          let url = new URL(new_link);
+          url.searchParams.set('forum_layout', data.get('forum_layout'));
+
+          win.location.href = url;
 
           // Refesh preview area
           load_preview();
@@ -168,7 +174,7 @@
       update_preview('all');
 
       setTimeout(() => {
-        loadingIndicator(false, 1);
+        loadingIndicator(false, 2);
         $(iframe).addClass('show');
       }, 400);
     }
@@ -304,6 +310,51 @@
       // Colorful Panel
       if (target == "colorful_panel" || target == 'all')
         $(preview).find('body').toggleClass('card-primary', data.get('colorful_panel') == 1);
+
+      // Forums Layout, Forum Image & Feed Button (server-side rendering, reload the iframe)
+      if (
+        [
+          "all",
+          "forum_layout",
+          "forums_mode",
+          "hide_feed_button",
+        ]
+        .indexOf(target) > -1
+      ) {
+        if (target == "forum_layout")
+        {
+          // New URL
+          let url = new URL(win.location.href);
+          url.searchParams.set('forum_layout', data.get('forum_layout'));
+          url.searchParams.set('preview_mode', '1');
+
+          if (url.href == win.location.href) return;
+
+          // Show loading message
+          $("#preview_area").removeClass('show');
+          
+          loadingIndicator(true, 2);
+          win.document.body.innerHTML = '';
+
+          win.location.href = url.href;
+
+          // Refesh preview area
+          load_preview();
+
+          update_preview('all');
+        }
+        else {
+          let forums_type = data.get('forums_mode');
+          console.log(forums_type);
+          $(preview).find('.forum_icon .default-icons').css('display', forums_type == 'images' ? 'none' : 'inline-block');
+          $(preview).find('.row-icon').toggleClass('forum_custom_icon', forums_type == 'images');
+
+          $(preview).find('.forum.row').toggleClass('grid-sys', data.get('forum_layout') == 'grid');
+
+          // Hide Feed button
+          $(preview).find('.forum.row .feed-btn').toggle(data.get('hide_feed_button') !== '1');
+        }
+      }
     }
   });
 

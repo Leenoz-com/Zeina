@@ -34,6 +34,19 @@ $lang = array_merge($lang, [
 	/** General Settings **/
 	'ACP_GENERAL_SETTINGS' => 'General Settings',
 	'ACP_THEME_COLOR' => 'Theme Color',
+	/** Forums Settings **/
+	'ACP_FORUMS_SETTINGS' => 'Forums Settings',
+	'ACP_FORUM_LAYOUT' => 'Forums Layout',
+	'ACP_FORUM_LAYOUT_ROW' => 'Rows',
+	'ACP_FORUM_LAYOUT_GRID' => 'Grid',
+	'ACP_HIDE_FEED_BUTTON' => 'Hide Feed Button',
+  	'ACP_FORUMS_MODE' => 'Forum Icons Mode',
+  	'ACP_FORUMS_DEFAULT' => 'Default',
+  	'ACP_FORUMS_IMAGES' => 'Images',
+
+
+
+
   'ACP_FONT_AWESOME' => 'Allow Font Awesome Library?',
 
 	/** Header Settings **/

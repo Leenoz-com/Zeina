@@ -107,7 +107,52 @@
                 <input type="hidden" class="image-location" name="header_image_location" value="{{ zeina.header_image_location }}">
               </div>
 
-              <!-- Panels Section -->
+
+              <!--========= Forums Section =========-->
+              <div class="border-t border-dashed pt-5">
+                <h3 class="text-xs text-gray-500 tracking-wide">{L_ACP_FORUMS_SETTINGS}</h3>
+              </div>
+
+              <!-- Forums Layout -->
+              <div>
+                <label class="block text-sm font-semibold mb-2">{L_ACP_FORUM_LAYOUT}</label>
+                <div class="bg-gray-100 p-1 rounded-lg grid grid-cols-2 text-sm">
+                  <div class="checkboxes">
+                    <input class="absolute -z-10 invisible h-0 w-0" type="radio" name="forum_layout" id="forum_layout_row" data-options='{"forum_image_display": 0}' value="row"{% if zeina.forum_layout == 'row' %} checked="checked"{% endif %}>
+                    <label class="flex items-center justify-center w-full py-1.5 rounded-md font-medium cursor-pointer transition-all" for="forum_layout_row">{L_ACP_FORUM_LAYOUT_ROW}</label>
+                  </div>
+                  <div class="checkboxes">
+                    <input class="absolute -z-10 invisible h-0 w-0" type="radio" name="forum_layout" id="forum_layout_grid" data-options='{"forum_image_display": 1}' value="grid"{% if zeina.forum_layout == 'grid' %} checked="checked"{% endif %}>
+                    <label class="flex items-center justify-center w-full py-1.5 rounded-md font-medium cursor-pointer transition-all" for="forum_layout_grid">{L_ACP_FORUM_LAYOUT_GRID}</label>
+                  </div>
+                </div>
+              </div>
+              <!-- End Forums Layout -->
+
+              <!-- Forum Icons Mode -->
+              <div>
+                <label class="block text-sm font-semibold mb-2">{L_ACP_FORUMS_MODE}</label>
+                <div class="bg-gray-100 p-1 rounded-lg grid grid-cols-2 text-sm">
+									<div class="checkboxes">
+                    <input class="absolute -z-10 invisible h-0 w-0" type="radio" name="forums_mode" id="forums_default" data-options='{"custom_forums_type": 0, "custom_forums_icons": 0}' value="default"{% if zeina.forums_mode == "default" %} checked="checked"{% endif %}>
+                    <label class="flex items-center justify-center w-full py-1.5 rounded-md font-medium cursor-pointer transition-all" for="forums_default">{L_ACP_FORUMS_DEFAULT}</label>
+                  </div>
+                  <div class="checkboxes">
+                    <input class="absolute -z-10 invisible h-0 w-0" type="radio" name="forums_mode" id="forums_images" data-options='{"custom_forums_type": 1, "custom_forums_icons": 0}' value="images"{% if zeina.forums_mode == "images" %} checked="checked"{% endif %}>
+                    <label class="flex items-center justify-center w-full py-1.5 rounded-md font-medium cursor-pointer transition-all" for="forums_images">{L_ACP_FORUMS_IMAGES}</label>
+                  </div>
+                </div>
+              </div>
+              <!-- End Forum Icons Mode -->
+
+              <!-- Hide Feed Button -->
+              <div>
+                <label for="hide_feed_button" class="block text-sm font-semibold mb-2">{L_ACP_HIDE_FEED_BUTTON}</label>
+                <input type="checkbox" id="hide_feed_button" name="hide_feed_button" value="1" class="relative w-[35px] h-[21px] bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-blue-500 checked:bg-none checked:text-blue-500 checked:border-blue-500 focus:checked:border-blue-500 before:inline-block before:size-4 before:bg-white checked:before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"{% if zeina.hide_feed_button %} checked="checked"{% endif %}>
+              </div>
+              <!-- End Hide Feed Button -->
+
+              <!--========= Panels Section =========-->
               <div class="border-t border-dashed pt-5">
                 <h3 class="text-xs text-gray-500 tracking-wide">{L_ACP_PANELS_SETTINGS}</h3>
               </div>

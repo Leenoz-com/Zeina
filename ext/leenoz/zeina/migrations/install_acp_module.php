@@ -21,12 +21,18 @@ class install_acp_module extends \phpbb\db\migration\migration
 					'logo_image_location' => '',
 					'favicon_location' => '',
 
-          // General settings
+          			// General settings
 					'theme_color' => 'blue_theme',
-          'font_awesome' => 1,
+          			'font_awesome' => 1,
 
 					// Header settings
 					'header_image_location' => '',
+					          
+					// Forums settings
+					'forum_layout' => 'row',
+          			'forums_mode' => 'default',
+					
+					'hide_feed_button' => 0,
 
 					// Panels settings
 					'colorful_panel' => 1,

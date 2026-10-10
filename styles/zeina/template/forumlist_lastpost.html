@@ -1,0 +1,34 @@
+<!-- IF forumrow.LAST_POST_TIME_RFC3339 and forumrow.S_DISPLAY_SUBJECT and is_grid -->
+	<!-- EVENT forumlist_body_last_post_title_prepend -->
+<!-- ENDIF -->
+ 
+<!-- IF forumrow.U_UNAPPROVED_TOPICS -->
+    <a class="leading-[0] me-1" href="{forumrow.U_UNAPPROVED_TOPICS}" title="{L_TOPICS_UNAPPROVED}">
+        <i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+        <span class="sr-only">{L_TOPICS_UNAPPROVED}</span>
+    </a>
+<!-- ELSEIF forumrow.U_UNAPPROVED_POSTS -->
+    <a class="leading-[0] me-1" href="{forumrow.U_UNAPPROVED_POSTS}" title="{L_POSTS_UNAPPROVED_FORUM}">
+        <i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
+        <span class="sr-only">{L_POSTS_UNAPPROVED_FORUM}</span>
+    </a>
+<!-- ENDIF -->
+
+<!-- IF forumrow.LAST_POST_TIME_RFC3339 -->
+    <!-- IF forumrow.S_DISPLAY_SUBJECT -->
+		<!-- IF not is_grid --><!-- EVENT forumlist_body_last_post_title_prepend --><!-- ENDIF -->
+		<a href="{forumrow.U_LAST_POST}" title="{forumrow.LAST_POST_SUBJECT}" class="lastsubject font-medium {% if is_grid %}inline-block overflow-hidden whitespace-nowrap align-middle{% else %}max-md:py-1{% endif %}">{forumrow.LAST_POST_SUBJECT_TRUNCATED}</a>
+    <!-- ENDIF -->
+<!-- ELSE -->
+{% if forumrow.U_UNAPPROVED_TOPICS %}
+    {{ lang('TOPIC_UNAPPROVED_FORUM', forumrow.TOPICS) }}
+{% else %}
+    {{ lang('NO_POSTS') }}
+{% endif %}
+<!-- ENDIF -->
+<!-- IF forumrow.LAST_POST_TIME_RFC3339 -->
+<div class="flex flex-wrap {% if is_grid %}items-center{% else %}md:items-center{% endif %} gap-1 text-xs font-medium text-secondary mt-0.5">
+	<span class="{% if not is_grid %}before:content-['\00BB'] before:me-1 before:md:hidden{% endif %}">{L_POST_BY_AUTHOR} <!-- EVENT forumlist_body_last_poster_username_prepend -->{forumrow.LAST_POSTER_FULL}<!-- EVENT forumlist_body_last_poster_username_append --></span>
+    <span>&raquo; <time datetime="{forumrow.LAST_POST_TIME_RFC3339}">{forumrow.LAST_POST_TIME}</time></span>
+</div>
+<!-- ENDIF -->

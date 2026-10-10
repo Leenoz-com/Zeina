@@ -72,13 +72,21 @@ class main_listener implements EventSubscriberInterface
 		$zeina_config = unserialize($this->config_text->get('zeina_config'));
 		
 		$zeina_config["enabled"] = 1;
+    	$is_preview = $request->variable('preview_mode', 0) == 1 && $auth->acl_get('a_');
 
 		// Set default values for preview mode (Zeina Panel)
-		if ($request->variable('preview_mode', 0) == 1 && $auth->acl_get('a_')) {
+    	if ($is_preview) {
 			if ($zeina_config["logo_image_location"] == '')
 				$zeina_config["logo_image_location"] = "logo";
 			
+      		$zeina_config["forums_mode"] = "";
 			$zeina_config["collapse_panel"] = 1;
+      		$zeina_config["hide_feed_button"] = 0;
+
+			$preview_value = $request->variable('forum_layout', '');
+			if ($preview_value !== '') {
+				$zeina_config['forum_layout'] = $preview_value;
+			}
 		}
 
 		$template_vars = array('zeina' => $zeina_config);

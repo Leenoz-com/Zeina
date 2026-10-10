@@ -1,4 +1,6 @@
 <!-- IF .forumrow -->
+ {# Define layout mode once for cleaner conditions #}
+	{% set is_grid = (zeina.forum_layout == 'grid') %}
 	<!-- BEGIN forumrow -->
 		<!-- IF forumrow.S_FIRST_ROW  -->
 			<ul class="categories mt-2 mb-5 grid md:gap-4 gap-2">
@@ -26,28 +28,33 @@
 					{% endif %}
 				</div>
 				<div id="zn-category-collapse-{forumrow.FORUM_ID}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-category-collapse-{forumrow.FORUM_ID}">
-					<ul class="topiclist forums divide-y md:p-4 p-2 mt-1">
+					<ul class="topiclist forums p-2<!-- IF is_grid --> grid gap-2 md:grid-cols-2 md:gap-3 md:p-2<!-- ELSE --> md:p-4 divide-y<!-- ENDIF --> mt-1">
 		<!-- ENDIF -->
 		<!-- EVENT forumlist_body_category_header_after -->
 
 		<!-- IF not forumrow.S_IS_CAT -->
 			<!-- EVENT forumlist_body_forum_row_before -->
-			<li class="pt-4 mt-4 first:pt-0 first:mt-0 forum row">
+			<li class="forum row {{ forumrow.FORUM_IMAGE ? 'has-image ' }} 
+				{{ is_grid ? 'card flex flex-col gap-2 grid-sys' : 'pt-4 mt-3 first:pt-0 first:mt-0' }} 
+				{{ is_grid and S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED and not zeina.hide_feed_button ? 'grid-sys-feed' }}">
 				<!-- EVENT forumlist_body_forum_row_prepend -->
-				<div class="row-item flex max-md:flex-col gap-4 max-md:gap-2 items-center">
-					<div class="flex w-full<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED --> justify-between<!-- ENDIF --> relative row-title {forumrow.FORUM_IMG_STYLE}" title="{% if forumrow.S_IS_LINK %}{{ lang('FORUM_LINK') }}{% else %}{{ forumrow.FORUM_FOLDER_IMG_ALT }}{% endif %}">
-						<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED -->
+				<div class="row-item {{ is_grid ? 'p-2 py-0 mt-1 mb-1 w-full grow relative' : 'flex max-md:flex-col gap-4 max-md:gap-2 items-center' }}">
+					
+					{% set forum_details = forumrow.FORUM_DESC or (forumrow.subforum|length and forumrow.S_LIST_SUBFORUMS) or forumrow.MODERATORS %}
+
+					<div class="flex row-icon row-title {{ is_grid and (forumrow.S_IS_LINK or not forum_details) and not forumrow.FORUM_DESC ? 'items-center' }} {{ is_grid ? 'gap-3 min-w-0' : 'w-full relative ' ~ (S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED and not zeina.hide_feed_button ? 'justify-between' : '') }} {{ zeina.forums_mode == 'images' ? 'forum_custom_icon' }} {forumrow.FORUM_IMG_STYLE}" title="{% if forumrow.S_IS_LINK %}{{ lang('FORUM_LINK') }}{% else %}{{ forumrow.FORUM_FOLDER_IMG_ALT }}{% endif %}">
+						<!-- IF not is_grid and S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED and not zeina.hide_feed_button -->
 						<div class="forum-row flex flex-row flex-grow">
 						<!-- ENDIF -->
-							<!-- IF forumrow.S_UNREAD_FORUM --><a href="{forumrow.U_VIEWFORUM}" class="row-item-link"></a><!-- ENDIF -->
+							<!-- IF forumrow.S_UNREAD_FORUM and not is_grid --><a href="{forumrow.U_VIEWFORUM}" class="row-item-link"></a><!-- ENDIF -->
 							{% include 'forumlist_icons.html' with {'IMG_STYLE': forumrow.FORUM_IMG_STYLE} %}
 							<!-- IF forumrow.FORUM_IMAGE -->
 								<!-- EVENT forumlist_body_forum_image_before -->
-								<span class="forum-image"><!-- EVENT forumlist_body_forum_image_prepend -->{forumrow.FORUM_IMAGE}<!-- EVENT forumlist_body_forum_image_append --></span>
+								<span class="forum-image{{ not is_grid and zeina.forums_mode !== 'images' ? ' ms-3' }}"><!-- EVENT forumlist_body_forum_image_prepend -->{forumrow.FORUM_IMAGE}<!-- EVENT forumlist_body_forum_image_append --></span>
 								<!-- EVENT forumlist_body_forum_image_after -->
 							<!-- ENDIF -->
-							{% set forum_details = forumrow.FORUM_DESC or (forumrow.subforum|length and forumrow.S_LIST_SUBFORUMS) or forumrow.MODERATORS %}
-							<div class="forum-details ms-4<!-- IF not forum_details --> flex items-center<!-- ENDIF --> grow">
+
+							<div class="forum-details {{ is_grid ? 'grow min-w-0' : 'ms-4 grow' }}<!-- IF not forum_details --> flex items-center<!-- ENDIF -->">
 								<h3 class="forum-title text-sm font-semibold block"><a href="{forumrow.U_VIEWFORUM}">{forumrow.FORUM_NAME}</a></h3>
 								<!-- IF forumrow.FORUM_DESC --><p class="forum-desc text-secondary text-sm mt-0.5">{forumrow.FORUM_DESC}</p><!-- ENDIF -->
 								
@@ -77,68 +84,79 @@
 								</div>
 								<!-- ENDIF -->
 							</div>
-						<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED -->
+
+						<!-- IF not is_grid and S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED and not zeina.hide_feed_button -->
 						</div>
-							<div class="md:flex items-center">
-								<a class="feed-icon-forum relative flex overflow-hidden transition-all duration-300 dropdown-item rounded-full text-secondary font-medium p-2" title="{L_FEED} - {forumrow.FORUM_NAME}" href="{{ path('phpbb_feed_forum', { forum_id : forumrow.FORUM_ID } ) }}" aria-label="{L_FEED} - {forumrow.FORUM_NAME}">
-									<i class="iconify" data-mode="style" data-icon="ph:rss-simple-bold" data-width="18" data-height="18" aria-hidden="true"></i>
-								</a>
-							</div>
 						<!-- ENDIF -->
-					</div>
-					<!-- IF forumrow.CLICKS or not forumrow.S_IS_LINK -->
-					<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 border rounded-lg{% if not forumrow.TOPICS and not forumrow.POSTS and not forumrow.CLICKS %} max-md:hidden{% endif %}">
+
+						{# Feed Button: Placed differently based on layout #}
+						<!-- IF not is_grid and S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED and not zeina.hide_feed_button -->
+						<div class="feed-btn md:flex items-center">
+							<a class="feed-icon-forum ripple dropdown-item rounded-full text-secondary font-medium p-2" title="{L_FEED} - {forumrow.FORUM_NAME}" href="{{ path('phpbb_feed_forum', { forum_id : forumrow.FORUM_ID } ) }}" aria-label="{L_FEED} - {forumrow.FORUM_NAME}">
+								<i class="iconify" data-mode="style" data-icon="ph:rss-simple-bold" data-width="18" data-height="18" aria-hidden="true"></i>
+							</a>
+						</div>
+						<!-- ENDIF -->
+						</div>
 						
-						<!-- IF forumrow.CLICKS -->
-						<div class="redirect font-medium text-sm max-md:flex items-center gap-2 md:w-[310px] md:p-0 p-1.5 w-full justify-center">
-							{forumrow.CLICKS} <div class="text-secondary md:text-xs md:mt-0.5">{L_REDIRECTS}</div>
+						<!-- IF is_grid and S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED and not zeina.hide_feed_button -->
+						<div class="feed-btn absolute top-0 end-0">
+							<a class="feed-icon-forum ripple rounded-full text-secondary font-medium p-2 inline-flex" title="{L_FEED} - {forumrow.FORUM_NAME}" href="{{ path('phpbb_feed_forum', { forum_id : forumrow.FORUM_ID } ) }}" aria-label="{L_FEED} - {forumrow.FORUM_NAME}">
+								<i class="iconify" data-mode="style" data-icon="ph:rss-simple-bold" data-width="18" data-height="18" aria-hidden="true"></i>
+							</a>
 						</div>
-						<!-- ELSEIF not forumrow.S_IS_LINK -->
-						<div class="lg:flex grid grid-cols-2 md:p-0 p-1.5 max-md:divide-x divide-gray-200">
-							<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
-								{forumrow.TOPICS} <div class="text-secondary md:text-xs md:mt-0.5">{L_TOPICS}</div>
+						<!-- ENDIF -->
+					
+					{# Stats Section (Row layout places this inside row-item, Grid places it below) #}
+					<!-- IF not is_grid -->
+						<!-- IF forumrow.CLICKS or not forumrow.S_IS_LINK -->
+						<div class="flex max-lg:flex-col max-lg:gap-2 max-md:w-full md:border-0 border rounded-lg{% if not forumrow.TOPICS and not forumrow.POSTS and not forumrow.CLICKS %} max-md:hidden{% endif %}">
+							
+							<!-- IF forumrow.CLICKS -->
+							<div class="redirect font-medium text-sm max-md:flex items-center gap-2 md:w-[310px] md:p-0 p-1.5 w-full justify-center">
+								{forumrow.CLICKS} <div class="text-secondary md:text-xs md:mt-0.5">{L_REDIRECTS}</div>
 							</div>
-							<div class="posts font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
-								{forumrow.POSTS} <div class="text-secondary md:text-xs md:mt-0.5">{L_POSTS}</div>
+							<!-- ELSEIF not forumrow.S_IS_LINK -->
+							<div class="topics-posts lg:flex grid grid-cols-2 md:p-0 p-1.5 max-md:divide-x divide-gray-200">
+								<div class="topics font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
+									{forumrow.TOPICS} <div class="text-secondary md:text-xs md:mt-0.5">{L_TOPICS}</div>
+								</div>
+								<div class="posts font-medium text-sm max-md:flex items-center gap-2 lg:w-20 justify-center">
+									{forumrow.POSTS} <div class="text-secondary md:text-xs md:mt-0.5">{L_POSTS}</div>
+								</div>
 							</div>
-						</div>
-						<div class="lastpost text-sm max-lg:pt-2 max-lg:border-t md:w-[310px] max-md:hidden w-full<!-- IF not forumrow.LAST_POST_TIME_RFC3339 --> flex items-center <!-- ENDIF -->">
-							<!-- IF forumrow.U_UNAPPROVED_TOPICS -->
-								<a class="leading-[0] me-1" href="{forumrow.U_UNAPPROVED_TOPICS}" title="{L_TOPICS_UNAPPROVED}">
-									<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
-									<span class="sr-only">{L_TOPICS_UNAPPROVED}</span>
-								</a>
-							<!-- ELSEIF forumrow.U_UNAPPROVED_POSTS -->
-								<a class="leading-[0] me-1" href="{forumrow.U_UNAPPROVED_POSTS}" title="{L_POSTS_UNAPPROVED_FORUM}">
-									<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
-									<span class="sr-only">{L_POSTS_UNAPPROVED_FORUM}</span>
-								</a>
-							<!-- ENDIF -->
-
-							<!-- IF forumrow.LAST_POST_TIME_RFC3339 -->
-								<!-- IF forumrow.S_DISPLAY_SUBJECT -->
-									<!-- EVENT forumlist_body_last_post_title_prepend -->
-									<a href="{forumrow.U_LAST_POST}" title="{forumrow.LAST_POST_SUBJECT}" class="lastsubject max-md:py-1 font-medium">{forumrow.LAST_POST_SUBJECT_TRUNCATED}</a>
-								<!-- ENDIF -->
-							<!-- ELSE -->
-							{% if forumrow.U_UNAPPROVED_TOPICS %}
-								{{ lang('TOPIC_UNAPPROVED_FORUM', forumrow.TOPICS) }}
-							{% else %}
-								{{ lang('NO_POSTS') }}
-							{% endif %}
-							<!-- ENDIF -->
-							<!-- IF forumrow.LAST_POST_TIME_RFC3339 -->
-							<div class="flex flex-wrap md:items-center gap-1 text-xs font-medium text-secondary mt-0.5">
-								<span class="before:content-['\00BB'] before:me-1 before:md:hidden">{L_POST_BY_AUTHOR} <!-- EVENT forumlist_body_last_poster_username_prepend -->{forumrow.LAST_POSTER_FULL}<!-- EVENT forumlist_body_last_poster_username_append --></span>
-								<span>&raquo; <time datetime="{forumrow.LAST_POST_TIME_RFC3339}">{forumrow.LAST_POST_TIME}</time></span>
+							<div class="lastpost text-sm max-lg:pt-2 max-lg:border-t md:w-[310px] w-full max-md:hidden<!-- IF not forumrow.LAST_POST_TIME_RFC3339 --> flex items-center <!-- ENDIF -->">
+								{# Last post details included via macro or duplicated for row #}
+								{% include 'forumlist_lastpost.html' ignore missing %}
 							</div>
 							<!-- ENDIF -->
 						</div>
 						<!-- ENDIF -->
+					<!-- ENDIF -->
+				</div>
 
+				{# Stats Section for Grid (Placed outside the row-item block) #}
+				<!-- IF is_grid and (forumrow.CLICKS or not forumrow.S_IS_LINK) -->
+				<div class="stats stats-light flex w-full flex-wrap items-center justify-between gap-2 p-2 py-0 pt-2 border-t">
+					<!-- IF forumrow.CLICKS -->
+					<div class="redirect flex font-medium text-sm items-center gap-2">
+						{forumrow.CLICKS} <div class="text-secondary text-xs">{L_REDIRECTS}</div>
+					</div>
+					<!-- ELSEIF not forumrow.S_IS_LINK -->
+					<div class="topics-posts flex flex-wrap items-center gap-3 font-medium text-sm">
+						<div class="topics flex items-center gap-1">{forumrow.TOPICS} <div class="text-secondary text-xs">{L_TOPICS}</div></div>
+						<div class="posts flex items-center gap-1">{forumrow.POSTS} <div class="text-secondary text-xs">{L_POSTS}</div></div>
+					</div>
+					<div class="lastpost text-sm min-w-0 flex justify-end grow">
+						<div>
+						{# Last post details included via macro or duplicated for grid #}
+						{% include 'forumlist_lastpost.html' ignore missing %}
+						</div>
 					</div>
 					<!-- ENDIF -->
 				</div>
+				<!-- ENDIF -->
+
 				<!-- EVENT forumlist_body_forum_row_append -->
 			</li>
 			<!-- EVENT forumlist_body_forum_row_after -->
@@ -152,7 +170,6 @@
 		<!-- EVENT forumlist_body_last_row_after -->
 		<!-- ENDIF -->
 <!-- END forumrow -->
-
 
 <!-- ELSE -->
 <div class="card w-full p-4 text-sm">
