@@ -2,7 +2,11 @@
 
 <div id="message" class="bg-white border border-gray-200 text-sm text-current rounded-xl shadow-sm p-6" role="alert">
 	<h5 class="message-title mb-2 text-lg">{MESSAGE_TITLE}</h5>
-	<p>{MESSAGE_TEXT}</p>
+	{% if RETURN_LINK and RETURN_LINK_TITLE %}
+		<p>{MESSAGE_TEXT}<br><br>{{ lang(RETURN_LINK_TITLE, '<a href="' ~ RETURN_LINK ~ '">', '</a>') }}</p>
+	{% else  %}
+ 		<p>{MESSAGE_TEXT}</p>
+	{% endif %}
 	<!-- IF SCRIPT_NAME == "search" and not S_BOARD_DISABLED and not S_NO_SEARCH and L_RETURN_TO_SEARCH_ADV -->
 		<p>
 			<a href="{U_SEARCH}" class="flex items-center gap-2" accesskey="r">
