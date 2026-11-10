@@ -1,6 +1,7 @@
 {% embed "overall_header.html" %}
 	{#-- Auth page without the default header --#}
 	{% block header %}{% endblock %}
+	{% block header_content %}{% endblock %}
 {% endembed %}
 
 <script>
@@ -67,7 +68,7 @@
 							<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
 						</button>
 					</div>
-					<div id="zn-username-collapse" class="zn-collapse hidden w-full overflow-hidden" aria-labelledby="zn-username-collapse">
+					<div id="zn-username-collapse" class="zn-collapse hidden w-full overflow-hidden">
 						<p class="text-sm text-secondary pb-2">{L_USERNAME_EXPLAIN}</p>
 					</div>
 					<input type="text" name="username" id="username" size="25" value="{USERNAME}" autocomplete="off" class="inputbox bg-white" title="{L_USERNAME}">
@@ -79,7 +80,7 @@
 							<i class="iconify" data-mode="style" data-icon="ri:question-line" data-width="16" data-height="16" aria-hidden="true"<!-- IF S_CONTENT_DIRECTION eq 'rtl' --> data-flip="horizontal"<!-- ENDIF -->></i>
 						</button>
 					</div>
-					<div id="zn-password-collapse" class="zn-collapse hidden w-full overflow-hidden" aria-labelledby="zn-password-collapse">
+					<div id="zn-password-collapse" class="zn-collapse hidden w-full overflow-hidden">
 						<p class="text-sm text-secondary pb-2">{L_PASSWORD_EXPLAIN}</p>
 					</div>
 					<div class="relative">

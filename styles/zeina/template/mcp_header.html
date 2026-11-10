@@ -1,9 +1,9 @@
 {% embed "overall_header.html" %}
   {% block header_content %}
-    <h1 class="text-slate-50 md:text-2xl text-xl">{L_MCP}</h1>
+    <h1 class="page-title mcp-title">{L_MCP}</h1>
     <!-- IF U_MCP -->
-    <p class="linkmcp text-slate-200 md:mt-1">
-      <!-- IF U_ACP --><a href="{U_ACP}" title="{L_ACP}" data-responsive-text="{L_ACP_SHORT}">{L_ACP}</a><span class="mx-2 text-slate-200/50">|</span><!-- ENDIF --><a href="{U_MCP}" title="{L_MCP}" data-responsive-text="{L_MCP_SHORT}">{L_MCP}</a><!-- IF U_MCP_FORUM --><span class="mx-2 text-slate-200/50">|</span><a href="{U_MCP_FORUM}">{L_MODERATE_FORUM}</a><!-- ENDIF --><!-- IF U_MCP_TOPIC --><span class="mx-2 text-slate-200/50">|</span><a href="{U_MCP_TOPIC}">{L_MODERATE_TOPIC}</a><!-- ENDIF --><!-- IF U_MCP_POST --><span class="mx-2 text-slate-200/50">|</span><a href="{U_MCP_POST}">{L_MODERATE_POST}</a><!-- ENDIF -->
+    <p class="linkmcp page-desc">
+      <!-- IF U_ACP --><a href="{U_ACP}" title="{L_ACP}" data-responsive-text="{L_ACP_SHORT}">{L_ACP}</a><span class="mx-2 title-separate">|</span><!-- ENDIF --><a href="{U_MCP}" title="{L_MCP}" data-responsive-text="{L_MCP_SHORT}">{L_MCP}</a><!-- IF U_MCP_FORUM --><span class="mx-2 title-separate">|</span><a href="{U_MCP_FORUM}">{L_MODERATE_FORUM}</a><!-- ENDIF --><!-- IF U_MCP_TOPIC --><span class="mx-2 title-separate">|</span><a href="{U_MCP_TOPIC}">{L_MODERATE_TOPIC}</a><!-- ENDIF --><!-- IF U_MCP_POST --><span class="mx-2 title-separate">|</span><a href="{U_MCP_POST}">{L_MODERATE_POST}</a><!-- ENDIF -->
     </p>
   <!-- ENDIF -->
   {% endblock %}

@@ -1,6 +1,6 @@
 {% embed "overall_header.html" %}
 	{% block header_content %}
-		<h1 class="text-slate-50 md:text-2xl text-xl">{L_FAQ_TITLE}</h1>
+		<h1 class="page-title">{L_FAQ_TITLE}</h1>
 	{% endblock %}
 {% endembed %}
 
@@ -14,7 +14,7 @@
 		</div>
 		{% endif %}
 	</div>
-	<div id="zn-faq-collapse-{{ loop.index }}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-faq-collapse-{{ loop.index }}">
+	<div id="zn-faq-collapse-{{ loop.index }}" class="zn-collapse w-full overflow-hidden">
 		<div class="px-4 py-2 text-sm divide-y">
 			<!-- BEGIN faq_row -->
 			<div id="zn-unstyled-heading-{{ loop.parent.loop.index }}-{{ loop.index }}">
@@ -23,7 +23,7 @@
 					<div class="zn-collapse-open:hidden block transition-all duration-300"><i class="iconify" data-mode="style" data-icon="tabler:plus" data-width="16" data-height="16" aria-hidden="true"></i></div>
 					<div class="zn-collapse-open:block hidden transition-all duration-300"><i class="iconify" data-mode="style" data-icon="tabler:minus" data-width="16" data-height="16" aria-hidden="true"></i></div>
 				</div>
-				<div id="zn-qu-collapse-{{ loop.parent.loop.index }}-{{ loop.index }}" class="zn-collapse hidden w-full overflow-hidden" aria-labelledby="zn-qu-collapse-{{ loop.parent.loop.index }}-{{ loop.index }}">
+				<div id="zn-qu-collapse-{{ loop.parent.loop.index }}-{{ loop.index }}" class="zn-collapse hidden w-full overflow-hidden">
 					<p class="bg-slate-50 border border-gray-200 text-sm text-secondary rounded-lg p-4">{faq_block.faq_row.FAQ_ANSWER}</p>
 				</div>
 			</div>

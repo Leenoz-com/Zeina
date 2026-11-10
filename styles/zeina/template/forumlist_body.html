@@ -27,7 +27,7 @@
 					</div>
 					{% endif %}
 				</div>
-				<div id="zn-category-collapse-{forumrow.FORUM_ID}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-category-collapse-{forumrow.FORUM_ID}">
+				<div id="zn-category-collapse-{forumrow.FORUM_ID}" class="zn-collapse w-full overflow-hidden">
 					<ul class="topiclist forums p-2<!-- IF is_grid --> grid gap-2 md:grid-cols-2 md:gap-3 md:p-2<!-- ELSE --> md:p-4 divide-y<!-- ENDIF --> mt-1">
 		<!-- ENDIF -->
 		<!-- EVENT forumlist_body_category_header_after -->
@@ -46,7 +46,7 @@
 						<!-- IF not is_grid and S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED and not zeina.hide_feed_button -->
 						<div class="forum-row flex flex-row flex-grow">
 						<!-- ENDIF -->
-							<!-- IF forumrow.S_UNREAD_FORUM and not is_grid --><a href="{forumrow.U_VIEWFORUM}" class="row-item-link"></a><!-- ENDIF -->
+							<!-- IF forumrow.S_UNREAD_FORUM --><a href="{forumrow.U_VIEWFORUM}" class="row-item-link{{ is_grid ? ' grid-unread-link' }}"></a><!-- ENDIF -->
 							{% include 'forumlist_icons.html' with {'IMG_STYLE': forumrow.FORUM_IMG_STYLE} %}
 							<!-- IF forumrow.FORUM_IMAGE -->
 								<!-- EVENT forumlist_body_forum_image_before -->
@@ -62,12 +62,32 @@
 									<!-- EVENT forumlist_body_subforums_before -->
 									<div class="subforums mt-2">
 										<div class="subforums-title text-sm font-medium mb-1">{forumrow.L_SUBFORUM_STR}{L_COLON}</div>
-										<ul class="flex flex-wrap gap-4 gap-y-2 text-sm list-[circle] list-inside">
-											<!-- BEGIN subforum -->
-												<li><!-- EVENT forumlist_body_subforum_link_prepend --><a href="{forumrow.subforum.U_SUBFORUM}" class="-ms-1.5 inline-block subforum<!-- IF forumrow.subforum.S_UNREAD --> text-color unread<!-- ELSE --> read<!-- ENDIF -->" title="{% if forumrow.subforum.IS_LINK %}{{ lang('FORUM_LINK') }}{% elseif forumrow.subforum.S_UNREAD %}{{ lang('UNREAD_POSTS') }}{% else %}{{ lang('NO_UNREAD_POSTS') }}{% endif %}">
-  											{forumrow.subforum.SUBFORUM_NAME}</a><!-- EVENT forumlist_body_subforum_link_append --></li>
-											<!-- END subforum -->
-										</ul>
+										<div class="subforums-content flex flex-wrap items-start gap-5 gap-y-1">
+											{% set subforums = forumrow.subforum %}
+											{% set total = subforums|length %}
+											{% set columns_setting = zeina.subforums_columns|int %}
+											{% set columns = max(1, columns_setting) %}
+											{% set per_column = max(1, (total / columns)|round(0, 'ceil')) %}
+											{% set used_columns = (total / per_column)|round(0, 'ceil') %}
+
+											{% for column_index in 0..(used_columns - 1) %}
+												<ul class="subforums-column flex{{ zeina.subforums_columns ? ' flex-col' : ' flex-wrap' }} gap-4 gap-y-1 text-sm list-[circle] list-inside">
+													{% for subforum in subforums %}
+														{% if (loop.index0 // per_column) == column_index %}
+															<li>
+																<!-- EVENT forumlist_body_subforum_link_prepend -->
+																<a href="{{ subforum.U_SUBFORUM }}"
+																class="-ms-1.5 inline-block subforum{% if subforum.S_UNREAD %} text-color dark:text-color-dark unread{% else %} read{% endif %}"
+																title="{% if subforum.IS_LINK %}{{ lang('FORUM_LINK') }}{% elseif subforum.S_UNREAD %}{{ lang('UNREAD_POSTS') }}{% else %}{{ lang('NO_UNREAD_POSTS') }}{% endif %}">
+																	{{ subforum.SUBFORUM_NAME }}
+																</a>
+																<!-- EVENT forumlist_body_subforum_link_append -->
+															</li>
+														{% endif %}
+													{% endfor %}
+												</ul>
+											{% endfor %}
+										</div>
 									</div>
 									<!-- EVENT forumlist_body_subforums_after -->
 								<!-- ENDIF -->

@@ -34,6 +34,8 @@ $lang = array_merge($lang, [
 	/** General Settings **/
 	'ACP_GENERAL_SETTINGS' => 'General Settings',
 	'ACP_THEME_COLOR' => 'Theme Color',
+  	'ACP_FONT_AWESOME' => 'Allow Font Awesome Library?',
+
 	/** Forums Settings **/
 	'ACP_FORUMS_SETTINGS' => 'Forums Settings',
 	'ACP_FORUM_LAYOUT' => 'Forums Layout',
@@ -43,15 +45,16 @@ $lang = array_merge($lang, [
   	'ACP_FORUMS_MODE' => 'Forum Icons Mode',
   	'ACP_FORUMS_DEFAULT' => 'Default',
   	'ACP_FORUMS_IMAGES' => 'Images',
-
-
-
-
-  'ACP_FONT_AWESOME' => 'Allow Font Awesome Library?',
+  	'ACP_SUBFORUMS_COLUMNS' => 'Subforums Columns',
 
 	/** Header Settings **/
 	'ACP_HEADER_SETTINGS' => 'Header Settings',
 	'ACP_HEADER_IMAGE' => 'Header Image',
+	'ACP_HEADER_TITLE' => 'Header Title Position',
+	'ACP_HEADER_TITLE_INSIDE' => 'Inside',
+	'ACP_HEADER_TITLE_BELOW' => 'Below',
+	'ACP_HEADER_TITLE_HIDDEN' => 'Hidden',
+	'ACP_HEADER_INDEX' => 'Show header on index only',
 
 	/** Panels Settings **/
 	'ACP_PANELS_SETTINGS' => 'Panels Settings',

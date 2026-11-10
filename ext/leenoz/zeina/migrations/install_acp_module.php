@@ -18,7 +18,8 @@ class install_acp_module extends \phpbb\db\migration\migration
 			array('config_text.add', array('zeina_config',
 				// Default values
 				serialize(array(
-					'logo_image_location' => '',
+					'logo_image_location' => 'images/logo.svg',
+					'logo_height' => 24,
 					'favicon_location' => '',
 
           			// General settings
@@ -27,15 +28,18 @@ class install_acp_module extends \phpbb\db\migration\migration
 
 					// Header settings
 					'header_image_location' => '',
-					          
+					'header_title_position' => 'inside',
+					'header_index_only' => 0,
+					
 					// Forums settings
 					'forum_layout' => 'row',
           			'forums_mode' => 'default',
-					
 					'hide_feed_button' => 0,
+          			'subforums_columns' => '',
 
 					// Panels settings
 					'colorful_panel' => 1,
+					'panel_head_color' => 'rgb(37, 99, 235)',
 					'collapse_panel' => 1,
 					'profile_view' => 'simple',
 				))

@@ -82,10 +82,15 @@ class main_listener implements EventSubscriberInterface
       		$zeina_config["forums_mode"] = "";
 			$zeina_config["collapse_panel"] = 1;
       		$zeina_config["hide_feed_button"] = 0;
+			$zeina_config["header_title_position"] = 'inside';
+			$zeina_config["header_index_only"] = 0;
 
-			$preview_value = $request->variable('forum_layout', '');
-			if ($preview_value !== '') {
-				$zeina_config['forum_layout'] = $preview_value;
+			// Apply live preview overrides for server-side layout settings
+			foreach (array("forum_layout", "subforums_columns", "profile_view") as $preview_setting) {
+				$preview_value = $request->variable($preview_setting, '');
+				if ($preview_value !== '') {
+					$zeina_config[$preview_setting] = $preview_value;
+				}
 			}
 		}
 

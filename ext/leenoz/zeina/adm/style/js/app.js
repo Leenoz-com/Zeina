@@ -154,7 +154,9 @@
           new_link = new_link.replaceAll('#', '&');
 
           let url = new URL(new_link);
-          url.searchParams.set('forum_layout', data.get('forum_layout'));
+          url.searchParams.set('forum_layout', $('.acp-zeina-sidebar [name="forum_layout"]:checked').val());
+          url.searchParams.set('subforums_columns', $('.acp-zeina-sidebar [name="subforums_columns"]').val());
+          url.searchParams.set('profile_view', $('.acp-zeina-sidebar [name="profile_view"]:checked').val());
 
           win.location.href = url;
 
@@ -284,6 +286,29 @@
         }
       }
 
+      // Header Index Only
+      if (target == "header_index_only" || target == 'all')
+      {
+        let is_header_hidden = data.get('header_index_only') == '1' &&  !$(preview).find('body').hasClass('index-page');
+        $(preview).find('body').toggleClass('header-hidden', is_header_hidden);
+        
+        if (is_header_hidden || data.get('header_title_position') == 'below') {
+          $(preview).find('.page-body-content').prepend( $(preview).find('.header-title') );
+        } else {
+          $(preview).find('#page-header').append( $(preview).find('.header-title') );
+        }
+      }
+
+      // Header Title
+      if (target == "header_title_position" || target == 'all')
+      {
+        $(preview).find('.header-title').toggleClass('title-inside', data.get('header_title_position') == 'inside');
+        $(preview).find('.header-title').toggleClass('title-below', data.get('header_title_position') == 'below');
+        $(preview).find('.header-title').toggleClass('hidden', data.get('header_title_position') == 'hidden');
+
+        $('.acp-zeina-sidebar [name="header_index_only"]').trigger('change');
+      }
+
       // Panel Color
       if (
         [
@@ -293,7 +318,7 @@
         .indexOf(target) > -1
       ) {
         // Default background color
-        let color = "#f9fafb";
+        let color = "#f3f4f6";
 
         if (data.get('colorful_panel') == 1)
         {
@@ -315,17 +340,21 @@
       if (
         [
           "all",
+          "profile_view",
           "forum_layout",
           "forums_mode",
           "hide_feed_button",
+          "subforums_columns"
         ]
         .indexOf(target) > -1
       ) {
-        if (target == "forum_layout")
+        if ( ["forum_layout", "subforums_columns", "profile_view"].indexOf(target) > -1)
         {
           // New URL
           let url = new URL(win.location.href);
           url.searchParams.set('forum_layout', data.get('forum_layout'));
+          url.searchParams.set('subforums_columns', data.get('subforums_columns'));
+          url.searchParams.set('profile_view', data.get('profile_view'));
           url.searchParams.set('preview_mode', '1');
 
           if (url.href == win.location.href) return;
@@ -345,7 +374,7 @@
         }
         else {
           let forums_type = data.get('forums_mode');
-          console.log(forums_type);
+
           $(preview).find('.forum_icon .default-icons').css('display', forums_type == 'images' ? 'none' : 'inline-block');
           $(preview).find('.row-icon').toggleClass('forum_custom_icon', forums_type == 'images');
 

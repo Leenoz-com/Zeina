@@ -1,6 +1,6 @@
 {% embed "overall_header.html" %}
 	{% block header_content %}
-		<h1 class="text-slate-50 md:text-2xl text-xl"><!-- IF S_CONTACT_ADMIN-->{L_CONTACT_ADMIN}<!-- ELSEIF S_SEND_USER -->{L_SEND_EMAIL_USER}<!-- ELSE -->{L_EMAIL_TOPIC}<!-- ENDIF --></h1>
+		<h1 class="page-title"><!-- IF S_CONTACT_ADMIN-->{L_CONTACT_ADMIN}<!-- ELSEIF S_SEND_USER -->{L_SEND_EMAIL_USER}<!-- ELSE -->{L_EMAIL_TOPIC}<!-- ENDIF --></h1>
 	{% endblock %}
 {% endembed %}
 

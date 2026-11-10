@@ -52,12 +52,12 @@
       html {
         --color-primary: {{ zeina.primary_color ?: '37, 99, 235' }};
         --color-text: var(--color-primary);
-        --color-secondary: 107, 114, 128;
+        --color-secondary: 106, 112, 126;
         --header-image: {% if zeina.header_image_location %}url("{{ T_THEME_PATH ~ '/' ~ zeina.header_image_location }}") center center / cover no-repeat{% endif %};
-        --panel-bg: {% if zeina.enabled %}{% if zeina.colorful_panel %}{{ zeina.panel_head_color }}{% else %}#f9fafb{% endif %}{% else %} #2563eb {% endif %};
+        --panel-bg: {% if zeina.enabled %}{% if zeina.colorful_panel %}{{ zeina.panel_head_color }}{% else %}#f3f4f6{% endif %}{% else %} #2563eb {% endif %};
       }
       .header-section .header-image {
-        background: {% if zeina.enabled %} var(--header-image) {% else %} url("{{ T_THEME_PATH }}/images/header.jpg") center center / cover no-repeat {% endif %};
+        background: {% if zeina.enabled %} var(--header-image) {% else %} url("{{ T_THEME_PATH }}/images/header.jpg") center bottom / cover no-repeat {% endif %};
       }
 
       {% if zeina.font_awesome %}
@@ -81,7 +81,7 @@
     </style>
   </head>
 
-  <body id="phpbb" class="bg-gray-100 text-gray-800 leading-relaxed relative{{ zeina.colorful_panel or not zeina.enabled ? ' card-primary' }} {{ BODY_CLASS }}">
+  <body id="phpbb" class="bg-gray-100 text-gray-800 leading-relaxed relative{{ zeina.colorful_panel or not zeina.enabled ? ' card-primary' }}{{ zeina.header_index_only and SCRIPT_NAME !== 'index' ? ' header-hidden' }} {{ SCRIPT_NAME|trim }}-page {{ BODY_CLASS }}">
     <!-- EVENT overall_header_body_before -->
     <div class="wrapper flex flex-col min-h-screen">
       <a id="top" class="top-anchor" accesskey="t"></a>
@@ -91,35 +91,47 @@
         <strong>{L_INFORMATION}{L_COLON}</strong> {L_BOARD_DISABLED}
       </div>
       <!-- ENDIF -->
+
+      {% set HEADER_TITLE_CONTENT %}
+        <div class="header-title w-full z-[3]{{ zeina.header_title_position == 'below' ? ' title-below' : ' title-inside' }}">
+          <div class="header-title-content max-w-7xl layout-container mx-auto leading-relaxed">
+            {% block header_content %}
+              <h1 class="page-title">{SITENAME}</h1>
+              <p class="page-desc">{SITE_DESCRIPTION}</p>
+            {% endblock %}
+            <p class="absolute left-[-10000px] top-auto w-1 h-1 overflow-hidden"><a href="#start_here">{L_SKIP}</a></p>
+          </div>
+        </div>
+      {% endset %}
       
       {% block header %}
       <header>
         <!-- EVENT overall_header_navbar_before -->
         <!-- INCLUDE navbar_header.html -->
-        <div id="page-header" role="banner">
+        {% if not zeina.header_index_only or SCRIPT_NAME == 'index' %}
+        <div id="page-header" class="relative" role="banner">
           <!-- EVENT overall_header_headerbar_before -->
           <div class="relative header-section overflow-hidden">
             <div class="flex size-full items-center">
               <div class="size-full header-image"></div>
             </div>
-            <div class="absolute bottom-[10%] w-full z-[2]">
-              <div class="max-w-6xl layout-container mx-auto px-4 lg:px-8 leading-relaxed">
-                {% block header_content %}
-                  <h1 class="text-slate-50 md:text-2xl text-xl">{SITENAME}</h1>
-                  <p class="text-slate-200 md:mt-1">{SITE_DESCRIPTION}</p>
-                {% endblock %}
-                <p class="absolute left-[-10000px] top-auto w-1 h-1 overflow-hidden"><a href="#start_here">{L_SKIP}</a></p>
-              </div>
-            </div>
+            {% if zeina.header_title_position !== 'hidden' and (zeina.header_title_position !== 'below' or (zeina.header_index_only and SCRIPT_NAME !== 'index')) %}
+              {{ HEADER_TITLE_CONTENT }}
+            {% endif %}
           </div>
           <!-- EVENT overall_header_headerbar_after -->
         </div>
+        {% endif %}
         <!-- INCLUDE breadcrumbs.html -->
       </header>
       {% endblock %}
       
       <!-- EVENT overall_header_page_body_before -->
       <main id="page-body" class="page-body flex-grow w-full bg-gray-100">
-        <div class="max-w-6xl layout-container mx-auto p-4 lg:px-8">
+        <div class="page-body-content max-w-7xl layout-container mx-auto p-4 lg:px-8">
           <a id="start_here" class="anchor"></a>
           <!-- EVENT overall_header_content_before -->
+          
+          {% if zeina.header_title_position !== 'hidden' and (zeina.header_title_position == 'below' or (zeina.header_index_only and SCRIPT_NAME !== 'index')) %}
+            {{ HEADER_TITLE_CONTENT }}
+          {% endif %}

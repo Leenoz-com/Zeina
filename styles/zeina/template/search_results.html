@@ -1,9 +1,9 @@
 {% embed "overall_header.html" %}
 	{% block header_content %}
-		<h1 class="text-slate-50 md:text-2xl text-xl"><!-- IF SEARCH_TITLE -->{SEARCH_TITLE}<!-- ELSE -->{SEARCH_MATCHES}<!-- ENDIF --><!-- IF SEARCH_WORDS -->{L_COLON} <a href="{U_SEARCH_WORDS}">{SEARCH_WORDS}</a><!-- ENDIF --></h1>
-		<!-- IF SEARCHED_QUERY --> <p class="text-slate-200 md:mt-1">{L_SEARCHED_QUERY}{L_COLON} <span class="font-semibold">{SEARCHED_QUERY}</span></p><!-- ENDIF -->
-		<!-- IF IGNORED_WORDS --> <p class="text-slate-200 md:mt-1">{L_IGNORED_TERMS}{L_COLON} <span class="font-semibold">{IGNORED_WORDS}</span></p><!-- ENDIF -->
-		<!-- IF PHRASE_SEARCH_DISABLED --><p class="text-slate-200 md:mt-1"><span class="font-semibold">{L_PHRASE_SEARCH_DISABLED}</span></p><!-- ENDIF -->
+		<h1 class="page-title"><!-- IF SEARCH_TITLE -->{SEARCH_TITLE}<!-- ELSE -->{SEARCH_MATCHES}<!-- ENDIF --><!-- IF SEARCH_WORDS -->{L_COLON} <a href="{U_SEARCH_WORDS}">{SEARCH_WORDS}</a><!-- ENDIF --></h1>
+		<!-- IF SEARCHED_QUERY --> <p class="page-desc">{L_SEARCHED_QUERY}{L_COLON} <span class="font-semibold">{SEARCHED_QUERY}</span></p><!-- ENDIF -->
+		<!-- IF IGNORED_WORDS --> <p class="page-desc">{L_IGNORED_TERMS}{L_COLON} <span class="font-semibold">{IGNORED_WORDS}</span></p><!-- ENDIF -->
+		<!-- IF PHRASE_SEARCH_DISABLED --><p class="page-desc"><span class="font-semibold">{L_PHRASE_SEARCH_DISABLED}</span></p><!-- ENDIF -->
 	{% endblock %}
 {% endembed %}
 
@@ -87,7 +87,7 @@
 					</div>
 					{% endif %}
 				</div>
-				<div id="zn-topics-collapse-{loop.index}" class="zn-collapse w-full overflow-hidden" aria-labelledby="zn-topics-collapse-{loop.index}">
+				<div id="zn-topics-collapse-{loop.index}" class="zn-collapse w-full overflow-hidden">
 					<div>
 						<ul class="topiclist forums divide-y md:p-4 p-2 mt-1">
 							<!-- BEGIN searchresults -->
@@ -96,7 +96,7 @@
 									<div class="row-item flex max-md:flex-col gap-4 max-md:gap-2 items-center">
 										<div class="flex w-full flex-wrap md:justify-between relative gap-y-3 row-title" title="{searchresults.TOPIC_FOLDER_IMG_ALT}">
 											<div class="flex flex-row grow gap-4">
-												<div class="topic-icon mt-0.5 leading-[0] {searchresults.TOPIC_IMG_STYLE}"<!-- IF searchresults.TOPIC_ICON_IMG --> style="--topic-icon: url('{T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}');"<!-- ENDIF -->>
+												<div class="topic-icon row-icon mt-0.5 leading-[0] {{ zeina.forums_mode == 'images' ? 'forum_custom_icon' }} {searchresults.TOPIC_IMG_STYLE}"<!-- IF searchresults.TOPIC_ICON_IMG --> style="--topic-icon: url('{T_ICONS_PATH}{searchresults.TOPIC_ICON_IMG}');"<!-- ENDIF -->>
 													{% include 'forumlist_icons.html' with {'IMG_STYLE': searchresults.TOPIC_IMG_STYLE} %}
 												</div>
 												<div class="topic-details">

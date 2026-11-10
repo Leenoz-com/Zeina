@@ -1,7 +1,7 @@
 [<img src="https://leenoz.com/logo.svg" height="32px">](logo.svg)
 
 # Title
-Zeina Theme
+Zeina Theme | Multipurpose Modren phpBB template
 
 ## Description
 Zeina is a phpBB theme with a clean and modern design that is fully responsive to all types of devices and easy to navigate and use.
@@ -9,9 +9,13 @@ Zeina is a phpBB theme with a clean and modern design that is fully responsive t
 ## Features
 - Theme Control Panel
 - Upload header image and logo
-- Easy to Customize
+- Customize the forums layout (Grid / Rows)
+- Customize the header title position
+- Customize the subforums columns
+- Option to display the header image on the index only
 - SEO Optimized
 - W3C Valid Code
+- Easy to Customize
 - Fully Responsive
 - SVG Icons
 - Based on TailwindCSS Latest Version
@@ -27,7 +31,7 @@ Zeina is a phpBB theme with a clean and modern design that is fully responsive t
 [Demo](https://demo.leenoz.com/zeina/)
 
 ## Author
-[Leenoz](https://leenoz.com/)
+[Leenoz](https://leenoz.com)
 
 ## Support
 For support and feedback, email support@leenoz.com.
@@ -58,6 +62,8 @@ For support and feedback, email support@leenoz.com.
 
 #### Screenshots:
 ![App Screenshot](https://leenoz.com/zeina_pro.png)
+
+![App Screenshot](https://docs.leenoz.com/zeina/assets/images/forum-image-grid.png)
 
 #### Read More:
 [Documentation](https://docs.leenoz.com)

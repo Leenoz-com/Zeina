@@ -8,13 +8,13 @@
 		{% block header_content %}
 			<!-- IF S_SHOW_GROUP -->
 				{% EVENT memberlist_body_group_name_before %}
-				<h1 class="text-slate-50 md:text-2xl text-xl">{GROUP_NAME}</h1>
+				<h1 class="page-title">{GROUP_NAME}</h1>
 				{% EVENT memberlist_body_group_name_after %}  
-				<div class="text-slate-200 md:mt-1 group-description">{GROUP_DESC} {GROUP_TYPE}</div>
+				<div class="page-desc group-description">{GROUP_DESC} {GROUP_TYPE}</div>
 				{% EVENT memberlist_body_group_desc_after %}
 			<!-- ELSE -->
 				{% EVENT memberlist_body_page_title_before %}
-				<h1 class="text-slate-50 md:text-2xl text-xl">{PAGE_TITLE}<!-- IF SEARCH_WORDS -->{L_COLON} <a href="{U_SEARCH_WORDS}">{SEARCH_WORDS}</a><!-- ENDIF --></h1>
+				<h1 class="page-title">{PAGE_TITLE}<!-- IF SEARCH_WORDS -->{L_COLON} <a href="{U_SEARCH_WORDS}">{SEARCH_WORDS}</a><!-- ENDIF --></h1>
 			<!-- ENDIF -->
 		{% endblock %}
 	{% endembed %}

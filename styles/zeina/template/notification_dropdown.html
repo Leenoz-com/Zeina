@@ -43,10 +43,14 @@
 							</a>
 							<!-- ENDIF -->
 							<!-- IF notifications.UNREAD -->
-							<a href="{notifications.U_MARK_READ}" class="mark_read icon-mark bg-white leading-[0] rounded-full absolute transition-all duration-300 md:block hidden" data-ajax="notification.mark_read" title="{L_MARK_READ}">
-					      <i class="iconify" data-mode="style" data-icon="si:check-line" data-height="20" data-width="20"></i>
+							<a href="{notifications.U_MARK_READ}" class="mark_read icon-mark" data-ajax="notification.mark_read" title="{L_MARK_READ}">
+					      		<i class="iconify" data-mode="style" data-icon="si:check-line" data-height="20" data-width="20"></i>
 								<span class="sr-only">{L_MARK_READ}</span>
 							</a>
+							<span class="notification-animate flex absolute top-3 end-2 h-3 w-3 transition-all duration-300">
+								<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-50"></span>
+								<span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+							</span>
 							<!-- ENDIF -->
 						</div>
 					</div>

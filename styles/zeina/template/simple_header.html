@@ -25,8 +25,8 @@
       html {
         --color-primary: {{ zeina.primary_color ?: '37, 99, 235' }};
         --color-text: var(--color-primary);
-        --panel-bg: {% if zeina.colorful_panel %}{{ zeina.panel_head_color }}{% else %}#f9fafb{% endif %};
-        --color-secondary: 107, 114, 128;
+        --panel-bg: {% if zeina.enabled %}{% if zeina.colorful_panel %}{{ zeina.panel_head_color }}{% else %}#f3f4f6{% endif %}{% else %} #2563eb {% endif %};
+        --color-secondary: 106, 112, 126;
       }
       .topic-icon::after {
         background-image: var(--topic-icon);
@@ -38,5 +38,5 @@
     <div class="wrapper">
 			<a id="top" class="top-anchor" accesskey="t"></a>
 			
-      <main id="page-body" class="page-body h-full max-w-6xl layout-container mx-auto p-4 lg:px-8">
+      <main id="page-body" class="page-body h-full max-w-7xl layout-container mx-auto p-4 lg:px-8">
         <!-- EVENT simple_header_body_before -->

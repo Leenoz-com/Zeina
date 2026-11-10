@@ -1,7 +1,7 @@
 {% embed "overall_header.html" %}
 	{% block header_content %}
-		<h1 class="text-slate-50 md:text-2xl text-xl">{TOTAL_REGISTERED_USERS_ONLINE}</h1>
-		<p class="linkmcp text-slate-200 md:mt-1">
+		<h1 class="page-title">{TOTAL_REGISTERED_USERS_ONLINE}</h1>
+		<p class="linkmcp page-desc">
 			{TOTAL_GUEST_USERS_ONLINE}<!-- IF S_SWITCH_GUEST_DISPLAY --> &bull; <a href="{U_SWITCH_GUEST_DISPLAY}">{L_SWITCH_GUEST_DISPLAY}</a><!-- ENDIF -->
 		</p>
 	{% endblock %}

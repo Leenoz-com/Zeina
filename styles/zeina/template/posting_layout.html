@@ -1,9 +1,9 @@
 {% embed "overall_header.html" %}
 	{% block header_content %}
 		<!-- IF TOPIC_TITLE -->
-		<h1 class="text-slate-50 md:text-2xl text-xl"><!-- EVENT posting_topic_title_before --><a href="{U_VIEW_TOPIC}">{TOPIC_TITLE}</a><!-- EVENT posting_topic_title_after --></h1>
+		<h1 class="page-title"><!-- EVENT posting_topic_title_before --><a href="{U_VIEW_TOPIC}">{TOPIC_TITLE}</a><!-- EVENT posting_topic_title_after --></h1>
 		<!-- ELSE -->
-		<h1 class="text-slate-50 md:text-2xl text-xl"><a href="{U_VIEW_FORUM}">{FORUM_NAME}</a></h1>
+		<h1 class="page-title"><a href="{U_VIEW_FORUM}">{FORUM_NAME}</a></h1>
 		<!-- ENDIF -->
 	{% endblock %}
 {% endembed %}

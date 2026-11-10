@@ -28,7 +28,7 @@
 
 <div class="{% if not S_PRIVMSGS %} card p-6 {% else %} p-4 {% endif %} w-full border rounded-xl mb-4">
 	<h2 class="preview-title">{L_PREVIEW}{L_COLON} {PREVIEW_SUBJECT}</h2>
-	<div class="mt-2.5 pt-2.5 border-t">
+	<div class="postbody mt-2.5 pt-2.5 border-t">
 		<div class="content">{PREVIEW_MESSAGE}</div>
 		{#-- Highlight codes --#}
 		{% if 'class="codebox"' in PREVIEW_MESSAGE %}
