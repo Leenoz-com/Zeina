@@ -23,7 +23,7 @@ Zeina is a phpBB theme with a clean and modern design that is fully responsive t
 - RTL Support
 
 ## Screenshots
-![App Screenshot](https://leenoz.com/zeina_preview_1.png)
+![App Screenshot](https://leenoz.com/zeina_preview_1.png?v=1.3.5)
 
 ![App Screenshot](https://leenoz.com/zeina_preview_2.png)
 
