@@ -124,7 +124,7 @@ phpbb.addAjaxCallback('notification.mark_read', function(res) {
 phpbb.markNotifications = function($popup, unreadCount) {
 	// Remove the unread status.
 	$popup.removeClass('bg2');
-	$popup.find('a.mark_read').remove();
+	$popup.find('a.mark_read, .notification-animate').remove();
 
 	// Update the notification link to the real URL.
 	$popup.each(function() {
@@ -133,11 +133,11 @@ phpbb.markNotifications = function($popup, unreadCount) {
 	});
 
 	// Update the unread count.
-	$('strong', '#notification_list_button').html(unreadCount);
+	$('#notification_list_button > strong, #notification_list_button_phone > strong').html(unreadCount);
 	// Remove the Mark all read link and hide notification count if there are no unread notifications.
 	if (!unreadCount) {
 		$('#mark_all_notifications').remove();
-		$('#notification_list_button > strong').addClass('hidden');
+		$('#notification_list_button > strong, #notification_list_button_phone > strong').addClass('hidden');
 	}
 
 	// Update page title
