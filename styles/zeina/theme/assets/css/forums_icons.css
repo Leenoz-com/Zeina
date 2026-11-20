@@ -15,7 +15,7 @@
 }
 
 /* Forum icons & Topic icons */
-.forum_custom_icon.global_read						{ background-image: url("../../images/announce_read.gif"); }
+.forum_custom_icon.global_read						{ background-image: url("../../images/icons/announce_read.gif"); }
 .forum_custom_icon.global_read_mine					{ background-image: url("../../images/icons/announce_read_mine.gif"); }
 .forum_custom_icon.global_read_locked					{ background-image: url("../../images/icons/announce_read_locked.gif"); }
 .forum_custom_icon.global_read_locked_mine				{ background-image: url("../../images/icons/announce_read_locked_mine.gif"); }

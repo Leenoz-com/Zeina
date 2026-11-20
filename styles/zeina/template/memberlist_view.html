@@ -29,7 +29,6 @@
 				</div>
 				<div class="col-span-3">
 					<div class="details profile-details text-sm flex flex-col gap-3 divide-y">
-						<!-- EVENT ucp_main_front_user_activity_prepend -->
 						<div class="grid md:grid-cols-5 gap-3 pt-3">
 							<span class="md:text-end font-medium">{L_USERNAME}{L_COLON}</span>
 							<span class="md:col-span-4">
@@ -88,10 +87,10 @@
 			<div class="card-title"><span>{L_CONTACT_USER}</span></div>
 			<div class="p-4">
 				<div class="details text-sm flex flex-col gap-3 divide-y">
-					<!-- IF U_EMAIL --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_EMAIL_ADDRESS}{L_COLON}</span> <span class="md:col-span-2"><a href="{U_EMAIL}">{L_SEND_EMAIL_USER}</a></div><!-- ENDIF -->
-					<!-- IF U_PM --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_PM}{L_COLON}</span> <span class="md:col-span-2"><a href="{U_PM}">{L_SEND_PRIVATE_MESSAGE}</a></div><!-- ENDIF -->
-					<!-- IF U_JABBER and S_JABBER_ENABLED --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_JABBER}{L_COLON}</span> <span class="md:col-span-2"><a href="{U_JABBER}" onclick="popup(this.href, 750, 320); return false;">{L_SEND_JABBER_MESSAGE}</a></div>
-					<!-- ELSEIF USER_JABBER --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_JABBER}{L_COLON}</span> <span class="md:col-span-2">{USER_JABBER}</div><!-- ENDIF -->
+					<!-- IF U_EMAIL --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_EMAIL_ADDRESS}{L_COLON}</span> <span class="md:col-span-2"><a href="{U_EMAIL}">{L_SEND_EMAIL_USER}</a></span></div><!-- ENDIF -->
+					<!-- IF U_PM --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_PM}{L_COLON}</span> <span class="md:col-span-2"><a href="{U_PM}">{L_SEND_PRIVATE_MESSAGE}</a></span></div><!-- ENDIF -->
+					<!-- IF U_JABBER and S_JABBER_ENABLED --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_JABBER}{L_COLON}</span> <span class="md:col-span-2"><a href="{U_JABBER}" onclick="popup(this.href, 750, 320); return false;">{L_SEND_JABBER_MESSAGE}</a></span></div>
+					<!-- ELSEIF USER_JABBER --><div class="grid md:grid-cols-3 gap-3 pt-3"><span class="md:text-end font-medium">{L_JABBER}{L_COLON}</span> <span class="md:col-span-2">{USER_JABBER}</span></div><!-- ENDIF -->
 					<!-- EVENT memberlist_view_contact_custom_fields_before -->
 					<!-- BEGIN custom_fields -->
 						<!-- IF custom_fields.S_PROFILE_CONTACT -->

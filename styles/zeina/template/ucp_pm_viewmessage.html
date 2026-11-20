@@ -54,7 +54,7 @@
 							<div class="grow flex flex-wrap items-center justify-between">
 								<div>
 									<h5 class="font-semibold">{MESSAGE_AUTHOR_FULL}</h5>
-									<!-- IF RANK_TITLE --><p class="profile-rank leading-6 text-sm font-medium">{RANK_TITLE}</p><!-- ENDIF -->
+									<!-- IF RANK_TITLE --><p class="profile-rank leading-6 text-sm text-secondary font-medium">{RANK_TITLE}</p><!-- ENDIF -->
 								</div>
 								<!-- IF RANK_IMG -->
 								<span class="inline-flex items-center align-middle gap-2 rank-img">{RANK_IMG}</span>
@@ -86,7 +86,7 @@
 							<!-- IF .contact -->
 							<li class="mt-2 profile-contact text-sm flex flex-wrap items-center gap-1" {CONTACT_USER}>
 								<div class="md:hidden font-medium mb-1">{L_CONTACT}{L_COLON}</div>
-								{% set icons = {pm: 'ph:chat-circle-dots', email: 'fluent:mail-24-regular', phpbb_icq: 'fontisto:icq', phpbb_aol: 'simple-icons:aol', phpbb_website: 'ph:globe', phpbb_youtube: 'ri:youtube-fill', phpbb_facebook: 'ri:facebook-circle-fill', phpbb_skype: 'ri:skype-fill', phpbb_twitter: 'ri:twitter-fill', phpbb_yahoo: 'mdi:yahoo'} %}
+								{% set icons = {pm: 'ph:chat-circle-dots', email: 'fluent:mail-24-regular', phpbb_icq: 'fontisto:icq', phpbb_aol: 'simple-icons:aol', phpbb_website: 'ph:globe', phpbb_youtube: 'ri:youtube-line', phpbb_facebook: 'ri:facebook-circle-line', phpbb_skype: 'ri:skype-fill', phpbb_twitter: 'ri:twitter-x-fill', phpbb_yahoo: 'mdi:yahoo'} %}
 								<!-- BEGIN contact -->
 								<a href="<!-- IF contact.U_CONTACT -->{contact.U_CONTACT}<!-- ELSE -->{U_PROFILE_AUTHOR}<!-- ENDIF -->" class="relative flex overflow-hidden transition-all duration-300 dropdown-item md:rounded-full gap-2 max-md:w-full md:p-2 p-3 text-secondary border hover:border-primary/5" title="{contact.NAME}"<!-- IF contact.ID eq 'jabber' --> onclick="popup(this.href, 750, 320); return false;"<!-- ENDIF --> aria-label="{contact.NAME}">
 									{% if contact.ID in icons|keys %}<span class="leading-[0]"><i class="iconify" data-mode="style" data-icon="{{ icons[contact.ID] }}" data-width="18" data-height="18" aria-hidden="true"></i></span>{% else %}<i class="icon {contact.ID}-icon" aria-hidden="true"></i>{% endif %}
